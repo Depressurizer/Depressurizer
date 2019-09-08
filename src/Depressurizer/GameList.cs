@@ -59,19 +59,9 @@ namespace Depressurizer
 
         #region Public Methods and Operators
 
-        public static IXPathNavigable FetchGameList(string url)
-        {
-            return FetchGameList(new Uri(string.Format(CultureInfo.InvariantCulture, Constants.GameListCustom, url)));
-        }
-
-        public static IXPathNavigable FetchGameList(Uri uri)
-        {
-            return FetchGameListFromUri(uri);
-        }
-
         public static IXPathNavigable FetchGameList(long steamId)
         {
-            return FetchGameList(new Uri(string.Format(CultureInfo.InvariantCulture, Constants.GameList, steamId)));
+            return FetchGameListFromUri(new Uri(string.Format(CultureInfo.InvariantCulture, Constants.GameList, steamId)));
         }
 
         public static IXPathNavigable FetchGameListFromUri(Uri uri)
@@ -782,6 +772,37 @@ namespace Depressurizer
             return loadedGames;
         }
 
+        public int IntegrateGameList(GetOwnedGamesObject doc, bool overwrite, SortedSet<int> ignore, out int newItems)
+        {
+            newItems = 0;
+            if (doc == null)
+            {
+                return 0;
+            }
+
+            int loadedGames = 0;
+            foreach (GetOwnedGamesObject.Game game in doc.response.games)
+            {
+                GameInfo integratedGame = IntegrateGame(game.appid, game.name, overwrite, ignore, GameListingSource.WebProfile, out bool isNew);
+                if (integratedGame == null)
+                {
+                    continue;
+                }
+
+                // playtime_forever The total number of minutes played "on record", since Steam began tracking total playtime in early 2009.
+                integratedGame.HoursPlayed = Math.Round(game.playtime_forever / 60D, 1);
+
+                loadedGames++;
+                if (isNew)
+                {
+                    newItems++;
+                }
+            }
+
+            Logger.Info("Integrated Web API data into game list. {0} total items, {1} new.", loadedGames, newItems);
+            return loadedGames;
+        }
+
         public int IntegrateGameList(IXPathNavigable doc, bool overwrite, SortedSet<int> ignore, out int newItems)
         {
             newItems = 0;
@@ -1316,7 +1337,6 @@ namespace Depressurizer
         /// <param name="appName">Name of app to add, or update to</param>
         /// <param name="overwriteName">If true, will overwrite any existing games. If false, will fail if the game already exists.</param>
         /// <param name="ignore">Set of games to ignore. Can be null. If the game is in this list, no action will be taken.</param>
-        /// <param name="forceInclude">If true, include the game even if it is of an ignored type.</param>
         /// <param name="src">The listing source that this request came from.</param>
         /// <param name="isNew">If true, a new game was added. If false, an existing game was updated, or the operation failed.</param>
         /// <returns>True if the game was integrated, false otherwise.</returns>
@@ -1339,7 +1359,7 @@ namespace Depressurizer
             else
             {
                 result = Games[appId];
-                if (overwriteName)
+                if (overwriteName && !string.IsNullOrWhiteSpace(appName))
                 {
                     result.Name = appName;
                 }

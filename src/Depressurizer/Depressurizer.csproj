@@ -134,6 +134,12 @@
     </Compile>
     <Compile Include="AutoCats\AutoCatHoursPlayed.cs" />
     <Compile Include="CommaClusteringStrategy.cs" />
+    <Compile Include="Dialogs\SteamKeyDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SteamKeyDialog.Designer.cs">
+      <DependentUpon>SteamKeyDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameList.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IgnoreListViewItemComparer.cs" />
@@ -459,6 +465,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DBEdit\DlgGameDBEntry.zh-CN.resx">
       <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SteamKeyDialog.resx">
+      <DependentUpon>SteamKeyDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAbout.resx">
       <DependentUpon>DlgAbout.cs</DependentUpon>

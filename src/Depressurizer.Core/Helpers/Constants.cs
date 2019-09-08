@@ -30,11 +30,6 @@ namespace Depressurizer.Core.Helpers
         public static string GameList => @"https://steamcommunity.com/profiles/{0}/games?tab=all&xml=1";
 
         /// <summary>
-        ///     Generic URL for the game list of a Steam profile, must be formatted with the custom id.
-        /// </summary>
-        public static string GameListCustom => @"https://steamcommunity.com/id/{0}/games?tab=all&xml=1";
-
-        /// <summary>
         ///     Full list of every publicly facing program in the store/library.
         /// </summary>
         public static string GetAppList => "https://api.steampowered.com/ISteamApps/GetAppList/v2";
@@ -98,6 +93,16 @@ namespace Depressurizer.Core.Helpers
         ///     Generic URL for a single Steam Store app page, must be formatted with an appid.
         /// </summary>
         public static string SteamStoreApp => "https://store.steampowered.com/app/{0}/";
+
+        /// <summary>
+        ///     URL to Steam Web API Key page.
+        /// </summary>
+        public static string SteamWebApiKey => "https://steamcommunity.com/dev/apikey";
+
+        /// <summary>
+        ///     Generic URL for the Steam Web API GetOwnedGames, must be formatted with an api key and id.
+        /// </summary>
+        public static string SteamWebApiOwnedGames => "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={0}&steamid={1}&format=json&include_appinfo=true&include_played_free_games=true";
 
         /// <summary>
         ///     Generic URL for a single Steam Store banner, must be formatted with an appid.

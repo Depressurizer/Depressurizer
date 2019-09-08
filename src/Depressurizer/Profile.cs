@@ -56,6 +56,8 @@ namespace Depressurizer
 
         private const string XmlNameSteamId = "steam_id_64";
 
+        private const string XmlNameWebKey = "web_key";
+
         private const string XmlNameWebUpdate = "web_update";
 
         #endregion
@@ -125,6 +127,8 @@ namespace Depressurizer
         public bool ExportDiscard { get; set; } = true;
 
         public string FilePath { get; set; }
+
+        public string SteamWebApiKey {get;set;}
 
         public GameList GameData { get; } = new GameList();
 
@@ -201,6 +205,7 @@ namespace Depressurizer
 
                 profile.LocalUpdate = XmlUtil.GetBoolFromNode(profileNode[XmlNameLocalUpdate], profile.LocalUpdate);
                 profile.WebUpdate = XmlUtil.GetBoolFromNode(profileNode[XmlNameWebUpdate], profile.WebUpdate);
+                profile.SteamWebApiKey = XmlUtil.GetStringFromNode(profileNode[XmlNameWebKey], profile.SteamWebApiKey);
 
                 profile.IncludeUnknown = XmlUtil.GetBoolFromNode(profileNode[XmlNameIncludeUnknown], profile.IncludeUnknown);
                 profile.BypassIgnoreOnImport = XmlUtil.GetBoolFromNode(profileNode[XmlNameBypassIgnoreOnImport], profile.BypassIgnoreOnImport);
@@ -386,6 +391,7 @@ namespace Depressurizer
             writer.WriteElementString(XmlNameAutoExport, AutoExport.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlNameLocalUpdate, LocalUpdate.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlNameWebUpdate, WebUpdate.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlNameWebKey, SteamWebApiKey.ToLowerInvariant());
             writer.WriteElementString(XmlNameExportDiscard, ExportDiscard.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlNameAutoIgnore, AutoIgnore.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlNameIncludeUnknown, IncludeUnknown.ToString().ToLowerInvariant());
