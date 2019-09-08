@@ -28,6 +28,11 @@
         /// <summary>
         ///     Dutch - The Netherlands
         /// </summary>
-        Dutch = 4
+        Dutch = 4,
+
+        /// <summary>
+        ///     Simplified Chinese - China
+        /// </summary>
+        SChinese = 5
     }
 }
