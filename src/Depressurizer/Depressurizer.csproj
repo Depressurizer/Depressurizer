@@ -469,13 +469,22 @@
     <EmbeddedResource Include="DBEdit\DlgGameDBEntry.zh-CN.resx">
       <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\CancelableDialog.zh-CN.resx">
+      <DependentUpon>CancelableDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\SteamKeyDialog.resx">
+      <DependentUpon>SteamKeyDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SteamKeyDialog.zh-CN.resx">
       <DependentUpon>SteamKeyDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAbout.resx">
       <DependentUpon>DlgAbout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCat.resx">
+      <DependentUpon>DlgAutoCat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgAutoCat.zh-CN.resx">
       <DependentUpon>DlgAutoCat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCatCreate.resx">

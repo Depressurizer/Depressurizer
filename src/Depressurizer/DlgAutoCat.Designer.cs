@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DlgAutoCat));
             this.lstAutoCats = new System.Windows.Forms.ListBox();
             this.cmdDelete = new System.Windows.Forms.Button();
             this.cmdRename = new System.Windows.Forms.Button();
@@ -47,51 +48,29 @@
             // 
             // lstAutoCats
             // 
-            this.lstAutoCats.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.lstAutoCats, "lstAutoCats");
             this.lstAutoCats.FormattingEnabled = true;
-            this.lstAutoCats.HorizontalScrollbar = true;
-            this.lstAutoCats.IntegralHeight = false;
-            this.lstAutoCats.Location = new System.Drawing.Point(6, 19);
             this.lstAutoCats.Name = "lstAutoCats";
-            this.lstAutoCats.Size = new System.Drawing.Size(153, 235);
-            this.lstAutoCats.TabIndex = 0;
             this.lstAutoCats.SelectedIndexChanged += new System.EventHandler(this.lstAutoCats_SelectedIndexChanged);
             // 
             // cmdDelete
             // 
-            this.cmdDelete.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdDelete.Location = new System.Drawing.Point(6, 311);
+            resources.ApplyResources(this.cmdDelete, "cmdDelete");
             this.cmdDelete.Name = "cmdDelete";
-            this.cmdDelete.Size = new System.Drawing.Size(171, 23);
-            this.cmdDelete.TabIndex = 3;
-            this.cmdDelete.Text = "Delete";
             this.cmdDelete.UseVisualStyleBackColor = true;
             this.cmdDelete.Click += new System.EventHandler(this.cmdDelete_Click);
             // 
             // cmdRename
             // 
-            this.cmdRename.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdRename.Location = new System.Drawing.Point(6, 285);
+            resources.ApplyResources(this.cmdRename, "cmdRename");
             this.cmdRename.Name = "cmdRename";
-            this.cmdRename.Size = new System.Drawing.Size(171, 23);
-            this.cmdRename.TabIndex = 2;
-            this.cmdRename.Text = "Rename";
             this.cmdRename.UseVisualStyleBackColor = true;
             this.cmdRename.Click += new System.EventHandler(this.cmdRename_Click);
             // 
             // cmdCreate
             // 
-            this.cmdCreate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCreate.Location = new System.Drawing.Point(6, 259);
+            resources.ApplyResources(this.cmdCreate, "cmdCreate");
             this.cmdCreate.Name = "cmdCreate";
-            this.cmdCreate.Size = new System.Drawing.Size(171, 23);
-            this.cmdCreate.TabIndex = 1;
-            this.cmdCreate.Text = "Create";
             this.cmdCreate.UseVisualStyleBackColor = true;
             this.cmdCreate.Click += new System.EventHandler(this.cmdCreate_Click);
             // 
@@ -103,138 +82,88 @@
             this.grpList.Controls.Add(this.lstAutoCats);
             this.grpList.Controls.Add(this.cmdRename);
             this.grpList.Controls.Add(this.cmdDelete);
-            this.grpList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpList.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.grpList, "grpList");
             this.grpList.Name = "grpList";
-            this.grpList.Size = new System.Drawing.Size(184, 341);
-            this.grpList.TabIndex = 0;
             this.grpList.TabStop = false;
-            this.grpList.Text = "AutoCat List";
             // 
             // btnUp
             // 
-            this.btnUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUp.Enabled = false;
-            this.btnUp.Location = new System.Drawing.Point(160, 19);
+            resources.ApplyResources(this.btnUp, "btnUp");
             this.btnUp.Name = "btnUp";
-            this.btnUp.Size = new System.Drawing.Size(21, 23);
-            this.btnUp.TabIndex = 15;
-            this.btnUp.Text = "+";
             this.btnUp.UseVisualStyleBackColor = true;
             this.btnUp.Click += new System.EventHandler(this.btnUp_Click);
             // 
             // btnDown
             // 
-            this.btnDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDown.Enabled = false;
-            this.btnDown.Location = new System.Drawing.Point(160, 48);
+            resources.ApplyResources(this.btnDown, "btnDown");
             this.btnDown.Name = "btnDown";
-            this.btnDown.Size = new System.Drawing.Size(21, 23);
-            this.btnDown.TabIndex = 16;
-            this.btnDown.Text = "-";
             this.btnDown.UseVisualStyleBackColor = true;
             this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
             // 
             // cmdSave
             // 
-            this.cmdSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.cmdSave, "cmdSave");
             this.cmdSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdSave.Location = new System.Drawing.Point(453, 351);
             this.cmdSave.Name = "cmdSave";
-            this.cmdSave.Size = new System.Drawing.Size(141, 23);
-            this.cmdSave.TabIndex = 6;
-            this.cmdSave.Text = "Save All Changes";
             this.cmdSave.UseVisualStyleBackColor = true;
             this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             // 
             // cmdCancel
             // 
-            this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.cmdCancel, "cmdCancel");
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(357, 351);
             this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.Size = new System.Drawing.Size(90, 23);
-            this.cmdCancel.TabIndex = 5;
-            this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
             // splitContainer
             // 
-            this.splitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer.Location = new System.Drawing.Point(4, 4);
+            resources.ApplyResources(this.splitContainer, "splitContainer");
             this.splitContainer.Name = "splitContainer";
             // 
             // splitContainer.Panel1
             // 
             this.splitContainer.Panel1.Controls.Add(this.grpList);
-            this.splitContainer.Panel1MinSize = 125;
             // 
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.panelAutocat);
             this.splitContainer.Panel2.Controls.Add(this.panelFilter);
-            this.splitContainer.Panel2MinSize = 400;
-            this.splitContainer.Size = new System.Drawing.Size(590, 341);
-            this.splitContainer.SplitterDistance = 184;
-            this.splitContainer.TabIndex = 7;
             // 
             // panelAutocat
             // 
-            this.panelAutocat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelAutocat.Location = new System.Drawing.Point(0, 30);
+            resources.ApplyResources(this.panelAutocat, "panelAutocat");
             this.panelAutocat.Name = "panelAutocat";
-            this.panelAutocat.Size = new System.Drawing.Size(402, 311);
-            this.panelAutocat.TabIndex = 1;
             // 
             // panelFilter
             // 
             this.panelFilter.Controls.Add(this.cboFilter);
             this.panelFilter.Controls.Add(this.chkFilter);
-            this.panelFilter.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelFilter.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.panelFilter, "panelFilter");
             this.panelFilter.Name = "panelFilter";
-            this.panelFilter.Padding = new System.Windows.Forms.Padding(3);
-            this.panelFilter.Size = new System.Drawing.Size(402, 30);
-            this.panelFilter.TabIndex = 0;
             // 
             // cboFilter
             // 
-            this.cboFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cboFilter.Enabled = false;
+            resources.ApplyResources(this.cboFilter, "cboFilter");
             this.cboFilter.FormattingEnabled = true;
-            this.cboFilter.Location = new System.Drawing.Point(51, 3);
             this.cboFilter.Name = "cboFilter";
-            this.cboFilter.Size = new System.Drawing.Size(348, 21);
-            this.cboFilter.TabIndex = 0;
             // 
             // chkFilter
             // 
-            this.chkFilter.AutoSize = true;
-            this.chkFilter.Dock = System.Windows.Forms.DockStyle.Left;
-            this.chkFilter.Location = new System.Drawing.Point(3, 3);
+            resources.ApplyResources(this.chkFilter, "chkFilter");
             this.chkFilter.Name = "chkFilter";
-            this.chkFilter.Size = new System.Drawing.Size(48, 24);
-            this.chkFilter.TabIndex = 1;
-            this.chkFilter.Text = "Filter";
             this.chkFilter.UseVisualStyleBackColor = true;
             this.chkFilter.CheckedChanged += new System.EventHandler(this.chkFilter_CheckedChanged);
             // 
             // DlgAutoCat
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(599, 384);
             this.ControlBox = false;
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdSave);
-            this.MinimumSize = new System.Drawing.Size(615, 400);
             this.Name = "DlgAutoCat";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Edit AutoCats";
             this.Load += new System.EventHandler(this.DlgAutoCat_Load);
             this.grpList.ResumeLayout(false);
             this.splitContainer.Panel1.ResumeLayout(false);
