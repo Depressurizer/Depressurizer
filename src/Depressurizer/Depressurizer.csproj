@@ -487,12 +487,6 @@
     <EmbeddedResource Include="DlgAutomaticModeHelper.resx">
       <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutomaticModeHelper.ru.resx">
-      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutomaticModeHelper.uk.resx">
-      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="DlgAutomaticModeHelper.zh-CN.resx">
       <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
     </EmbeddedResource>

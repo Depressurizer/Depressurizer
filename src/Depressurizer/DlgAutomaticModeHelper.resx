@@ -117,10 +117,1159 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="hlpUpdateLib.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="hlpSaveProfile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="cmdClose.Location" type="System.Drawing.Point, System.Drawing">
+    <value>558, 347</value>
+  </data>
+  <data name="lblOutputMode.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cmbOutputMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>248, 20</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="hlpImportCats.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="cmbOutputMode.Items" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="&gt;&gt;hlpUpdateHltb.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblLaunch.Name" xml:space="preserve">
+    <value>lblLaunch</value>
+  </data>
+  <data name="hlpUpdateHltb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>439, 143</value>
+  </data>
+  <data name="cmbSteamCheck.Items1" xml:space="preserve">
+    <value>Check and Abort</value>
+  </data>
+  <data name="&gt;&gt;txtResult.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="chkImportCats.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="lblSteamCheck.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="chkUpdateAppInfo.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="hlpUpdateHltb.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="chkSaveDB.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="hlpSaveProfile.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="hlpSteamCheck.Location" type="System.Drawing.Point, System.Drawing">
+    <value>615, 78</value>
+  </data>
+  <data name="chkUpdateHltb.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="chkAllAutocats.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="chkExport.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;hlpUpdateAppInfo.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblSteamCheck.Name" xml:space="preserve">
+    <value>lblSteamCheck</value>
+  </data>
+  <data name="lblResult.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 12</value>
+  </data>
+  <data name="cmbSteamCheck.Items2" xml:space="preserve">
+    <value>Skip check</value>
+  </data>
+  <data name="chkTolerant.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 16</value>
+  </data>
+  <data name="lblSteamCheck.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 12</value>
+  </data>
+  <data name="txtResult.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;chkExport.Name" xml:space="preserve">
+    <value>chkExport</value>
+  </data>
+  <data name="hlpUpdateLib.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="chkExport.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 16</value>
+  </data>
+  <data name="hlpUpdateAppInfo.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="hlpUpdateLib.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="hlpLaunch.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="chkSaveDB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cmbOutputMode.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="chkUpdateLib.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;chkAllAutocats.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="hlpExport.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="chkUpdateAppInfo.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateHltb.Name" xml:space="preserve">
+    <value>chkUpdateHltb</value>
+  </data>
+  <data name="hlpLaunch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="hlpTolerant.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="hlpUpdateAppInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>439, 122</value>
+  </data>
+  <data name="chkSaveDB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>454, 144</value>
+  </data>
+  <data name="&gt;&gt;chkSaveDB.Name" xml:space="preserve">
+    <value>chkSaveDB</value>
+  </data>
+  <data name="chkAllAutocats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 261</value>
+  </data>
+  <data name="&gt;&gt;cmdClose.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="hlpSteamCheck.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="hlpSaveProfile.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="chkExport.Text" xml:space="preserve">
+    <value>Export Categories</value>
+  </data>
+  <data name="hlpImportCats.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;hlpSaveDB.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hlpImportCats.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;lblOutputMode.ZOrder" xml:space="preserve">
+    <value>30</value>
+  </data>
+  <data name="chkTolerant.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="chkUpdateWeb.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;cmbOutputMode.ZOrder" xml:space="preserve">
+    <value>28</value>
+  </data>
+  <data name="&gt;&gt;hlpLaunch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblResult.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="&gt;&gt;chkExport.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;cmdShortcut.Name" xml:space="preserve">
+    <value>cmdShortcut</value>
+  </data>
+  <data name="cmdClose.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="cmbSteamCheck.Items" xml:space="preserve">
+    <value>Check and Close</value>
+  </data>
+  <data name="lblAutocats.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblSteamCheck.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cmbLaunch.Items2" xml:space="preserve">
+    <value>In Big Picture mode</value>
+  </data>
+  <data name="lstAutocats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 75</value>
+  </data>
+  <data name="chkImportCats.Size" type="System.Drawing.Size, System.Drawing">
+    <value>162, 16</value>
+  </data>
+  <data name="lblResult.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateWeb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;hlpSaveProfile.Name" xml:space="preserve">
+    <value>hlpSaveProfile</value>
+  </data>
+  <data name="hlpSaveDB.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="lblLaunch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 23</value>
+  </data>
+  <data name="lblExplain.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="chkImportCats.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="chkUpdateWeb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>454, 121</value>
+  </data>
+  <data name="lblAutocats.Text" xml:space="preserve">
+    <value>Autocats to run:</value>
+  </data>
+  <data name="&gt;&gt;lblResult.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hlpExport.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateWeb.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="&gt;&gt;cmdShortcut.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="chkUpdateLib.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="chkUpdateHltb.Text" xml:space="preserve">
+    <value>Update DB from HLTB</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateLib.Name" xml:space="preserve">
+    <value>chkUpdateLib</value>
+  </data>
+  <data name="chkUpdateLib.Location" type="System.Drawing.Point, System.Drawing">
+    <value>257, 101</value>
+  </data>
+  <data name="&gt;&gt;lblOutputMode.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="hlpOutput.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;cmbOutputMode.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="cmdShortcut.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="&gt;&gt;chkSaveProfile.Name" xml:space="preserve">
+    <value>chkSaveProfile</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateAppInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hlpUpdateWeb.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="chkTolerant.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;cmdShortcut.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbOutputMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblLaunch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hlpTolerant.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="chkSaveDB.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="lstAutocats.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;hlpUpdateLib.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="lblResult.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="&gt;&gt;chkImportCats.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;cmbSteamCheck.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="lblSteamCheck.Text" xml:space="preserve">
+    <value>Steam check:</value>
+  </data>
+  <data name="&gt;&gt;hlpUpdateWeb.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="chkExport.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="hlpUpdateHltb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="&gt;&gt;lblResult.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateAppInfo.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
+  <data name="cmbLaunch.Items" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="lblAutocats.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;chkAllAutocats.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;hlpLaunch.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;hlpUpdateHltb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hlpOutput.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblOutputMode.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="&gt;&gt;hlpSaveProfile.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="cmbOutputMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>361, 237</value>
+  </data>
+  <data name="&gt;&gt;hlpTolerant.Name" xml:space="preserve">
+    <value>hlpTolerant</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateHltb.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="chkUpdateLib.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="chkUpdateHltb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>257, 144</value>
+  </data>
+  <data name="&gt;&gt;hlpUpdateWeb.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="hlpUpdateLib.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="chkUpdateWeb.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="chkImportCats.Text" xml:space="preserve">
+    <value>Import Steam categories</value>
+  </data>
+  <data name="chkUpdateAppInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="hlpSaveDB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;hlpSaveProfile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmbLaunch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>361, 185</value>
+  </data>
+  <data name="cmdShortcut.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="hlpImportCats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>615, 101</value>
+  </data>
+  <data name="cmdShortcut.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="lblOutputMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>258, 242</value>
+  </data>
+  <data name="chkAllAutocats.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cmbSteamCheck.Location" type="System.Drawing.Point, System.Drawing">
+    <value>361, 77</value>
+  </data>
+  <data name="hlpSaveDB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>615, 144</value>
+  </data>
+  <data name="chkImportCats.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;cmbSteamCheck.ZOrder" xml:space="preserve">
+    <value>23</value>
+  </data>
+  <data name="hlpSaveProfile.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;lblAutocats.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="cmdClose.Text" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="hlpSteamCheck.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="hlpUpdateAppInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="hlpLaunch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>615, 188</value>
+  </data>
+  <data name="hlpSaveProfile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>439, 166</value>
+  </data>
+  <data name="&gt;&gt;chkExport.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lstAutocats.Name" xml:space="preserve">
+    <value>lstAutocats</value>
+  </data>
+  <data name="&gt;&gt;hlpSaveDB.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="hlpLaunch.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;chkImportCats.ZOrder" xml:space="preserve">
+    <value>32</value>
+  </data>
+  <data name="&gt;&gt;chkSaveDB.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateLib.ZOrder" xml:space="preserve">
+    <value>33</value>
+  </data>
+  <data name="&gt;&gt;hlpUpdateLib.Name" xml:space="preserve">
+    <value>hlpUpdateLib</value>
+  </data>
+  <data name="hlpExport.Location" type="System.Drawing.Point, System.Drawing">
+    <value>615, 166</value>
+  </data>
+  <data name="&gt;&gt;lblSteamCheck.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblResult.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 280</value>
+  </data>
+  <data name="&gt;&gt;lblOutputMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateHltb.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="chkUpdateLib.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="hlpOutput.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="&gt;&gt;hlpExport.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;hlpTolerant.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hlpSaveProfile.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="hlpSteamCheck.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="chkAllAutocats.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="chkSaveProfile.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="chkAllAutocats.Text" xml:space="preserve">
+    <value>Run All Autocats</value>
+  </data>
+  <data name="hlpUpdateWeb.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="chkUpdateAppInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 16</value>
+  </data>
+  <data name="hlpUpdateLib.Location" type="System.Drawing.Point, System.Drawing">
+    <value>439, 101</value>
+  </data>
+  <data name="hlpLaunch.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="lblSteamCheck.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;txtResult.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmbOutputMode.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="chkUpdateWeb.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="lblLaunch.Text" xml:space="preserve">
+    <value>Launch Steam:</value>
+  </data>
+  <data name="cmdClose.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 21</value>
+  </data>
+  <data name="lblResult.Text" xml:space="preserve">
+    <value>Resulting Command:</value>
+  </data>
+  <data name="hlpUpdateHltb.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;hlpImportCats.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="hlpSteamCheck.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="cmbSteamCheck.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="hlpSaveProfile.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;lstAutocats.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblExplain.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="chkUpdateWeb.Text" xml:space="preserve">
+    <value>Update DB from web</value>
+  </data>
+  <data name="&gt;&gt;lblSteamCheck.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="cmbSteamCheck.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;cmbLaunch.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="chkTolerant.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="chkUpdateLib.Text" xml:space="preserve">
+    <value>Update library</value>
+  </data>
+  <data name="cmbLaunch.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="&gt;&gt;lblAutocats.Name" xml:space="preserve">
+    <value>lblAutocats</value>
+  </data>
+  <data name="hlpUpdateAppInfo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblOutputMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 12</value>
+  </data>
+  <data name="cmdShortcut.Text" xml:space="preserve">
+    <value>Create Shortcut</value>
+  </data>
+  <data name="lblSteamCheck.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;hlpUpdateAppInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmdShortcut.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 347</value>
+  </data>
+  <data name="hlpImportCats.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="&gt;&gt;hlpUpdateLib.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateWeb.Name" xml:space="preserve">
+    <value>chkUpdateWeb</value>
+  </data>
+  <data name="chkTolerant.Location" type="System.Drawing.Point, System.Drawing">
+    <value>260, 214</value>
+  </data>
+  <data name="&gt;&gt;cmbLaunch.ZOrder" xml:space="preserve">
+    <value>29</value>
+  </data>
+  <data name="cmbLaunch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>248, 20</value>
+  </data>
+  <data name="&gt;&gt;lblExplain.Name" xml:space="preserve">
+    <value>lblExplain</value>
+  </data>
+  <data name="hlpTolerant.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="lblExplain.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;hlpImportCats.Name" xml:space="preserve">
+    <value>hlpImportCats</value>
+  </data>
+  <data name="hlpUpdateWeb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>615, 122</value>
+  </data>
+  <data name="chkSaveProfile.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;hlpImportCats.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;hlpOutput.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hlpUpdateAppInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateWeb.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="lblOutputMode.Text" xml:space="preserve">
+    <value>Output mode:</value>
+  </data>
+  <data name="hlpUpdateAppInfo.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;chkSaveProfile.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="chkUpdateAppInfo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblSteamCheck.Location" type="System.Drawing.Point, System.Drawing">
+    <value>258, 80</value>
+  </data>
+  <data name="hlpExport.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;hlpUpdateLib.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateAppInfo.Name" xml:space="preserve">
+    <value>chkUpdateAppInfo</value>
+  </data>
+  <data name="chkUpdateHltb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 16</value>
+  </data>
+  <data name="hlpOutput.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;chkTolerant.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="txtResult.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="hlpExport.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkTolerant.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="hlpTolerant.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="chkExport.Location" type="System.Drawing.Point, System.Drawing">
+    <value>454, 164</value>
+  </data>
+  <data name="&gt;&gt;hlpTolerant.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="hlpLaunch.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;ttHelp.Name" xml:space="preserve">
+    <value>ttHelp</value>
+  </data>
+  <data name="&gt;&gt;chkSaveDB.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="lblOutputMode.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cmbLaunch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;hlpSaveProfile.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;hlpOutput.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;hlpImportCats.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;hlpSteamCheck.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblAutocats.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hlpUpdateLib.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;cmdClose.Name" xml:space="preserve">
+    <value>cmdClose</value>
+  </data>
+  <data name="hlpSaveDB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="&gt;&gt;hlpLaunch.Name" xml:space="preserve">
+    <value>hlpLaunch</value>
+  </data>
+  <data name="hlpSteamCheck.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;txtResult.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="chkTolerant.Text" xml:space="preserve">
+    <value>Tolerate minor errors</value>
+  </data>
+  <data name="chkUpdateWeb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>132, 16</value>
+  </data>
+  <data name="&gt;&gt;hlpSaveDB.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>DlgAutomaticModeHelper</value>
+  </data>
+  <data name="&gt;&gt;lblLaunch.ZOrder" xml:space="preserve">
+    <value>31</value>
+  </data>
+  <data name="txtResult.Size" type="System.Drawing.Size, System.Drawing">
+    <value>618, 46</value>
+  </data>
+  <data name="&gt;&gt;lblOutputMode.Name" xml:space="preserve">
+    <value>lblOutputMode</value>
+  </data>
+  <data name="&gt;&gt;lblSteamCheck.ZOrder" xml:space="preserve">
+    <value>24</value>
+  </data>
+  <data name="hlpExport.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="chkExport.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;chkAllAutocats.Name" xml:space="preserve">
+    <value>chkAllAutocats</value>
+  </data>
+  <data name="&gt;&gt;lblAutocats.ZOrder" xml:space="preserve">
+    <value>26</value>
+  </data>
+  <data name="lblAutocats.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 12</value>
+  </data>
+  <data name="&gt;&gt;lblResult.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;cmbSteamCheck.Name" xml:space="preserve">
+    <value>cmbSteamCheck</value>
+  </data>
+  <data name="&gt;&gt;hlpExport.Name" xml:space="preserve">
+    <value>hlpExport</value>
+  </data>
+  <data name="&gt;&gt;hlpTolerant.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="lblExplain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 8</value>
+  </data>
+  <data name="hlpUpdateWeb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="chkAllAutocats.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 16</value>
+  </data>
+  <data name="hlpUpdateHltb.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;lstAutocats.ZOrder" xml:space="preserve">
+    <value>27</value>
+  </data>
+  <data name="hlpLaunch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="lblExplain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>618, 39</value>
+  </data>
+  <data name="chkAllAutocats.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;lblExplain.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;txtResult.Name" xml:space="preserve">
+    <value>txtResult</value>
+  </data>
+  <data name="hlpUpdateHltb.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="chkSaveProfile.Text" xml:space="preserve">
+    <value>Save Profile</value>
+  </data>
+  <data name="hlpSaveDB.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;cmdShortcut.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="hlpUpdateWeb.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="hlpUpdateLib.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;lstAutocats.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmdShortcut.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 21</value>
+  </data>
+  <data name="lblExplain.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="&gt;&gt;hlpLaunch.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;hlpUpdateWeb.Name" xml:space="preserve">
+    <value>hlpUpdateWeb</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateLib.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="hlpSteamCheck.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="chkSaveDB.Text" xml:space="preserve">
+    <value>Save DB</value>
+  </data>
+  <data name="hlpOutput.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;cmbSteamCheck.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="chkSaveProfile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>257, 165</value>
+  </data>
+  <data name="lblAutocats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 60</value>
+  </data>
+  <data name="cmdClose.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;chkExport.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmbLaunch.Items1" xml:space="preserve">
+    <value>In normal mode</value>
+  </data>
+  <data name="chkExport.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="lblResult.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;hlpUpdateHltb.Name" xml:space="preserve">
+    <value>hlpUpdateHltb</value>
+  </data>
+  <data name="hlpOutput.Location" type="System.Drawing.Point, System.Drawing">
+    <value>615, 240</value>
+  </data>
+  <data name="chkSaveProfile.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;cmbLaunch.Name" xml:space="preserve">
+    <value>cmbLaunch</value>
+  </data>
+  <data name="cmbOutputMode.Items1" xml:space="preserve">
+    <value>Quiet</value>
+  </data>
+  <data name="chkUpdateHltb.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;lblLaunch.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblResult.Name" xml:space="preserve">
+    <value>lblResult</value>
+  </data>
+  <data name="hlpTolerant.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;hlpExport.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;hlpUpdateAppInfo.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;chkTolerant.ZOrder" xml:space="preserve">
+    <value>34</value>
+  </data>
+  <data name="hlpSaveDB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;cmbLaunch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hlpUpdateAppInfo.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="hlpUpdateHltb.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateHltb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hlpTolerant.Location" type="System.Drawing.Point, System.Drawing">
+    <value>439, 216</value>
+  </data>
+  <data name="lblLaunch.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="cmdClose.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="hlpImportCats.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="lblLaunch.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;hlpSteamCheck.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;chkSaveProfile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hlpOutput.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkUpdateHltb.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lstAutocats.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 180</value>
+  </data>
+  <data name="cmbSteamCheck.Size" type="System.Drawing.Size, System.Drawing">
+    <value>248, 20</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateLib.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="chkUpdateAppInfo.Text" xml:space="preserve">
+    <value>Update DB from local files</value>
+  </data>
+  <data name="&gt;&gt;hlpUpdateHltb.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateAppInfo.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="chkUpdateAppInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>257, 122</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>642, 379</value>
+  </data>
+  <data name="hlpImportCats.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;chkImportCats.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;hlpOutput.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;chkImportCats.Name" xml:space="preserve">
+    <value>chkImportCats</value>
+  </data>
+  <data name="&gt;&gt;hlpSaveDB.Name" xml:space="preserve">
+    <value>hlpSaveDB</value>
+  </data>
+  <data name="&gt;&gt;chkTolerant.Name" xml:space="preserve">
+    <value>chkTolerant</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Automatic Mode Helper</value>
+  </data>
+  <data name="chkUpdateHltb.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="chkUpdateWeb.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;chkSaveDB.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmbOutputMode.Items2" xml:space="preserve">
+    <value>Silent</value>
+  </data>
+  <data name="chkSaveProfile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 16</value>
+  </data>
+  <data name="&gt;&gt;hlpSteamCheck.Name" xml:space="preserve">
+    <value>hlpSteamCheck</value>
+  </data>
+  <data name="chkImportCats.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="txtResult.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="&gt;&gt;hlpUpdateWeb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblLaunch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>258, 188</value>
+  </data>
+  <data name="hlpUpdateWeb.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="lstAutocats.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;chkTolerant.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="hlpExport.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="lblOutputMode.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;chkAllAutocats.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblExplain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hlpSaveDB.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="chkSaveProfile.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="chkSaveDB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 16</value>
+  </data>
+  <data name="chkImportCats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>454, 100</value>
+  </data>
+  <data name="&gt;&gt;cmdClose.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="txtResult.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 295</value>
+  </data>
+  <data name="&gt;&gt;chkSaveProfile.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="lblAutocats.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="hlpUpdateWeb.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;cmdClose.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ttHelp.Type" xml:space="preserve">
+    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=4.12.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;cmbOutputMode.Name" xml:space="preserve">
+    <value>cmbOutputMode</value>
+  </data>
   <data name="lblExplain.Text" xml:space="preserve">
     <value>Automatic mode lets you run a predetermined set of autocat operations on your game library through the command line or by running a shortcut, without having to use the full Depressurizer interface. You still have to use the full interface to manage the autocat rules themselves.</value>
   </data>
+  <data name="chkUpdateLib.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 16</value>
+  </data>
+  <data name="chkSaveDB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;hlpExport.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hlpTolerant.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;hlpOutput.Name" xml:space="preserve">
+    <value>hlpOutput</value>
+  </data>
+  <data name="&gt;&gt;hlpSteamCheck.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;hlpUpdateAppInfo.Name" xml:space="preserve">
+    <value>hlpUpdateAppInfo</value>
+  </data>
   <metadata name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
 </root>
