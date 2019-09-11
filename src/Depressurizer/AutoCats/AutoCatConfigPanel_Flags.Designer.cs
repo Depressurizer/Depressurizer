@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AutoCatConfigPanel_Flags));
             this.grpMain = new System.Windows.Forms.GroupBox();
             this.helpPrefix = new System.Windows.Forms.Label();
             this.tblButtons = new System.Windows.Forms.TableLayoutPanel();
@@ -45,109 +46,67 @@
             this.grpMain.Controls.Add(this.lstIncluded);
             this.grpMain.Controls.Add(this.txtPrefix);
             this.grpMain.Controls.Add(this.lblPrefix);
-            this.grpMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpMain.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.grpMain, "grpMain");
             this.grpMain.Name = "grpMain";
-            this.grpMain.Size = new System.Drawing.Size(576, 460);
-            this.grpMain.TabIndex = 0;
             this.grpMain.TabStop = false;
-            this.grpMain.Text = "Edit Flag Autocat";
             // 
             // helpPrefix
             // 
-            this.helpPrefix.AutoSize = true;
+            resources.ApplyResources(this.helpPrefix, "helpPrefix");
             this.helpPrefix.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.helpPrefix.Location = new System.Drawing.Point(238, 22);
             this.helpPrefix.Name = "helpPrefix";
-            this.helpPrefix.Size = new System.Drawing.Size(15, 15);
-            this.helpPrefix.TabIndex = 2;
-            this.helpPrefix.Text = "?";
             // 
             // tblButtons
             // 
-            this.tblButtons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tblButtons.ColumnCount = 2;
-            this.tblButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tblButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            resources.ApplyResources(this.tblButtons, "tblButtons");
             this.tblButtons.Controls.Add(this.cmdCheckAll, 0, 0);
             this.tblButtons.Controls.Add(this.cmdUncheckAll, 1, 0);
-            this.tblButtons.Location = new System.Drawing.Point(3, 426);
             this.tblButtons.Name = "tblButtons";
-            this.tblButtons.RowCount = 1;
-            this.tblButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblButtons.Size = new System.Drawing.Size(570, 30);
-            this.tblButtons.TabIndex = 5;
             // 
             // cmdCheckAll
             // 
-            this.cmdCheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCheckAll.Location = new System.Drawing.Point(3, 3);
+            resources.ApplyResources(this.cmdCheckAll, "cmdCheckAll");
             this.cmdCheckAll.Name = "cmdCheckAll";
-            this.cmdCheckAll.Size = new System.Drawing.Size(279, 23);
-            this.cmdCheckAll.TabIndex = 0;
-            this.cmdCheckAll.Text = "Check All";
             this.cmdCheckAll.UseVisualStyleBackColor = true;
             this.cmdCheckAll.Click += new System.EventHandler(this.cmdCheckAll_Click);
             // 
             // cmdUncheckAll
             // 
-            this.cmdUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdUncheckAll.Location = new System.Drawing.Point(288, 3);
+            resources.ApplyResources(this.cmdUncheckAll, "cmdUncheckAll");
             this.cmdUncheckAll.Name = "cmdUncheckAll";
-            this.cmdUncheckAll.Size = new System.Drawing.Size(279, 23);
-            this.cmdUncheckAll.TabIndex = 1;
-            this.cmdUncheckAll.Text = "Uncheck All";
             this.cmdUncheckAll.UseVisualStyleBackColor = true;
             this.cmdUncheckAll.Click += new System.EventHandler(this.cmdUncheckAll_Click);
             // 
             // lblInclude
             // 
-            this.lblInclude.AutoSize = true;
-            this.lblInclude.Location = new System.Drawing.Point(3, 69);
+            resources.ApplyResources(this.lblInclude, "lblInclude");
             this.lblInclude.Name = "lblInclude";
-            this.lblInclude.Size = new System.Drawing.Size(79, 13);
-            this.lblInclude.TabIndex = 3;
-            this.lblInclude.Text = "Included Flags:";
             // 
             // lstIncluded
             // 
-            this.lstIncluded.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.lstIncluded, "lstIncluded");
             this.lstIncluded.CheckBoxes = true;
-            this.lstIncluded.Location = new System.Drawing.Point(6, 85);
+            this.lstIncluded.HideSelection = false;
             this.lstIncluded.Name = "lstIncluded";
-            this.lstIncluded.Size = new System.Drawing.Size(564, 339);
-            this.lstIncluded.TabIndex = 4;
             this.lstIncluded.UseCompatibleStateImageBehavior = false;
             this.lstIncluded.View = System.Windows.Forms.View.List;
             // 
             // txtPrefix
             // 
-            this.txtPrefix.Location = new System.Drawing.Point(67, 19);
+            resources.ApplyResources(this.txtPrefix, "txtPrefix");
             this.txtPrefix.Name = "txtPrefix";
-            this.txtPrefix.Size = new System.Drawing.Size(165, 20);
-            this.txtPrefix.TabIndex = 1;
             // 
             // lblPrefix
             // 
-            this.lblPrefix.AutoSize = true;
-            this.lblPrefix.Location = new System.Drawing.Point(25, 22);
+            resources.ApplyResources(this.lblPrefix, "lblPrefix");
             this.lblPrefix.Name = "lblPrefix";
-            this.lblPrefix.Size = new System.Drawing.Size(36, 13);
-            this.lblPrefix.TabIndex = 0;
-            this.lblPrefix.Text = "Prefix:";
             // 
             // AutoCatConfigPanel_Flags
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.grpMain);
             this.Name = "AutoCatConfigPanel_Flags";
-            this.Size = new System.Drawing.Size(576, 460);
             this.grpMain.ResumeLayout(false);
             this.grpMain.PerformLayout();
             this.tblButtons.ResumeLayout(false);

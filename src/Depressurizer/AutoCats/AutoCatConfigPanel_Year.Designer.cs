@@ -23,7 +23,12 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AutoCatConfigPanel_Year));
             this.grpMain = new System.Windows.Forms.GroupBox();
+            this.grpGrouping = new System.Windows.Forms.GroupBox();
+            this.radGroupHalf = new System.Windows.Forms.RadioButton();
+            this.radGroupDec = new System.Windows.Forms.RadioButton();
+            this.radGroupNone = new System.Windows.Forms.RadioButton();
             this.helpUnknown = new System.Windows.Forms.Label();
             this.txtUnknownText = new System.Windows.Forms.TextBox();
             this.lblUnknownText = new System.Windows.Forms.Label();
@@ -32,10 +37,6 @@
             this.lblPrefix = new System.Windows.Forms.Label();
             this.txtPrefix = new System.Windows.Forms.TextBox();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
-            this.grpGrouping = new System.Windows.Forms.GroupBox();
-            this.radGroupNone = new System.Windows.Forms.RadioButton();
-            this.radGroupDec = new System.Windows.Forms.RadioButton();
-            this.radGroupHalf = new System.Windows.Forms.RadioButton();
             this.grpMain.SuspendLayout();
             this.grpGrouping.SuspendLayout();
             this.SuspendLayout();
@@ -50,134 +51,88 @@
             this.grpMain.Controls.Add(this.helpPrefix);
             this.grpMain.Controls.Add(this.lblPrefix);
             this.grpMain.Controls.Add(this.txtPrefix);
-            this.grpMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpMain.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.grpMain, "grpMain");
             this.grpMain.Name = "grpMain";
-            this.grpMain.Size = new System.Drawing.Size(504, 374);
-            this.grpMain.TabIndex = 0;
             this.grpMain.TabStop = false;
-            this.grpMain.Text = "Edit Year AutoCat";
+            // 
+            // grpGrouping
+            // 
+            resources.ApplyResources(this.grpGrouping, "grpGrouping");
+            this.grpGrouping.Controls.Add(this.radGroupHalf);
+            this.grpGrouping.Controls.Add(this.radGroupDec);
+            this.grpGrouping.Controls.Add(this.radGroupNone);
+            this.grpGrouping.Name = "grpGrouping";
+            this.grpGrouping.TabStop = false;
+            // 
+            // radGroupHalf
+            // 
+            resources.ApplyResources(this.radGroupHalf, "radGroupHalf");
+            this.radGroupHalf.Name = "radGroupHalf";
+            this.radGroupHalf.TabStop = true;
+            this.radGroupHalf.UseVisualStyleBackColor = true;
+            // 
+            // radGroupDec
+            // 
+            resources.ApplyResources(this.radGroupDec, "radGroupDec");
+            this.radGroupDec.Name = "radGroupDec";
+            this.radGroupDec.TabStop = true;
+            this.radGroupDec.UseVisualStyleBackColor = true;
+            // 
+            // radGroupNone
+            // 
+            resources.ApplyResources(this.radGroupNone, "radGroupNone");
+            this.radGroupNone.Name = "radGroupNone";
+            this.radGroupNone.TabStop = true;
+            this.radGroupNone.UseVisualStyleBackColor = true;
             // 
             // helpUnknown
             // 
-            this.helpUnknown.AutoSize = true;
+            resources.ApplyResources(this.helpUnknown, "helpUnknown");
             this.helpUnknown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.helpUnknown.Location = new System.Drawing.Point(144, 61);
             this.helpUnknown.Name = "helpUnknown";
-            this.helpUnknown.Size = new System.Drawing.Size(15, 15);
-            this.helpUnknown.TabIndex = 9;
-            this.helpUnknown.Text = "?";
             // 
             // txtUnknownText
             // 
-            this.txtUnknownText.Location = new System.Drawing.Point(130, 83);
+            resources.ApplyResources(this.txtUnknownText, "txtUnknownText");
             this.txtUnknownText.Name = "txtUnknownText";
-            this.txtUnknownText.Size = new System.Drawing.Size(159, 20);
-            this.txtUnknownText.TabIndex = 8;
             // 
             // lblUnknownText
             // 
-            this.lblUnknownText.AutoSize = true;
-            this.lblUnknownText.Location = new System.Drawing.Point(48, 86);
+            resources.ApplyResources(this.lblUnknownText, "lblUnknownText");
             this.lblUnknownText.Name = "lblUnknownText";
-            this.lblUnknownText.Size = new System.Drawing.Size(76, 13);
-            this.lblUnknownText.TabIndex = 7;
-            this.lblUnknownText.Text = "Unknown text:";
             // 
             // chkIncludeUnknown
             // 
-            this.chkIncludeUnknown.AutoSize = true;
-            this.chkIncludeUnknown.Location = new System.Drawing.Point(28, 60);
+            resources.ApplyResources(this.chkIncludeUnknown, "chkIncludeUnknown");
             this.chkIncludeUnknown.Name = "chkIncludeUnknown";
-            this.chkIncludeUnknown.Size = new System.Drawing.Size(110, 17);
-            this.chkIncludeUnknown.TabIndex = 6;
-            this.chkIncludeUnknown.Text = "Include Unknown";
             this.chkIncludeUnknown.UseVisualStyleBackColor = true;
             // 
             // helpPrefix
             // 
-            this.helpPrefix.AutoSize = true;
+            resources.ApplyResources(this.helpPrefix, "helpPrefix");
             this.helpPrefix.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.helpPrefix.Location = new System.Drawing.Point(238, 22);
             this.helpPrefix.Name = "helpPrefix";
-            this.helpPrefix.Size = new System.Drawing.Size(15, 15);
-            this.helpPrefix.TabIndex = 5;
-            this.helpPrefix.Text = "?";
             // 
             // lblPrefix
             // 
-            this.lblPrefix.AutoSize = true;
-            this.lblPrefix.Location = new System.Drawing.Point(25, 22);
+            resources.ApplyResources(this.lblPrefix, "lblPrefix");
             this.lblPrefix.Name = "lblPrefix";
-            this.lblPrefix.Size = new System.Drawing.Size(36, 13);
-            this.lblPrefix.TabIndex = 3;
-            this.lblPrefix.Text = "Prefix:";
             // 
             // txtPrefix
             // 
-            this.txtPrefix.Location = new System.Drawing.Point(67, 19);
+            resources.ApplyResources(this.txtPrefix, "txtPrefix");
             this.txtPrefix.Name = "txtPrefix";
-            this.txtPrefix.Size = new System.Drawing.Size(165, 20);
-            this.txtPrefix.TabIndex = 4;
             // 
             // ttHelp
             // 
             this.ttHelp.UseFading = false;
             // 
-            // grpGrouping
-            // 
-            this.grpGrouping.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpGrouping.Controls.Add(this.radGroupHalf);
-            this.grpGrouping.Controls.Add(this.radGroupDec);
-            this.grpGrouping.Controls.Add(this.radGroupNone);
-            this.grpGrouping.Location = new System.Drawing.Point(6, 109);
-            this.grpGrouping.Name = "grpGrouping";
-            this.grpGrouping.Size = new System.Drawing.Size(483, 91);
-            this.grpGrouping.TabIndex = 10;
-            this.grpGrouping.TabStop = false;
-            this.grpGrouping.Text = "Grouping";
-            // 
-            // radGroupNone
-            // 
-            this.radGroupNone.AutoSize = true;
-            this.radGroupNone.Location = new System.Drawing.Point(22, 19);
-            this.radGroupNone.Name = "radGroupNone";
-            this.radGroupNone.Size = new System.Drawing.Size(85, 17);
-            this.radGroupNone.TabIndex = 0;
-            this.radGroupNone.TabStop = true;
-            this.radGroupNone.Text = "No Grouping";
-            this.radGroupNone.UseVisualStyleBackColor = true;
-            // 
-            // radGroupDec
-            // 
-            this.radGroupDec.AutoSize = true;
-            this.radGroupDec.Location = new System.Drawing.Point(22, 42);
-            this.radGroupDec.Name = "radGroupDec";
-            this.radGroupDec.Size = new System.Drawing.Size(78, 17);
-            this.radGroupDec.TabIndex = 1;
-            this.radGroupDec.TabStop = true;
-            this.radGroupDec.Text = "By Decade";
-            this.radGroupDec.UseVisualStyleBackColor = true;
-            // 
-            // radGroupHalf
-            // 
-            this.radGroupHalf.AutoSize = true;
-            this.radGroupHalf.Location = new System.Drawing.Point(22, 65);
-            this.radGroupHalf.Name = "radGroupHalf";
-            this.radGroupHalf.Size = new System.Drawing.Size(100, 17);
-            this.radGroupHalf.TabIndex = 2;
-            this.radGroupHalf.TabStop = true;
-            this.radGroupHalf.Text = "By Half-Decade";
-            this.radGroupHalf.UseVisualStyleBackColor = true;
-            // 
             // AutoCatConfigPanel_Year
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.grpMain);
             this.Name = "AutoCatConfigPanel_Year";
-            this.Size = new System.Drawing.Size(504, 374);
             this.grpMain.ResumeLayout(false);
             this.grpMain.PerformLayout();
             this.grpGrouping.ResumeLayout(false);

@@ -117,7 +117,434 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="helpTagFallback.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="helpTagFallback.Location" type="System.Drawing.Point, System.Drawing">
+    <value>238, 97</value>
+  </data>
+  <data name="helpTagFallback.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="helpTagFallback.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="helpTagFallback.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;helpTagFallback.Name" xml:space="preserve">
+    <value>helpTagFallback</value>
+  </data>
+  <data name="&gt;&gt;helpTagFallback.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;helpTagFallback.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;helpTagFallback.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="chkTagFallback.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkTagFallback.Location" type="System.Drawing.Point, System.Drawing">
+    <value>46, 97</value>
+  </data>
+  <data name="chkTagFallback.Size" type="System.Drawing.Size, System.Drawing">
+    <value>198, 16</value>
+  </data>
+  <data name="chkTagFallback.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="chkTagFallback.Text" xml:space="preserve">
+    <value>Use Tags if no genres are set</value>
+  </data>
+  <data name="&gt;&gt;chkTagFallback.Name" xml:space="preserve">
+    <value>chkTagFallback</value>
+  </data>
+  <data name="&gt;&gt;chkTagFallback.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkTagFallback.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;chkTagFallback.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="helpRemoveExisting.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="helpRemoveExisting.Location" type="System.Drawing.Point, System.Drawing">
+    <value>238, 76</value>
+  </data>
+  <data name="helpRemoveExisting.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="helpRemoveExisting.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="helpRemoveExisting.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;helpRemoveExisting.Name" xml:space="preserve">
+    <value>helpRemoveExisting</value>
+  </data>
+  <data name="&gt;&gt;helpRemoveExisting.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;helpRemoveExisting.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;helpRemoveExisting.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="helpPrefix.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="helpPrefix.Location" type="System.Drawing.Point, System.Drawing">
+    <value>238, 20</value>
+  </data>
+  <data name="helpPrefix.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="helpPrefix.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="helpPrefix.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;helpPrefix.Name" xml:space="preserve">
+    <value>helpPrefix</value>
+  </data>
+  <data name="&gt;&gt;helpPrefix.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;helpPrefix.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;helpPrefix.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="lblPrefix.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblPrefix.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 20</value>
+  </data>
+  <data name="lblPrefix.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 12</value>
+  </data>
+  <data name="lblPrefix.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lblPrefix.Text" xml:space="preserve">
+    <value>Prefix:</value>
+  </data>
+  <data name="&gt;&gt;lblPrefix.Name" xml:space="preserve">
+    <value>lblPrefix</value>
+  </data>
+  <data name="&gt;&gt;lblPrefix.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblPrefix.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;lblPrefix.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="txtPrefix.Location" type="System.Drawing.Point, System.Drawing">
+    <value>67, 18</value>
+  </data>
+  <data name="txtPrefix.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 21</value>
+  </data>
+  <data name="txtPrefix.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;txtPrefix.Name" xml:space="preserve">
+    <value>txtPrefix</value>
+  </data>
+  <data name="&gt;&gt;txtPrefix.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtPrefix.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;txtPrefix.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="tblIgnore.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="cmdUncheckAll.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="cmdUncheckAll.Location" type="System.Drawing.Point, System.Drawing">
+    <value>305, 3</value>
+  </data>
+  <data name="cmdUncheckAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>296, 22</value>
+  </data>
+  <data name="cmdUncheckAll.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="cmdUncheckAll.Text" xml:space="preserve">
+    <value>Uncheck All</value>
+  </data>
+  <data name="&gt;&gt;cmdUncheckAll.Name" xml:space="preserve">
+    <value>cmdUncheckAll</value>
+  </data>
+  <data name="&gt;&gt;cmdUncheckAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdUncheckAll.Parent" xml:space="preserve">
+    <value>tblIgnore</value>
+  </data>
+  <data name="&gt;&gt;cmdUncheckAll.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cmdCheckAll.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="cmdCheckAll.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="cmdCheckAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>296, 22</value>
+  </data>
+  <data name="cmdCheckAll.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="cmdCheckAll.Text" xml:space="preserve">
+    <value>Check All</value>
+  </data>
+  <data name="&gt;&gt;cmdCheckAll.Name" xml:space="preserve">
+    <value>cmdCheckAll</value>
+  </data>
+  <data name="&gt;&gt;cmdCheckAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdCheckAll.Parent" xml:space="preserve">
+    <value>tblIgnore</value>
+  </data>
+  <data name="&gt;&gt;cmdCheckAll.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tblIgnore.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="tblIgnore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 344</value>
+  </data>
+  <data name="tblIgnore.RowCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tblIgnore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>604, 28</value>
+  </data>
+  <data name="tblIgnore.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;tblIgnore.Name" xml:space="preserve">
+    <value>tblIgnore</value>
+  </data>
+  <data name="&gt;&gt;tblIgnore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tblIgnore.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;tblIgnore.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="tblIgnore.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="cmdUncheckAll" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="cmdCheckAll" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="lstIgnore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="lstIgnore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 134</value>
+  </data>
+  <data name="lstIgnore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>597, 211</value>
+  </data>
+  <data name="lstIgnore.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;lstIgnore.Name" xml:space="preserve">
+    <value>lstIgnore</value>
+  </data>
+  <data name="&gt;&gt;lstIgnore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lstIgnore.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;lstIgnore.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="lblIgnore.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblIgnore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 119</value>
+  </data>
+  <data name="lblIgnore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 12</value>
+  </data>
+  <data name="lblIgnore.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="lblIgnore.Text" xml:space="preserve">
+    <value>Genres:</value>
+  </data>
+  <data name="&gt;&gt;lblIgnore.Name" xml:space="preserve">
+    <value>lblIgnore</value>
+  </data>
+  <data name="&gt;&gt;lblIgnore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblIgnore.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;lblIgnore.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="chkRemoveExisting.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkRemoveExisting.Location" type="System.Drawing.Point, System.Drawing">
+    <value>46, 76</value>
+  </data>
+  <data name="chkRemoveExisting.Size" type="System.Drawing.Size, System.Drawing">
+    <value>216, 16</value>
+  </data>
+  <data name="chkRemoveExisting.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="chkRemoveExisting.Text" xml:space="preserve">
+    <value>Remove existing genre categories</value>
+  </data>
+  <data name="&gt;&gt;chkRemoveExisting.Name" xml:space="preserve">
+    <value>chkRemoveExisting</value>
+  </data>
+  <data name="&gt;&gt;chkRemoveExisting.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkRemoveExisting.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;chkRemoveExisting.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="lblMaxCats.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblMaxCats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>64, 43</value>
+  </data>
+  <data name="lblMaxCats.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 24</value>
+  </data>
+  <data name="lblMaxCats.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="lblMaxCats.Text" xml:space="preserve">
+    <value>Maximum categories to assign
+(0 for unlimited)</value>
+  </data>
+  <data name="&gt;&gt;lblMaxCats.Name" xml:space="preserve">
+    <value>lblMaxCats</value>
+  </data>
+  <data name="&gt;&gt;lblMaxCats.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblMaxCats.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;lblMaxCats.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="numMaxCats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 46</value>
+  </data>
+  <data name="numMaxCats.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 21</value>
+  </data>
+  <data name="numMaxCats.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="numMaxCats.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="numMaxCats.UpDownAlign" type="System.Windows.Forms.LeftRightAlignment, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="&gt;&gt;numMaxCats.Name" xml:space="preserve">
+    <value>numMaxCats</value>
+  </data>
+  <data name="&gt;&gt;numMaxCats.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numMaxCats.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;numMaxCats.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="grpMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="grpMain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="grpMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>610, 375</value>
+  </data>
+  <data name="grpMain.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="grpMain.Text" xml:space="preserve">
+    <value>Edit Genre AutoCat</value>
+  </data>
+  <data name="&gt;&gt;grpMain.Name" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;grpMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpMain.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;grpMain.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>610, 375</value>
+  </data>
+  <data name="&gt;&gt;ttHelp.Name" xml:space="preserve">
+    <value>ttHelp</value>
+  </data>
+  <data name="&gt;&gt;ttHelp.Type" xml:space="preserve">
+    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=4.12.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>AutoCatConfigPanel_Genre</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>Depressurizer.AutoCats.AutoCatConfigPanel, Depressurizer, Version=4.12.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
 </root>

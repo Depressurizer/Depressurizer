@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AutoCatConfigPanel_Language));
             this.grpMain = new System.Windows.Forms.GroupBox();
+            this.chkTypeFallback = new System.Windows.Forms.CheckBox();
             this.chkIncludeTypePrefix = new System.Windows.Forms.CheckBox();
             this.helpPrefix = new System.Windows.Forms.Label();
             this.tblButtons = new System.Windows.Forms.TableLayoutPanel();
@@ -44,7 +46,6 @@
             this.grpSubtitles = new System.Windows.Forms.GroupBox();
             this.lstSubtitles = new System.Windows.Forms.ListView();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
-            this.chkTypeFallback = new System.Windows.Forms.CheckBox();
             this.grpMain.SuspendLayout();
             this.tblButtons.SuspendLayout();
             this.tblVrFlags.SuspendLayout();
@@ -62,193 +63,121 @@
             this.grpMain.Controls.Add(this.txtPrefix);
             this.grpMain.Controls.Add(this.lblPrefix);
             this.grpMain.Controls.Add(this.tblVrFlags);
-            this.grpMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpMain.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.grpMain, "grpMain");
             this.grpMain.Name = "grpMain";
-            this.grpMain.Size = new System.Drawing.Size(576, 460);
-            this.grpMain.TabIndex = 0;
             this.grpMain.TabStop = false;
-            this.grpMain.Text = "Edit Language Autocat";
+            // 
+            // chkTypeFallback
+            // 
+            resources.ApplyResources(this.chkTypeFallback, "chkTypeFallback");
+            this.chkTypeFallback.Name = "chkTypeFallback";
+            this.chkTypeFallback.UseVisualStyleBackColor = true;
             // 
             // chkIncludeTypePrefix
             // 
-            this.chkIncludeTypePrefix.AutoSize = true;
-            this.chkIncludeTypePrefix.Location = new System.Drawing.Point(28, 45);
+            resources.ApplyResources(this.chkIncludeTypePrefix, "chkIncludeTypePrefix");
             this.chkIncludeTypePrefix.Name = "chkIncludeTypePrefix";
-            this.chkIncludeTypePrefix.Size = new System.Drawing.Size(323, 17);
-            this.chkIncludeTypePrefix.TabIndex = 10;
-            this.chkIncludeTypePrefix.Text = "Include Interface/Subtitles/Full Audio prefix on category names";
             this.chkIncludeTypePrefix.UseVisualStyleBackColor = true;
             // 
             // helpPrefix
             // 
-            this.helpPrefix.AutoSize = true;
+            resources.ApplyResources(this.helpPrefix, "helpPrefix");
             this.helpPrefix.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.helpPrefix.Location = new System.Drawing.Point(238, 22);
             this.helpPrefix.Name = "helpPrefix";
-            this.helpPrefix.Size = new System.Drawing.Size(15, 15);
-            this.helpPrefix.TabIndex = 2;
-            this.helpPrefix.Text = "?";
             // 
             // tblButtons
             // 
-            this.tblButtons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tblButtons.ColumnCount = 2;
-            this.tblButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tblButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            resources.ApplyResources(this.tblButtons, "tblButtons");
             this.tblButtons.Controls.Add(this.cmdUncheckAll, 1, 0);
             this.tblButtons.Controls.Add(this.cmdCheckAll, 0, 0);
-            this.tblButtons.Location = new System.Drawing.Point(3, 426);
             this.tblButtons.Name = "tblButtons";
-            this.tblButtons.RowCount = 1;
-            this.tblButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblButtons.Size = new System.Drawing.Size(570, 30);
-            this.tblButtons.TabIndex = 5;
             // 
             // cmdUncheckAll
             // 
-            this.cmdUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdUncheckAll.Location = new System.Drawing.Point(288, 4);
+            resources.ApplyResources(this.cmdUncheckAll, "cmdUncheckAll");
             this.cmdUncheckAll.Name = "cmdUncheckAll";
-            this.cmdUncheckAll.Size = new System.Drawing.Size(279, 23);
-            this.cmdUncheckAll.TabIndex = 1;
-            this.cmdUncheckAll.Text = "Uncheck All";
             this.cmdUncheckAll.UseVisualStyleBackColor = true;
             this.cmdUncheckAll.Click += new System.EventHandler(this.cmdUncheckAll_Click);
             // 
             // cmdCheckAll
             // 
-            this.cmdCheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCheckAll.Location = new System.Drawing.Point(3, 4);
+            resources.ApplyResources(this.cmdCheckAll, "cmdCheckAll");
             this.cmdCheckAll.Name = "cmdCheckAll";
-            this.cmdCheckAll.Size = new System.Drawing.Size(279, 23);
-            this.cmdCheckAll.TabIndex = 0;
-            this.cmdCheckAll.Text = "Check All";
             this.cmdCheckAll.UseVisualStyleBackColor = true;
             this.cmdCheckAll.Click += new System.EventHandler(this.cmdCheckAll_Click);
             // 
             // txtPrefix
             // 
-            this.txtPrefix.Location = new System.Drawing.Point(67, 19);
+            resources.ApplyResources(this.txtPrefix, "txtPrefix");
             this.txtPrefix.Name = "txtPrefix";
-            this.txtPrefix.Size = new System.Drawing.Size(165, 20);
-            this.txtPrefix.TabIndex = 1;
             // 
             // lblPrefix
             // 
-            this.lblPrefix.AutoSize = true;
-            this.lblPrefix.Location = new System.Drawing.Point(25, 22);
+            resources.ApplyResources(this.lblPrefix, "lblPrefix");
             this.lblPrefix.Name = "lblPrefix";
-            this.lblPrefix.Size = new System.Drawing.Size(36, 13);
-            this.lblPrefix.TabIndex = 0;
-            this.lblPrefix.Text = "Prefix:";
             // 
             // tblVrFlags
             // 
-            this.tblVrFlags.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tblVrFlags.ColumnCount = 3;
-            this.tblVrFlags.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tblVrFlags.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.tblVrFlags.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            resources.ApplyResources(this.tblVrFlags, "tblVrFlags");
             this.tblVrFlags.Controls.Add(this.grpFullAudio, 2, 0);
             this.tblVrFlags.Controls.Add(this.grpInterface, 0, 0);
             this.tblVrFlags.Controls.Add(this.grpSubtitles, 1, 0);
-            this.tblVrFlags.Location = new System.Drawing.Point(6, 94);
             this.tblVrFlags.Name = "tblVrFlags";
-            this.tblVrFlags.RowCount = 1;
-            this.tblVrFlags.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblVrFlags.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tblVrFlags.Size = new System.Drawing.Size(564, 330);
-            this.tblVrFlags.TabIndex = 8;
             // 
             // grpFullAudio
             // 
             this.grpFullAudio.Controls.Add(this.lstFullAudio);
-            this.grpFullAudio.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpFullAudio.Location = new System.Drawing.Point(378, 3);
+            resources.ApplyResources(this.grpFullAudio, "grpFullAudio");
             this.grpFullAudio.Name = "grpFullAudio";
-            this.grpFullAudio.Size = new System.Drawing.Size(183, 324);
-            this.grpFullAudio.TabIndex = 12;
             this.grpFullAudio.TabStop = false;
-            this.grpFullAudio.Text = "Full Audio";
             // 
             // lstFullAudio
             // 
             this.lstFullAudio.CheckBoxes = true;
-            this.lstFullAudio.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstFullAudio.Location = new System.Drawing.Point(3, 16);
+            resources.ApplyResources(this.lstFullAudio, "lstFullAudio");
+            this.lstFullAudio.HideSelection = false;
             this.lstFullAudio.Name = "lstFullAudio";
-            this.lstFullAudio.Size = new System.Drawing.Size(177, 305);
-            this.lstFullAudio.TabIndex = 7;
             this.lstFullAudio.UseCompatibleStateImageBehavior = false;
             this.lstFullAudio.View = System.Windows.Forms.View.List;
             // 
             // grpInterface
             // 
             this.grpInterface.Controls.Add(this.lstInterface);
-            this.grpInterface.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpInterface.Location = new System.Drawing.Point(3, 3);
+            resources.ApplyResources(this.grpInterface, "grpInterface");
             this.grpInterface.Name = "grpInterface";
-            this.grpInterface.Size = new System.Drawing.Size(181, 324);
-            this.grpInterface.TabIndex = 10;
             this.grpInterface.TabStop = false;
-            this.grpInterface.Text = "Interface";
             // 
             // lstInterface
             // 
             this.lstInterface.CheckBoxes = true;
-            this.lstInterface.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstInterface.Location = new System.Drawing.Point(3, 16);
+            resources.ApplyResources(this.lstInterface, "lstInterface");
+            this.lstInterface.HideSelection = false;
             this.lstInterface.Name = "lstInterface";
-            this.lstInterface.Size = new System.Drawing.Size(175, 305);
-            this.lstInterface.TabIndex = 4;
             this.lstInterface.UseCompatibleStateImageBehavior = false;
             this.lstInterface.View = System.Windows.Forms.View.List;
             // 
             // grpSubtitles
             // 
             this.grpSubtitles.Controls.Add(this.lstSubtitles);
-            this.grpSubtitles.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpSubtitles.Location = new System.Drawing.Point(190, 3);
+            resources.ApplyResources(this.grpSubtitles, "grpSubtitles");
             this.grpSubtitles.Name = "grpSubtitles";
-            this.grpSubtitles.Size = new System.Drawing.Size(182, 324);
-            this.grpSubtitles.TabIndex = 11;
             this.grpSubtitles.TabStop = false;
-            this.grpSubtitles.Text = "Subtitles";
             // 
             // lstSubtitles
             // 
             this.lstSubtitles.CheckBoxes = true;
-            this.lstSubtitles.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstSubtitles.Location = new System.Drawing.Point(3, 16);
+            resources.ApplyResources(this.lstSubtitles, "lstSubtitles");
+            this.lstSubtitles.HideSelection = false;
             this.lstSubtitles.Name = "lstSubtitles";
-            this.lstSubtitles.Size = new System.Drawing.Size(176, 305);
-            this.lstSubtitles.TabIndex = 6;
             this.lstSubtitles.UseCompatibleStateImageBehavior = false;
             this.lstSubtitles.View = System.Windows.Forms.View.List;
             // 
-            // chkTypeFallback
-            // 
-            this.chkTypeFallback.AutoSize = true;
-            this.chkTypeFallback.Location = new System.Drawing.Point(28, 68);
-            this.chkTypeFallback.Name = "chkTypeFallback";
-            this.chkTypeFallback.Size = new System.Drawing.Size(356, 17);
-            this.chkTypeFallback.TabIndex = 11;
-            this.chkTypeFallback.Text = "If a game doesn\'t support Subtitles/Full Audio at all, use Interface data";
-            this.chkTypeFallback.UseVisualStyleBackColor = true;
-            // 
             // AutoCatConfigPanel_Language
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.grpMain);
             this.Name = "AutoCatConfigPanel_Language";
-            this.Size = new System.Drawing.Size(576, 460);
             this.grpMain.ResumeLayout(false);
             this.grpMain.PerformLayout();
             this.tblButtons.ResumeLayout(false);

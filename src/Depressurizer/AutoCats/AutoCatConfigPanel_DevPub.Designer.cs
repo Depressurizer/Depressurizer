@@ -25,14 +25,12 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AutoCatConfigPanel_DevPub));
             this.grpMain = new System.Windows.Forms.GroupBox();
             this.splitMainBottom = new System.Windows.Forms.SplitContainer();
             this.groupDevelopers = new System.Windows.Forms.GroupBox();
             this.splitDevTop = new System.Windows.Forms.SplitContainer();
             this.clbDevelopersSelected = new System.Windows.Forms.CheckedListBox();
-            this.tableLayoutPanelDevTop = new System.Windows.Forms.TableLayoutPanel();
-            this.btnDevSelected = new System.Windows.Forms.Button();
-            this.chkAllDevelopers = new System.Windows.Forms.CheckBox();
             this.lstDevelopers = new System.Windows.Forms.ListView();
             this.columnDeveloper = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnDevCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -42,6 +40,9 @@
             this.namedescendingDev = new System.Windows.Forms.ToolStripMenuItem();
             this.countascendingDev = new System.Windows.Forms.ToolStripMenuItem();
             this.countdescendingDev = new System.Windows.Forms.ToolStripMenuItem();
+            this.tableLayoutPanelDevTop = new System.Windows.Forms.TableLayoutPanel();
+            this.btnDevSelected = new System.Windows.Forms.Button();
+            this.chkAllDevelopers = new System.Windows.Forms.CheckBox();
             this.tblIgnore = new System.Windows.Forms.TableLayoutPanel();
             this.btnDevUncheckAll = new System.Windows.Forms.Button();
             this.btnDevCheckAll = new System.Windows.Forms.Button();
@@ -84,8 +85,8 @@
             this.splitDevTop.Panel1.SuspendLayout();
             this.splitDevTop.Panel2.SuspendLayout();
             this.splitDevTop.SuspendLayout();
-            this.tableLayoutPanelDevTop.SuspendLayout();
             this.contextDev.SuspendLayout();
+            this.tableLayoutPanelDevTop.SuspendLayout();
             this.tblIgnore.SuspendLayout();
             this.groupPublishers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitPubTop)).BeginInit();
@@ -103,18 +104,13 @@
             // 
             this.grpMain.Controls.Add(this.splitMainBottom);
             this.grpMain.Controls.Add(this.panelTop);
-            this.grpMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpMain.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.grpMain, "grpMain");
             this.grpMain.Name = "grpMain";
-            this.grpMain.Size = new System.Drawing.Size(610, 406);
-            this.grpMain.TabIndex = 0;
             this.grpMain.TabStop = false;
-            this.grpMain.Text = "Edit DevPub AutoCat";
             // 
             // splitMainBottom
             // 
-            this.splitMainBottom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitMainBottom.Location = new System.Drawing.Point(3, 72);
+            resources.ApplyResources(this.splitMainBottom, "splitMainBottom");
             this.splitMainBottom.Name = "splitMainBottom";
             // 
             // splitMainBottom.Panel1
@@ -124,26 +120,18 @@
             // splitMainBottom.Panel2
             // 
             this.splitMainBottom.Panel2.Controls.Add(this.groupPublishers);
-            this.splitMainBottom.Size = new System.Drawing.Size(604, 331);
-            this.splitMainBottom.SplitterDistance = 297;
-            this.splitMainBottom.TabIndex = 0;
             // 
             // groupDevelopers
             // 
             this.groupDevelopers.Controls.Add(this.splitDevTop);
             this.groupDevelopers.Controls.Add(this.tblIgnore);
-            this.groupDevelopers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupDevelopers.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.groupDevelopers, "groupDevelopers");
             this.groupDevelopers.Name = "groupDevelopers";
-            this.groupDevelopers.Size = new System.Drawing.Size(297, 331);
-            this.groupDevelopers.TabIndex = 14;
             this.groupDevelopers.TabStop = false;
-            this.groupDevelopers.Text = "Developers (right-click to Sort)";
             // 
             // splitDevTop
             // 
-            this.splitDevTop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitDevTop.Location = new System.Drawing.Point(3, 16);
+            resources.ApplyResources(this.splitDevTop, "splitDevTop");
             this.splitDevTop.Name = "splitDevTop";
             // 
             // splitDevTop.Panel1
@@ -155,58 +143,14 @@
             // 
             this.splitDevTop.Panel2.Controls.Add(this.lstDevelopers);
             this.splitDevTop.Panel2.Controls.Add(this.tableLayoutPanelDevTop);
-            this.splitDevTop.Size = new System.Drawing.Size(291, 282);
-            this.splitDevTop.SplitterDistance = 95;
-            this.splitDevTop.TabIndex = 0;
             // 
             // clbDevelopersSelected
             // 
-            this.clbDevelopersSelected.Dock = System.Windows.Forms.DockStyle.Fill;
+            resources.ApplyResources(this.clbDevelopersSelected, "clbDevelopersSelected");
             this.clbDevelopersSelected.FormattingEnabled = true;
-            this.clbDevelopersSelected.Location = new System.Drawing.Point(0, 0);
             this.clbDevelopersSelected.MultiColumn = true;
             this.clbDevelopersSelected.Name = "clbDevelopersSelected";
-            this.clbDevelopersSelected.Size = new System.Drawing.Size(95, 100);
-            this.clbDevelopersSelected.TabIndex = 13;
             this.clbDevelopersSelected.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbDevelopersSelected_ItemCheck);
-            // 
-            // tableLayoutPanelDevTop
-            // 
-            this.tableLayoutPanelDevTop.AutoSize = true;
-            this.tableLayoutPanelDevTop.ColumnCount = 2;
-            this.tableLayoutPanelDevTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanelDevTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelDevTop.Controls.Add(this.btnDevSelected, 0, 0);
-            this.tableLayoutPanelDevTop.Controls.Add(this.chkAllDevelopers, 1, 0);
-            this.tableLayoutPanelDevTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanelDevTop.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanelDevTop.Name = "tableLayoutPanelDevTop";
-            this.tableLayoutPanelDevTop.RowCount = 1;
-            this.tableLayoutPanelDevTop.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelDevTop.Size = new System.Drawing.Size(291, 29);
-            this.tableLayoutPanelDevTop.TabIndex = 7;
-            // 
-            // btnDevSelected
-            // 
-            this.btnDevSelected.Location = new System.Drawing.Point(3, 3);
-            this.btnDevSelected.Name = "btnDevSelected";
-            this.btnDevSelected.Size = new System.Drawing.Size(23, 23);
-            this.btnDevSelected.TabIndex = 6;
-            this.btnDevSelected.Text = ">";
-            this.btnDevSelected.UseVisualStyleBackColor = true;
-            this.btnDevSelected.Click += new System.EventHandler(this.btnDevSelected_Click);
-            // 
-            // chkAllDevelopers
-            // 
-            this.chkAllDevelopers.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.chkAllDevelopers.AutoSize = true;
-            this.chkAllDevelopers.Location = new System.Drawing.Point(194, 6);
-            this.chkAllDevelopers.Name = "chkAllDevelopers";
-            this.chkAllDevelopers.Size = new System.Drawing.Size(94, 17);
-            this.chkAllDevelopers.TabIndex = 5;
-            this.chkAllDevelopers.Text = "All Developers";
-            this.chkAllDevelopers.UseVisualStyleBackColor = true;
-            this.chkAllDevelopers.CheckedChanged += new System.EventHandler(this.chkAllDevelopers_CheckedChanged);
             // 
             // lstDevelopers
             // 
@@ -215,19 +159,17 @@
             this.columnDeveloper,
             this.columnDevCount});
             this.lstDevelopers.ContextMenuStrip = this.contextDev;
-            this.lstDevelopers.Dock = System.Windows.Forms.DockStyle.Fill;
+            resources.ApplyResources(this.lstDevelopers, "lstDevelopers");
             this.lstDevelopers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lstDevelopers.Location = new System.Drawing.Point(0, 29);
+            this.lstDevelopers.HideSelection = false;
             this.lstDevelopers.Name = "lstDevelopers";
-            this.lstDevelopers.Size = new System.Drawing.Size(291, 253);
-            this.lstDevelopers.TabIndex = 10;
             this.lstDevelopers.UseCompatibleStateImageBehavior = false;
             this.lstDevelopers.View = System.Windows.Forms.View.List;
             this.lstDevelopers.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lstDevelopers_ItemChecked);
             // 
             // columnDeveloper
             // 
-            this.columnDeveloper.Width = -1;
+            resources.ApplyResources(this.columnDeveloper, "columnDeveloper");
             // 
             // contextDev
             // 
@@ -235,7 +177,7 @@
             this.sortToolStripMenuItem});
             this.contextDev.Name = "contextCat";
             this.contextDev.ShowImageMargin = false;
-            this.contextDev.Size = new System.Drawing.Size(71, 26);
+            resources.ApplyResources(this.contextDev, "contextDev");
             // 
             // sortToolStripMenuItem
             // 
@@ -245,73 +187,71 @@
             this.countascendingDev,
             this.countdescendingDev});
             this.sortToolStripMenuItem.Name = "sortToolStripMenuItem";
-            this.sortToolStripMenuItem.Size = new System.Drawing.Size(70, 22);
-            this.sortToolStripMenuItem.Text = "Sort";
+            resources.ApplyResources(this.sortToolStripMenuItem, "sortToolStripMenuItem");
             // 
             // nameascendingDev
             // 
             this.nameascendingDev.Name = "nameascendingDev";
-            this.nameascendingDev.Size = new System.Drawing.Size(179, 22);
-            this.nameascendingDev.Text = "Name (ascending)";
+            resources.ApplyResources(this.nameascendingDev, "nameascendingDev");
             this.nameascendingDev.Click += new System.EventHandler(this.nameascendingDev_Click);
             // 
             // namedescendingDev
             // 
             this.namedescendingDev.Name = "namedescendingDev";
-            this.namedescendingDev.Size = new System.Drawing.Size(179, 22);
-            this.namedescendingDev.Text = "Name (descending)";
+            resources.ApplyResources(this.namedescendingDev, "namedescendingDev");
             this.namedescendingDev.Click += new System.EventHandler(this.namedescendingDev_Click);
             // 
             // countascendingDev
             // 
             this.countascendingDev.Name = "countascendingDev";
-            this.countascendingDev.Size = new System.Drawing.Size(179, 22);
-            this.countascendingDev.Text = "Count (ascending)";
+            resources.ApplyResources(this.countascendingDev, "countascendingDev");
             this.countascendingDev.Click += new System.EventHandler(this.countascendingDev_Click);
             // 
             // countdescendingDev
             // 
             this.countdescendingDev.Name = "countdescendingDev";
-            this.countdescendingDev.Size = new System.Drawing.Size(179, 22);
-            this.countdescendingDev.Text = "Count (descending)";
+            resources.ApplyResources(this.countdescendingDev, "countdescendingDev");
             this.countdescendingDev.Click += new System.EventHandler(this.countdescendingDev_Click);
+            // 
+            // tableLayoutPanelDevTop
+            // 
+            resources.ApplyResources(this.tableLayoutPanelDevTop, "tableLayoutPanelDevTop");
+            this.tableLayoutPanelDevTop.Controls.Add(this.btnDevSelected, 0, 0);
+            this.tableLayoutPanelDevTop.Controls.Add(this.chkAllDevelopers, 1, 0);
+            this.tableLayoutPanelDevTop.Name = "tableLayoutPanelDevTop";
+            // 
+            // btnDevSelected
+            // 
+            resources.ApplyResources(this.btnDevSelected, "btnDevSelected");
+            this.btnDevSelected.Name = "btnDevSelected";
+            this.btnDevSelected.UseVisualStyleBackColor = true;
+            this.btnDevSelected.Click += new System.EventHandler(this.btnDevSelected_Click);
+            // 
+            // chkAllDevelopers
+            // 
+            resources.ApplyResources(this.chkAllDevelopers, "chkAllDevelopers");
+            this.chkAllDevelopers.Name = "chkAllDevelopers";
+            this.chkAllDevelopers.UseVisualStyleBackColor = true;
+            this.chkAllDevelopers.CheckedChanged += new System.EventHandler(this.chkAllDevelopers_CheckedChanged);
             // 
             // tblIgnore
             // 
-            this.tblIgnore.ColumnCount = 2;
-            this.tblIgnore.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblIgnore.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            resources.ApplyResources(this.tblIgnore, "tblIgnore");
             this.tblIgnore.Controls.Add(this.btnDevUncheckAll, 1, 0);
             this.tblIgnore.Controls.Add(this.btnDevCheckAll, 0, 0);
-            this.tblIgnore.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tblIgnore.Location = new System.Drawing.Point(3, 298);
             this.tblIgnore.Name = "tblIgnore";
-            this.tblIgnore.RowCount = 1;
-            this.tblIgnore.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblIgnore.Size = new System.Drawing.Size(291, 30);
-            this.tblIgnore.TabIndex = 11;
             // 
             // btnDevUncheckAll
             // 
-            this.btnDevUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDevUncheckAll.Location = new System.Drawing.Point(148, 3);
+            resources.ApplyResources(this.btnDevUncheckAll, "btnDevUncheckAll");
             this.btnDevUncheckAll.Name = "btnDevUncheckAll";
-            this.btnDevUncheckAll.Size = new System.Drawing.Size(140, 23);
-            this.btnDevUncheckAll.TabIndex = 1;
-            this.btnDevUncheckAll.Text = "Uncheck All";
             this.btnDevUncheckAll.UseVisualStyleBackColor = true;
             this.btnDevUncheckAll.Click += new System.EventHandler(this.btnDevUncheckAll_Click);
             // 
             // btnDevCheckAll
             // 
-            this.btnDevCheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDevCheckAll.Location = new System.Drawing.Point(3, 3);
+            resources.ApplyResources(this.btnDevCheckAll, "btnDevCheckAll");
             this.btnDevCheckAll.Name = "btnDevCheckAll";
-            this.btnDevCheckAll.Size = new System.Drawing.Size(139, 23);
-            this.btnDevCheckAll.TabIndex = 0;
-            this.btnDevCheckAll.Text = "Check All";
             this.btnDevCheckAll.UseVisualStyleBackColor = true;
             this.btnDevCheckAll.Click += new System.EventHandler(this.btnDevCheckAll_Click);
             // 
@@ -319,18 +259,13 @@
             // 
             this.groupPublishers.Controls.Add(this.splitPubTop);
             this.groupPublishers.Controls.Add(this.tableLayoutPanel1);
-            this.groupPublishers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupPublishers.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.groupPublishers, "groupPublishers");
             this.groupPublishers.Name = "groupPublishers";
-            this.groupPublishers.Size = new System.Drawing.Size(303, 331);
-            this.groupPublishers.TabIndex = 16;
             this.groupPublishers.TabStop = false;
-            this.groupPublishers.Text = "Publishers (right-click to Sort)";
             // 
             // splitPubTop
             // 
-            this.splitPubTop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitPubTop.Location = new System.Drawing.Point(3, 16);
+            resources.ApplyResources(this.splitPubTop, "splitPubTop");
             this.splitPubTop.Name = "splitPubTop";
             // 
             // splitPubTop.Panel1
@@ -342,19 +277,13 @@
             // 
             this.splitPubTop.Panel2.Controls.Add(this.lstPublishers);
             this.splitPubTop.Panel2.Controls.Add(this.tableLayoutPanelPublisherTop);
-            this.splitPubTop.Size = new System.Drawing.Size(297, 282);
-            this.splitPubTop.SplitterDistance = 101;
-            this.splitPubTop.TabIndex = 0;
             // 
             // clbPublishersSelected
             // 
-            this.clbPublishersSelected.Dock = System.Windows.Forms.DockStyle.Fill;
+            resources.ApplyResources(this.clbPublishersSelected, "clbPublishersSelected");
             this.clbPublishersSelected.FormattingEnabled = true;
-            this.clbPublishersSelected.Location = new System.Drawing.Point(0, 0);
             this.clbPublishersSelected.MultiColumn = true;
             this.clbPublishersSelected.Name = "clbPublishersSelected";
-            this.clbPublishersSelected.Size = new System.Drawing.Size(101, 100);
-            this.clbPublishersSelected.TabIndex = 15;
             this.clbPublishersSelected.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbPublishersSelected_ItemCheck);
             // 
             // lstPublishers
@@ -364,18 +293,16 @@
             this.columnPublisher,
             this.columnPubCount});
             this.lstPublishers.ContextMenuStrip = this.contextPub;
-            this.lstPublishers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstPublishers.Location = new System.Drawing.Point(0, 29);
+            resources.ApplyResources(this.lstPublishers, "lstPublishers");
+            this.lstPublishers.HideSelection = false;
             this.lstPublishers.Name = "lstPublishers";
-            this.lstPublishers.Size = new System.Drawing.Size(297, 253);
-            this.lstPublishers.TabIndex = 10;
             this.lstPublishers.UseCompatibleStateImageBehavior = false;
             this.lstPublishers.View = System.Windows.Forms.View.List;
             this.lstPublishers.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lstPublishers_ItemChecked);
             // 
             // columnPublisher
             // 
-            this.columnPublisher.Width = -1;
+            resources.ApplyResources(this.columnPublisher, "columnPublisher");
             // 
             // contextPub
             // 
@@ -383,7 +310,7 @@
             this.toolStripMenuItem1});
             this.contextPub.Name = "contextCat";
             this.contextPub.ShowImageMargin = false;
-            this.contextPub.Size = new System.Drawing.Size(71, 26);
+            resources.ApplyResources(this.contextPub, "contextPub");
             // 
             // toolStripMenuItem1
             // 
@@ -393,117 +320,77 @@
             this.countascendingPub,
             this.countdescendingPub});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(70, 22);
-            this.toolStripMenuItem1.Text = "Sort";
+            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
             // 
             // nameascendingPub
             // 
             this.nameascendingPub.Name = "nameascendingPub";
-            this.nameascendingPub.Size = new System.Drawing.Size(179, 22);
-            this.nameascendingPub.Text = "Name (ascending)";
+            resources.ApplyResources(this.nameascendingPub, "nameascendingPub");
             this.nameascendingPub.Click += new System.EventHandler(this.nameascendingPub_Click);
             // 
             // namedescendingPub
             // 
             this.namedescendingPub.Name = "namedescendingPub";
-            this.namedescendingPub.Size = new System.Drawing.Size(179, 22);
-            this.namedescendingPub.Text = "Name (descending)";
+            resources.ApplyResources(this.namedescendingPub, "namedescendingPub");
             this.namedescendingPub.Click += new System.EventHandler(this.namedescendingPub_Click);
             // 
             // countascendingPub
             // 
             this.countascendingPub.Name = "countascendingPub";
-            this.countascendingPub.Size = new System.Drawing.Size(179, 22);
-            this.countascendingPub.Text = "Count (ascending)";
+            resources.ApplyResources(this.countascendingPub, "countascendingPub");
             this.countascendingPub.Click += new System.EventHandler(this.countascendingPub_Click);
             // 
             // countdescendingPub
             // 
             this.countdescendingPub.Name = "countdescendingPub";
-            this.countdescendingPub.Size = new System.Drawing.Size(179, 22);
-            this.countdescendingPub.Text = "Count (descending)";
+            resources.ApplyResources(this.countdescendingPub, "countdescendingPub");
             this.countdescendingPub.Click += new System.EventHandler(this.countdescendingPub_Click);
             // 
             // tableLayoutPanelPublisherTop
             // 
-            this.tableLayoutPanelPublisherTop.AutoSize = true;
-            this.tableLayoutPanelPublisherTop.ColumnCount = 2;
-            this.tableLayoutPanelPublisherTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanelPublisherTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            resources.ApplyResources(this.tableLayoutPanelPublisherTop, "tableLayoutPanelPublisherTop");
             this.tableLayoutPanelPublisherTop.Controls.Add(this.btnPubSelected, 0, 0);
             this.tableLayoutPanelPublisherTop.Controls.Add(this.chkAllPublishers, 1, 0);
-            this.tableLayoutPanelPublisherTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanelPublisherTop.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelPublisherTop.Name = "tableLayoutPanelPublisherTop";
-            this.tableLayoutPanelPublisherTop.RowCount = 1;
-            this.tableLayoutPanelPublisherTop.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelPublisherTop.Size = new System.Drawing.Size(297, 29);
-            this.tableLayoutPanelPublisherTop.TabIndex = 8;
             // 
             // btnPubSelected
             // 
-            this.btnPubSelected.Location = new System.Drawing.Point(3, 3);
+            resources.ApplyResources(this.btnPubSelected, "btnPubSelected");
             this.btnPubSelected.Name = "btnPubSelected";
-            this.btnPubSelected.Size = new System.Drawing.Size(23, 23);
-            this.btnPubSelected.TabIndex = 7;
-            this.btnPubSelected.Text = ">";
             this.btnPubSelected.UseVisualStyleBackColor = true;
             this.btnPubSelected.Click += new System.EventHandler(this.btnPubSelected_Click);
             // 
             // chkAllPublishers
             // 
-            this.chkAllPublishers.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.chkAllPublishers.AutoSize = true;
-            this.chkAllPublishers.Location = new System.Drawing.Point(206, 6);
+            resources.ApplyResources(this.chkAllPublishers, "chkAllPublishers");
             this.chkAllPublishers.Name = "chkAllPublishers";
-            this.chkAllPublishers.Size = new System.Drawing.Size(88, 17);
-            this.chkAllPublishers.TabIndex = 5;
-            this.chkAllPublishers.Text = "All Publishers";
             this.chkAllPublishers.UseVisualStyleBackColor = true;
             this.chkAllPublishers.CheckedChanged += new System.EventHandler(this.chkAllPublishers_CheckedChanged);
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
             this.tableLayoutPanel1.Controls.Add(this.btnPubCheckAll, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnPubUncheckAll, 1, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 298);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(297, 30);
-            this.tableLayoutPanel1.TabIndex = 14;
             // 
             // btnPubCheckAll
             // 
-            this.btnPubCheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPubCheckAll.Location = new System.Drawing.Point(3, 3);
+            resources.ApplyResources(this.btnPubCheckAll, "btnPubCheckAll");
             this.btnPubCheckAll.Name = "btnPubCheckAll";
-            this.btnPubCheckAll.Size = new System.Drawing.Size(142, 23);
-            this.btnPubCheckAll.TabIndex = 0;
-            this.btnPubCheckAll.Text = "Check All";
             this.btnPubCheckAll.UseVisualStyleBackColor = true;
             this.btnPubCheckAll.Click += new System.EventHandler(this.btnPubCheckAll_Click);
             // 
             // btnPubUncheckAll
             // 
-            this.btnPubUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPubUncheckAll.Location = new System.Drawing.Point(151, 3);
+            resources.ApplyResources(this.btnPubUncheckAll, "btnPubUncheckAll");
             this.btnPubUncheckAll.Name = "btnPubUncheckAll";
-            this.btnPubUncheckAll.Size = new System.Drawing.Size(143, 23);
-            this.btnPubUncheckAll.TabIndex = 1;
-            this.btnPubUncheckAll.Text = "Uncheck All";
             this.btnPubUncheckAll.UseVisualStyleBackColor = true;
             this.btnPubUncheckAll.Click += new System.EventHandler(this.btnPubUncheckAll_Click);
             // 
             // panelTop
             // 
-            this.panelTop.AutoSize = true;
+            resources.ApplyResources(this.panelTop, "panelTop");
             this.panelTop.Controls.Add(this.cmdListRebuild);
             this.panelTop.Controls.Add(this.list_helpOwnedOnly);
             this.panelTop.Controls.Add(this.chkOwnedOnly);
@@ -513,106 +400,70 @@
             this.panelTop.Controls.Add(this.lblPrefix);
             this.panelTop.Controls.Add(this.txtPrefix);
             this.panelTop.Controls.Add(this.helpPrefix);
-            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTop.Location = new System.Drawing.Point(3, 16);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(604, 56);
-            this.panelTop.TabIndex = 19;
             // 
             // cmdListRebuild
             // 
-            this.cmdListRebuild.Location = new System.Drawing.Point(262, 7);
+            resources.ApplyResources(this.cmdListRebuild, "cmdListRebuild");
             this.cmdListRebuild.Name = "cmdListRebuild";
-            this.cmdListRebuild.Size = new System.Drawing.Size(75, 42);
-            this.cmdListRebuild.TabIndex = 18;
-            this.cmdListRebuild.Text = "Rebuild List";
             this.cmdListRebuild.UseVisualStyleBackColor = true;
             this.cmdListRebuild.Click += new System.EventHandler(this.cmdListRebuild_Click);
             // 
             // list_helpOwnedOnly
             // 
-            this.list_helpOwnedOnly.AutoSize = true;
+            resources.ApplyResources(this.list_helpOwnedOnly, "list_helpOwnedOnly");
             this.list_helpOwnedOnly.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.list_helpOwnedOnly.Location = new System.Drawing.Point(241, 34);
             this.list_helpOwnedOnly.Name = "list_helpOwnedOnly";
-            this.list_helpOwnedOnly.Size = new System.Drawing.Size(15, 15);
-            this.list_helpOwnedOnly.TabIndex = 17;
-            this.list_helpOwnedOnly.Text = "?";
             // 
             // chkOwnedOnly
             // 
-            this.chkOwnedOnly.AutoSize = true;
-            this.chkOwnedOnly.Location = new System.Drawing.Point(162, 33);
+            resources.ApplyResources(this.chkOwnedOnly, "chkOwnedOnly");
             this.chkOwnedOnly.Name = "chkOwnedOnly";
-            this.chkOwnedOnly.Size = new System.Drawing.Size(82, 17);
-            this.chkOwnedOnly.TabIndex = 16;
-            this.chkOwnedOnly.Text = "Owned only";
             this.chkOwnedOnly.UseVisualStyleBackColor = true;
             // 
             // list_helpScore
             // 
-            this.list_helpScore.AutoSize = true;
+            resources.ApplyResources(this.list_helpScore, "list_helpScore");
             this.list_helpScore.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.list_helpScore.Location = new System.Drawing.Point(129, 34);
             this.list_helpScore.Name = "list_helpScore";
-            this.list_helpScore.Size = new System.Drawing.Size(15, 15);
-            this.list_helpScore.TabIndex = 6;
-            this.list_helpScore.Text = "?";
             // 
             // list_numScore
             // 
-            this.list_numScore.Location = new System.Drawing.Point(8, 33);
+            resources.ApplyResources(this.list_numScore, "list_numScore");
             this.list_numScore.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
             this.list_numScore.Name = "list_numScore";
-            this.list_numScore.Size = new System.Drawing.Size(38, 20);
-            this.list_numScore.TabIndex = 4;
             // 
             // lblMinScore
             // 
-            this.lblMinScore.AutoSize = true;
-            this.lblMinScore.Location = new System.Drawing.Point(52, 35);
+            resources.ApplyResources(this.lblMinScore, "lblMinScore");
             this.lblMinScore.Name = "lblMinScore";
-            this.lblMinScore.Size = new System.Drawing.Size(71, 13);
-            this.lblMinScore.TabIndex = 5;
-            this.lblMinScore.Text = "Game count?";
             // 
             // lblPrefix
             // 
-            this.lblPrefix.AutoSize = true;
-            this.lblPrefix.Location = new System.Drawing.Point(6, 8);
+            resources.ApplyResources(this.lblPrefix, "lblPrefix");
             this.lblPrefix.Name = "lblPrefix";
-            this.lblPrefix.Size = new System.Drawing.Size(36, 13);
-            this.lblPrefix.TabIndex = 0;
-            this.lblPrefix.Text = "Prefix:";
             // 
             // txtPrefix
             // 
-            this.txtPrefix.Location = new System.Drawing.Point(42, 5);
+            resources.ApplyResources(this.txtPrefix, "txtPrefix");
             this.txtPrefix.Name = "txtPrefix";
-            this.txtPrefix.Size = new System.Drawing.Size(193, 20);
-            this.txtPrefix.TabIndex = 1;
             // 
             // helpPrefix
             // 
-            this.helpPrefix.AutoSize = true;
+            resources.ApplyResources(this.helpPrefix, "helpPrefix");
             this.helpPrefix.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.helpPrefix.Location = new System.Drawing.Point(241, 8);
             this.helpPrefix.Name = "helpPrefix";
-            this.helpPrefix.Size = new System.Drawing.Size(15, 15);
-            this.helpPrefix.TabIndex = 2;
-            this.helpPrefix.Text = "?";
             // 
             // AutoCatConfigPanel_DevPub
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.grpMain);
             this.Name = "AutoCatConfigPanel_DevPub";
-            this.Size = new System.Drawing.Size(610, 406);
             this.grpMain.ResumeLayout(false);
             this.grpMain.PerformLayout();
             this.splitMainBottom.Panel1.ResumeLayout(false);
@@ -625,9 +476,9 @@
             this.splitDevTop.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitDevTop)).EndInit();
             this.splitDevTop.ResumeLayout(false);
+            this.contextDev.ResumeLayout(false);
             this.tableLayoutPanelDevTop.ResumeLayout(false);
             this.tableLayoutPanelDevTop.PerformLayout();
-            this.contextDev.ResumeLayout(false);
             this.tblIgnore.ResumeLayout(false);
             this.groupPublishers.ResumeLayout(false);
             this.splitPubTop.Panel1.ResumeLayout(false);

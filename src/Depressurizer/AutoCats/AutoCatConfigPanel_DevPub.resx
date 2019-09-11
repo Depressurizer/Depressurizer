@@ -117,13 +117,1144 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="splitMainBottom.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="splitMainBottom.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 71</value>
+  </data>
+  <data name="splitDevTop.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="splitDevTop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 17</value>
+  </data>
+  <data name="clbDevelopersSelected.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="clbDevelopersSelected.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="clbDevelopersSelected.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 92</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="clbDevelopersSelected.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;clbDevelopersSelected.Name" xml:space="preserve">
+    <value>clbDevelopersSelected</value>
+  </data>
+  <data name="&gt;&gt;clbDevelopersSelected.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckedListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clbDevelopersSelected.Parent" xml:space="preserve">
+    <value>splitDevTop.Panel1</value>
+  </data>
+  <data name="&gt;&gt;clbDevelopersSelected.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;splitDevTop.Panel1.Name" xml:space="preserve">
+    <value>splitDevTop.Panel1</value>
+  </data>
+  <data name="&gt;&gt;splitDevTop.Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitDevTop.Panel1.Parent" xml:space="preserve">
+    <value>splitDevTop</value>
+  </data>
+  <data name="&gt;&gt;splitDevTop.Panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="columnDeveloper.Width" type="System.Int32, mscorlib">
+    <value>-1</value>
+  </data>
   <metadata name="contextDev.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>98, 14</value>
   </metadata>
+  <data name="nameascendingDev.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 22</value>
+  </data>
+  <data name="nameascendingDev.Text" xml:space="preserve">
+    <value>Name (ascending)</value>
+  </data>
+  <data name="namedescendingDev.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 22</value>
+  </data>
+  <data name="namedescendingDev.Text" xml:space="preserve">
+    <value>Name (descending)</value>
+  </data>
+  <data name="countascendingDev.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 22</value>
+  </data>
+  <data name="countascendingDev.Text" xml:space="preserve">
+    <value>Count (ascending)</value>
+  </data>
+  <data name="countdescendingDev.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 22</value>
+  </data>
+  <data name="countdescendingDev.Text" xml:space="preserve">
+    <value>Count (descending)</value>
+  </data>
+  <data name="sortToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 22</value>
+  </data>
+  <data name="sortToolStripMenuItem.Text" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="contextDev.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 26</value>
+  </data>
+  <data name="&gt;&gt;contextDev.Name" xml:space="preserve">
+    <value>contextDev</value>
+  </data>
+  <data name="&gt;&gt;contextDev.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lstDevelopers.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="lstDevelopers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 27</value>
+  </data>
+  <data name="lstDevelopers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>291, 226</value>
+  </data>
+  <data name="lstDevelopers.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;lstDevelopers.Name" xml:space="preserve">
+    <value>lstDevelopers</value>
+  </data>
+  <data name="&gt;&gt;lstDevelopers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lstDevelopers.Parent" xml:space="preserve">
+    <value>splitDevTop.Panel2</value>
+  </data>
+  <data name="&gt;&gt;lstDevelopers.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanelDevTop.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tableLayoutPanelDevTop.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="btnDevSelected.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="btnDevSelected.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 21</value>
+  </data>
+  <data name="btnDevSelected.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="btnDevSelected.Text" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="&gt;&gt;btnDevSelected.Name" xml:space="preserve">
+    <value>btnDevSelected</value>
+  </data>
+  <data name="&gt;&gt;btnDevSelected.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnDevSelected.Parent" xml:space="preserve">
+    <value>tableLayoutPanelDevTop</value>
+  </data>
+  <data name="&gt;&gt;btnDevSelected.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="chkAllDevelopers.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="chkAllDevelopers.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkAllDevelopers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>180, 5</value>
+  </data>
+  <data name="chkAllDevelopers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 16</value>
+  </data>
+  <data name="chkAllDevelopers.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="chkAllDevelopers.Text" xml:space="preserve">
+    <value>All Developers</value>
+  </data>
+  <data name="&gt;&gt;chkAllDevelopers.Name" xml:space="preserve">
+    <value>chkAllDevelopers</value>
+  </data>
+  <data name="&gt;&gt;chkAllDevelopers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkAllDevelopers.Parent" xml:space="preserve">
+    <value>tableLayoutPanelDevTop</value>
+  </data>
+  <data name="&gt;&gt;chkAllDevelopers.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanelDevTop.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="tableLayoutPanelDevTop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="tableLayoutPanelDevTop.RowCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanelDevTop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>291, 27</value>
+  </data>
+  <data name="tableLayoutPanelDevTop.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelDevTop.Name" xml:space="preserve">
+    <value>tableLayoutPanelDevTop</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelDevTop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelDevTop.Parent" xml:space="preserve">
+    <value>splitDevTop.Panel2</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelDevTop.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanelDevTop.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="btnDevSelected" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="chkAllDevelopers" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,Percent,100" /&gt;&lt;Rows Styles="AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="&gt;&gt;splitDevTop.Panel2.Name" xml:space="preserve">
+    <value>splitDevTop.Panel2</value>
+  </data>
+  <data name="&gt;&gt;splitDevTop.Panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitDevTop.Panel2.Parent" xml:space="preserve">
+    <value>splitDevTop</value>
+  </data>
+  <data name="&gt;&gt;splitDevTop.Panel2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="splitDevTop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>291, 253</value>
+  </data>
+  <data name="splitDevTop.SplitterDistance" type="System.Int32, mscorlib">
+    <value>95</value>
+  </data>
+  <data name="splitDevTop.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;splitDevTop.Name" xml:space="preserve">
+    <value>splitDevTop</value>
+  </data>
+  <data name="&gt;&gt;splitDevTop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitDevTop.Parent" xml:space="preserve">
+    <value>groupDevelopers</value>
+  </data>
+  <data name="&gt;&gt;splitDevTop.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tblIgnore.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="btnDevUncheckAll.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="btnDevUncheckAll.Location" type="System.Drawing.Point, System.Drawing">
+    <value>148, 3</value>
+  </data>
+  <data name="btnDevUncheckAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 21</value>
+  </data>
+  <data name="btnDevUncheckAll.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="btnDevUncheckAll.Text" xml:space="preserve">
+    <value>Uncheck All</value>
+  </data>
+  <data name="&gt;&gt;btnDevUncheckAll.Name" xml:space="preserve">
+    <value>btnDevUncheckAll</value>
+  </data>
+  <data name="&gt;&gt;btnDevUncheckAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnDevUncheckAll.Parent" xml:space="preserve">
+    <value>tblIgnore</value>
+  </data>
+  <data name="&gt;&gt;btnDevUncheckAll.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="btnDevCheckAll.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="btnDevCheckAll.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="btnDevCheckAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>139, 21</value>
+  </data>
+  <data name="btnDevCheckAll.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="btnDevCheckAll.Text" xml:space="preserve">
+    <value>Check All</value>
+  </data>
+  <data name="&gt;&gt;btnDevCheckAll.Name" xml:space="preserve">
+    <value>btnDevCheckAll</value>
+  </data>
+  <data name="&gt;&gt;btnDevCheckAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnDevCheckAll.Parent" xml:space="preserve">
+    <value>tblIgnore</value>
+  </data>
+  <data name="&gt;&gt;btnDevCheckAll.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tblIgnore.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="tblIgnore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 270</value>
+  </data>
+  <data name="tblIgnore.RowCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tblIgnore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>291, 28</value>
+  </data>
+  <data name="tblIgnore.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;tblIgnore.Name" xml:space="preserve">
+    <value>tblIgnore</value>
+  </data>
+  <data name="&gt;&gt;tblIgnore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tblIgnore.Parent" xml:space="preserve">
+    <value>groupDevelopers</value>
+  </data>
+  <data name="&gt;&gt;tblIgnore.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tblIgnore.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="btnDevUncheckAll" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="btnDevCheckAll" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="groupDevelopers.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="groupDevelopers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="groupDevelopers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>297, 301</value>
+  </data>
+  <data name="groupDevelopers.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="groupDevelopers.Text" xml:space="preserve">
+    <value>Developers (right-click to Sort)</value>
+  </data>
+  <data name="&gt;&gt;groupDevelopers.Name" xml:space="preserve">
+    <value>groupDevelopers</value>
+  </data>
+  <data name="&gt;&gt;groupDevelopers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupDevelopers.Parent" xml:space="preserve">
+    <value>splitMainBottom.Panel1</value>
+  </data>
+  <data name="&gt;&gt;groupDevelopers.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;splitMainBottom.Panel1.Name" xml:space="preserve">
+    <value>splitMainBottom.Panel1</value>
+  </data>
+  <data name="&gt;&gt;splitMainBottom.Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitMainBottom.Panel1.Parent" xml:space="preserve">
+    <value>splitMainBottom</value>
+  </data>
+  <data name="&gt;&gt;splitMainBottom.Panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="splitPubTop.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="splitPubTop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 17</value>
+  </data>
+  <data name="clbPublishersSelected.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="clbPublishersSelected.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="clbPublishersSelected.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 92</value>
+  </data>
+  <data name="clbPublishersSelected.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;clbPublishersSelected.Name" xml:space="preserve">
+    <value>clbPublishersSelected</value>
+  </data>
+  <data name="&gt;&gt;clbPublishersSelected.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckedListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clbPublishersSelected.Parent" xml:space="preserve">
+    <value>splitPubTop.Panel1</value>
+  </data>
+  <data name="&gt;&gt;clbPublishersSelected.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;splitPubTop.Panel1.Name" xml:space="preserve">
+    <value>splitPubTop.Panel1</value>
+  </data>
+  <data name="&gt;&gt;splitPubTop.Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitPubTop.Panel1.Parent" xml:space="preserve">
+    <value>splitPubTop</value>
+  </data>
+  <data name="&gt;&gt;splitPubTop.Panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="columnPublisher.Width" type="System.Int32, mscorlib">
+    <value>-1</value>
+  </data>
   <metadata name="contextPub.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>253, 14</value>
   </metadata>
+  <data name="nameascendingPub.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 22</value>
+  </data>
+  <data name="nameascendingPub.Text" xml:space="preserve">
+    <value>Name (ascending)</value>
+  </data>
+  <data name="namedescendingPub.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 22</value>
+  </data>
+  <data name="namedescendingPub.Text" xml:space="preserve">
+    <value>Name (descending)</value>
+  </data>
+  <data name="countascendingPub.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 22</value>
+  </data>
+  <data name="countascendingPub.Text" xml:space="preserve">
+    <value>Count (ascending)</value>
+  </data>
+  <data name="countdescendingPub.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 22</value>
+  </data>
+  <data name="countdescendingPub.Text" xml:space="preserve">
+    <value>Count (descending)</value>
+  </data>
+  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 22</value>
+  </data>
+  <data name="toolStripMenuItem1.Text" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="contextPub.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 26</value>
+  </data>
+  <data name="&gt;&gt;contextPub.Name" xml:space="preserve">
+    <value>contextPub</value>
+  </data>
+  <data name="&gt;&gt;contextPub.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lstPublishers.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="lstPublishers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 27</value>
+  </data>
+  <data name="lstPublishers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>297, 226</value>
+  </data>
+  <data name="lstPublishers.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;lstPublishers.Name" xml:space="preserve">
+    <value>lstPublishers</value>
+  </data>
+  <data name="&gt;&gt;lstPublishers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lstPublishers.Parent" xml:space="preserve">
+    <value>splitPubTop.Panel2</value>
+  </data>
+  <data name="&gt;&gt;lstPublishers.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanelPublisherTop.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tableLayoutPanelPublisherTop.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="btnPubSelected.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="btnPubSelected.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 21</value>
+  </data>
+  <data name="btnPubSelected.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="btnPubSelected.Text" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="&gt;&gt;btnPubSelected.Name" xml:space="preserve">
+    <value>btnPubSelected</value>
+  </data>
+  <data name="&gt;&gt;btnPubSelected.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnPubSelected.Parent" xml:space="preserve">
+    <value>tableLayoutPanelPublisherTop</value>
+  </data>
+  <data name="&gt;&gt;btnPubSelected.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="chkAllPublishers.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="chkAllPublishers.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkAllPublishers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>186, 5</value>
+  </data>
+  <data name="chkAllPublishers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 16</value>
+  </data>
+  <data name="chkAllPublishers.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="chkAllPublishers.Text" xml:space="preserve">
+    <value>All Publishers</value>
+  </data>
+  <data name="&gt;&gt;chkAllPublishers.Name" xml:space="preserve">
+    <value>chkAllPublishers</value>
+  </data>
+  <data name="&gt;&gt;chkAllPublishers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkAllPublishers.Parent" xml:space="preserve">
+    <value>tableLayoutPanelPublisherTop</value>
+  </data>
+  <data name="&gt;&gt;chkAllPublishers.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanelPublisherTop.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="tableLayoutPanelPublisherTop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="tableLayoutPanelPublisherTop.RowCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanelPublisherTop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>297, 27</value>
+  </data>
+  <data name="tableLayoutPanelPublisherTop.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelPublisherTop.Name" xml:space="preserve">
+    <value>tableLayoutPanelPublisherTop</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelPublisherTop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelPublisherTop.Parent" xml:space="preserve">
+    <value>splitPubTop.Panel2</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanelPublisherTop.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanelPublisherTop.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="btnPubSelected" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="chkAllPublishers" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,Percent,100" /&gt;&lt;Rows Styles="AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="&gt;&gt;splitPubTop.Panel2.Name" xml:space="preserve">
+    <value>splitPubTop.Panel2</value>
+  </data>
+  <data name="&gt;&gt;splitPubTop.Panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitPubTop.Panel2.Parent" xml:space="preserve">
+    <value>splitPubTop</value>
+  </data>
+  <data name="&gt;&gt;splitPubTop.Panel2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="splitPubTop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>297, 253</value>
+  </data>
+  <data name="splitPubTop.SplitterDistance" type="System.Int32, mscorlib">
+    <value>101</value>
+  </data>
+  <data name="splitPubTop.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;splitPubTop.Name" xml:space="preserve">
+    <value>splitPubTop</value>
+  </data>
+  <data name="&gt;&gt;splitPubTop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitPubTop.Parent" xml:space="preserve">
+    <value>groupPublishers</value>
+  </data>
+  <data name="&gt;&gt;splitPubTop.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="btnPubCheckAll.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="btnPubCheckAll.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="btnPubCheckAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>142, 21</value>
+  </data>
+  <data name="btnPubCheckAll.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="btnPubCheckAll.Text" xml:space="preserve">
+    <value>Check All</value>
+  </data>
+  <data name="&gt;&gt;btnPubCheckAll.Name" xml:space="preserve">
+    <value>btnPubCheckAll</value>
+  </data>
+  <data name="&gt;&gt;btnPubCheckAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnPubCheckAll.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;btnPubCheckAll.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="btnPubUncheckAll.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="btnPubUncheckAll.Location" type="System.Drawing.Point, System.Drawing">
+    <value>151, 3</value>
+  </data>
+  <data name="btnPubUncheckAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 21</value>
+  </data>
+  <data name="btnPubUncheckAll.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="btnPubUncheckAll.Text" xml:space="preserve">
+    <value>Uncheck All</value>
+  </data>
+  <data name="&gt;&gt;btnPubUncheckAll.Name" xml:space="preserve">
+    <value>btnPubUncheckAll</value>
+  </data>
+  <data name="&gt;&gt;btnPubUncheckAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnPubUncheckAll.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;btnPubUncheckAll.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 270</value>
+  </data>
+  <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>297, 28</value>
+  </data>
+  <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Name" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Parent" xml:space="preserve">
+    <value>groupPublishers</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="btnPubCheckAll" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="btnPubUncheckAll" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="groupPublishers.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="groupPublishers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="groupPublishers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>303, 301</value>
+  </data>
+  <data name="groupPublishers.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="groupPublishers.Text" xml:space="preserve">
+    <value>Publishers (right-click to Sort)</value>
+  </data>
+  <data name="&gt;&gt;groupPublishers.Name" xml:space="preserve">
+    <value>groupPublishers</value>
+  </data>
+  <data name="&gt;&gt;groupPublishers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupPublishers.Parent" xml:space="preserve">
+    <value>splitMainBottom.Panel2</value>
+  </data>
+  <data name="&gt;&gt;groupPublishers.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;splitMainBottom.Panel2.Name" xml:space="preserve">
+    <value>splitMainBottom.Panel2</value>
+  </data>
+  <data name="&gt;&gt;splitMainBottom.Panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitMainBottom.Panel2.Parent" xml:space="preserve">
+    <value>splitMainBottom</value>
+  </data>
+  <data name="&gt;&gt;splitMainBottom.Panel2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="splitMainBottom.Size" type="System.Drawing.Size, System.Drawing">
+    <value>604, 301</value>
+  </data>
+  <data name="splitMainBottom.SplitterDistance" type="System.Int32, mscorlib">
+    <value>297</value>
+  </data>
+  <data name="splitMainBottom.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;splitMainBottom.Name" xml:space="preserve">
+    <value>splitMainBottom</value>
+  </data>
+  <data name="&gt;&gt;splitMainBottom.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitMainBottom.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;splitMainBottom.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="panelTop.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cmdListRebuild.Location" type="System.Drawing.Point, System.Drawing">
+    <value>262, 6</value>
+  </data>
+  <data name="cmdListRebuild.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 39</value>
+  </data>
+  <data name="cmdListRebuild.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="cmdListRebuild.Text" xml:space="preserve">
+    <value>Rebuild List</value>
+  </data>
+  <data name="&gt;&gt;cmdListRebuild.Name" xml:space="preserve">
+    <value>cmdListRebuild</value>
+  </data>
+  <data name="&gt;&gt;cmdListRebuild.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdListRebuild.Parent" xml:space="preserve">
+    <value>panelTop</value>
+  </data>
+  <data name="&gt;&gt;cmdListRebuild.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="list_helpOwnedOnly.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="list_helpOwnedOnly.Location" type="System.Drawing.Point, System.Drawing">
+    <value>241, 31</value>
+  </data>
+  <data name="list_helpOwnedOnly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="list_helpOwnedOnly.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="list_helpOwnedOnly.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;list_helpOwnedOnly.Name" xml:space="preserve">
+    <value>list_helpOwnedOnly</value>
+  </data>
+  <data name="&gt;&gt;list_helpOwnedOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;list_helpOwnedOnly.Parent" xml:space="preserve">
+    <value>panelTop</value>
+  </data>
+  <data name="&gt;&gt;list_helpOwnedOnly.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="chkOwnedOnly.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkOwnedOnly.Location" type="System.Drawing.Point, System.Drawing">
+    <value>162, 30</value>
+  </data>
+  <data name="chkOwnedOnly.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 16</value>
+  </data>
+  <data name="chkOwnedOnly.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="chkOwnedOnly.Text" xml:space="preserve">
+    <value>Owned only</value>
+  </data>
+  <data name="&gt;&gt;chkOwnedOnly.Name" xml:space="preserve">
+    <value>chkOwnedOnly</value>
+  </data>
+  <data name="&gt;&gt;chkOwnedOnly.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkOwnedOnly.Parent" xml:space="preserve">
+    <value>panelTop</value>
+  </data>
+  <data name="&gt;&gt;chkOwnedOnly.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="list_helpScore.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="list_helpScore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>129, 31</value>
+  </data>
+  <data name="list_helpScore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="list_helpScore.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="list_helpScore.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;list_helpScore.Name" xml:space="preserve">
+    <value>list_helpScore</value>
+  </data>
+  <data name="&gt;&gt;list_helpScore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;list_helpScore.Parent" xml:space="preserve">
+    <value>panelTop</value>
+  </data>
+  <data name="&gt;&gt;list_helpScore.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="list_numScore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 30</value>
+  </data>
+  <data name="list_numScore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>38, 21</value>
+  </data>
+  <data name="list_numScore.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;list_numScore.Name" xml:space="preserve">
+    <value>list_numScore</value>
+  </data>
+  <data name="&gt;&gt;list_numScore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;list_numScore.Parent" xml:space="preserve">
+    <value>panelTop</value>
+  </data>
+  <data name="&gt;&gt;list_numScore.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="lblMinScore.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblMinScore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>52, 32</value>
+  </data>
+  <data name="lblMinScore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 12</value>
+  </data>
+  <data name="lblMinScore.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="lblMinScore.Text" xml:space="preserve">
+    <value>Game count?</value>
+  </data>
+  <data name="&gt;&gt;lblMinScore.Name" xml:space="preserve">
+    <value>lblMinScore</value>
+  </data>
+  <data name="&gt;&gt;lblMinScore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblMinScore.Parent" xml:space="preserve">
+    <value>panelTop</value>
+  </data>
+  <data name="&gt;&gt;lblMinScore.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="lblPrefix.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblPrefix.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 7</value>
+  </data>
+  <data name="lblPrefix.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 12</value>
+  </data>
+  <data name="lblPrefix.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lblPrefix.Text" xml:space="preserve">
+    <value>Prefix:</value>
+  </data>
+  <data name="&gt;&gt;lblPrefix.Name" xml:space="preserve">
+    <value>lblPrefix</value>
+  </data>
+  <data name="&gt;&gt;lblPrefix.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblPrefix.Parent" xml:space="preserve">
+    <value>panelTop</value>
+  </data>
+  <data name="&gt;&gt;lblPrefix.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="txtPrefix.Location" type="System.Drawing.Point, System.Drawing">
+    <value>42, 5</value>
+  </data>
+  <data name="txtPrefix.Size" type="System.Drawing.Size, System.Drawing">
+    <value>193, 21</value>
+  </data>
+  <data name="txtPrefix.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;txtPrefix.Name" xml:space="preserve">
+    <value>txtPrefix</value>
+  </data>
+  <data name="&gt;&gt;txtPrefix.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtPrefix.Parent" xml:space="preserve">
+    <value>panelTop</value>
+  </data>
+  <data name="&gt;&gt;txtPrefix.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="helpPrefix.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="helpPrefix.Location" type="System.Drawing.Point, System.Drawing">
+    <value>241, 7</value>
+  </data>
+  <data name="helpPrefix.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="helpPrefix.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="helpPrefix.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;helpPrefix.Name" xml:space="preserve">
+    <value>helpPrefix</value>
+  </data>
+  <data name="&gt;&gt;helpPrefix.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;helpPrefix.Parent" xml:space="preserve">
+    <value>panelTop</value>
+  </data>
+  <data name="&gt;&gt;helpPrefix.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="panelTop.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="panelTop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 17</value>
+  </data>
+  <data name="panelTop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>604, 54</value>
+  </data>
+  <data name="panelTop.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;panelTop.Name" xml:space="preserve">
+    <value>panelTop</value>
+  </data>
+  <data name="&gt;&gt;panelTop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelTop.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;panelTop.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="grpMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="grpMain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="grpMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>610, 375</value>
+  </data>
+  <data name="grpMain.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="grpMain.Text" xml:space="preserve">
+    <value>Edit DevPub AutoCat</value>
+  </data>
+  <data name="&gt;&gt;grpMain.Name" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;grpMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpMain.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;grpMain.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <metadata name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>610, 375</value>
+  </data>
+  <data name="&gt;&gt;columnDeveloper.Name" xml:space="preserve">
+    <value>columnDeveloper</value>
+  </data>
+  <data name="&gt;&gt;columnDeveloper.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnDevCount.Name" xml:space="preserve">
+    <value>columnDevCount</value>
+  </data>
+  <data name="&gt;&gt;columnDevCount.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sortToolStripMenuItem.Name" xml:space="preserve">
+    <value>sortToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;sortToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;nameascendingDev.Name" xml:space="preserve">
+    <value>nameascendingDev</value>
+  </data>
+  <data name="&gt;&gt;nameascendingDev.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;namedescendingDev.Name" xml:space="preserve">
+    <value>namedescendingDev</value>
+  </data>
+  <data name="&gt;&gt;namedescendingDev.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;countascendingDev.Name" xml:space="preserve">
+    <value>countascendingDev</value>
+  </data>
+  <data name="&gt;&gt;countascendingDev.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;countdescendingDev.Name" xml:space="preserve">
+    <value>countdescendingDev</value>
+  </data>
+  <data name="&gt;&gt;countdescendingDev.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnPublisher.Name" xml:space="preserve">
+    <value>columnPublisher</value>
+  </data>
+  <data name="&gt;&gt;columnPublisher.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnPubCount.Name" xml:space="preserve">
+    <value>columnPubCount</value>
+  </data>
+  <data name="&gt;&gt;columnPubCount.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
+    <value>toolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;nameascendingPub.Name" xml:space="preserve">
+    <value>nameascendingPub</value>
+  </data>
+  <data name="&gt;&gt;nameascendingPub.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;namedescendingPub.Name" xml:space="preserve">
+    <value>namedescendingPub</value>
+  </data>
+  <data name="&gt;&gt;namedescendingPub.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;countascendingPub.Name" xml:space="preserve">
+    <value>countascendingPub</value>
+  </data>
+  <data name="&gt;&gt;countascendingPub.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;countdescendingPub.Name" xml:space="preserve">
+    <value>countdescendingPub</value>
+  </data>
+  <data name="&gt;&gt;countdescendingPub.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ttHelp.Name" xml:space="preserve">
+    <value>ttHelp</value>
+  </data>
+  <data name="&gt;&gt;ttHelp.Type" xml:space="preserve">
+    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=4.12.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>AutoCatConfigPanel_DevPub</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>Depressurizer.AutoCats.AutoCatConfigPanel, Depressurizer, Version=4.12.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
 </root>
