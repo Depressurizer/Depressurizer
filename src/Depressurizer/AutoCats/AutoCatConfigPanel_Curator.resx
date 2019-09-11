@@ -137,6 +137,7 @@
   </data>
   <data name="helpCuratorUrl.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;helpCuratorUrl.Name" xml:space="preserve">
     <value>helpCuratorUrl</value>
@@ -164,6 +165,7 @@
   </data>
   <data name="helpCategoryName.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;helpCategoryName.Name" xml:space="preserve">
     <value>helpCategoryName</value>

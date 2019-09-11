@@ -254,6 +254,7 @@
   </data>
   <data name="btnDevSelected.Text" xml:space="preserve">
     <value>&gt;</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;btnDevSelected.Name" xml:space="preserve">
     <value>btnDevSelected</value>

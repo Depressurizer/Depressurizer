@@ -85,7 +85,7 @@ namespace Depressurizer.AutoCats
             SortTags(1, SortOrder.Descending);
             lstIncluded.EndUpdate();
 
-            cmdListRebuild.Text = "Rebuild List (" + lstIncluded.Items.Count + ")";
+            cmdListRebuild.Text = "Rebuild List (" + lstIncluded.Items.Count + ")"; // TODO: I18n
             loaded = true;
         }
 

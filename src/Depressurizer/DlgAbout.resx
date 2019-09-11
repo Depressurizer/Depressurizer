@@ -170,6 +170,7 @@
   </data>
   <data name="lblName.Text" xml:space="preserve">
     <value>Depressurizer</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;lblName.Name" xml:space="preserve">
     <value>lblName</value>
@@ -200,6 +201,7 @@
   </data>
   <data name="lblVersion.Text" xml:space="preserve">
     <value>v</value>
+    
   </data>
   <data name="&gt;&gt;lblVersion.Name" xml:space="preserve">
     <value>lblVersion</value>

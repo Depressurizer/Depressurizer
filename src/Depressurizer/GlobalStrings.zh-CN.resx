@@ -708,7 +708,7 @@
     <value>未能移除游戏: {0} - {1}。</value>
   </data>
   <data name="GameData_ErrorRemovingSteamGame" xml:space="preserve">
-    <value>Only external games with negative identifier can be removed: {0}</value>
+    <value>仅限移除负数标识符的外部游戏: {0}</value>
   </data>
   <data name="GameData_RemovedGameFromGameList" xml:space="preserve">
     <value>已从游戏名单中移除游戏: {0} - {1}。</value>
@@ -856,28 +856,28 @@
     <value>数据库已保存。</value>
   </data>
   <data name="MainForm_Log_ExceptionExport" xml:space="preserve">
-    <value>Exception encountered while exporting Steam config.</value>
+    <value>导出 Steam 配置发生异常。</value>
   </data>
   <data name="MainForm_Log_ExceptionImport" xml:space="preserve">
-    <value>Exception encountered while importing the Steam config.</value>
+    <value>导入 Steam 配置发生异常。</value>
   </data>
   <data name="MainForm_Log_ExceptionLoadingProfile" xml:space="preserve">
-    <value>Exception when loading profile.</value>
+    <value>加载配置文件发生异常。</value>
   </data>
   <data name="MainForm_Log_ExceptionLocalUpdate" xml:space="preserve">
-    <value>Exception when performing local update.</value>
+    <value>执行本地更新发生异常。</value>
   </data>
   <data name="MainForm_Log_ExceptionOnDBLoad" xml:space="preserve">
-    <value>Exception during initial DB load.</value>
+    <value>初始数据库加载发生异常。</value>
   </data>
   <data name="MainForm_Log_ExceptionSavingProfile" xml:space="preserve">
-    <value>Exception when saving profile.</value>
+    <value>保存配置文件发生异常。</value>
   </data>
   <data name="MainForm_Log_ExceptionWebUpdate" xml:space="preserve">
-    <value>Exception encountered during game list web update.</value>
+    <value>游戏名单网上更新发生异常。</value>
   </data>
   <data name="MainForm_Log_ExceptionWebUpdateDialog" xml:space="preserve">
-    <value>Exception encountered by game list web update dialog.</value>
+    <value>游戏名单网上更新对话框发生异常。</value>
   </data>
   <data name="MainForm_Msg_ErrorManualExport" xml:space="preserve">
     <value>导出到文件出错。
@@ -899,9 +899,9 @@
 设为 0 将处理每个游戏的所有标签。</value>
   </data>
   <data name="DlgAutoCat_Help_ListWeightFactor" xml:space="preserve">
-    <value>With this set to 1, each tag's score is simply the number of games that it appears on.
-With this higher than one, tags earlier in games' tag lists receive a higher score.
-The higher the number, the more weight is placed on tag position.</value>
+    <value>当此项设置为 1，每个标签的得分简单的只是它出现的游戏数量。
+如果大于 1，则游戏标签列表中较早的标签将获得较高的分数。
+数字越大，标签位置的权重越高。</value>
   </data>
   <data name="MainForm_DeleteCategoryMulti" xml:space="preserve">
     <value>删除 {0} 个类别？</value>
@@ -1005,7 +1005,7 @@ The higher the number, the more weight is placed on tag position.</value>
   <data name="AutoMode_Help_Tolerant" xml:space="preserve">
     <value>如果禁用，将在任何错误后终止。
 如果启用，遇到非致命性错误后仍将继续。
-Recommended: Enabled</value>
+推荐：启用</value>
   </data>
   <data name="AutoMode_Help_UpdateAppInfo" xml:space="preserve">
     <value>运行自动归类操作前，用本地数据库的信息更新数据库。

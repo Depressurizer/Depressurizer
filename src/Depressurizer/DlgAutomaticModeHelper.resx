@@ -284,6 +284,7 @@
   </data>
   <data name="hlpImportCats.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;lblOutputMode.ZOrder" xml:space="preserve">
     <value>30</value>
@@ -341,6 +342,7 @@
   </data>
   <data name="hlpSaveDB.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="lblLaunch.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
@@ -386,6 +388,7 @@
   </data>
   <data name="hlpOutput.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;cmbOutputMode.Parent" xml:space="preserve">
     <value>$this</value>
@@ -650,6 +653,7 @@
   </data>
   <data name="hlpLaunch.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="lblSteamCheck.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -674,6 +678,7 @@
   </data>
   <data name="hlpUpdateHltb.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;hlpImportCats.ZOrder" xml:space="preserve">
     <value>8</value>
@@ -686,6 +691,7 @@
   </data>
   <data name="hlpSaveProfile.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;lstAutocats.Parent" xml:space="preserve">
     <value>$this</value>
@@ -758,6 +764,7 @@
   </data>
   <data name="hlpTolerant.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="lblExplain.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -980,6 +987,7 @@
   </data>
   <data name="hlpUpdateLib.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;lstAutocats.Type" xml:space="preserve">
     <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1001,6 +1009,7 @@
   </data>
   <data name="hlpSteamCheck.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="chkSaveDB.Text" xml:space="preserve">
     <value>Save DB</value>
@@ -1076,6 +1085,7 @@
   </data>
   <data name="hlpUpdateAppInfo.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="hlpUpdateHltb.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1187,6 +1197,7 @@
   </data>
   <data name="hlpUpdateWeb.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="lstAutocats.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1196,6 +1207,7 @@
   </data>
   <data name="hlpExport.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="lblOutputMode.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>

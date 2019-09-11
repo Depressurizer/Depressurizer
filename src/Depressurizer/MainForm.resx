@@ -1985,6 +1985,7 @@
   </data>
   <data name="mlblStatusSelection.Text" xml:space="preserve">
     <value>mlblStatusSelection</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;mlblStatusSelection.Name" xml:space="preserve">
     <value>mlblStatusSelection</value>
@@ -2021,6 +2022,7 @@
   </data>
   <data name="mlblStatusMsg.Text" xml:space="preserve">
     <value>mlblStatusMsg</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;mlblStatusMsg.Name" xml:space="preserve">
     <value>mlblStatusMsg</value>
