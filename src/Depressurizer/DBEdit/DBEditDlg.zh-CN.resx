@@ -133,13 +133,13 @@
     <value>清除(&amp;C)</value>
   </data>
   <data name="menu_File_Exit.Text" xml:space="preserve">
-    <value>关闭(&amp;e)</value>
+    <value>关闭(&amp;E)</value>
   </data>
   <data name="cmdFetch.Text" xml:space="preserve">
     <value>获取列表(&amp;F)</value>
   </data>
   <data name="cmdUpdateNew.Text" xml:space="preserve">
-    <value>尚未抓取</value>
+    <value>抓取未抓</value>
   </data>
   <data name="cmdUpdateSelected.Text" xml:space="preserve">
     <value>抓取选中(&amp;S)</value>
@@ -175,7 +175,7 @@
     <value>查看商店(&amp;S)</value>
   </data>
   <data name="cmdUpdateAppInfo.Text" xml:space="preserve">
-    <value>更新应用信息</value>
+    <value>更新 App Info</value>
   </data>
   <data name="grpWebUpdate.Text" xml:space="preserve">
     <value>网络抓取状态</value>
@@ -241,7 +241,7 @@
     <value>父级</value>
   </data>
   <data name="cmdUpdateHltb.Text" xml:space="preserve">
-    <value>从 HLTB 更新</value>
+    <value>更新 HLTB 信息</value>
   </data>
   <data name="CheckShowIgnored.Text" xml:space="preserve">
     <value>显示已忽略</value>
