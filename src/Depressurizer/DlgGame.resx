@@ -119,10 +119,10 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="txtId.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 6</value>
+    <value>95, 5</value>
   </data>
   <data name="txtId.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 20</value>
+    <value>87, 21</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="txtId.TabIndex" type="System.Int32, mscorlib">
@@ -144,16 +144,19 @@
     <value>True</value>
   </data>
   <data name="lblId.Location" type="System.Drawing.Point, System.Drawing">
-    <value>56, 9</value>
+    <value>66, 8</value>
   </data>
   <data name="lblId.Size" type="System.Drawing.Size, System.Drawing">
-    <value>21, 13</value>
+    <value>23, 12</value>
   </data>
   <data name="lblId.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="lblId.Text" xml:space="preserve">
     <value>ID:</value>
+  </data>
+  <data name="lblId.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
   </data>
   <data name="&gt;&gt;lblId.Name" xml:space="preserve">
     <value>lblId</value>
@@ -171,16 +174,19 @@
     <value>True</value>
   </data>
   <data name="lblName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>39, 38</value>
+    <value>52, 35</value>
   </data>
   <data name="lblName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>38, 13</value>
+    <value>35, 12</value>
   </data>
   <data name="lblName.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="lblName.Text" xml:space="preserve">
     <value>Name:</value>
+  </data>
+  <data name="lblName.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
   </data>
   <data name="&gt;&gt;lblName.Name" xml:space="preserve">
     <value>lblName</value>
@@ -199,10 +205,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="txtName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 35</value>
+    <value>95, 35</value>
   </data>
   <data name="txtName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>390, 20</value>
+    <value>395, 21</value>
   </data>
   <data name="txtName.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -223,16 +229,19 @@
     <value>True</value>
   </data>
   <data name="lblCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 68</value>
+    <value>18, 63</value>
   </data>
   <data name="lblCategory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 13</value>
+    <value>71, 12</value>
   </data>
   <data name="lblCategory.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="lblCategory.Text" xml:space="preserve">
     <value>Categories:</value>
+  </data>
+  <data name="lblCategory.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
   </data>
   <data name="&gt;&gt;lblCategory.Name" xml:space="preserve">
     <value>lblCategory</value>
@@ -253,10 +262,10 @@
     <value>True</value>
   </data>
   <data name="chkFavorite.Location" type="System.Drawing.Point, System.Drawing">
-    <value>343, 8</value>
+    <value>352, 7</value>
   </data>
   <data name="chkFavorite.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 17</value>
+    <value>72, 16</value>
   </data>
   <data name="chkFavorite.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -280,10 +289,10 @@
     <value>Bottom, Right</value>
   </data>
   <data name="cmdOk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>285, 146</value>
+    <value>302, 135</value>
   </data>
   <data name="cmdOk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>75, 21</value>
   </data>
   <data name="cmdOk.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -307,10 +316,10 @@
     <value>Bottom, Right</value>
   </data>
   <data name="cmdCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>148, 146</value>
+    <value>165, 135</value>
   </data>
   <data name="cmdCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>75, 21</value>
   </data>
   <data name="cmdCancel.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -331,10 +340,10 @@
     <value>7</value>
   </data>
   <data name="txtCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 65</value>
+    <value>95, 60</value>
   </data>
   <data name="txtCategory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>390, 20</value>
+    <value>395, 21</value>
   </data>
   <data name="txtCategory.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -355,10 +364,10 @@
     <value>True</value>
   </data>
   <data name="chkHidden.Location" type="System.Drawing.Point, System.Drawing">
-    <value>413, 8</value>
+    <value>413, 7</value>
   </data>
   <data name="chkHidden.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 17</value>
+    <value>60, 16</value>
   </data>
   <data name="chkHidden.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -382,10 +391,10 @@
     <value>Bottom, Left</value>
   </data>
   <data name="txtExecutable.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 117</value>
+    <value>95, 108</value>
   </data>
   <data name="txtExecutable.Size" type="System.Drawing.Size, System.Drawing">
-    <value>308, 20</value>
+    <value>314, 21</value>
   </data>
   <data name="txtExecutable.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -412,16 +421,19 @@
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 120</value>
+    <value>18, 111</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 13</value>
+    <value>71, 12</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Executable:</value>
+  </data>
+  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -442,10 +454,10 @@
     <value>NoControl</value>
   </data>
   <data name="btnBrowse.Location" type="System.Drawing.Point, System.Drawing">
-    <value>398, 116</value>
+    <value>415, 107</value>
   </data>
   <data name="btnBrowse.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>75, 21</value>
   </data>
   <data name="btnBrowse.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -466,10 +478,10 @@
     <value>2</value>
   </data>
   <data name="txtHoursPlayed.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 91</value>
+    <value>95, 84</value>
   </data>
   <data name="txtHoursPlayed.Size" type="System.Drawing.Size, System.Drawing">
-    <value>390, 20</value>
+    <value>395, 21</value>
   </data>
   <data name="txtHoursPlayed.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -493,16 +505,19 @@
     <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 94</value>
+    <value>6, 87</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 13</value>
+    <value>83, 12</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>Hours Played:</value>
+  </data>
+  <data name="label2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
   </data>
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>
@@ -520,10 +535,10 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
+    <value>6, 12</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>485, 177</value>
+    <value>502, 163</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>

@@ -64,427 +64,296 @@
             // 
             // chkTolerant
             // 
-            this.chkTolerant.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkTolerant.AutoSize = true;
-            this.chkTolerant.Location = new System.Drawing.Point(197, 214);
+            resources.ApplyResources(this.chkTolerant, "chkTolerant");
             this.chkTolerant.Name = "chkTolerant";
-            this.chkTolerant.Size = new System.Drawing.Size(122, 17);
-            this.chkTolerant.TabIndex = 23;
-            this.chkTolerant.Text = "Tolerate minor errors";
+            this.ttHelp.SetToolTip(this.chkTolerant, resources.GetString("chkTolerant.ToolTip"));
             this.chkTolerant.UseVisualStyleBackColor = true;
             this.chkTolerant.CheckedChanged += new System.EventHandler(this.ItemChanged);
             // 
             // chkUpdateLib
             // 
-            this.chkUpdateLib.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkUpdateLib.AutoSize = true;
+            resources.ApplyResources(this.chkUpdateLib, "chkUpdateLib");
             this.chkUpdateLib.Checked = true;
             this.chkUpdateLib.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUpdateLib.Location = new System.Drawing.Point(197, 89);
             this.chkUpdateLib.Name = "chkUpdateLib";
-            this.chkUpdateLib.Size = new System.Drawing.Size(91, 17);
-            this.chkUpdateLib.TabIndex = 6;
-            this.chkUpdateLib.Text = "Update library";
+            this.ttHelp.SetToolTip(this.chkUpdateLib, resources.GetString("chkUpdateLib.ToolTip"));
             this.chkUpdateLib.UseVisualStyleBackColor = true;
             this.chkUpdateLib.CheckedChanged += new System.EventHandler(this.ItemChanged);
             // 
             // chkImportCats
             // 
-            this.chkImportCats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkImportCats.AutoSize = true;
-            this.chkImportCats.Location = new System.Drawing.Point(381, 89);
+            resources.ApplyResources(this.chkImportCats, "chkImportCats");
             this.chkImportCats.Name = "chkImportCats";
-            this.chkImportCats.Size = new System.Drawing.Size(140, 17);
-            this.chkImportCats.TabIndex = 8;
-            this.chkImportCats.Text = "Import Steam categories";
+            this.ttHelp.SetToolTip(this.chkImportCats, resources.GetString("chkImportCats.ToolTip"));
             this.chkImportCats.UseVisualStyleBackColor = true;
             this.chkImportCats.CheckedChanged += new System.EventHandler(this.ItemChanged);
             // 
             // lblLaunch
             // 
-            this.lblLaunch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblLaunch.AutoSize = true;
-            this.lblLaunch.Location = new System.Drawing.Point(194, 184);
+            resources.ApplyResources(this.lblLaunch, "lblLaunch");
             this.lblLaunch.Name = "lblLaunch";
-            this.lblLaunch.Size = new System.Drawing.Size(79, 13);
-            this.lblLaunch.TabIndex = 20;
-            this.lblLaunch.Text = "Launch Steam:";
+            this.ttHelp.SetToolTip(this.lblLaunch, resources.GetString("lblLaunch.ToolTip"));
             // 
             // lblOutputMode
             // 
-            this.lblOutputMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblOutputMode.AutoSize = true;
-            this.lblOutputMode.Location = new System.Drawing.Point(194, 240);
+            resources.ApplyResources(this.lblOutputMode, "lblOutputMode");
             this.lblOutputMode.Name = "lblOutputMode";
-            this.lblOutputMode.Size = new System.Drawing.Size(71, 13);
-            this.lblOutputMode.TabIndex = 25;
-            this.lblOutputMode.Text = "Output mode:";
+            this.ttHelp.SetToolTip(this.lblOutputMode, resources.GetString("lblOutputMode.ToolTip"));
             // 
             // cmbLaunch
             // 
-            this.cmbLaunch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.cmbLaunch, "cmbLaunch");
             this.cmbLaunch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLaunch.FormattingEnabled = true;
             this.cmbLaunch.Items.AddRange(new object[] {
-            "No",
-            "In normal mode",
-            "In Big Picture mode"});
-            this.cmbLaunch.Location = new System.Drawing.Point(284, 181);
+            resources.GetString("cmbLaunch.Items"),
+            resources.GetString("cmbLaunch.Items1"),
+            resources.GetString("cmbLaunch.Items2")});
             this.cmbLaunch.Name = "cmbLaunch";
-            this.cmbLaunch.Size = new System.Drawing.Size(237, 21);
-            this.cmbLaunch.TabIndex = 21;
+            this.ttHelp.SetToolTip(this.cmbLaunch, resources.GetString("cmbLaunch.ToolTip"));
             this.cmbLaunch.SelectedIndexChanged += new System.EventHandler(this.ItemChanged);
             // 
             // cmbOutputMode
             // 
-            this.cmbOutputMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.cmbOutputMode, "cmbOutputMode");
             this.cmbOutputMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbOutputMode.FormattingEnabled = true;
             this.cmbOutputMode.Items.AddRange(new object[] {
-            "Normal",
-            "Quiet",
-            "Silent"});
-            this.cmbOutputMode.Location = new System.Drawing.Point(273, 237);
+            resources.GetString("cmbOutputMode.Items"),
+            resources.GetString("cmbOutputMode.Items1"),
+            resources.GetString("cmbOutputMode.Items2")});
             this.cmbOutputMode.Name = "cmbOutputMode";
-            this.cmbOutputMode.Size = new System.Drawing.Size(248, 21);
-            this.cmbOutputMode.TabIndex = 26;
+            this.ttHelp.SetToolTip(this.cmbOutputMode, resources.GetString("cmbOutputMode.ToolTip"));
             this.cmbOutputMode.SelectedIndexChanged += new System.EventHandler(this.ItemChanged);
             // 
             // lstAutocats
             // 
-            this.lstAutocats.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.lstAutocats, "lstAutocats");
             this.lstAutocats.CheckBoxes = true;
-            this.lstAutocats.Location = new System.Drawing.Point(15, 81);
+            this.lstAutocats.HideSelection = false;
             this.lstAutocats.Name = "lstAutocats";
-            this.lstAutocats.Size = new System.Drawing.Size(173, 150);
-            this.lstAutocats.TabIndex = 1;
+            this.ttHelp.SetToolTip(this.lstAutocats, resources.GetString("lstAutocats.ToolTip"));
             this.lstAutocats.UseCompatibleStateImageBehavior = false;
             this.lstAutocats.View = System.Windows.Forms.View.List;
             this.lstAutocats.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lstAutocats_ItemChecked);
             // 
             // lblAutocats
             // 
-            this.lblAutocats.AutoSize = true;
-            this.lblAutocats.Location = new System.Drawing.Point(12, 65);
+            resources.ApplyResources(this.lblAutocats, "lblAutocats");
             this.lblAutocats.Name = "lblAutocats";
-            this.lblAutocats.Size = new System.Drawing.Size(82, 13);
-            this.lblAutocats.TabIndex = 0;
-            this.lblAutocats.Text = "Autocats to run:";
+            this.ttHelp.SetToolTip(this.lblAutocats, resources.GetString("lblAutocats.ToolTip"));
             // 
             // chkAllAutocats
             // 
-            this.chkAllAutocats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chkAllAutocats.AutoSize = true;
-            this.chkAllAutocats.Location = new System.Drawing.Point(15, 237);
+            resources.ApplyResources(this.chkAllAutocats, "chkAllAutocats");
             this.chkAllAutocats.Name = "chkAllAutocats";
-            this.chkAllAutocats.Size = new System.Drawing.Size(105, 17);
-            this.chkAllAutocats.TabIndex = 2;
-            this.chkAllAutocats.Text = "Run All Autocats";
+            this.ttHelp.SetToolTip(this.chkAllAutocats, resources.GetString("chkAllAutocats.ToolTip"));
             this.chkAllAutocats.UseVisualStyleBackColor = true;
             this.chkAllAutocats.CheckedChanged += new System.EventHandler(this.ItemChanged);
             // 
             // lblSteamCheck
             // 
-            this.lblSteamCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSteamCheck.AutoSize = true;
-            this.lblSteamCheck.Location = new System.Drawing.Point(194, 65);
+            resources.ApplyResources(this.lblSteamCheck, "lblSteamCheck");
             this.lblSteamCheck.Name = "lblSteamCheck";
-            this.lblSteamCheck.Size = new System.Drawing.Size(73, 13);
-            this.lblSteamCheck.TabIndex = 3;
-            this.lblSteamCheck.Text = "Steam check:";
+            this.ttHelp.SetToolTip(this.lblSteamCheck, resources.GetString("lblSteamCheck.ToolTip"));
             // 
             // cmbSteamCheck
             // 
-            this.cmbSteamCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.cmbSteamCheck, "cmbSteamCheck");
             this.cmbSteamCheck.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSteamCheck.FormattingEnabled = true;
             this.cmbSteamCheck.Items.AddRange(new object[] {
-            "Check and Close",
-            "Check and Abort",
-            "Skip check"});
-            this.cmbSteamCheck.Location = new System.Drawing.Point(273, 62);
+            resources.GetString("cmbSteamCheck.Items"),
+            resources.GetString("cmbSteamCheck.Items1"),
+            resources.GetString("cmbSteamCheck.Items2")});
             this.cmbSteamCheck.Name = "cmbSteamCheck";
-            this.cmbSteamCheck.Size = new System.Drawing.Size(248, 21);
-            this.cmbSteamCheck.TabIndex = 4;
+            this.ttHelp.SetToolTip(this.cmbSteamCheck, resources.GetString("cmbSteamCheck.ToolTip"));
             this.cmbSteamCheck.SelectedIndexChanged += new System.EventHandler(this.ItemChanged);
             // 
             // chkUpdateAppInfo
             // 
-            this.chkUpdateAppInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkUpdateAppInfo.AutoSize = true;
+            resources.ApplyResources(this.chkUpdateAppInfo, "chkUpdateAppInfo");
             this.chkUpdateAppInfo.Checked = true;
             this.chkUpdateAppInfo.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUpdateAppInfo.Location = new System.Drawing.Point(197, 112);
             this.chkUpdateAppInfo.Name = "chkUpdateAppInfo";
-            this.chkUpdateAppInfo.Size = new System.Drawing.Size(148, 17);
-            this.chkUpdateAppInfo.TabIndex = 10;
-            this.chkUpdateAppInfo.Text = "Update DB from local files";
+            this.ttHelp.SetToolTip(this.chkUpdateAppInfo, resources.GetString("chkUpdateAppInfo.ToolTip"));
             this.chkUpdateAppInfo.UseVisualStyleBackColor = true;
             this.chkUpdateAppInfo.CheckedChanged += new System.EventHandler(this.ItemChanged);
             // 
             // chkUpdateWeb
             // 
-            this.chkUpdateWeb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkUpdateWeb.AutoSize = true;
+            resources.ApplyResources(this.chkUpdateWeb, "chkUpdateWeb");
             this.chkUpdateWeb.Checked = true;
             this.chkUpdateWeb.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUpdateWeb.Location = new System.Drawing.Point(381, 112);
             this.chkUpdateWeb.Name = "chkUpdateWeb";
-            this.chkUpdateWeb.Size = new System.Drawing.Size(125, 17);
-            this.chkUpdateWeb.TabIndex = 12;
-            this.chkUpdateWeb.Text = "Update DB from web";
+            this.ttHelp.SetToolTip(this.chkUpdateWeb, resources.GetString("chkUpdateWeb.ToolTip"));
             this.chkUpdateWeb.UseVisualStyleBackColor = true;
             this.chkUpdateWeb.CheckedChanged += new System.EventHandler(this.ItemChanged);
             // 
             // chkSaveDB
             // 
-            this.chkSaveDB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkSaveDB.AutoSize = true;
+            resources.ApplyResources(this.chkSaveDB, "chkSaveDB");
             this.chkSaveDB.Checked = true;
             this.chkSaveDB.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSaveDB.Location = new System.Drawing.Point(381, 135);
             this.chkSaveDB.Name = "chkSaveDB";
-            this.chkSaveDB.Size = new System.Drawing.Size(69, 17);
-            this.chkSaveDB.TabIndex = 14;
-            this.chkSaveDB.Text = "Save DB";
+            this.ttHelp.SetToolTip(this.chkSaveDB, resources.GetString("chkSaveDB.ToolTip"));
             this.chkSaveDB.UseVisualStyleBackColor = true;
             this.chkSaveDB.CheckedChanged += new System.EventHandler(this.ItemChanged);
             // 
             // chkSaveProfile
             // 
-            this.chkSaveProfile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkSaveProfile.AutoSize = true;
+            resources.ApplyResources(this.chkSaveProfile, "chkSaveProfile");
             this.chkSaveProfile.Checked = true;
             this.chkSaveProfile.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSaveProfile.Location = new System.Drawing.Point(197, 158);
             this.chkSaveProfile.Name = "chkSaveProfile";
-            this.chkSaveProfile.Size = new System.Drawing.Size(83, 17);
-            this.chkSaveProfile.TabIndex = 16;
-            this.chkSaveProfile.Text = "Save Profile";
+            this.ttHelp.SetToolTip(this.chkSaveProfile, resources.GetString("chkSaveProfile.ToolTip"));
             this.chkSaveProfile.UseVisualStyleBackColor = true;
             this.chkSaveProfile.CheckedChanged += new System.EventHandler(this.ItemChanged);
             // 
             // chkExport
             // 
-            this.chkExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkExport.AutoSize = true;
+            resources.ApplyResources(this.chkExport, "chkExport");
             this.chkExport.Checked = true;
             this.chkExport.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkExport.Location = new System.Drawing.Point(381, 158);
             this.chkExport.Name = "chkExport";
-            this.chkExport.Size = new System.Drawing.Size(109, 17);
-            this.chkExport.TabIndex = 18;
-            this.chkExport.Text = "Export Categories";
+            this.ttHelp.SetToolTip(this.chkExport, resources.GetString("chkExport.ToolTip"));
             this.chkExport.UseVisualStyleBackColor = true;
             this.chkExport.CheckedChanged += new System.EventHandler(this.ItemChanged);
             // 
             // txtResult
             // 
-            this.txtResult.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtResult.Location = new System.Drawing.Point(12, 296);
-            this.txtResult.Multiline = true;
+            resources.ApplyResources(this.txtResult, "txtResult");
             this.txtResult.Name = "txtResult";
             this.txtResult.ReadOnly = true;
-            this.txtResult.Size = new System.Drawing.Size(529, 50);
-            this.txtResult.TabIndex = 29;
+            this.ttHelp.SetToolTip(this.txtResult, resources.GetString("txtResult.ToolTip"));
             // 
             // lblResult
             // 
-            this.lblResult.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblResult.AutoSize = true;
-            this.lblResult.Location = new System.Drawing.Point(9, 280);
+            resources.ApplyResources(this.lblResult, "lblResult");
             this.lblResult.Name = "lblResult";
-            this.lblResult.Size = new System.Drawing.Size(104, 13);
-            this.lblResult.TabIndex = 28;
-            this.lblResult.Text = "Resulting Command:";
+            this.ttHelp.SetToolTip(this.lblResult, resources.GetString("lblResult.ToolTip"));
             // 
             // cmdShortcut
             // 
-            this.cmdShortcut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdShortcut.Location = new System.Drawing.Point(12, 352);
+            resources.ApplyResources(this.cmdShortcut, "cmdShortcut");
             this.cmdShortcut.Name = "cmdShortcut";
-            this.cmdShortcut.Size = new System.Drawing.Size(108, 23);
-            this.cmdShortcut.TabIndex = 30;
-            this.cmdShortcut.Text = "Create Shortcut";
+            this.ttHelp.SetToolTip(this.cmdShortcut, resources.GetString("cmdShortcut.ToolTip"));
             this.cmdShortcut.UseVisualStyleBackColor = true;
             this.cmdShortcut.Click += new System.EventHandler(this.cmdShortcut_Click);
             // 
             // cmdClose
             // 
-            this.cmdClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.cmdClose, "cmdClose");
             this.cmdClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdClose.Location = new System.Drawing.Point(466, 352);
             this.cmdClose.Name = "cmdClose";
-            this.cmdClose.Size = new System.Drawing.Size(75, 23);
-            this.cmdClose.TabIndex = 31;
-            this.cmdClose.Text = "Close";
+            this.ttHelp.SetToolTip(this.cmdClose, resources.GetString("cmdClose.ToolTip"));
             this.cmdClose.UseVisualStyleBackColor = true;
             // 
             // hlpSteamCheck
             // 
-            this.hlpSteamCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.hlpSteamCheck.AutoSize = true;
+            resources.ApplyResources(this.hlpSteamCheck, "hlpSteamCheck");
             this.hlpSteamCheck.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.hlpSteamCheck.Location = new System.Drawing.Point(527, 65);
             this.hlpSteamCheck.Name = "hlpSteamCheck";
-            this.hlpSteamCheck.Size = new System.Drawing.Size(15, 15);
-            this.hlpSteamCheck.TabIndex = 5;
-            this.hlpSteamCheck.Text = "?";
+            this.ttHelp.SetToolTip(this.hlpSteamCheck, resources.GetString("hlpSteamCheck.ToolTip"));
             // 
             // hlpUpdateLib
             // 
-            this.hlpUpdateLib.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.hlpUpdateLib.AutoSize = true;
+            resources.ApplyResources(this.hlpUpdateLib, "hlpUpdateLib");
             this.hlpUpdateLib.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.hlpUpdateLib.Location = new System.Drawing.Point(351, 90);
             this.hlpUpdateLib.Name = "hlpUpdateLib";
-            this.hlpUpdateLib.Size = new System.Drawing.Size(15, 15);
-            this.hlpUpdateLib.TabIndex = 7;
-            this.hlpUpdateLib.Text = "?";
+            this.ttHelp.SetToolTip(this.hlpUpdateLib, resources.GetString("hlpUpdateLib.ToolTip"));
             // 
             // hlpUpdateAppInfo
             // 
-            this.hlpUpdateAppInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.hlpUpdateAppInfo.AutoSize = true;
+            resources.ApplyResources(this.hlpUpdateAppInfo, "hlpUpdateAppInfo");
             this.hlpUpdateAppInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.hlpUpdateAppInfo.Location = new System.Drawing.Point(351, 113);
             this.hlpUpdateAppInfo.Name = "hlpUpdateAppInfo";
-            this.hlpUpdateAppInfo.Size = new System.Drawing.Size(15, 15);
-            this.hlpUpdateAppInfo.TabIndex = 11;
-            this.hlpUpdateAppInfo.Text = "?";
+            this.ttHelp.SetToolTip(this.hlpUpdateAppInfo, resources.GetString("hlpUpdateAppInfo.ToolTip"));
             // 
             // hlpSaveDB
             // 
-            this.hlpSaveDB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.hlpSaveDB.AutoSize = true;
+            resources.ApplyResources(this.hlpSaveDB, "hlpSaveDB");
             this.hlpSaveDB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.hlpSaveDB.Location = new System.Drawing.Point(527, 136);
             this.hlpSaveDB.Name = "hlpSaveDB";
-            this.hlpSaveDB.Size = new System.Drawing.Size(15, 15);
-            this.hlpSaveDB.TabIndex = 15;
-            this.hlpSaveDB.Text = "?";
+            this.ttHelp.SetToolTip(this.hlpSaveDB, resources.GetString("hlpSaveDB.ToolTip"));
             // 
             // hlpExport
             // 
-            this.hlpExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.hlpExport.AutoSize = true;
+            resources.ApplyResources(this.hlpExport, "hlpExport");
             this.hlpExport.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.hlpExport.Location = new System.Drawing.Point(527, 160);
             this.hlpExport.Name = "hlpExport";
-            this.hlpExport.Size = new System.Drawing.Size(15, 15);
-            this.hlpExport.TabIndex = 19;
-            this.hlpExport.Text = "?";
+            this.ttHelp.SetToolTip(this.hlpExport, resources.GetString("hlpExport.ToolTip"));
             // 
             // hlpImportCats
             // 
-            this.hlpImportCats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.hlpImportCats.AutoSize = true;
+            resources.ApplyResources(this.hlpImportCats, "hlpImportCats");
             this.hlpImportCats.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.hlpImportCats.Location = new System.Drawing.Point(527, 90);
             this.hlpImportCats.Name = "hlpImportCats";
-            this.hlpImportCats.Size = new System.Drawing.Size(15, 15);
-            this.hlpImportCats.TabIndex = 9;
-            this.hlpImportCats.Text = "?";
+            this.ttHelp.SetToolTip(this.hlpImportCats, resources.GetString("hlpImportCats.ToolTip"));
             // 
             // hlpUpdateWeb
             // 
-            this.hlpUpdateWeb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.hlpUpdateWeb.AutoSize = true;
+            resources.ApplyResources(this.hlpUpdateWeb, "hlpUpdateWeb");
             this.hlpUpdateWeb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.hlpUpdateWeb.Location = new System.Drawing.Point(527, 113);
             this.hlpUpdateWeb.Name = "hlpUpdateWeb";
-            this.hlpUpdateWeb.Size = new System.Drawing.Size(15, 15);
-            this.hlpUpdateWeb.TabIndex = 13;
-            this.hlpUpdateWeb.Text = "?";
+            this.ttHelp.SetToolTip(this.hlpUpdateWeb, resources.GetString("hlpUpdateWeb.ToolTip"));
             // 
             // hlpSaveProfile
             // 
-            this.hlpSaveProfile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.hlpSaveProfile.AutoSize = true;
+            resources.ApplyResources(this.hlpSaveProfile, "hlpSaveProfile");
             this.hlpSaveProfile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.hlpSaveProfile.Location = new System.Drawing.Point(351, 160);
             this.hlpSaveProfile.Name = "hlpSaveProfile";
-            this.hlpSaveProfile.Size = new System.Drawing.Size(15, 15);
-            this.hlpSaveProfile.TabIndex = 17;
-            this.hlpSaveProfile.Text = "?";
+            this.ttHelp.SetToolTip(this.hlpSaveProfile, resources.GetString("hlpSaveProfile.ToolTip"));
             // 
             // hlpLaunch
             // 
-            this.hlpLaunch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.hlpLaunch.AutoSize = true;
+            resources.ApplyResources(this.hlpLaunch, "hlpLaunch");
             this.hlpLaunch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.hlpLaunch.Location = new System.Drawing.Point(527, 184);
             this.hlpLaunch.Name = "hlpLaunch";
-            this.hlpLaunch.Size = new System.Drawing.Size(15, 15);
-            this.hlpLaunch.TabIndex = 22;
-            this.hlpLaunch.Text = "?";
+            this.ttHelp.SetToolTip(this.hlpLaunch, resources.GetString("hlpLaunch.ToolTip"));
             // 
             // hlpTolerant
             // 
-            this.hlpTolerant.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.hlpTolerant.AutoSize = true;
+            resources.ApplyResources(this.hlpTolerant, "hlpTolerant");
             this.hlpTolerant.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.hlpTolerant.Location = new System.Drawing.Point(325, 214);
             this.hlpTolerant.Name = "hlpTolerant";
-            this.hlpTolerant.Size = new System.Drawing.Size(15, 15);
-            this.hlpTolerant.TabIndex = 24;
-            this.hlpTolerant.Text = "?";
+            this.ttHelp.SetToolTip(this.hlpTolerant, resources.GetString("hlpTolerant.ToolTip"));
             // 
             // hlpOutput
             // 
-            this.hlpOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.hlpOutput.AutoSize = true;
+            resources.ApplyResources(this.hlpOutput, "hlpOutput");
             this.hlpOutput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.hlpOutput.Location = new System.Drawing.Point(527, 240);
             this.hlpOutput.Name = "hlpOutput";
-            this.hlpOutput.Size = new System.Drawing.Size(15, 15);
-            this.hlpOutput.TabIndex = 27;
-            this.hlpOutput.Text = "?";
+            this.ttHelp.SetToolTip(this.hlpOutput, resources.GetString("hlpOutput.ToolTip"));
             // 
             // lblExplain
             // 
-            this.lblExplain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblExplain.Location = new System.Drawing.Point(12, 9);
+            resources.ApplyResources(this.lblExplain, "lblExplain");
             this.lblExplain.Name = "lblExplain";
-            this.lblExplain.Size = new System.Drawing.Size(529, 42);
-            this.lblExplain.TabIndex = 32;
-            this.lblExplain.Text = resources.GetString("lblExplain.Text");
+            this.ttHelp.SetToolTip(this.lblExplain, resources.GetString("lblExplain.ToolTip"));
             // 
             // hlpUpdateHltb
             // 
-            this.hlpUpdateHltb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.hlpUpdateHltb.AutoSize = true;
+            resources.ApplyResources(this.hlpUpdateHltb, "hlpUpdateHltb");
             this.hlpUpdateHltb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.hlpUpdateHltb.Location = new System.Drawing.Point(351, 135);
             this.hlpUpdateHltb.Name = "hlpUpdateHltb";
-            this.hlpUpdateHltb.Size = new System.Drawing.Size(15, 15);
-            this.hlpUpdateHltb.TabIndex = 34;
-            this.hlpUpdateHltb.Text = "?";
+            this.ttHelp.SetToolTip(this.hlpUpdateHltb, resources.GetString("hlpUpdateHltb.ToolTip"));
             // 
             // chkUpdateHltb
             // 
-            this.chkUpdateHltb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkUpdateHltb.AutoSize = true;
+            resources.ApplyResources(this.chkUpdateHltb, "chkUpdateHltb");
             this.chkUpdateHltb.Checked = true;
             this.chkUpdateHltb.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUpdateHltb.Location = new System.Drawing.Point(197, 135);
             this.chkUpdateHltb.Name = "chkUpdateHltb";
-            this.chkUpdateHltb.Size = new System.Drawing.Size(133, 17);
-            this.chkUpdateHltb.TabIndex = 33;
-            this.chkUpdateHltb.Text = "Update DB from HLTB";
+            this.ttHelp.SetToolTip(this.chkUpdateHltb, resources.GetString("chkUpdateHltb.ToolTip"));
             this.chkUpdateHltb.UseVisualStyleBackColor = true;
             this.chkUpdateHltb.CheckedChanged += new System.EventHandler(this.ItemChanged);
             // 
             // DlgAutomaticModeHelper
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdClose;
-            this.ClientSize = new System.Drawing.Size(553, 387);
             this.ControlBox = false;
             this.Controls.Add(this.hlpUpdateHltb);
             this.Controls.Add(this.chkUpdateHltb);
@@ -523,7 +392,7 @@
             this.Controls.Add(this.chkTolerant);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "DlgAutomaticModeHelper";
-            this.Text = "Automatic Mode Helper";
+            this.ttHelp.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.DlgAutomaticModeHelper_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

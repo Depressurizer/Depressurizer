@@ -708,7 +708,7 @@
     <value>未能移除游戏: {0} - {1}。</value>
   </data>
   <data name="GameData_ErrorRemovingSteamGame" xml:space="preserve">
-    <value>Only external games with negative identifier can be removed: {0}</value>
+    <value>仅限移除负数标识符的外部游戏: {0}</value>
   </data>
   <data name="GameData_RemovedGameFromGameList" xml:space="preserve">
     <value>已从游戏名单中移除游戏: {0} - {1}。</value>
@@ -759,7 +759,7 @@
     <value>在能从外部启动前，非 Steam 的游戏必须从 Steam 内启动至少一次。</value>
   </data>
   <data name="AutoCat_Name_Flags" xml:space="preserve">
-    <value>Store 标签</value>
+    <value>商店特征</value>
   </data>
   <data name="AutoCat_Name_Genre" xml:space="preserve">
     <value>商店种类</value>
@@ -856,28 +856,28 @@
     <value>数据库已保存。</value>
   </data>
   <data name="MainForm_Log_ExceptionExport" xml:space="preserve">
-    <value>Exception encountered while exporting Steam config.</value>
+    <value>导出 Steam 配置发生异常。</value>
   </data>
   <data name="MainForm_Log_ExceptionImport" xml:space="preserve">
-    <value>Exception encountered while importing the Steam config.</value>
+    <value>导入 Steam 配置发生异常。</value>
   </data>
   <data name="MainForm_Log_ExceptionLoadingProfile" xml:space="preserve">
-    <value>Exception when loading profile.</value>
+    <value>加载配置文件发生异常。</value>
   </data>
   <data name="MainForm_Log_ExceptionLocalUpdate" xml:space="preserve">
-    <value>Exception when performing local update.</value>
+    <value>执行本地更新发生异常。</value>
   </data>
   <data name="MainForm_Log_ExceptionOnDBLoad" xml:space="preserve">
-    <value>Exception during initial DB load.</value>
+    <value>初始数据库加载发生异常。</value>
   </data>
   <data name="MainForm_Log_ExceptionSavingProfile" xml:space="preserve">
-    <value>Exception when saving profile.</value>
+    <value>保存配置文件发生异常。</value>
   </data>
   <data name="MainForm_Log_ExceptionWebUpdate" xml:space="preserve">
-    <value>Exception encountered during game list web update.</value>
+    <value>游戏名单网上更新发生异常。</value>
   </data>
   <data name="MainForm_Log_ExceptionWebUpdateDialog" xml:space="preserve">
-    <value>Exception encountered by game list web update dialog.</value>
+    <value>游戏名单网上更新对话框发生异常。</value>
   </data>
   <data name="MainForm_Msg_ErrorManualExport" xml:space="preserve">
     <value>导出到文件出错。
@@ -899,9 +899,9 @@
 设为 0 将处理每个游戏的所有标签。</value>
   </data>
   <data name="DlgAutoCat_Help_ListWeightFactor" xml:space="preserve">
-    <value>With this set to 1, each tag's score is simply the number of games that it appears on.
-With this higher than one, tags earlier in games' tag lists receive a higher score.
-The higher the number, the more weight is placed on tag position.</value>
+    <value>当此项设置为 1，每个标签的得分简单的只是它出现的游戏数量。
+如果大于 1，则游戏标签列表中较早的标签将获得较高的分数。
+数字越大，标签位置的权重越高。</value>
   </data>
   <data name="MainForm_DeleteCategoryMulti" xml:space="preserve">
     <value>删除 {0} 个类别？</value>
@@ -952,7 +952,7 @@ The higher the number, the more weight is placed on tag position.</value>
     <value>多半差评</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Negative2" xml:space="preserve">
-    <value>失望</value>
+    <value>差评</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Negative3" xml:space="preserve">
     <value>特别差评</value>
@@ -964,7 +964,7 @@ The higher the number, the more weight is placed on tag position.</value>
     <value>多半好评</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Positive2" xml:space="preserve">
-    <value>高兴</value>
+    <value>好评</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Positive3" xml:space="preserve">
     <value>特别好评</value>
@@ -1005,40 +1005,40 @@ The higher the number, the more weight is placed on tag position.</value>
   <data name="AutoMode_Help_Tolerant" xml:space="preserve">
     <value>如果禁用，将在任何错误后终止。
 如果启用，遇到非致命性错误后仍将继续。
-Recommended: Enabled</value>
+推荐：启用</value>
   </data>
   <data name="AutoMode_Help_UpdateAppInfo" xml:space="preserve">
-    <value>Update the database with information from the local database before running autocat operations.
-Note that this data is not currently used for autocategorization, so it is unimportant.</value>
+    <value>运行自动归类操作前，用本地数据库的信息更新数据库。
+注意，此数据当前不用于自动归类，因此它并不重要。</value>
   </data>
   <data name="AutoMode_Help_UpdateLib" xml:space="preserve">
-    <value>Update your library with new games before running autocat operations.
-Will obey profile settings for update data source.
-Recommended: Enabled</value>
+    <value>运行自动归类操作前，将新游戏更新到您的游戏库。
+更新数据源操作将遵守配置文件的设置。
+推荐：启用</value>
   </data>
   <data name="AutoMode_Help_UpdateWeb" xml:space="preserve">
-    <value>Attempt to download information for any games not found in the database.
-Can be slow, but will only download information for games that need it.
-If this is unchecked, newer games may not be categorized.
-Recommended: Enabled</value>
+    <value>所有在数据库中找不到的游戏，尝试下载信息。
+这可能不快，但仅下载所需要的游戏信息。
+如果此项取消，可能会无法归类较新的游戏。
+推荐：启用</value>
   </data>
   <data name="GameDB_RedirectsToItself" xml:space="preserve">
-    <value>Scraping {0}: Redirects to itself</value>
+    <value>抓取 {0}: 重定向到自身</value>
   </data>
   <data name="MainForm_Log_ExceptionHltb" xml:space="preserve">
-    <value>Exception when auto-updating DB from HLTB.</value>
+    <value>依据 HLTB 自动更新数据库时发生异常。</value>
   </data>
   <data name="MainForm_Msg_ErrorHltb" xml:space="preserve">
-    <value>Error encountered when updating database from HLTB: {0}</value>
+    <value>依据 HLTB 自动更新数据库时遇到错误: {0}</value>
   </data>
   <data name="MainForm_Status_HltbAutoupdate" xml:space="preserve">
     <value>已从 HLTB 更新 {0} 项数据库记录。</value>
   </data>
   <data name="AutoMode_Help_UpdateHltb" xml:space="preserve">
-    <value>Update the database with information from HLTB before running any autocat operations.
-Only updates if an update didn't occur for more than half a week.
-Slows operation by about 15-20 secs if an update occurs.
-Recommended: Enabled.</value>
+    <value>运行自动归类操作前，依据 HLTB 的信息更新数据库。
+更新仅在上次更新超过半周后启动。
+更新可能花费 15 - 20 秒。
+推荐：启用</value>
   </data>
   <data name="CDlgHltb_Title" xml:space="preserve">
     <value>正在更新 HLTB 时数</value>
@@ -1108,7 +1108,7 @@ Recommended: Enabled.</value>
     <value>按年份</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Flags" xml:space="preserve">
-    <value>按标记</value>
+    <value>按特征</value>
   </data>
   <data name="Filter_ErrorSavingFilterFile" xml:space="preserve">
     <value>保存过滤器文件时出错: {0}</value>
@@ -1226,13 +1226,13 @@ See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
     <value>年份</value>
   </data>
   <data name="Name_Score" xml:space="preserve">
-    <value>得分</value>
+    <value>评价</value>
   </data>
   <data name="Name_Tags" xml:space="preserve">
     <value>标签</value>
   </data>
   <data name="Name_Flags" xml:space="preserve">
-    <value>标记</value>
+    <value>特征</value>
   </data>
   <data name="Name_Developer" xml:space="preserve">
     <value>开发者</value>
@@ -1245,7 +1245,7 @@ See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
   </data>
   <data name="MainForm_ScrapeNow" xml:space="preserve">
     <value>立即抓取？
-可能每个游戏花费几秒。</value>
+每个游戏可能花费几秒。</value>
   </data>
   <data name="MainForm_GamesHaveOldDataInGameDB" xml:space="preserve">
     <value>{0} 个游戏的网络来源数据超过 {1} 天未更新</value>
@@ -1288,5 +1288,20 @@ See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
   </data>
   <data name="AutoCat_Name_HoursPlayed" xml:space="preserve">
     <value>已玩小时</value>
+  </data>
+  <data name="TextVdfFile_CanNotSetKey" xml:space="preserve">
+    <value>节点是值，但不是数组，无法设定键 {0}</value>
+  </data>
+  <data name="TextVdfFile_CanNotGetKey" xml:space="preserve">
+    <value>节点是值，但不是数组，无法获取键 {0}</value>
+  </data>
+  <data name="TextVdfFile_UnexpectedEOF" xml:space="preserve">
+    <value>意外遇到文件结尾：字符串未终止。</value>
+  </data>
+  <data name="TextVdfFile_UnexpectedCharacterValue" xml:space="preserve">
+    <value>预期为值时发现意外的字符 {0}。</value>
+  </data>
+  <data name="TextVdfFile_UnexpectedCharacterKey" xml:space="preserve">
+    <value>预期为键时遇到意外字符 {0}。</value>
   </data>
 </root>

@@ -406,14 +406,53 @@
     <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Curator.resx">
       <DependentUpon>AutoCatConfigPanel_Curator.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Curator.zh-CN.resx">
+      <DependentUpon>AutoCatConfigPanel_Curator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_DevPub.zh-CN.resx">
+      <DependentUpon>AutoCatConfigPanel_DevPub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Flags.zh-CN.resx">
+      <DependentUpon>AutoCatConfigPanel_Flags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Genre.zh-CN.resx">
+      <DependentUpon>AutoCatConfigPanel_Genre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Group.zh-CN.resx">
+      <DependentUpon>AutoCatConfigPanel_Group.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Hltb.zh-CN.resx">
+      <DependentUpon>AutoCatConfigPanel_Hltb.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_HoursPlayed.resx">
+      <DependentUpon>AutoCatConfigPanel_HoursPlayed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_HoursPlayed.zh-CN.resx">
       <DependentUpon>AutoCatConfigPanel_HoursPlayed.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Language.resx">
       <DependentUpon>AutoCatConfigPanel_Language.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Language.zh-CN.resx">
+      <DependentUpon>AutoCatConfigPanel_Language.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Manual.zh-CN.resx">
+      <DependentUpon>AutoCatConfigPanel_Manual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Name.zh-CN.resx">
+      <DependentUpon>AutoCatConfigPanel_Name.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Platform.resx">
       <DependentUpon>AutoCatConfigPanel_Platform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Platform.zh-CN.resx">
+      <DependentUpon>AutoCatConfigPanel_Platform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Tags.zh-CN.resx">
+      <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_UserScore.zh-CN.resx">
+      <DependentUpon>AutoCatConfigPanel_UserScore.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_VrSupport.resx">
       <DependentUpon>AutoCatConfigPanel_VrSupport.cs</DependentUpon>
@@ -445,16 +484,28 @@
     <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_UserScore.resx">
       <DependentUpon>AutoCatConfigPanel_UserScore.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_VrSupport.zh-CN.resx">
+      <DependentUpon>AutoCatConfigPanel_VrSupport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Year.resx">
       <DependentUpon>AutoCatConfigPanel_Year.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Year.zh-CN.resx">
+      <DependentUpon>AutoCatConfigPanel_Year.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AutomaticModeForm.resx">
+      <DependentUpon>AutomaticModeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutomaticModeForm.zh-CN.resx">
       <DependentUpon>AutomaticModeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DBEdit\DBEditDlg.ru.resx">
       <DependentUpon>DBEditDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DBEdit\DBEditDlg.uk.resx">
+      <DependentUpon>DBEditDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DBEdit\DBEditDlg.zh-CN.resx">
       <DependentUpon>DBEditDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DBEdit\DlgGameDBEntry.ru.resx">
@@ -466,31 +517,43 @@
     <EmbeddedResource Include="DBEdit\DlgGameDBEntry.zh-CN.resx">
       <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\CancelableDialog.zh-CN.resx">
+      <DependentUpon>CancelableDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\SteamKeyDialog.resx">
+      <DependentUpon>SteamKeyDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SteamKeyDialog.zh-CN.resx">
       <DependentUpon>SteamKeyDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAbout.resx">
       <DependentUpon>DlgAbout.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutoCatSelect.resx">
-      <DependentUpon>DlgAutoCatSelect.cs</DependentUpon>
+    <EmbeddedResource Include="DlgAbout.zh-CN.resx">
+      <DependentUpon>DlgAbout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCat.resx">
+      <DependentUpon>DlgAutoCat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgAutoCat.zh-CN.resx">
       <DependentUpon>DlgAutoCat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCatCreate.resx">
       <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DlgAutoCatCreate.zh-CN.resx">
+      <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgAutoCatSelect.resx">
+      <DependentUpon>DlgAutoCatSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgAutoCatSelect.zh-CN.resx">
+      <DependentUpon>DlgAutoCatSelect.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DlgAutomaticModeHelper.nl.resx">
       <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutomaticModeHelper.resx">
-      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutomaticModeHelper.ru.resx">
-      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutomaticModeHelper.uk.resx">
       <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutomaticModeHelper.zh-CN.resx">
@@ -653,6 +716,9 @@
     <EmbeddedResource Include="Lib\DlgFatalError.uk.resx">
       <DependentUpon>DlgFatalError.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Lib\DlgFatalError.zh-CN.resx">
+      <DependentUpon>DlgFatalError.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Lib\DlgGetString.es.resx">
       <DependentUpon>DlgGetString.cs</DependentUpon>
     </EmbeddedResource>
@@ -663,6 +729,9 @@
       <DependentUpon>DlgGetString.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Lib\DlgGetString.uk.resx">
+      <DependentUpon>DlgGetString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lib\DlgGetString.zh-CN.resx">
       <DependentUpon>DlgGetString.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.es.resx">

@@ -743,6 +743,7 @@
   </data>
   <data name="lblHelp_ExportDiscard.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;lblHelp_ExportDiscard.Name" xml:space="preserve">
     <value>lblHelp_ExportDiscard</value>
@@ -860,6 +861,7 @@
   </data>
   <data name="lblHelp_LocalUpdate.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;lblHelp_LocalUpdate.Name" xml:space="preserve">
     <value>lblHelp_LocalUpdate</value>
@@ -890,6 +892,7 @@
   </data>
   <data name="lblHelp_WebUpdate.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;lblHelp_WebUpdate.Name" xml:space="preserve">
     <value>lblHelp_WebUpdate</value>
@@ -1268,6 +1271,7 @@
   </data>
   <data name="lblHelp_BypassIgnoreOnImport.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;lblHelp_BypassIgnoreOnImport.Name" xml:space="preserve">
     <value>lblHelp_BypassIgnoreOnImport</value>
@@ -1298,6 +1302,7 @@
   </data>
   <data name="lblHelp_IncludeUnknown.Text" xml:space="preserve">
     <value>?</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;lblHelp_IncludeUnknown.Name" xml:space="preserve">
     <value>lblHelp_IncludeUnknown</value>

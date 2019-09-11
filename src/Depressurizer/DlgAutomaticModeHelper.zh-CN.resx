@@ -117,11 +117,227 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblExplain.Text" xml:space="preserve">
-    <value>自动模式允许您通过命令行或运行一个快捷方式来在游戏库上运行预先设定自动归类操作，从而无需使用完整的 Depressurizer 操作界面。您仍须使用完整界面来管理自动归类的规则。</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing">
-    <value>17, 17</value>
+  <data name="chkTolerant.Location" type="System.Drawing.Point, System.Drawing">
+    <value>261, 200</value>
+  </data>
+  <data name="chkTolerant.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 16</value>
+  </data>
+  <data name="chkTolerant.Text" xml:space="preserve">
+    <value>容许轻微错误</value>
+  </data>
+  <data name="chkUpdateLib.Location" type="System.Drawing.Point, System.Drawing">
+    <value>259, 86</value>
+  </data>
+  <data name="chkUpdateLib.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 16</value>
+  </data>
+  <data name="chkUpdateLib.Text" xml:space="preserve">
+    <value>更新“库”</value>
+  </data>
+  <data name="chkImportCats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>457, 87</value>
+  </data>
+  <data name="chkImportCats.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 16</value>
+  </data>
+  <data name="chkImportCats.Text" xml:space="preserve">
+    <value>导入 Steam 类别</value>
+  </data>
+  <data name="lblLaunch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>257, 174</value>
+  </data>
+  <data name="lblLaunch.Text" xml:space="preserve">
+    <value>启动 Steam:</value>
+  </data>
+  <data name="lblOutputMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>257, 228</value>
+  </data>
+  <data name="lblOutputMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 12</value>
+  </data>
+  <data name="lblOutputMode.Text" xml:space="preserve">
+    <value>输出模式:</value>
+  </data>
+  <data name="cmbLaunch.Items" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="cmbLaunch.Items1" xml:space="preserve">
+    <value>正常模式</value>
+  </data>
+  <data name="cmbLaunch.Items2" xml:space="preserve">
+    <value>大图片模式</value>
+  </data>
+  <data name="cmbLaunch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>360, 171</value>
+  </data>
+  <data name="cmbOutputMode.Items" xml:space="preserve">
+    <value>正常</value>
+  </data>
+  <data name="cmbOutputMode.Items1" xml:space="preserve">
+    <value>安静</value>
+  </data>
+  <data name="cmbOutputMode.Items2" xml:space="preserve">
+    <value>无声</value>
+  </data>
+  <data name="cmbOutputMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>360, 223</value>
+  </data>
+  <data name="lstAutocats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 61</value>
+  </data>
+  <data name="lblAutocats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 46</value>
+  </data>
+  <data name="lblAutocats.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 12</value>
+  </data>
+  <data name="lblAutocats.Text" xml:space="preserve">
+    <value>自动归类运行:</value>
+  </data>
+  <data name="chkAllAutocats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 247</value>
+  </data>
+  <data name="chkAllAutocats.Text" xml:space="preserve">
+    <value>运行所有自动归类</value>
+  </data>
+  <data name="lblSteamCheck.Location" type="System.Drawing.Point, System.Drawing">
+    <value>257, 66</value>
+  </data>
+  <data name="lblSteamCheck.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 12</value>
+  </data>
+  <data name="lblSteamCheck.Text" xml:space="preserve">
+    <value>检查 Steam:</value>
+  </data>
+  <data name="cmbSteamCheck.Items" xml:space="preserve">
+    <value>检查并关闭</value>
+  </data>
+  <data name="cmbSteamCheck.Items1" xml:space="preserve">
+    <value>检查并中止</value>
+  </data>
+  <data name="cmbSteamCheck.Items2" xml:space="preserve">
+    <value>跳过检查</value>
+  </data>
+  <data name="cmbSteamCheck.Location" type="System.Drawing.Point, System.Drawing">
+    <value>360, 63</value>
+  </data>
+  <data name="chkUpdateAppInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>259, 107</value>
+  </data>
+  <data name="chkUpdateAppInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 16</value>
+  </data>
+  <data name="chkUpdateAppInfo.Text" xml:space="preserve">
+    <value>依据本地文件更新数据库</value>
+  </data>
+  <data name="chkUpdateWeb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>457, 106</value>
+  </data>
+  <data name="chkUpdateWeb.Text" xml:space="preserve">
+    <value>依据网络更新数据库</value>
+  </data>
+  <data name="chkSaveDB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>457, 128</value>
+  </data>
+  <data name="chkSaveDB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 16</value>
+  </data>
+  <data name="chkSaveDB.Text" xml:space="preserve">
+    <value>保存数据库</value>
+  </data>
+  <data name="chkSaveProfile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>259, 152</value>
+  </data>
+  <data name="chkSaveProfile.Text" xml:space="preserve">
+    <value>保存配置文件</value>
+  </data>
+  <data name="chkExport.Location" type="System.Drawing.Point, System.Drawing">
+    <value>457, 149</value>
+  </data>
+  <data name="chkExport.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 16</value>
+  </data>
+  <data name="chkExport.Text" xml:space="preserve">
+    <value>导出类别</value>
+  </data>
+  <data name="txtResult.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 281</value>
+  </data>
+  <data name="lblResult.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 266</value>
+  </data>
+  <data name="lblResult.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 12</value>
+  </data>
+  <data name="lblResult.Text" xml:space="preserve">
+    <value>最终命令:</value>
+  </data>
+  <data name="cmdShortcut.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 346</value>
+  </data>
+  <data name="cmdShortcut.Text" xml:space="preserve">
+    <value>创建快捷方式</value>
+  </data>
+  <data name="cmdClose.Location" type="System.Drawing.Point, System.Drawing">
+    <value>557, 346</value>
+  </data>
+  <data name="cmdClose.Text" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="hlpSteamCheck.Location" type="System.Drawing.Point, System.Drawing">
+    <value>614, 64</value>
+  </data>
+  <data name="hlpUpdateLib.Location" type="System.Drawing.Point, System.Drawing">
+    <value>438, 87</value>
+  </data>
+  <data name="hlpUpdateAppInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>438, 108</value>
+  </data>
+  <data name="hlpSaveDB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>614, 130</value>
+  </data>
+  <data name="hlpExport.Location" type="System.Drawing.Point, System.Drawing">
+    <value>614, 152</value>
+  </data>
+  <data name="hlpImportCats.Location" type="System.Drawing.Point, System.Drawing">
+    <value>614, 87</value>
+  </data>
+  <data name="hlpUpdateWeb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>614, 108</value>
+  </data>
+  <data name="hlpSaveProfile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>438, 152</value>
+  </data>
+  <data name="hlpLaunch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>614, 174</value>
+  </data>
+  <data name="hlpTolerant.Location" type="System.Drawing.Point, System.Drawing">
+    <value>438, 200</value>
+  </data>
+  <data name="hlpOutput.Location" type="System.Drawing.Point, System.Drawing">
+    <value>614, 226</value>
+  </data>
+  <data name="lblExplain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>618, 30</value>
+  </data>
+  <data name="lblExplain.Text" xml:space="preserve">
+    <value>自动模式允许您通过命令行或运行一个快捷方式来在游戏库上运行预先设定的自动归类操作，从而无需使用完整的 Depressurizer 操作界面。您仍须使用完整界面来管理自动归类的规则。</value>
+  </data>
+  <data name="hlpUpdateHltb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>438, 129</value>
+  </data>
+  <data name="chkUpdateHltb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>259, 130</value>
+  </data>
+  <data name="chkUpdateHltb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 16</value>
+  </data>
+  <data name="chkUpdateHltb.Text" xml:space="preserve">
+    <value>依据 HLTB 更新数据库</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>自动模式助手</value>
   </data>
 </root>

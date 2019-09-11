@@ -24,6 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AutoCatConfigPanel_Tags));
             this.grpMain = new System.Windows.Forms.GroupBox();
             this.splitTags = new System.Windows.Forms.SplitContainer();
             this.clbTags = new System.Windows.Forms.CheckedListBox();
@@ -36,9 +37,10 @@
             this.namedescendingTags = new System.Windows.Forms.ToolStripMenuItem();
             this.countascendingTags = new System.Windows.Forms.ToolStripMenuItem();
             this.countdescendingTags = new System.Windows.Forms.ToolStripMenuItem();
-            this.lblIncluded = new System.Windows.Forms.Label();
-            this.btnTagSelected = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnTagSelected = new System.Windows.Forms.Button();
+            this.lblIncluded = new System.Windows.Forms.Label();
             this.helpPrefix = new System.Windows.Forms.Label();
             this.grpListOpts = new System.Windows.Forms.GroupBox();
             this.helpExcludeGenres = new System.Windows.Forms.Label();
@@ -63,19 +65,18 @@
             this.lblPrefix = new System.Windows.Forms.Label();
             this.txtPrefix = new System.Windows.Forms.TextBox();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grpMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitTags)).BeginInit();
             this.splitTags.Panel1.SuspendLayout();
             this.splitTags.Panel2.SuspendLayout();
             this.splitTags.SuspendLayout();
             this.contextTags.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.grpListOpts.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.list_numWeightFactor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.list_numTagsPerGame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.list_numMinScore)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxTags)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpMain
@@ -90,21 +91,14 @@
             this.grpMain.Controls.Add(this.lblMaxTags);
             this.grpMain.Controls.Add(this.lblPrefix);
             this.grpMain.Controls.Add(this.txtPrefix);
-            this.grpMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpMain.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.grpMain, "grpMain");
             this.grpMain.Name = "grpMain";
-            this.grpMain.Size = new System.Drawing.Size(400, 300);
-            this.grpMain.TabIndex = 0;
             this.grpMain.TabStop = false;
-            this.grpMain.Text = "Edit Tag Autocat";
             // 
             // splitTags
             // 
-            this.splitTags.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.splitTags, "splitTags");
             this.splitTags.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitTags.Location = new System.Drawing.Point(6, 47);
             this.splitTags.Name = "splitTags";
             // 
             // splitTags.Panel1
@@ -116,19 +110,13 @@
             // 
             this.splitTags.Panel2.Controls.Add(this.lstIncluded);
             this.splitTags.Panel2.Controls.Add(this.tableLayoutPanel1);
-            this.splitTags.Size = new System.Drawing.Size(387, 120);
-            this.splitTags.SplitterDistance = 109;
-            this.splitTags.TabIndex = 11;
             // 
             // clbTags
             // 
-            this.clbTags.Dock = System.Windows.Forms.DockStyle.Fill;
+            resources.ApplyResources(this.clbTags, "clbTags");
             this.clbTags.FormattingEnabled = true;
-            this.clbTags.Location = new System.Drawing.Point(0, 0);
             this.clbTags.MultiColumn = true;
             this.clbTags.Name = "clbTags";
-            this.clbTags.Size = new System.Drawing.Size(109, 100);
-            this.clbTags.TabIndex = 14;
             this.clbTags.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbTags_ItemCheck);
             // 
             // lstIncluded
@@ -138,18 +126,16 @@
             this.columnTag,
             this.columnCount});
             this.lstIncluded.ContextMenuStrip = this.contextTags;
-            this.lstIncluded.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstIncluded.Location = new System.Drawing.Point(0, 29);
+            resources.ApplyResources(this.lstIncluded, "lstIncluded");
+            this.lstIncluded.HideSelection = false;
             this.lstIncluded.Name = "lstIncluded";
-            this.lstIncluded.Size = new System.Drawing.Size(387, 91);
-            this.lstIncluded.TabIndex = 6;
             this.lstIncluded.UseCompatibleStateImageBehavior = false;
             this.lstIncluded.View = System.Windows.Forms.View.List;
             this.lstIncluded.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lstIncluded_ItemChecked);
             // 
             // columnTag
             // 
-            this.columnTag.Width = -1;
+            resources.ApplyResources(this.columnTag, "columnTag");
             // 
             // contextTags
             // 
@@ -157,7 +143,7 @@
             this.toolStripMenuItem1});
             this.contextTags.Name = "contextCat";
             this.contextTags.ShowImageMargin = false;
-            this.contextTags.Size = new System.Drawing.Size(71, 26);
+            resources.ApplyResources(this.contextTags, "contextTags");
             // 
             // toolStripMenuItem1
             // 
@@ -167,81 +153,66 @@
             this.countascendingTags,
             this.countdescendingTags});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(70, 22);
-            this.toolStripMenuItem1.Text = "Sort";
+            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
             // 
             // nameascendingTags
             // 
             this.nameascendingTags.Name = "nameascendingTags";
-            this.nameascendingTags.Size = new System.Drawing.Size(179, 22);
-            this.nameascendingTags.Text = "Name (ascending)";
+            resources.ApplyResources(this.nameascendingTags, "nameascendingTags");
             this.nameascendingTags.Click += new System.EventHandler(this.nameascendingTags_Click);
             // 
             // namedescendingTags
             // 
             this.namedescendingTags.Name = "namedescendingTags";
-            this.namedescendingTags.Size = new System.Drawing.Size(179, 22);
-            this.namedescendingTags.Text = "Name (descending)";
+            resources.ApplyResources(this.namedescendingTags, "namedescendingTags");
             this.namedescendingTags.Click += new System.EventHandler(this.namedescendingTags_Click);
             // 
             // countascendingTags
             // 
             this.countascendingTags.Name = "countascendingTags";
-            this.countascendingTags.Size = new System.Drawing.Size(179, 22);
-            this.countascendingTags.Text = "Count (ascending)";
+            resources.ApplyResources(this.countascendingTags, "countascendingTags");
             this.countascendingTags.Click += new System.EventHandler(this.countascendingTags_Click);
             // 
             // countdescendingTags
             // 
             this.countdescendingTags.Name = "countdescendingTags";
-            this.countdescendingTags.Size = new System.Drawing.Size(179, 22);
-            this.countdescendingTags.Text = "Count (descending)";
+            resources.ApplyResources(this.countdescendingTags, "countdescendingTags");
             this.countdescendingTags.Click += new System.EventHandler(this.countdescendingTags_Click);
             // 
-            // lblIncluded
+            // tableLayoutPanel1
             // 
-            this.lblIncluded.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lblIncluded.AutoSize = true;
-            this.lblIncluded.Location = new System.Drawing.Point(3, 8);
-            this.lblIncluded.Name = "lblIncluded";
-            this.lblIncluded.Size = new System.Drawing.Size(74, 13);
-            this.lblIncluded.TabIndex = 5;
-            this.lblIncluded.Text = "Included tags:";
-            // 
-            // btnTagSelected
-            // 
-            this.btnTagSelected.Location = new System.Drawing.Point(83, 3);
-            this.btnTagSelected.Name = "btnTagSelected";
-            this.btnTagSelected.Size = new System.Drawing.Size(23, 23);
-            this.btnTagSelected.TabIndex = 9;
-            this.btnTagSelected.Text = ">";
-            this.btnTagSelected.UseVisualStyleBackColor = true;
-            this.btnTagSelected.Click += new System.EventHandler(this.btnTagSelected_Click);
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnTagSelected, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblIncluded, 0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(289, 16);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 13);
-            this.label1.TabIndex = 10;
-            this.label1.Text = " (right-click to Sort)";
+            // 
+            // btnTagSelected
+            // 
+            resources.ApplyResources(this.btnTagSelected, "btnTagSelected");
+            this.btnTagSelected.Name = "btnTagSelected";
+            this.btnTagSelected.UseVisualStyleBackColor = true;
+            this.btnTagSelected.Click += new System.EventHandler(this.btnTagSelected_Click);
+            // 
+            // lblIncluded
+            // 
+            resources.ApplyResources(this.lblIncluded, "lblIncluded");
+            this.lblIncluded.Name = "lblIncluded";
             // 
             // helpPrefix
             // 
-            this.helpPrefix.AutoSize = true;
+            resources.ApplyResources(this.helpPrefix, "helpPrefix");
             this.helpPrefix.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.helpPrefix.Location = new System.Drawing.Point(221, 23);
             this.helpPrefix.Name = "helpPrefix";
-            this.helpPrefix.Size = new System.Drawing.Size(15, 15);
-            this.helpPrefix.TabIndex = 2;
-            this.helpPrefix.Text = "?";
             // 
             // grpListOpts
             // 
-            this.grpListOpts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.grpListOpts, "grpListOpts");
             this.grpListOpts.Controls.Add(this.helpExcludeGenres);
             this.grpListOpts.Controls.Add(this.list_chkExcludeGenres);
             this.grpListOpts.Controls.Add(this.lblExplain);
@@ -256,52 +227,30 @@
             this.grpListOpts.Controls.Add(this.list_chkOwnedOnly);
             this.grpListOpts.Controls.Add(this.list_numMinScore);
             this.grpListOpts.Controls.Add(this.lblMinScore);
-            this.grpListOpts.Location = new System.Drawing.Point(6, 197);
             this.grpListOpts.Name = "grpListOpts";
-            this.grpListOpts.Size = new System.Drawing.Size(387, 96);
-            this.grpListOpts.TabIndex = 10;
             this.grpListOpts.TabStop = false;
-            this.grpListOpts.Text = "Tag List Options";
             // 
             // helpExcludeGenres
             // 
-            this.helpExcludeGenres.AutoSize = true;
+            resources.ApplyResources(this.helpExcludeGenres, "helpExcludeGenres");
             this.helpExcludeGenres.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.helpExcludeGenres.Location = new System.Drawing.Point(368, 75);
             this.helpExcludeGenres.Name = "helpExcludeGenres";
-            this.helpExcludeGenres.Size = new System.Drawing.Size(15, 15);
-            this.helpExcludeGenres.TabIndex = 13;
-            this.helpExcludeGenres.Text = "?";
             // 
             // list_chkExcludeGenres
             // 
-            this.list_chkExcludeGenres.AutoSize = true;
-            this.list_chkExcludeGenres.Location = new System.Drawing.Point(271, 74);
+            resources.ApplyResources(this.list_chkExcludeGenres, "list_chkExcludeGenres");
             this.list_chkExcludeGenres.Name = "list_chkExcludeGenres";
-            this.list_chkExcludeGenres.Size = new System.Drawing.Size(99, 17);
-            this.list_chkExcludeGenres.TabIndex = 12;
-            this.list_chkExcludeGenres.Text = "Exclude genres";
             this.list_chkExcludeGenres.UseVisualStyleBackColor = true;
             // 
             // lblExplain
             // 
-            this.lblExplain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblExplain.Location = new System.Drawing.Point(7, 16);
+            resources.ApplyResources(this.lblExplain, "lblExplain");
             this.lblExplain.Name = "lblExplain";
-            this.lblExplain.Size = new System.Drawing.Size(374, 26);
-            this.lblExplain.TabIndex = 0;
-            this.lblExplain.Text = "These options determine which tags show up in the list above. Click \"Rebuild List" +
-    "\" to apply these settings.";
             // 
             // list_lblWeightFactor
             // 
-            this.list_lblWeightFactor.AutoSize = true;
-            this.list_lblWeightFactor.Location = new System.Drawing.Point(205, 52);
+            resources.ApplyResources(this.list_lblWeightFactor, "list_lblWeightFactor");
             this.list_lblWeightFactor.Name = "list_lblWeightFactor";
-            this.list_lblWeightFactor.Size = new System.Drawing.Size(85, 13);
-            this.list_lblWeightFactor.TabIndex = 5;
-            this.list_lblWeightFactor.Text = "Weighting factor";
             // 
             // list_numWeightFactor
             // 
@@ -311,7 +260,7 @@
             0,
             0,
             65536});
-            this.list_numWeightFactor.Location = new System.Drawing.Point(161, 48);
+            resources.ApplyResources(this.list_numWeightFactor, "list_numWeightFactor");
             this.list_numWeightFactor.Maximum = new decimal(new int[] {
             10,
             0,
@@ -323,8 +272,6 @@
             0,
             0});
             this.list_numWeightFactor.Name = "list_numWeightFactor";
-            this.list_numWeightFactor.Size = new System.Drawing.Size(38, 20);
-            this.list_numWeightFactor.TabIndex = 4;
             this.list_numWeightFactor.Value = new decimal(new int[] {
             1,
             0,
@@ -333,191 +280,116 @@
             // 
             // list_helpOwnedOnly
             // 
-            this.list_helpOwnedOnly.AutoSize = true;
+            resources.ApplyResources(this.list_helpOwnedOnly, "list_helpOwnedOnly");
             this.list_helpOwnedOnly.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.list_helpOwnedOnly.Location = new System.Drawing.Point(242, 76);
             this.list_helpOwnedOnly.Name = "list_helpOwnedOnly";
-            this.list_helpOwnedOnly.Size = new System.Drawing.Size(15, 15);
-            this.list_helpOwnedOnly.TabIndex = 15;
-            this.list_helpOwnedOnly.Text = "?";
             // 
             // helpWeightFactor
             // 
-            this.helpWeightFactor.AutoSize = true;
+            resources.ApplyResources(this.helpWeightFactor, "helpWeightFactor");
             this.helpWeightFactor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.helpWeightFactor.Location = new System.Drawing.Point(296, 52);
             this.helpWeightFactor.Name = "helpWeightFactor";
-            this.helpWeightFactor.Size = new System.Drawing.Size(15, 15);
-            this.helpWeightFactor.TabIndex = 6;
-            this.helpWeightFactor.Text = "?";
             // 
             // helpTagsPerGame
             // 
-            this.helpTagsPerGame.AutoSize = true;
+            resources.ApplyResources(this.helpTagsPerGame, "helpTagsPerGame");
             this.helpTagsPerGame.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.helpTagsPerGame.Location = new System.Drawing.Point(130, 75);
             this.helpTagsPerGame.Name = "helpTagsPerGame";
-            this.helpTagsPerGame.Size = new System.Drawing.Size(15, 15);
-            this.helpTagsPerGame.TabIndex = 9;
-            this.helpTagsPerGame.Text = "?";
             // 
             // list_helpMinScore
             // 
-            this.list_helpMinScore.AutoSize = true;
+            resources.ApplyResources(this.list_helpMinScore, "list_helpMinScore");
             this.list_helpMinScore.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.list_helpMinScore.Location = new System.Drawing.Point(130, 52);
             this.list_helpMinScore.Name = "list_helpMinScore";
-            this.list_helpMinScore.Size = new System.Drawing.Size(15, 15);
-            this.list_helpMinScore.TabIndex = 3;
-            this.list_helpMinScore.Text = "?";
             // 
             // list_lblTagsPerGame
             // 
-            this.list_lblTagsPerGame.AutoSize = true;
-            this.list_lblTagsPerGame.Location = new System.Drawing.Point(48, 75);
+            resources.ApplyResources(this.list_lblTagsPerGame, "list_lblTagsPerGame");
             this.list_lblTagsPerGame.Name = "list_lblTagsPerGame";
-            this.list_lblTagsPerGame.Size = new System.Drawing.Size(78, 13);
-            this.list_lblTagsPerGame.TabIndex = 8;
-            this.list_lblTagsPerGame.Text = "Tags per game";
             // 
             // list_numTagsPerGame
             // 
-            this.list_numTagsPerGame.Location = new System.Drawing.Point(6, 72);
+            resources.ApplyResources(this.list_numTagsPerGame, "list_numTagsPerGame");
             this.list_numTagsPerGame.Maximum = new decimal(new int[] {
             20,
             0,
             0,
             0});
             this.list_numTagsPerGame.Name = "list_numTagsPerGame";
-            this.list_numTagsPerGame.Size = new System.Drawing.Size(38, 20);
-            this.list_numTagsPerGame.TabIndex = 7;
             // 
             // list_chkOwnedOnly
             // 
-            this.list_chkOwnedOnly.AutoSize = true;
-            this.list_chkOwnedOnly.Location = new System.Drawing.Point(161, 75);
+            resources.ApplyResources(this.list_chkOwnedOnly, "list_chkOwnedOnly");
             this.list_chkOwnedOnly.Name = "list_chkOwnedOnly";
-            this.list_chkOwnedOnly.Size = new System.Drawing.Size(82, 17);
-            this.list_chkOwnedOnly.TabIndex = 14;
-            this.list_chkOwnedOnly.Text = "Owned only";
             this.list_chkOwnedOnly.UseVisualStyleBackColor = true;
             // 
             // list_numMinScore
             // 
-            this.list_numMinScore.Location = new System.Drawing.Point(6, 48);
+            resources.ApplyResources(this.list_numMinScore, "list_numMinScore");
             this.list_numMinScore.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
             this.list_numMinScore.Name = "list_numMinScore";
-            this.list_numMinScore.Size = new System.Drawing.Size(38, 20);
-            this.list_numMinScore.TabIndex = 1;
             // 
             // lblMinScore
             // 
-            this.lblMinScore.AutoSize = true;
-            this.lblMinScore.Location = new System.Drawing.Point(50, 52);
+            resources.ApplyResources(this.lblMinScore, "lblMinScore");
             this.lblMinScore.Name = "lblMinScore";
-            this.lblMinScore.Size = new System.Drawing.Size(71, 13);
-            this.lblMinScore.TabIndex = 2;
-            this.lblMinScore.Text = "Min tag score";
             // 
             // cmdListRebuild
             // 
-            this.cmdListRebuild.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdListRebuild.Location = new System.Drawing.Point(6, 173);
+            resources.ApplyResources(this.cmdListRebuild, "cmdListRebuild");
             this.cmdListRebuild.Name = "cmdListRebuild";
-            this.cmdListRebuild.Size = new System.Drawing.Size(105, 23);
-            this.cmdListRebuild.TabIndex = 7;
-            this.cmdListRebuild.Text = "Rebuild List";
             this.cmdListRebuild.UseVisualStyleBackColor = true;
             this.cmdListRebuild.Click += new System.EventHandler(this.cmdListRebuild_Click);
             // 
             // cmdCheckAll
             // 
-            this.cmdCheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCheckAll.Location = new System.Drawing.Point(237, 173);
+            resources.ApplyResources(this.cmdCheckAll, "cmdCheckAll");
             this.cmdCheckAll.Name = "cmdCheckAll";
-            this.cmdCheckAll.Size = new System.Drawing.Size(75, 23);
-            this.cmdCheckAll.TabIndex = 8;
-            this.cmdCheckAll.Text = "Check All";
             this.cmdCheckAll.UseVisualStyleBackColor = true;
             this.cmdCheckAll.Click += new System.EventHandler(this.cmdCheckAll_Click);
             // 
             // cmdUncheckAll
             // 
-            this.cmdUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdUncheckAll.Location = new System.Drawing.Point(318, 173);
+            resources.ApplyResources(this.cmdUncheckAll, "cmdUncheckAll");
             this.cmdUncheckAll.Name = "cmdUncheckAll";
-            this.cmdUncheckAll.Size = new System.Drawing.Size(75, 23);
-            this.cmdUncheckAll.TabIndex = 9;
-            this.cmdUncheckAll.Text = "Uncheck All";
             this.cmdUncheckAll.UseVisualStyleBackColor = true;
             this.cmdUncheckAll.Click += new System.EventHandler(this.cmdUncheckAll_Click);
             // 
             // numMaxTags
             // 
-            this.numMaxTags.Location = new System.Drawing.Point(248, 21);
+            resources.ApplyResources(this.numMaxTags, "numMaxTags");
             this.numMaxTags.Maximum = new decimal(new int[] {
             20,
             0,
             0,
             0});
             this.numMaxTags.Name = "numMaxTags";
-            this.numMaxTags.Size = new System.Drawing.Size(41, 20);
-            this.numMaxTags.TabIndex = 3;
             // 
             // lblMaxTags
             // 
-            this.lblMaxTags.AutoSize = true;
-            this.lblMaxTags.Location = new System.Drawing.Point(295, 18);
+            resources.ApplyResources(this.lblMaxTags, "lblMaxTags");
             this.lblMaxTags.Name = "lblMaxTags";
-            this.lblMaxTags.Size = new System.Drawing.Size(97, 26);
-            this.lblMaxTags.TabIndex = 4;
-            this.lblMaxTags.Text = "Max tags per game\r\n(0 for unlimited)";
             // 
             // lblPrefix
             // 
-            this.lblPrefix.AutoSize = true;
-            this.lblPrefix.Location = new System.Drawing.Point(8, 23);
+            resources.ApplyResources(this.lblPrefix, "lblPrefix");
             this.lblPrefix.Name = "lblPrefix";
-            this.lblPrefix.Size = new System.Drawing.Size(36, 13);
-            this.lblPrefix.TabIndex = 0;
-            this.lblPrefix.Text = "Prefix:";
             // 
             // txtPrefix
             // 
-            this.txtPrefix.Location = new System.Drawing.Point(50, 20);
+            resources.ApplyResources(this.txtPrefix, "txtPrefix");
             this.txtPrefix.Name = "txtPrefix";
-            this.txtPrefix.Size = new System.Drawing.Size(165, 20);
-            this.txtPrefix.TabIndex = 1;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnTagSelected, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lblIncluded, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(387, 29);
-            this.tableLayoutPanel1.TabIndex = 11;
             // 
             // AutoCatConfigPanel_Tags
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.grpMain);
-            this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "AutoCatConfigPanel_Tags";
-            this.Size = new System.Drawing.Size(400, 300);
             this.grpMain.ResumeLayout(false);
             this.grpMain.PerformLayout();
             this.splitTags.Panel1.ResumeLayout(false);
@@ -525,14 +397,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitTags)).EndInit();
             this.splitTags.ResumeLayout(false);
             this.contextTags.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.grpListOpts.ResumeLayout(false);
             this.grpListOpts.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.list_numWeightFactor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.list_numTagsPerGame)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.list_numMinScore)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxTags)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }

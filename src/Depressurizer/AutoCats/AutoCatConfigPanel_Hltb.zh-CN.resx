@@ -117,4 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="lblRuleName.Text" xml:space="preserve">
+    <value>名称:</value>
+  </data>
+  <data name="helpUnknown.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="lblRuleTimeType.Text" xml:space="preserve">
+    <value>类型:</value>
+  </data>
+  <data name="helpRules.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="cmdRuleRemove.Text" xml:space="preserve">
+    <value>删除规则</value>
+  </data>
+  <data name="cmdRuleAdd.Text" xml:space="preserve">
+    <value>添加规则</value>
+  </data>
+  <data name="grpRules.Text" xml:space="preserve">
+    <value>规则</value>
+  </data>
+  <data name="lblPrefix.Text" xml:space="preserve">
+    <value>前缀:</value>
+  </data>
+  <data name="helpPrefix.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="chkIncludeUnknown.Text" xml:space="preserve">
+    <value>包含未知</value>
+  </data>
+  <data name="lblUnknownText.Text" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="cmdRuleUp.Text" xml:space="preserve">
+    <value>上移</value>
+  </data>
+  <data name="grpMain.Text" xml:space="preserve">
+    <value>编辑 HLTB 自动归类</value>
+  </data>
+  <data name="lblRuleMaxTime.Text" xml:space="preserve">
+    <value>最长小时数: （0表示无限制）</value>
+  </data>
+  <data name="lblRuleMinTime.Text" xml:space="preserve">
+    <value>最低小时数</value>
+  </data>
+  <data name="cmdRuleDown.Text" xml:space="preserve">
+    <value>下移</value>
+  </data>
 </root>

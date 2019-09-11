@@ -181,7 +181,7 @@
     <value>错误</value>
   </data>
   <data name="SpecialCategoryNoFlags" xml:space="preserve">
-    <value>&lt;无标记&gt;</value>
+    <value>&lt;无特征&gt;</value>
   </data>
   <data name="SpecialCategoryNoGenres" xml:space="preserve">
     <value>&lt;无种类&gt;</value>

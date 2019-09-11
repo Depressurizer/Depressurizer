@@ -117,10 +117,704 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="groupPresets.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="cmbPresets.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 18</value>
+  </data>
+  <data name="cmbPresets.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 20</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="cmbPresets.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;cmbPresets.Name" xml:space="preserve">
+    <value>cmbPresets</value>
+  </data>
+  <data name="&gt;&gt;cmbPresets.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbPresets.Parent" xml:space="preserve">
+    <value>groupPresets</value>
+  </data>
+  <data name="&gt;&gt;cmbPresets.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cmdApplyPreset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>292, 17</value>
+  </data>
+  <data name="cmdApplyPreset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 21</value>
+  </data>
+  <data name="cmdApplyPreset.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="cmdApplyPreset.Text" xml:space="preserve">
+    <value>Apply Preset</value>
+  </data>
+  <data name="&gt;&gt;cmdApplyPreset.Name" xml:space="preserve">
+    <value>cmdApplyPreset</value>
+  </data>
+  <data name="&gt;&gt;cmdApplyPreset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdApplyPreset.Parent" xml:space="preserve">
+    <value>groupPresets</value>
+  </data>
+  <data name="&gt;&gt;cmdApplyPreset.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupPresets.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 338</value>
+  </data>
+  <data name="groupPresets.Size" type="System.Drawing.Size, System.Drawing">
+    <value>505, 49</value>
+  </data>
+  <data name="groupPresets.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="groupPresets.Text" xml:space="preserve">
+    <value>Rule Presets</value>
+  </data>
+  <data name="&gt;&gt;groupPresets.Name" xml:space="preserve">
+    <value>groupPresets</value>
+  </data>
+  <data name="&gt;&gt;groupPresets.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupPresets.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;groupPresets.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="grpRules.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="helpRules.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="helpRules.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="helpRules.Location" type="System.Drawing.Point, System.Drawing">
+    <value>484, 0</value>
+  </data>
+  <data name="helpRules.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="helpRules.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="helpRules.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;helpRules.Name" xml:space="preserve">
+    <value>helpRules</value>
+  </data>
+  <data name="&gt;&gt;helpRules.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;helpRules.Parent" xml:space="preserve">
+    <value>grpRules</value>
+  </data>
+  <data name="&gt;&gt;helpRules.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="numRuleMaxReviews.Location" type="System.Drawing.Point, System.Drawing">
+    <value>319, 114</value>
+  </data>
+  <data name="numRuleMaxReviews.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 21</value>
+  </data>
+  <data name="numRuleMaxReviews.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="numRuleMaxReviews.ThousandsSeparator" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;numRuleMaxReviews.Name" xml:space="preserve">
+    <value>numRuleMaxReviews</value>
+  </data>
+  <data name="&gt;&gt;numRuleMaxReviews.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numRuleMaxReviews.Parent" xml:space="preserve">
+    <value>grpRules</value>
+  </data>
+  <data name="&gt;&gt;numRuleMaxReviews.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lblRuleMaxReviews.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblRuleMaxReviews.Location" type="System.Drawing.Point, System.Drawing">
+    <value>186, 115</value>
+  </data>
+  <data name="lblRuleMaxReviews.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 24</value>
+  </data>
+  <data name="lblRuleMaxReviews.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="lblRuleMaxReviews.Text" xml:space="preserve">
+    <value>Max Reviews:
+(0 for unlimited)</value>
+  </data>
+  <data name="&gt;&gt;lblRuleMaxReviews.Name" xml:space="preserve">
+    <value>lblRuleMaxReviews</value>
+  </data>
+  <data name="&gt;&gt;lblRuleMaxReviews.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblRuleMaxReviews.Parent" xml:space="preserve">
+    <value>grpRules</value>
+  </data>
+  <data name="&gt;&gt;lblRuleMaxReviews.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="numRuleMinReviews.Location" type="System.Drawing.Point, System.Drawing">
+    <value>319, 90</value>
+  </data>
+  <data name="numRuleMinReviews.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 21</value>
+  </data>
+  <data name="numRuleMinReviews.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="numRuleMinReviews.ThousandsSeparator" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;numRuleMinReviews.Name" xml:space="preserve">
+    <value>numRuleMinReviews</value>
+  </data>
+  <data name="&gt;&gt;numRuleMinReviews.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numRuleMinReviews.Parent" xml:space="preserve">
+    <value>grpRules</value>
+  </data>
+  <data name="&gt;&gt;numRuleMinReviews.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="lblRuleMinReviews.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblRuleMinReviews.Location" type="System.Drawing.Point, System.Drawing">
+    <value>186, 91</value>
+  </data>
+  <data name="lblRuleMinReviews.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 12</value>
+  </data>
+  <data name="lblRuleMinReviews.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="lblRuleMinReviews.Text" xml:space="preserve">
+    <value>Min Reviews:</value>
+  </data>
+  <data name="&gt;&gt;lblRuleMinReviews.Name" xml:space="preserve">
+    <value>lblRuleMinReviews</value>
+  </data>
+  <data name="&gt;&gt;lblRuleMinReviews.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblRuleMinReviews.Parent" xml:space="preserve">
+    <value>grpRules</value>
+  </data>
+  <data name="&gt;&gt;lblRuleMinReviews.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="cmdRuleDown.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="cmdRuleDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>94, 264</value>
+  </data>
+  <data name="cmdRuleDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 21</value>
+  </data>
+  <data name="cmdRuleDown.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="cmdRuleDown.Text" xml:space="preserve">
+    <value>Down</value>
+  </data>
+  <data name="&gt;&gt;cmdRuleDown.Name" xml:space="preserve">
+    <value>cmdRuleDown</value>
+  </data>
+  <data name="&gt;&gt;cmdRuleDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdRuleDown.Parent" xml:space="preserve">
+    <value>grpRules</value>
+  </data>
+  <data name="&gt;&gt;cmdRuleDown.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="cmdRuleUp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="cmdRuleUp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 264</value>
+  </data>
+  <data name="cmdRuleUp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 21</value>
+  </data>
+  <data name="cmdRuleUp.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="cmdRuleUp.Text" xml:space="preserve">
+    <value>Up</value>
+  </data>
+  <data name="&gt;&gt;cmdRuleUp.Name" xml:space="preserve">
+    <value>cmdRuleUp</value>
+  </data>
+  <data name="&gt;&gt;cmdRuleUp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdRuleUp.Parent" xml:space="preserve">
+    <value>grpRules</value>
+  </data>
+  <data name="&gt;&gt;cmdRuleUp.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="cmdRuleRemove.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="cmdRuleRemove.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 241</value>
+  </data>
+  <data name="cmdRuleRemove.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 21</value>
+  </data>
+  <data name="cmdRuleRemove.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="cmdRuleRemove.Text" xml:space="preserve">
+    <value>Remove Rule</value>
+  </data>
+  <data name="&gt;&gt;cmdRuleRemove.Name" xml:space="preserve">
+    <value>cmdRuleRemove</value>
+  </data>
+  <data name="&gt;&gt;cmdRuleRemove.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdRuleRemove.Parent" xml:space="preserve">
+    <value>grpRules</value>
+  </data>
+  <data name="&gt;&gt;cmdRuleRemove.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="cmdRuleAdd.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="cmdRuleAdd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 218</value>
+  </data>
+  <data name="cmdRuleAdd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 21</value>
+  </data>
+  <data name="cmdRuleAdd.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="cmdRuleAdd.Text" xml:space="preserve">
+    <value>Add Rule</value>
+  </data>
+  <data name="&gt;&gt;cmdRuleAdd.Name" xml:space="preserve">
+    <value>cmdRuleAdd</value>
+  </data>
+  <data name="&gt;&gt;cmdRuleAdd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdRuleAdd.Parent" xml:space="preserve">
+    <value>grpRules</value>
+  </data>
+  <data name="&gt;&gt;cmdRuleAdd.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="numRuleMinScore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>319, 42</value>
+  </data>
+  <data name="numRuleMinScore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 21</value>
+  </data>
+  <data name="numRuleMinScore.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;numRuleMinScore.Name" xml:space="preserve">
+    <value>numRuleMinScore</value>
+  </data>
+  <data name="&gt;&gt;numRuleMinScore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numRuleMinScore.Parent" xml:space="preserve">
+    <value>grpRules</value>
+  </data>
+  <data name="&gt;&gt;numRuleMinScore.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="numRuleMaxScore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>319, 66</value>
+  </data>
+  <data name="numRuleMaxScore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 21</value>
+  </data>
+  <data name="numRuleMaxScore.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;numRuleMaxScore.Name" xml:space="preserve">
+    <value>numRuleMaxScore</value>
+  </data>
+  <data name="&gt;&gt;numRuleMaxScore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numRuleMaxScore.Parent" xml:space="preserve">
+    <value>grpRules</value>
+  </data>
+  <data name="&gt;&gt;numRuleMaxScore.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="txtRuleName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>248, 18</value>
+  </data>
+  <data name="txtRuleName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 21</value>
+  </data>
+  <data name="txtRuleName.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;txtRuleName.Name" xml:space="preserve">
+    <value>txtRuleName</value>
+  </data>
+  <data name="&gt;&gt;txtRuleName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtRuleName.Parent" xml:space="preserve">
+    <value>grpRules</value>
+  </data>
+  <data name="&gt;&gt;txtRuleName.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="lblRuleMinScore.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblRuleMinScore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>186, 43</value>
+  </data>
+  <data name="lblRuleMinScore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 12</value>
+  </data>
+  <data name="lblRuleMinScore.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="lblRuleMinScore.Text" xml:space="preserve">
+    <value>Min Score:</value>
+  </data>
+  <data name="&gt;&gt;lblRuleMinScore.Name" xml:space="preserve">
+    <value>lblRuleMinScore</value>
+  </data>
+  <data name="&gt;&gt;lblRuleMinScore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblRuleMinScore.Parent" xml:space="preserve">
+    <value>grpRules</value>
+  </data>
+  <data name="&gt;&gt;lblRuleMinScore.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="lblRuleName.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblRuleName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>186, 20</value>
+  </data>
+  <data name="lblRuleName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 12</value>
+  </data>
+  <data name="lblRuleName.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="lblRuleName.Text" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="&gt;&gt;lblRuleName.Name" xml:space="preserve">
+    <value>lblRuleName</value>
+  </data>
+  <data name="&gt;&gt;lblRuleName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblRuleName.Parent" xml:space="preserve">
+    <value>grpRules</value>
+  </data>
+  <data name="&gt;&gt;lblRuleName.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="lblRuleMaxScore.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblRuleMaxScore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>186, 67</value>
+  </data>
+  <data name="lblRuleMaxScore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 12</value>
+  </data>
+  <data name="lblRuleMaxScore.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="lblRuleMaxScore.Text" xml:space="preserve">
+    <value>Max Score:</value>
+  </data>
+  <data name="&gt;&gt;lblRuleMaxScore.Name" xml:space="preserve">
+    <value>lblRuleMaxScore</value>
+  </data>
+  <data name="&gt;&gt;lblRuleMaxScore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblRuleMaxScore.Parent" xml:space="preserve">
+    <value>grpRules</value>
+  </data>
+  <data name="&gt;&gt;lblRuleMaxScore.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="lstRules.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left</value>
+  </data>
+  <data name="lstRules.IntegralHeight" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="lstRules.ItemHeight" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="lstRules.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 18</value>
+  </data>
+  <data name="lstRules.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 199</value>
+  </data>
+  <data name="lstRules.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;lstRules.Name" xml:space="preserve">
+    <value>lstRules</value>
+  </data>
+  <data name="&gt;&gt;lstRules.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lstRules.Parent" xml:space="preserve">
+    <value>grpRules</value>
+  </data>
+  <data name="&gt;&gt;lstRules.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="grpRules.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 42</value>
+  </data>
+  <data name="grpRules.Size" type="System.Drawing.Size, System.Drawing">
+    <value>505, 291</value>
+  </data>
+  <data name="grpRules.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="grpRules.Text" xml:space="preserve">
+    <value>Rules</value>
+  </data>
+  <data name="&gt;&gt;grpRules.Name" xml:space="preserve">
+    <value>grpRules</value>
+  </data>
+  <data name="&gt;&gt;grpRules.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpRules.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;grpRules.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="helpPrefix.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="helpPrefix.Location" type="System.Drawing.Point, System.Drawing">
+    <value>238, 20</value>
+  </data>
+  <data name="helpPrefix.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="helpPrefix.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="helpPrefix.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;helpPrefix.Name" xml:space="preserve">
+    <value>helpPrefix</value>
+  </data>
+  <data name="&gt;&gt;helpPrefix.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;helpPrefix.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;helpPrefix.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lblPrefix.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblPrefix.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 20</value>
+  </data>
+  <data name="lblPrefix.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 12</value>
+  </data>
+  <data name="lblPrefix.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lblPrefix.Text" xml:space="preserve">
+    <value>Prefix:</value>
+  </data>
+  <data name="&gt;&gt;lblPrefix.Name" xml:space="preserve">
+    <value>lblPrefix</value>
+  </data>
+  <data name="&gt;&gt;lblPrefix.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblPrefix.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;lblPrefix.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="txtPrefix.Location" type="System.Drawing.Point, System.Drawing">
+    <value>67, 18</value>
+  </data>
+  <data name="txtPrefix.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 21</value>
+  </data>
+  <data name="txtPrefix.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;txtPrefix.Name" xml:space="preserve">
+    <value>txtPrefix</value>
+  </data>
+  <data name="&gt;&gt;txtPrefix.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtPrefix.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;txtPrefix.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="helpUseWilsonScore.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="helpUseWilsonScore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>391, 20</value>
+  </data>
+  <data name="helpUseWilsonScore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="helpUseWilsonScore.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="helpUseWilsonScore.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;helpUseWilsonScore.Name" xml:space="preserve">
+    <value>helpUseWilsonScore</value>
+  </data>
+  <data name="&gt;&gt;helpUseWilsonScore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;helpUseWilsonScore.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;helpUseWilsonScore.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="chkUseWilsonScore.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkUseWilsonScore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>274, 19</value>
+  </data>
+  <data name="chkUseWilsonScore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 16</value>
+  </data>
+  <data name="chkUseWilsonScore.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="chkUseWilsonScore.Text" xml:space="preserve">
+    <value>Use Wilson Score</value>
+  </data>
+  <data name="&gt;&gt;chkUseWilsonScore.Name" xml:space="preserve">
+    <value>chkUseWilsonScore</value>
+  </data>
+  <data name="&gt;&gt;chkUseWilsonScore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkUseWilsonScore.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;chkUseWilsonScore.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="grpMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="grpMain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="grpMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>517, 392</value>
+  </data>
+  <data name="grpMain.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="grpMain.Text" xml:space="preserve">
+    <value>Edit UserScore AutoCat</value>
+  </data>
+  <data name="&gt;&gt;grpMain.Name" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;grpMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpMain.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;grpMain.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>68</value>
   </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>517, 392</value>
+  </data>
+  <data name="&gt;&gt;ttHelp.Name" xml:space="preserve">
+    <value>ttHelp</value>
+  </data>
+  <data name="&gt;&gt;ttHelp.Type" xml:space="preserve">
+    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=4.12.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>AutoCatConfigPanel_UserScore</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>Depressurizer.AutoCats.AutoCatConfigPanel, Depressurizer, Version=4.12.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
 </root>

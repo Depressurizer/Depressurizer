@@ -117,7 +117,460 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="chkTypeFallback.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="chkTypeFallback.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 63</value>
+  </data>
+  <data name="chkTypeFallback.Size" type="System.Drawing.Size, System.Drawing">
+    <value>462, 16</value>
+  </data>
+  <data name="chkTypeFallback.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="chkTypeFallback.Text" xml:space="preserve">
+    <value>If a game doesn't support Subtitles/Full Audio at all, use Interface data</value>
+  </data>
+  <data name="&gt;&gt;chkTypeFallback.Name" xml:space="preserve">
+    <value>chkTypeFallback</value>
+  </data>
+  <data name="&gt;&gt;chkTypeFallback.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkTypeFallback.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;chkTypeFallback.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="chkIncludeTypePrefix.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkIncludeTypePrefix.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 42</value>
+  </data>
+  <data name="chkIncludeTypePrefix.Size" type="System.Drawing.Size, System.Drawing">
+    <value>402, 16</value>
+  </data>
+  <data name="chkIncludeTypePrefix.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="chkIncludeTypePrefix.Text" xml:space="preserve">
+    <value>Include Interface/Subtitles/Full Audio prefix on category names</value>
+  </data>
+  <data name="&gt;&gt;chkIncludeTypePrefix.Name" xml:space="preserve">
+    <value>chkIncludeTypePrefix</value>
+  </data>
+  <data name="&gt;&gt;chkIncludeTypePrefix.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkIncludeTypePrefix.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;chkIncludeTypePrefix.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="helpPrefix.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="helpPrefix.Location" type="System.Drawing.Point, System.Drawing">
+    <value>238, 20</value>
+  </data>
+  <data name="helpPrefix.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 14</value>
+  </data>
+  <data name="helpPrefix.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="helpPrefix.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;helpPrefix.Name" xml:space="preserve">
+    <value>helpPrefix</value>
+  </data>
+  <data name="&gt;&gt;helpPrefix.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;helpPrefix.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;helpPrefix.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tblButtons.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="tblButtons.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="cmdUncheckAll.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="cmdUncheckAll.Location" type="System.Drawing.Point, System.Drawing">
+    <value>288, 4</value>
+  </data>
+  <data name="cmdUncheckAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>279, 21</value>
+  </data>
+  <data name="cmdUncheckAll.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="cmdUncheckAll.Text" xml:space="preserve">
+    <value>Uncheck All</value>
+  </data>
+  <data name="&gt;&gt;cmdUncheckAll.Name" xml:space="preserve">
+    <value>cmdUncheckAll</value>
+  </data>
+  <data name="&gt;&gt;cmdUncheckAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdUncheckAll.Parent" xml:space="preserve">
+    <value>tblButtons</value>
+  </data>
+  <data name="&gt;&gt;cmdUncheckAll.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cmdCheckAll.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="cmdCheckAll.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 4</value>
+  </data>
+  <data name="cmdCheckAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>279, 21</value>
+  </data>
+  <data name="cmdCheckAll.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="cmdCheckAll.Text" xml:space="preserve">
+    <value>Check All</value>
+  </data>
+  <data name="&gt;&gt;cmdCheckAll.Name" xml:space="preserve">
+    <value>cmdCheckAll</value>
+  </data>
+  <data name="&gt;&gt;cmdCheckAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdCheckAll.Parent" xml:space="preserve">
+    <value>tblButtons</value>
+  </data>
+  <data name="&gt;&gt;cmdCheckAll.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tblButtons.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 393</value>
+  </data>
+  <data name="tblButtons.RowCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tblButtons.Size" type="System.Drawing.Size, System.Drawing">
+    <value>570, 28</value>
+  </data>
+  <data name="tblButtons.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;tblButtons.Name" xml:space="preserve">
+    <value>tblButtons</value>
+  </data>
+  <data name="&gt;&gt;tblButtons.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tblButtons.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;tblButtons.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tblButtons.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="cmdUncheckAll" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="cmdCheckAll" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,33.33333,Percent,33.33333" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="txtPrefix.Location" type="System.Drawing.Point, System.Drawing">
+    <value>67, 18</value>
+  </data>
+  <data name="txtPrefix.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 21</value>
+  </data>
+  <data name="txtPrefix.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;txtPrefix.Name" xml:space="preserve">
+    <value>txtPrefix</value>
+  </data>
+  <data name="&gt;&gt;txtPrefix.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtPrefix.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;txtPrefix.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="lblPrefix.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblPrefix.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 20</value>
+  </data>
+  <data name="lblPrefix.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 12</value>
+  </data>
+  <data name="lblPrefix.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lblPrefix.Text" xml:space="preserve">
+    <value>Prefix:</value>
+  </data>
+  <data name="&gt;&gt;lblPrefix.Name" xml:space="preserve">
+    <value>lblPrefix</value>
+  </data>
+  <data name="&gt;&gt;lblPrefix.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblPrefix.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;lblPrefix.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="tblVrFlags.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="tblVrFlags.ColumnCount" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="lstFullAudio.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="lstFullAudio.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 17</value>
+  </data>
+  <data name="lstFullAudio.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 279</value>
+  </data>
+  <data name="lstFullAudio.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;lstFullAudio.Name" xml:space="preserve">
+    <value>lstFullAudio</value>
+  </data>
+  <data name="&gt;&gt;lstFullAudio.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lstFullAudio.Parent" xml:space="preserve">
+    <value>grpFullAudio</value>
+  </data>
+  <data name="&gt;&gt;lstFullAudio.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="grpFullAudio.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="grpFullAudio.Location" type="System.Drawing.Point, System.Drawing">
+    <value>378, 3</value>
+  </data>
+  <data name="grpFullAudio.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 299</value>
+  </data>
+  <data name="grpFullAudio.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="grpFullAudio.Text" xml:space="preserve">
+    <value>Full Audio</value>
+  </data>
+  <data name="&gt;&gt;grpFullAudio.Name" xml:space="preserve">
+    <value>grpFullAudio</value>
+  </data>
+  <data name="&gt;&gt;grpFullAudio.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpFullAudio.Parent" xml:space="preserve">
+    <value>tblVrFlags</value>
+  </data>
+  <data name="&gt;&gt;grpFullAudio.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lstInterface.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="lstInterface.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 17</value>
+  </data>
+  <data name="lstInterface.Size" type="System.Drawing.Size, System.Drawing">
+    <value>175, 279</value>
+  </data>
+  <data name="lstInterface.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;lstInterface.Name" xml:space="preserve">
+    <value>lstInterface</value>
+  </data>
+  <data name="&gt;&gt;lstInterface.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lstInterface.Parent" xml:space="preserve">
+    <value>grpInterface</value>
+  </data>
+  <data name="&gt;&gt;lstInterface.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="grpInterface.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="grpInterface.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="grpInterface.Size" type="System.Drawing.Size, System.Drawing">
+    <value>181, 299</value>
+  </data>
+  <data name="grpInterface.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="grpInterface.Text" xml:space="preserve">
+    <value>Interface</value>
+  </data>
+  <data name="&gt;&gt;grpInterface.Name" xml:space="preserve">
+    <value>grpInterface</value>
+  </data>
+  <data name="&gt;&gt;grpInterface.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpInterface.Parent" xml:space="preserve">
+    <value>tblVrFlags</value>
+  </data>
+  <data name="&gt;&gt;grpInterface.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lstSubtitles.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="lstSubtitles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 17</value>
+  </data>
+  <data name="lstSubtitles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 279</value>
+  </data>
+  <data name="lstSubtitles.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;lstSubtitles.Name" xml:space="preserve">
+    <value>lstSubtitles</value>
+  </data>
+  <data name="&gt;&gt;lstSubtitles.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lstSubtitles.Parent" xml:space="preserve">
+    <value>grpSubtitles</value>
+  </data>
+  <data name="&gt;&gt;lstSubtitles.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="grpSubtitles.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="grpSubtitles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>190, 3</value>
+  </data>
+  <data name="grpSubtitles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 299</value>
+  </data>
+  <data name="grpSubtitles.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="grpSubtitles.Text" xml:space="preserve">
+    <value>Subtitles</value>
+  </data>
+  <data name="&gt;&gt;grpSubtitles.Name" xml:space="preserve">
+    <value>grpSubtitles</value>
+  </data>
+  <data name="&gt;&gt;grpSubtitles.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpSubtitles.Parent" xml:space="preserve">
+    <value>tblVrFlags</value>
+  </data>
+  <data name="&gt;&gt;grpSubtitles.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tblVrFlags.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 87</value>
+  </data>
+  <data name="tblVrFlags.RowCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tblVrFlags.Size" type="System.Drawing.Size, System.Drawing">
+    <value>564, 305</value>
+  </data>
+  <data name="tblVrFlags.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;tblVrFlags.Name" xml:space="preserve">
+    <value>tblVrFlags</value>
+  </data>
+  <data name="&gt;&gt;tblVrFlags.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tblVrFlags.Parent" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;tblVrFlags.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="tblVrFlags.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="grpFullAudio" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="grpInterface" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="grpSubtitles" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,33.33333,Percent,33.33334,Percent,33.33334" /&gt;&lt;Rows Styles="Percent,100,Absolute,18" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="grpMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="grpMain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="grpMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>576, 425</value>
+  </data>
+  <data name="grpMain.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="grpMain.Text" xml:space="preserve">
+    <value>Edit Language Autocat</value>
+  </data>
+  <data name="&gt;&gt;grpMain.Name" xml:space="preserve">
+    <value>grpMain</value>
+  </data>
+  <data name="&gt;&gt;grpMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpMain.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;grpMain.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>576, 425</value>
+  </data>
+  <data name="&gt;&gt;ttHelp.Name" xml:space="preserve">
+    <value>ttHelp</value>
+  </data>
+  <data name="&gt;&gt;ttHelp.Type" xml:space="preserve">
+    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=4.12.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>AutoCatConfigPanel_Language</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>Depressurizer.AutoCats.AutoCatConfigPanel, Depressurizer, Version=4.12.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
 </root>

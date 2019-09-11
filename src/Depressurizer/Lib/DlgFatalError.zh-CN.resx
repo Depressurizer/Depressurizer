@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="cmdClose.Text" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="grpMoreInfo.Text" xml:space="preserve">
+    <value>错误详情</value>
+  </data>
+  <data name="lblErrMsg.Text" xml:space="preserve">
+    <value>错误消息:</value>
+  </data>
+  <data name="cmdShow.Text" xml:space="preserve">
+    <value>更多信息</value>
+  </data>
+  <data name="lblTrace.Text" xml:space="preserve">
+    <value>堆栈跟踪:</value>
+  </data>
+  <data name="lblErrType.Text" xml:space="preserve">
+    <value>错误类型:</value>
+  </data>
+  <data name="cmdCopy.Text" xml:space="preserve">
+    <value>复制到剪贴板</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>致命错误</value>
+  </data>
+  <data name="cmdSave.Text" xml:space="preserve">
+    <value>保存到文件</value>
+  </data>
+  <data name="lblMessage.Text" xml:space="preserve">
+    <value>本程序遭遇致命错误，需要关闭。</value>
+  </data>
 </root>
