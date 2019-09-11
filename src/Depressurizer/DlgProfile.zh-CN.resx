@@ -117,744 +117,118 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="txtFilePath.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="txtFilePath.Location" type="System.Drawing.Point, System.Drawing">
-    <value>91, 13</value>
-  </data>
-  <data name="txtFilePath.Size" type="System.Drawing.Size, System.Drawing">
-    <value>371, 20</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="txtFilePath.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="cmdBrowse.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="cmdBrowse.Location" type="System.Drawing.Point, System.Drawing">
-    <value>468, 11</value>
-  </data>
-  <data name="cmdBrowse.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 23</value>
-  </data>
-  <data name="cmdBrowse.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
   <data name="cmdBrowse.Text" xml:space="preserve">
     <value>浏览...</value>
-  </data>
-  <data name="lblPath.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblPath.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 16</value>
-  </data>
-  <data name="lblPath.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 13</value>
-  </data>
-  <data name="lblPath.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="lblPath.Text" xml:space="preserve">
     <value>配置文件路径:</value>
   </data>
-  <data name="grpUserInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="txtUserUrl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>201, 159</value>
-  </data>
-  <data name="txtUserUrl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>343, 20</value>
-  </data>
-  <data name="txtUserUrl.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="radSelUserByURL.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radSelUserByURL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 160</value>
-  </data>
-  <data name="radSelUserByURL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>189, 17</value>
-  </data>
-  <data name="radSelUserByURL.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
   <data name="radSelUserByURL.Text" xml:space="preserve">
     <value>手动输入自定义 URL 名称:</value>
-  </data>
-  <data name="radSelUserByID.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radSelUserByID.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 134</value>
-  </data>
-  <data name="radSelUserByID.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 17</value>
-  </data>
-  <data name="radSelUserByID.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
   </data>
   <data name="radSelUserByID.Text" xml:space="preserve">
     <value>手动输入 64 位 Steam ID:</value>
   </data>
-  <data name="radSelUserFromList.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radSelUserFromList.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="radSelUserFromList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 17</value>
-  </data>
-  <data name="radSelUserFromList.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="radSelUserFromList.Text" xml:space="preserve">
     <value>选择在本地计算机上找到的用户:</value>
-  </data>
-  <data name="cmdUserUpdateCancel.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="cmdUserUpdateCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>469, 104</value>
-  </data>
-  <data name="cmdUserUpdateCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="cmdUserUpdateCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
   </data>
   <data name="cmdUserUpdateCancel.Text" xml:space="preserve">
     <value>取消</value>
   </data>
-  <data name="lblUserStatus.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 109</value>
-  </data>
-  <data name="lblUserStatus.Size" type="System.Drawing.Size, System.Drawing">
-    <value>375, 13</value>
-  </data>
-  <data name="lblUserStatus.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
   <data name="lblUserStatus.Text" xml:space="preserve">
     <value>按“更新”以获取上述账号的显示名称。</value>
-  </data>
-  <data name="lblUserStatus.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
-  </data>
-  <data name="cmdUserUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>387, 104</value>
-  </data>
-  <data name="cmdUserUpdate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 23</value>
-  </data>
-  <data name="cmdUserUpdate.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
   </data>
   <data name="cmdUserUpdate.Text" xml:space="preserve">
     <value>更新</value>
   </data>
-  <data name="txtUserID.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="txtUserID.Location" type="System.Drawing.Point, System.Drawing">
-    <value>201, 133</value>
-  </data>
-  <data name="txtUserID.Size" type="System.Drawing.Size, System.Drawing">
-    <value>343, 20</value>
-  </data>
-  <data name="txtUserID.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="lstUsers.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 42</value>
-  </data>
-  <data name="lstUsers.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 56</value>
-  </data>
-  <data name="lstUsers.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="grpUserInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 52</value>
-  </data>
-  <data name="grpUserInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>550, 189</value>
-  </data>
-  <data name="grpUserInfo.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
   <data name="grpUserInfo.Text" xml:space="preserve">
     <value>选择用户</value>
-  </data>
-  <data name="grpProfInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="grpProfInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="grpProfInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>550, 40</value>
-  </data>
-  <data name="grpProfInfo.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="grpProfInfo.Text" xml:space="preserve">
     <value>配置文件信息</value>
   </data>
-  <data name="grpActions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="chkSetStartup.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkSetStartup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 67</value>
-  </data>
-  <data name="chkSetStartup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 17</value>
-  </data>
-  <data name="chkSetStartup.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
   <data name="chkSetStartup.Text" xml:space="preserve">
     <value>设定此配置文件为程序启动时加载</value>
-  </data>
-  <data name="chkActImport.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkActImport.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 44</value>
-  </data>
-  <data name="chkActImport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>209, 17</value>
-  </data>
-  <data name="chkActImport.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
   </data>
   <data name="chkActImport.Text" xml:space="preserve">
     <value>立即从 Steam 导入类型</value>
   </data>
-  <data name="chkActUpdate.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkActUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 21</value>
-  </data>
-  <data name="chkActUpdate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 17</value>
-  </data>
-  <data name="chkActUpdate.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
   <data name="chkActUpdate.Text" xml:space="preserve">
     <value>立即更新游戏名单</value>
-  </data>
-  <data name="grpActions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 247</value>
-  </data>
-  <data name="grpActions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>550, 91</value>
-  </data>
-  <data name="grpActions.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
   </data>
   <data name="grpActions.Text" xml:space="preserve">
     <value>其他操作</value>
   </data>
-  <data name="cmdOk.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="cmdOk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>507, 387</value>
-  </data>
-  <data name="cmdOk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="cmdOk.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
   <data name="cmdOk.Text" xml:space="preserve">
     <value>确定</value>
-  </data>
-  <data name="cmdCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="cmdCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>426, 387</value>
-  </data>
-  <data name="cmdCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="cmdCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
   </data>
   <data name="cmdCancel.Text" xml:space="preserve">
     <value>取消</value>
   </data>
-  <data name="grpLoadOpt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="chkAutoImport.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkAutoImport.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 42</value>
-  </data>
-  <data name="chkAutoImport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>265, 17</value>
-  </data>
-  <data name="chkAutoImport.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
   <data name="chkAutoImport.Text" xml:space="preserve">
     <value>加载时自动从 Steam 导入类型</value>
-  </data>
-  <data name="chkAutoUpdate.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkAutoUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="chkAutoUpdate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 17</value>
-  </data>
-  <data name="chkAutoUpdate.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="chkAutoUpdate.Text" xml:space="preserve">
     <value>加载时自动更新游戏名单</value>
   </data>
-  <data name="grpLoadOpt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="grpLoadOpt.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 3, 3, 3</value>
-  </data>
-  <data name="grpLoadOpt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>550, 65</value>
-  </data>
-  <data name="grpLoadOpt.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="grpLoadOpt.Text" xml:space="preserve">
     <value>配置文件加载</value>
-  </data>
-  <data name="grpSaveOpt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="lblHelp_ExportDiscard.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="lblHelp_ExportDiscard.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblHelp_ExportDiscard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>382, 19</value>
-  </data>
-  <data name="lblHelp_ExportDiscard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 15</value>
-  </data>
-  <data name="lblHelp_ExportDiscard.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="chkExportDiscard.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="chkExportDiscard.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkExportDiscard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="chkExportDiscard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>370, 17</value>
-  </data>
-  <data name="chkExportDiscard.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
   </data>
   <data name="chkExportDiscard.Text" xml:space="preserve">
     <value>在 Steam 配置文件中移除已删除或未知的游戏</value>
   </data>
-  <data name="grpSaveOpt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 77</value>
-  </data>
-  <data name="grpSaveOpt.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 0, 3</value>
-  </data>
-  <data name="grpSaveOpt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>550, 42</value>
-  </data>
-  <data name="grpSaveOpt.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
   <data name="grpSaveOpt.Text" xml:space="preserve">
     <value>配置文件保存</value>
-  </data>
-  <data name="tabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="tabMain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabMain.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>562, 343</value>
-  </data>
-  <data name="tabMain.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="tabMain.Text" xml:space="preserve">
     <value>主要</value>
   </data>
-  <data name="grpUpdateOpt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="lblHelp_LocalUpdate.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblHelp_LocalUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>304, 19</value>
-  </data>
-  <data name="lblHelp_LocalUpdate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 15</value>
-  </data>
-  <data name="lblHelp_LocalUpdate.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="lblHelp_WebUpdate.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblHelp_WebUpdate.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblHelp_WebUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>273, 42</value>
-  </data>
-  <data name="lblHelp_WebUpdate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 15</value>
-  </data>
-  <data name="lblHelp_WebUpdate.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="chkWebUpdate.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkWebUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 42</value>
-  </data>
-  <data name="chkWebUpdate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>261, 17</value>
-  </data>
-  <data name="chkWebUpdate.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
   <data name="chkWebUpdate.Text" xml:space="preserve">
     <value>本地更新已禁用或失败则从网上更新</value>
-  </data>
-  <data name="chkLocalUpdate.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkLocalUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="chkLocalUpdate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 17</value>
-  </data>
-  <data name="chkLocalUpdate.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="chkLocalUpdate.Text" xml:space="preserve">
     <value>尝试从网上更新前先从本地 Steam 文件更新</value>
   </data>
-  <data name="grpUpdateOpt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 126</value>
-  </data>
-  <data name="grpUpdateOpt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>550, 65</value>
-  </data>
-  <data name="grpUpdateOpt.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
   <data name="grpUpdateOpt.Text" xml:space="preserve">
     <value>游戏名单更新</value>
-  </data>
-  <data name="grpOtherOpt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="chkIncludeShortcuts.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkIncludeShortcuts.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkIncludeShortcuts.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="chkIncludeShortcuts.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 17</value>
-  </data>
-  <data name="chkIncludeShortcuts.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="chkIncludeShortcuts.Text" xml:space="preserve">
     <value>包括非 Steam 游戏</value>
   </data>
-  <data name="chkOverwriteNames.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkOverwriteNames.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 42</value>
-  </data>
-  <data name="chkOverwriteNames.Size" type="System.Drawing.Size, System.Drawing">
-    <value>287, 17</value>
-  </data>
-  <data name="chkOverwriteNames.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
   <data name="chkOverwriteNames.Text" xml:space="preserve">
     <value>从网上下载游戏名单时覆盖本地名称</value>
-  </data>
-  <data name="grpOtherOpt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 197</value>
-  </data>
-  <data name="grpOtherOpt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>550, 65</value>
-  </data>
-  <data name="grpOtherOpt.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
   </data>
   <data name="grpOtherOpt.Text" xml:space="preserve">
     <value>其他选项</value>
   </data>
-  <data name="tabOpts.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabOpts.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabOpts.Size" type="System.Drawing.Size, System.Drawing">
-    <value>562, 343</value>
-  </data>
-  <data name="tabOpts.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
   <data name="tabOpts.Text" xml:space="preserve">
     <value>选项</value>
-  </data>
-  <data name="grpIgnored.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="cmdIgnore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="cmdIgnore.Location" type="System.Drawing.Point, System.Drawing">
-    <value>187, 45</value>
-  </data>
-  <data name="cmdIgnore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 23</value>
-  </data>
-  <data name="cmdIgnore.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
   </data>
   <data name="cmdIgnore.Text" xml:space="preserve">
     <value>忽略</value>
   </data>
-  <data name="txtIgnore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="txtIgnore.Location" type="System.Drawing.Point, System.Drawing">
-    <value>187, 19</value>
-  </data>
-  <data name="txtIgnore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 20</value>
-  </data>
-  <data name="txtIgnore.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="cmdUnignore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="cmdUnignore.Location" type="System.Drawing.Point, System.Drawing">
-    <value>187, 300</value>
-  </data>
-  <data name="cmdUnignore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 23</value>
-  </data>
-  <data name="cmdUnignore.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
   <data name="cmdUnignore.Text" xml:space="preserve">
     <value>取消忽略选中</value>
-  </data>
-  <data name="lstIgnored.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="lstIgnored.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="lstIgnored.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 304</value>
-  </data>
-  <data name="lstIgnored.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="grpIgnored.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="grpIgnored.Size" type="System.Drawing.Size, System.Drawing">
-    <value>296, 329</value>
-  </data>
-  <data name="grpIgnored.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="grpIgnored.Text" xml:space="preserve">
     <value>忽略游戏</value>
   </data>
-  <data name="grpIgnoreSettings.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Right</value>
-  </data>
-  <data name="chkIncludeUnknown.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkIncludeUnknown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 57</value>
-  </data>
-  <data name="chkIncludeUnknown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 17</value>
-  </data>
-  <data name="chkIncludeUnknown.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
   <data name="chkIncludeUnknown.Text" xml:space="preserve">
     <value>不忽略未知的应用程序</value>
-  </data>
-  <data name="lblHelp_BypassIgnoreOnImport.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="lblHelp_BypassIgnoreOnImport.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblHelp_BypassIgnoreOnImport.Location" type="System.Drawing.Point, System.Drawing">
-    <value>233, 82</value>
-  </data>
-  <data name="lblHelp_BypassIgnoreOnImport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 15</value>
-  </data>
-  <data name="lblHelp_BypassIgnoreOnImport.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="lblHelp_IncludeUnknown.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="lblHelp_IncludeUnknown.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblHelp_IncludeUnknown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>233, 59</value>
-  </data>
-  <data name="lblHelp_IncludeUnknown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 15</value>
-  </data>
-  <data name="lblHelp_IncludeUnknown.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="chkBypassIgnoreOnImport.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="chkBypassIgnoreOnImport.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopLeft</value>
-  </data>
-  <data name="chkBypassIgnoreOnImport.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 81</value>
-  </data>
-  <data name="chkBypassIgnoreOnImport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 34</value>
-  </data>
-  <data name="chkBypassIgnoreOnImport.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
   </data>
   <data name="chkBypassIgnoreOnImport.Text" xml:space="preserve">
     <value>从 Steam 配置文件发现游戏时绕过自动忽略。</value>
   </data>
-  <data name="chkBypassIgnoreOnImport.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopLeft</value>
-  </data>
-  <data name="chkAutoIgnore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="chkAutoIgnore.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopLeft</value>
-  </data>
-  <data name="chkAutoIgnore.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="chkAutoIgnore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 33</value>
-  </data>
-  <data name="chkAutoIgnore.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="chkAutoIgnore.Text" xml:space="preserve">
     <value>移除时自动忽略游戏</value>
-  </data>
-  <data name="chkAutoIgnore.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopLeft</value>
-  </data>
-  <data name="grpIgnoreSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>305, 3</value>
-  </data>
-  <data name="grpIgnoreSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 329</value>
-  </data>
-  <data name="grpIgnoreSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
   </data>
   <data name="grpIgnoreSettings.Text" xml:space="preserve">
     <value>设置</value>
   </data>
-  <data name="tabIgnore.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabIgnore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>562, 343</value>
-  </data>
-  <data name="tabIgnore.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
   <data name="tabIgnore.Text" xml:space="preserve">
     <value>忽略游戏</value>
   </data>
-  <data name="tabControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 12</value>
-  </data>
-  <data name="tabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>570, 369</value>
-  </data>
-  <data name="tabControl.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing">
-    <value>17, 17</value>
-  </data>
-  <data name="$this.Localizable" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>594, 420</value>
-  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAQAEBAAAAEAIABoBAAARgAAACAgAAABACAAqBAAAK4EAABAQAAAAQAgAChCAABWFQAAgIAAAAEA
@@ -2359,9 +1733,6 @@
         AA/4AAAAAAAAAAAAAAAAAAAf/AAAAAAAAAAAAAAAAAAAP/8AAAAAAAAAAAAAAAAAAP//wAAAAAAAAAAA
         AAAAAAP///gAAAAAAAAAAAAAAAAf/w==
 </value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterScreen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>创建配置文件</value>

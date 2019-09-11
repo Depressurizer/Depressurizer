@@ -117,355 +117,68 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="splitContainer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="splitContainer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 65</value>
-  </data>
-  <data name="splitCategories.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="splitCategories.IsSplitterFixed" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="splitCategories.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="splitCategories.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
-    <value>Horizontal</value>
-  </data>
-  <data name="tblLayoutPanelFilterToolbar.ColumnCount" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="cboFilter.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="cboFilter.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9pt</value>
-  </data>
-  <data name="cboFilter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="cboFilter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 23</value>
-  </data>
-  <data name="cboFilter.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="mbtnFilterSave.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mbtnFilterSave.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="mbtnFilterSave.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="mbtnFilterSave.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mbtnFilterSave.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 35</value>
-  </data>
-  <data name="mbtnFilterSave.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 26</value>
-  </data>
-  <data name="mbtnFilterSave.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
   <data name="mbtnFilterSave.Text" xml:space="preserve">
     <value>保存</value>
-  </data>
-  <data name="mbtnFilterDelete.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mbtnFilterDelete.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="mbtnFilterDelete.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="mbtnFilterDelete.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mbtnFilterDelete.Location" type="System.Drawing.Point, System.Drawing">
-    <value>167, 35</value>
-  </data>
-  <data name="mbtnFilterDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 26</value>
-  </data>
-  <data name="mbtnFilterDelete.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
   </data>
   <data name="mbtnFilterDelete.Text" xml:space="preserve">
     <value>删除</value>
   </data>
-  <data name="mbtnFilterRename.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mbtnFilterRename.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="mbtnFilterRename.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="mbtnFilterRename.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mbtnFilterRename.Location" type="System.Drawing.Point, System.Drawing">
-    <value>85, 35</value>
-  </data>
-  <data name="mbtnFilterRename.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 26</value>
-  </data>
-  <data name="mbtnFilterRename.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
   <data name="mbtnFilterRename.Text" xml:space="preserve">
     <value>更名</value>
-  </data>
-  <data name="tblLayoutPanelFilterToolbar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="tblLayoutPanelFilterToolbar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="tblLayoutPanelFilterToolbar.RowCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tblLayoutPanelFilterToolbar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 64</value>
-  </data>
-  <data name="tblLayoutPanelFilterToolbar.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="tblLayoutPanelFilterToolbar.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="cboFilter" Row="0" RowSpan="1" Column="0" ColumnSpan="3" /&gt;&lt;Control Name="mbtnFilterSave" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="mbtnFilterDelete" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="mbtnFilterRename" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,33.33333,Percent,33.33334,Percent,33.33334" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="columnCategory.Text" xml:space="preserve">
     <value>分类</value>
   </data>
-  <data name="columnCategory.Width" type="System.Int32, mscorlib">
-    <value>103</value>
-  </data>
-  <data name="contextCat.TrayLocation" type="System.Drawing.Point, System.Drawing">
-    <value>642, 17</value>
-  </data>
-  <data name="nameascendingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 22</value>
-  </data>
   <data name="nameascendingToolStripMenuItem.Text" xml:space="preserve">
     <value>名称（升序）</value>
-  </data>
-  <data name="namedescendingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 22</value>
   </data>
   <data name="namedescendingToolStripMenuItem.Text" xml:space="preserve">
     <value>名称（降序）</value>
   </data>
-  <data name="countascendingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 22</value>
-  </data>
   <data name="countascendingToolStripMenuItem.Text" xml:space="preserve">
     <value>数量（升序）</value>
-  </data>
-  <data name="countdescendingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 22</value>
   </data>
   <data name="countdescendingToolStripMenuItem.Text" xml:space="preserve">
     <value>数量（降序）</value>
   </data>
-  <data name="sortToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
   <data name="sortToolStripMenuItem.Text" xml:space="preserve">
     <value>排序</value>
-  </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 6</value>
-  </data>
-  <data name="contextCat_Add.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
   </data>
   <data name="contextCat_Add.Text" xml:space="preserve">
     <value>添加类别...</value>
   </data>
-  <data name="contextCat_Rename.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
   <data name="contextCat_Rename.Text" xml:space="preserve">
     <value>更名类别...</value>
-  </data>
-  <data name="contextCat_Delete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
   </data>
   <data name="contextCat_Delete.Text" xml:space="preserve">
     <value>删除类别</value>
   </data>
-  <data name="contextCat_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 6</value>
-  </data>
-  <data name="contextCat_RemoveEmpty.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
   <data name="contextCat_RemoveEmpty.Text" xml:space="preserve">
     <value>删除空类别</value>
-  </data>
-  <data name="contextCat_SetAdvanced_Allow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>114, 22</value>
   </data>
   <data name="contextCat_SetAdvanced_Allow.Text" xml:space="preserve">
     <value>允许</value>
   </data>
-  <data name="contextCat_SetAdvanced_Require.Size" type="System.Drawing.Size, System.Drawing">
-    <value>114, 22</value>
-  </data>
   <data name="contextCat_SetAdvanced_Require.Text" xml:space="preserve">
     <value>必选</value>
-  </data>
-  <data name="contextCat_SetAdvanced_Exclude.Size" type="System.Drawing.Size, System.Drawing">
-    <value>114, 22</value>
   </data>
   <data name="contextCat_SetAdvanced_Exclude.Text" xml:space="preserve">
     <value>排除</value>
   </data>
-  <data name="contextCat_SetAdvanced_None.Size" type="System.Drawing.Size, System.Drawing">
-    <value>114, 22</value>
-  </data>
   <data name="contextCat_SetAdvanced_None.Text" xml:space="preserve">
     <value>无关</value>
-  </data>
-  <data name="contextCat_SetAdvanced.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
   </data>
   <data name="contextCat_SetAdvanced.Text" xml:space="preserve">
     <value>设定过滤器</value>
   </data>
-  <data name="contextCat_SetAdvanced.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="contextCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>189, 148</value>
-  </data>
-  <data name="lstCategories.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="lstCategories.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 9.75pt</value>
-  </data>
-  <data name="lstCategories.Groups" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACJTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5MaXN0Vmlld0dyb3VwBAAAAAZIZWFkZXIPSGVhZGVyQWxpZ25tZW50A1Rh
-        ZwROYW1lAQQCAShTeXN0ZW0uV2luZG93cy5Gb3Jtcy5Ib3Jpem9udGFsQWxpZ25tZW50AgAAAAIAAAAG
-        AwAAAAdTcGVjaWFsBfz///8oU3lzdGVtLldpbmRvd3MuRm9ybXMuSG9yaXpvbnRhbEFsaWdubWVudAEA
-        AAAHdmFsdWVfXwAIAgAAAAAAAAAKBgUAAAAKbHZnU3BlY2lhbAs=
-</value>
-  </data>
-  <data name="lstCategories.Groups1" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACJTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5MaXN0Vmlld0dyb3VwBAAAAAZIZWFkZXIPSGVhZGVyQWxpZ25tZW50A1Rh
-        ZwROYW1lAQQCAShTeXN0ZW0uV2luZG93cy5Gb3Jtcy5Ib3Jpem9udGFsQWxpZ25tZW50AgAAAAIAAAAG
-        AwAAAApDYXRlZ29yaWVzBfz///8oU3lzdGVtLldpbmRvd3MuRm9ybXMuSG9yaXpvbnRhbEFsaWdubWVu
-        dAEAAAAHdmFsdWVfXwAIAgAAAAAAAAAKBgUAAAANbHZnQ2F0ZWdvcmllcws=
-</value>
-  </data>
-  <data name="lstCategories.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 73</value>
-  </data>
-  <data name="lstCategories.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>20, 20, 20, 20</value>
-  </data>
-  <data name="lstCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 267</value>
-  </data>
-  <data name="lstCategories.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="tblLayoutPanelAutocats.ColumnCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="mbtnAutoCategorize.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mbtnAutoCategorize.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="mbtnAutoCategorize.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="mbtnAutoCategorize.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mbtnAutoCategorize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>115, 5</value>
-  </data>
-  <data name="mbtnAutoCategorize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 36</value>
-  </data>
-  <data name="mbtnAutoCategorize.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
   <data name="mbtnAutoCategorize.Text" xml:space="preserve">
     <value>自动归类</value>
-  </data>
-  <data name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing">
-    <value>132, 56</value>
   </data>
   <data name="mbtnAutoCategorize.ToolTip" xml:space="preserve">
     <value>选择上述自动归类（于“编辑自动归类”中创建）</value>
   </data>
-  <data name="mchkAutoCatSelected.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="mchkAutoCatSelected.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Roboto, 10pt</value>
-  </data>
-  <data name="mchkAutoCatSelected.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mchkAutoCatSelected.Location" type="System.Drawing.Point, System.Drawing">
-    <value>112, 44</value>
-  </data>
-  <data name="mchkAutoCatSelected.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="mchkAutoCatSelected.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 27</value>
-  </data>
-  <data name="mchkAutoCatSelected.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
   <data name="mchkAutoCatSelected.Text" xml:space="preserve">
     <value>仅选中</value>
-  </data>
-  <data name="mbtnEditAutocats.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mbtnEditAutocats.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="mbtnEditAutocats.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="mbtnEditAutocats.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mbtnEditAutocats.Location" type="System.Drawing.Point, System.Drawing">
-    <value>115, 74</value>
-  </data>
-  <data name="mbtnEditAutocats.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 36</value>
-  </data>
-  <data name="mbtnEditAutocats.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
   </data>
   <data name="mbtnEditAutocats.Text" xml:space="preserve">
     <value>编辑自动归类</value>
@@ -473,233 +186,23 @@
   <data name="mbtnEditAutocats.ToolTip" xml:space="preserve">
     <value>选择上述自动归类（于“编辑自动归类”中创建）</value>
   </data>
-  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="contextAutoCat.TrayLocation" type="System.Drawing.Point, System.Drawing">
-    <value>381, 56</value>
-  </data>
-  <data name="contextAutoCat_Edit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 22</value>
-  </data>
   <data name="contextAutoCat_Edit.Text" xml:space="preserve">
     <value>编辑自动归类...</value>
-  </data>
-  <data name="contextAutoCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 26</value>
-  </data>
-  <data name="lvAutoCatType.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="lvAutoCatType.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 9.75pt</value>
-  </data>
-  <data name="lvAutoCatType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 5</value>
-  </data>
-  <data name="lvAutoCatType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>106, 164</value>
-  </data>
-  <data name="lvAutoCatType.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="tblLayoutPanelAutocats.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="tblLayoutPanelAutocats.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 340</value>
-  </data>
-  <data name="tblLayoutPanelAutocats.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 2, 0, 0</value>
-  </data>
-  <data name="tblLayoutPanelAutocats.RowCount" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="tblLayoutPanelAutocats.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 170</value>
-  </data>
-  <data name="tblLayoutPanelAutocats.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="tblLayoutPanelAutocats.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="mbtnAutoCategorize" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="mchkAutoCatSelected" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="mbtnEditAutocats" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lvAutoCatType" Row="0" RowSpan="4" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,Absolute,135" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="tblLayoutPanelCategoryButtons.ColumnCount" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="mbtnCatAdd.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mbtnCatAdd.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="mbtnCatAdd.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="mbtnCatAdd.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mbtnCatAdd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="mbtnCatAdd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 23</value>
-  </data>
-  <data name="mbtnCatAdd.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
   </data>
   <data name="mbtnCatAdd.Text" xml:space="preserve">
     <value>添加</value>
   </data>
-  <data name="mbtnCatDelete.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mbtnCatDelete.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="mbtnCatDelete.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="mbtnCatDelete.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mbtnCatDelete.Location" type="System.Drawing.Point, System.Drawing">
-    <value>167, 3</value>
-  </data>
-  <data name="mbtnCatDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 23</value>
-  </data>
-  <data name="mbtnCatDelete.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
   <data name="mbtnCatDelete.Text" xml:space="preserve">
     <value>删除</value>
-  </data>
-  <data name="mbtnCatRename.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mbtnCatRename.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="mbtnCatRename.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="mbtnCatRename.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mbtnCatRename.Location" type="System.Drawing.Point, System.Drawing">
-    <value>85, 3</value>
-  </data>
-  <data name="mbtnCatRename.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 23</value>
-  </data>
-  <data name="mbtnCatRename.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
   </data>
   <data name="mbtnCatRename.Text" xml:space="preserve">
     <value>更名</value>
   </data>
-  <data name="tblLayoutPanelCategoryButtons.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="tblLayoutPanelCategoryButtons.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 42</value>
-  </data>
-  <data name="tblLayoutPanelCategoryButtons.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 2</value>
-  </data>
-  <data name="tblLayoutPanelCategoryButtons.RowCount" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tblLayoutPanelCategoryButtons.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 31</value>
-  </data>
-  <data name="tblLayoutPanelCategoryButtons.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="tblLayoutPanelCategoryButtons.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="mbtnCatAdd" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="mbtnCatDelete" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="mbtnCatRename" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,33.33333,Percent,33.33334,Percent,33.33334" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="tblLayoutPanelAdvancedModeToolbar.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="tblLayoutPanelAdvancedModeToolbar.ColumnCount" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="mchkAdvancedCategories.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mchkAdvancedCategories.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="mchkAdvancedCategories.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Roboto, 10pt</value>
-  </data>
-  <data name="mchkAdvancedCategories.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mchkAdvancedCategories.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="mchkAdvancedCategories.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="mchkAdvancedCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>132, 42</value>
-  </data>
-  <data name="mchkAdvancedCategories.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
   <data name="mchkAdvancedCategories.Text" xml:space="preserve">
     <value>高级过滤器</value>
   </data>
-  <data name="mlblCategoryCount.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mlblCategoryCount.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="mlblCategoryCount.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Roboto, 11pt</value>
-  </data>
-  <data name="mlblCategoryCount.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mlblCategoryCount.Location" type="System.Drawing.Point, System.Drawing">
-    <value>171, 0</value>
-  </data>
-  <data name="mlblCategoryCount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 42</value>
-  </data>
-  <data name="mlblCategoryCount.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
   <data name="mlblCategoryCount.Text" xml:space="preserve">
     <value>类别</value>
-  </data>
-  <data name="mlblCategoryCount.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="mbtnClearFilters.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mbtnClearFilters.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="mbtnClearFilters.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="mbtnClearFilters.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mbtnClearFilters.Location" type="System.Drawing.Point, System.Drawing">
-    <value>135, 3</value>
-  </data>
-  <data name="mbtnClearFilters.Size" type="System.Drawing.Size, System.Drawing">
-    <value>30, 36</value>
-  </data>
-  <data name="mbtnClearFilters.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
   </data>
   <data name="mbtnClearFilters.Text" xml:space="preserve">
     <value>X</value>
@@ -707,251 +210,83 @@
   <data name="mbtnClearFilters.ToolTip" xml:space="preserve">
     <value>清空过滤器</value>
   </data>
-  <data name="mbtnClearFilters.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="tblLayoutPanelAdvancedModeToolbar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="tblLayoutPanelAdvancedModeToolbar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="tblLayoutPanelAdvancedModeToolbar.RowCount" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tblLayoutPanelAdvancedModeToolbar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 42</value>
-  </data>
-  <data name="tblLayoutPanelAdvancedModeToolbar.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="tblLayoutPanelAdvancedModeToolbar.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="mchkAdvancedCategories" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="mlblCategoryCount" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="mbtnClearFilters" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="AutoSize,0,Absolute,42" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="cmbAutoCatType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="cmbAutoCatType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-80, 368</value>
-  </data>
-  <data name="cmbAutoCatType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 21</value>
-  </data>
-  <data name="cmbAutoCatType.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="cmbAutoCatType.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="splitCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 510</value>
-  </data>
-  <data name="splitCategories.SplitterDistance" type="System.Int32, mscorlib">
-    <value>64</value>
-  </data>
-  <data name="splitCategories.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="splitContainer.Panel1MinSize" type="System.Int32, mscorlib">
-    <value>247</value>
-  </data>
-  <data name="splitBrowser.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="splitBrowser.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="splitGame.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="splitGame.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="splitGame.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
-    <value>Horizontal</value>
-  </data>
   <data name="colGameID.Text" xml:space="preserve">
     <value>游戏 ID</value>
   </data>
   <data name="colGameID.ToolTipText" xml:space="preserve">
     <value />
   </data>
-  <data name="colGameID.Width" type="System.Int32, mscorlib">
-    <value>120</value>
-  </data>
   <data name="colTitle.Text" xml:space="preserve">
     <value>标题</value>
-  </data>
-  <data name="colTitle.Width" type="System.Int32, mscorlib">
-    <value>144</value>
   </data>
   <data name="colCategories.Text" xml:space="preserve">
     <value>类别</value>
   </data>
-  <data name="colCategories.Width" type="System.Int32, mscorlib">
-    <value>167</value>
-  </data>
-  <data name="colGenres.DisplayIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
   <data name="colGenres.Text" xml:space="preserve">
     <value>种类</value>
-  </data>
-  <data name="colGenres.Width" type="System.Int32, mscorlib">
-    <value>78</value>
-  </data>
-  <data name="colFlags.DisplayIndex" type="System.Int32, mscorlib">
-    <value>3</value>
   </data>
   <data name="colFlags.Text" xml:space="preserve">
     <value>特征</value>
   </data>
-  <data name="colFlags.Width" type="System.Int32, mscorlib">
-    <value>71</value>
-  </data>
   <data name="colTags.Text" xml:space="preserve">
     <value>标签</value>
-  </data>
-  <data name="colTags.Width" type="System.Int32, mscorlib">
-    <value>116</value>
-  </data>
-  <data name="colFavorite.DisplayIndex" type="System.Int32, mscorlib">
-    <value>3</value>
   </data>
   <data name="colFavorite.Text" xml:space="preserve">
     <value>收藏夹</value>
   </data>
-  <data name="colFavorite.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
-  </data>
-  <data name="colFavorite.Width" type="System.Int32, mscorlib">
-    <value>52</value>
-  </data>
-  <data name="colHidden.DisplayIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
   <data name="colHidden.Text" xml:space="preserve">
     <value>隐藏</value>
-  </data>
-  <data name="colHidden.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
-  </data>
-  <data name="colHidden.Width" type="System.Int32, mscorlib">
-    <value>47</value>
   </data>
   <data name="colReviewScore.Text" xml:space="preserve">
     <value>评测分数</value>
   </data>
-  <data name="colReviewScore.Width" type="System.Int32, mscorlib">
-    <value>79</value>
-  </data>
-  <data name="colNumberOfReviews.DisplayIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
   <data name="colNumberOfReviews.Text" xml:space="preserve">
     <value>评测数量</value>
-  </data>
-  <data name="colNumberOfReviews.Width" type="System.Int32, mscorlib">
-    <value>109</value>
-  </data>
-  <data name="colReviewLabel.DisplayIndex" type="System.Int32, mscorlib">
-    <value>5</value>
   </data>
   <data name="colReviewLabel.Text" xml:space="preserve">
     <value>评测标签</value>
   </data>
-  <data name="colReviewLabel.Width" type="System.Int32, mscorlib">
-    <value>111</value>
-  </data>
   <data name="colYear.Text" xml:space="preserve">
     <value>年</value>
-  </data>
-  <data name="colYear.Width" type="System.Int32, mscorlib">
-    <value>37</value>
   </data>
   <data name="colLastPlayed.Text" xml:space="preserve">
     <value>上次游戏</value>
   </data>
-  <data name="colAchievements.DisplayIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
   <data name="colAchievements.Text" xml:space="preserve">
     <value>成就</value>
-  </data>
-  <data name="colDevelopers.DisplayIndex" type="System.Int32, mscorlib">
-    <value>7</value>
   </data>
   <data name="colDevelopers.Text" xml:space="preserve">
     <value>开发者</value>
   </data>
-  <data name="colDevelopers.Width" type="System.Int32, mscorlib">
-    <value>78</value>
-  </data>
-  <data name="colPublishers.DisplayIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
   <data name="colPublishers.Text" xml:space="preserve">
     <value>发行商</value>
-  </data>
-  <data name="colPublishers.Width" type="System.Int32, mscorlib">
-    <value>68</value>
-  </data>
-  <data name="colHltbMain.DisplayIndex" type="System.Int32, mscorlib">
-    <value>7</value>
   </data>
   <data name="colHltbMain.Text" xml:space="preserve">
     <value>Hltb Main</value>
   </data>
-  <data name="colHltbExtras.DisplayIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
   <data name="colHltbExtras.Text" xml:space="preserve">
     <value>Hltb Extras</value>
-  </data>
-  <data name="colHltbCompletionist.DisplayIndex" type="System.Int32, mscorlib">
-    <value>7</value>
   </data>
   <data name="colHltbCompletionist.Text" xml:space="preserve">
     <value>Hltb Completionist</value>
   </data>
-  <data name="colPlatforms.DisplayIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
   <data name="colPlatforms.Text" xml:space="preserve">
     <value>平台</value>
-  </data>
-  <data name="colVRHeadsets.DisplayIndex" type="System.Int32, mscorlib">
-    <value>7</value>
   </data>
   <data name="colVRHeadsets.Text" xml:space="preserve">
     <value>VR 耳机</value>
   </data>
-  <data name="colVRInput.DisplayIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
   <data name="colVRInput.Text" xml:space="preserve">
     <value>VR 输入</value>
-  </data>
-  <data name="colVRPlayArea.DisplayIndex" type="System.Int32, mscorlib">
-    <value>7</value>
   </data>
   <data name="colVRPlayArea.Text" xml:space="preserve">
     <value>VR 游戏区</value>
   </data>
-  <data name="colLanguageInterface.DisplayIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
   <data name="colLanguageInterface.Text" xml:space="preserve">
     <value>界面语言</value>
   </data>
-  <data name="colLanguageSubtitles.DisplayIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
   <data name="colLanguageSubtitles.Text" xml:space="preserve">
     <value>字幕</value>
-  </data>
-  <data name="colLanguageFullAudio.DisplayIndex" type="System.Int32, mscorlib">
-    <value>7</value>
   </data>
   <data name="colLanguageFullAudio.Text" xml:space="preserve">
     <value>声画具全</value>
@@ -962,188 +297,50 @@
   <data name="colFiller.Text" xml:space="preserve">
     <value>过滤器</value>
   </data>
-  <data name="colFiller.Width" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="contextGame.TrayLocation" type="System.Drawing.Point, System.Drawing">
-    <value>234, 17</value>
-  </data>
-  <data name="contextGame_LaunchGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
   <data name="contextGame_LaunchGame.Text" xml:space="preserve">
     <value>开始游戏...</value>
-  </data>
-  <data name="contextGame_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 6</value>
-  </data>
-  <data name="contextGame_Add.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
   </data>
   <data name="contextGame_Add.Text" xml:space="preserve">
     <value>添加新游戏...</value>
   </data>
-  <data name="contextGame_Edit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
   <data name="contextGame_Edit.Text" xml:space="preserve">
     <value>编辑游戏...</value>
-  </data>
-  <data name="contextGame_Remove.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
   </data>
   <data name="contextGame_Remove.Text" xml:space="preserve">
     <value>删除游戏</value>
   </data>
-  <data name="contextGame_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 6</value>
-  </data>
-  <data name="contextGameAddCat.TrayLocation" type="System.Drawing.Point, System.Drawing">
-    <value>500, 17</value>
-  </data>
-  <data name="contextGameAddCat_Create.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 22</value>
-  </data>
   <data name="contextGameAddCat_Create.Text" xml:space="preserve">
     <value>新建...</value>
-  </data>
-  <data name="contextGameAddCat.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>0, 600</value>
-  </data>
-  <data name="contextGameAddCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 26</value>
-  </data>
-  <data name="contextGame_AddCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
   </data>
   <data name="contextGame_AddCat.Text" xml:space="preserve">
     <value>添加类别</value>
   </data>
-  <data name="contextGameRemCat.TrayLocation" type="System.Drawing.Point, System.Drawing">
-    <value>752, 17</value>
-  </data>
-  <data name="contextGameRemCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 4</value>
-  </data>
-  <data name="contextGame_RemCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
   <data name="contextGame_RemCat.Text" xml:space="preserve">
     <value>删除类别</value>
-  </data>
-  <data name="contextGameFav.TrayLocation" type="System.Drawing.Point, System.Drawing">
-    <value>358, 17</value>
-  </data>
-  <data name="contextGameFav_Yes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 22</value>
   </data>
   <data name="contextGameFav_Yes.Text" xml:space="preserve">
     <value>是</value>
   </data>
-  <data name="contextGameFav_No.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 22</value>
-  </data>
   <data name="contextGameFav_No.Text" xml:space="preserve">
     <value>否</value>
-  </data>
-  <data name="contextGameFav.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 48</value>
-  </data>
-  <data name="contextGame_SetFav.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
   </data>
   <data name="contextGame_SetFav.Text" xml:space="preserve">
     <value>加入收藏夹</value>
   </data>
-  <data name="contextGameHidden.TrayLocation" type="System.Drawing.Point, System.Drawing">
-    <value>217, 56</value>
-  </data>
-  <data name="contextGameHidden_Yes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 22</value>
-  </data>
   <data name="contextGameHidden_Yes.Text" xml:space="preserve">
     <value>是</value>
-  </data>
-  <data name="contextGameHidden_No.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 22</value>
   </data>
   <data name="contextGameHidden_No.Text" xml:space="preserve">
     <value>否</value>
   </data>
-  <data name="contextGameHidden.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 48</value>
-  </data>
-  <data name="contextGame_SetHidden.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
   <data name="contextGame_SetHidden.Text" xml:space="preserve">
     <value>设为隐藏</value>
-  </data>
-  <data name="contextGame_Sep3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 6</value>
-  </data>
-  <data name="contextGame_VisitStore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
   </data>
   <data name="contextGame_VisitStore.Text" xml:space="preserve">
     <value>访问商店页面</value>
   </data>
-  <data name="contextGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 220</value>
-  </data>
-  <data name="lstGames.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="lstGames.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 31</value>
-  </data>
-  <data name="lstGames.Size" type="System.Drawing.Size, System.Drawing">
-    <value>743, 344</value>
-  </data>
-  <data name="lstGames.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="chkRegex.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkRegex.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Roboto, 10pt</value>
-  </data>
-  <data name="chkRegex.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkRegex.Location" type="System.Drawing.Point, System.Drawing">
-    <value>310, 0</value>
-  </data>
-  <data name="chkRegex.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="chkRegex.Size" type="System.Drawing.Size, System.Drawing">
-    <value>68, 30</value>
-  </data>
-  <data name="chkRegex.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
   <data name="chkRegex.Text" xml:space="preserve">
     <value>正则</value>
-  </data>
-  <data name="mbtnCategories.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mbtnCategories.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="mbtnCategories.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mbtnCategories.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 5</value>
-  </data>
-  <data name="mbtnCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>28, 36</value>
-  </data>
-  <data name="mbtnCategories.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
   </data>
   <data name="mbtnCategories.Text" xml:space="preserve">
     <value>&lt;</value>
@@ -1151,1168 +348,97 @@
   <data name="mbtnCategories.ToolTip" xml:space="preserve">
     <value>显示/隐藏类别面板</value>
   </data>
-  <data name="cmdAddCatAndAssign.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="cmdAddCatAndAssign.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="cmdAddCatAndAssign.Location" type="System.Drawing.Point, System.Drawing">
-    <value>708, 5</value>
-  </data>
-  <data name="cmdAddCatAndAssign.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 23</value>
-  </data>
-  <data name="cmdAddCatAndAssign.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
   <data name="cmdAddCatAndAssign.Text" xml:space="preserve">
     <value>添加类别和分配</value>
-  </data>
-  <data name="cmdAddCatAndAssign.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="mchkBrowser.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mchkBrowser.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Roboto, 10pt</value>
-  </data>
-  <data name="mchkBrowser.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mchkBrowser.Location" type="System.Drawing.Point, System.Drawing">
-    <value>386, -1</value>
-  </data>
-  <data name="mchkBrowser.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="mchkBrowser.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 30</value>
-  </data>
-  <data name="mchkBrowser.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
   </data>
   <data name="mchkBrowser.Text" xml:space="preserve">
     <value>浏览器</value>
   </data>
-  <data name="txtAddCatAndAssign.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="txtAddCatAndAssign.Location" type="System.Drawing.Point, System.Drawing">
-    <value>652, 7</value>
-  </data>
-  <data name="txtAddCatAndAssign.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 20</value>
-  </data>
-  <data name="txtAddCatAndAssign.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="txtAddCatAndAssign.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="mbtnSearchClear.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mbtnSearchClear.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="mbtnSearchClear.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mbtnSearchClear.Location" type="System.Drawing.Point, System.Drawing">
-    <value>277, 2</value>
-  </data>
-  <data name="mbtnSearchClear.Size" type="System.Drawing.Size, System.Drawing">
-    <value>30, 36</value>
-  </data>
-  <data name="mbtnSearchClear.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
   <data name="mbtnSearchClear.Text" xml:space="preserve">
     <value>X</value>
-  </data>
-  <data name="mlblSearch.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mlblSearch.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Roboto, 11pt</value>
-  </data>
-  <data name="mlblSearch.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mlblSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 6</value>
-  </data>
-  <data name="mlblSearch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 19</value>
-  </data>
-  <data name="mlblSearch.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
   </data>
   <data name="mlblSearch.Text" xml:space="preserve">
     <value>搜索</value>
   </data>
-  <data name="mtxtSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>89, 3</value>
-  </data>
-  <data name="mtxtSearch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 23</value>
-  </data>
-  <data name="mtxtSearch.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="pnlLstGamesToolbar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="pnlLstGamesToolbar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="pnlLstGamesToolbar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>743, 31</value>
-  </data>
-  <data name="pnlLstGamesToolbar.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="splitGame.Panel1MinSize" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="lstMultiCat.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="lstMultiCat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="lstMultiCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>743, 131</value>
-  </data>
-  <data name="imglistTriState.TrayLocation" type="System.Drawing.Point, System.Drawing">
-    <value>918, 17</value>
-  </data>
-  <data name="imglistTriState.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAAYABDgGYAQ4BEAEAARABAAT/AQkBEAj/AUIBTQE2AQQGAAE2AQQCAAEo
-        AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
-        AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
-        AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
-        AWYDAAGZAwABzAIAATMDAAIzAgABMwFmAgABMwGZAgABMwHMAgABMwH/AgABZgMAAWYBMwIAAmYCAAFm
-        AZkCAAFmAcwCAAFmAf8CAAGZAwABmQEzAgABmQFmAgACmQIAAZkBzAIAAZkB/wIAAcwDAAHMATMCAAHM
-        AWYCAAHMAZkCAALMAgABzAH/AgAB/wFmAgAB/wGZAgAB/wHMAQABMwH/AgAB/wEAATMBAAEzAQABZgEA
-        ATMBAAGZAQABMwEAAcwBAAEzAQAB/wEAAf8BMwIAAzMBAAIzAWYBAAIzAZkBAAIzAcwBAAIzAf8BAAEz
-        AWYCAAEzAWYBMwEAATMCZgEAATMBZgGZAQABMwFmAcwBAAEzAWYB/wEAATMBmQIAATMBmQEzAQABMwGZ
-        AWYBAAEzApkBAAEzAZkBzAEAATMBmQH/AQABMwHMAgABMwHMATMBAAEzAcwBZgEAATMBzAGZAQABMwLM
-        AQABMwHMAf8BAAEzAf8BMwEAATMB/wFmAQABMwH/AZkBAAEzAf8BzAEAATMC/wEAAWYDAAFmAQABMwEA
-        AWYBAAFmAQABZgEAAZkBAAFmAQABzAEAAWYBAAH/AQABZgEzAgABZgIzAQABZgEzAWYBAAFmATMBmQEA
-        AWYBMwHMAQABZgEzAf8BAAJmAgACZgEzAQADZgEAAmYBmQEAAmYBzAEAAWYBmQIAAWYBmQEzAQABZgGZ
-        AWYBAAFmApkBAAFmAZkBzAEAAWYBmQH/AQABZgHMAgABZgHMATMBAAFmAcwBmQEAAWYCzAEAAWYBzAH/
-        AQABZgH/AgABZgH/ATMBAAFmAf8BmQEAAWYB/wHMAQABzAEAAf8BAAH/AQABzAEAApkCAAGZATMBmQEA
-        AZkBAAGZAQABmQEAAcwBAAGZAwABmQIzAQABmQEAAWYBAAGZATMBzAEAAZkBAAH/AQABmQFmAgABmQFm
-        ATMBAAGZATMBZgEAAZkBZgGZAQABmQFmAcwBAAGZATMB/wEAApkBMwEAApkBZgEAA5kBAAKZAcwBAAKZ
-        Af8BAAGZAcwCAAGZAcwBMwEAAWYBzAFmAQABmQHMAZkBAAGZAswBAAGZAcwB/wEAAZkB/wIAAZkB/wEz
-        AQABmQHMAWYBAAGZAf8BmQEAAZkB/wHMAQABmQL/AQABzAMAAZkBAAEzAQABzAEAAWYBAAHMAQABmQEA
-        AcwBAAHMAQABmQEzAgABzAIzAQABzAEzAWYBAAHMATMBmQEAAcwBMwHMAQABzAEzAf8BAAHMAWYCAAHM
-        AWYBMwEAAZkCZgEAAcwBZgGZAQABzAFmAcwBAAGZAWYB/wEAAcwBmQIAAcwBmQEzAQABzAGZAWYBAAHM
-        ApkBAAHMAZkBzAEAAcwBmQH/AQACzAIAAswBMwEAAswBZgEAAswBmQEAA8wBAALMAf8BAAHMAf8CAAHM
-        Af8BMwEAAZkB/wFmAQABzAH/AZkBAAHMAf8BzAEAAcwC/wEAAcwBAAEzAQAB/wEAAWYBAAH/AQABmQEA
-        AcwBMwIAAf8CMwEAAf8BMwFmAQAB/wEzAZkBAAH/ATMBzAEAAf8BMwH/AQAB/wFmAgAB/wFmATMBAAHM
-        AmYBAAH/AWYBmQEAAf8BZgHMAQABzAFmAf8BAAH/AZkCAAH/AZkBMwEAAf8BmQFmAQAB/wKZAQAB/wGZ
-        AcwBAAH/AZkB/wEAAf8BzAIAAf8BzAEzAQAB/wHMAWYBAAH/AcwBmQEAAf8CzAEAAf8BzAH/AQAC/wEz
-        AQABzAH/AWYBAAL/AZkBAAL/AcwBAAJmAf8BAAFmAf8BZgEAAWYC/wEAAf8CZgEAAf8BZgH/AQAC/wFm
-        AQABIQEAAaUBAANfAQADdwEAA4YBAAOWAQADywEAA7IBAAPXAQAD3QEAA+MBAAPqAQAD8QEAA/gBAAHw
-        AfsB/wEAAaQCoAEAA4ADAAH/AgAB/wMAAv8BAAH/AwAB/wEAAf8BAAL/AgAD/5cAAf8MAAv/JwAB/wEA
-        Af8LAAH/Ce8B/yYAAf8DAAH/CgAB/wnvAf8lAAH/BQAB/wkAAf8J7wH/JQAB/wIAAf8DAAH/CAAB/wnv
-        Af8lAAH/AQAB/wEAAf8DAAH/BwAB/wnvAf8lAAL/AwAB/wMAAf8GAAH/Ce8B/ysAAf8DAAH/BQAB/wnv
-        Af8sAAH/AgAB/wUAAf8J7wH/LQAB/wEAAf8FAAH/Ce8B/y4AAv8FAAv/0gABQgFNAT4HAAE+AwABKAMA
-        AUADAAEQAwABAQEAAQEFAAGAFwAD/wEABv8CAAHAAQEBwAEBAcABAQIAAd8B/QHdAf0BwAEBAgAB3wH9
-        AdgB/QHAAQECAAHfAf0B0AF9AcABAQIAAd8B/QHAAT0BwAEBAgAB3wH9AcABHQHAAQECAAHfAf0BwgEN
-        AcABAQIAAd8B/QHHAQUBwAEBAgAB3wH9Ad8BgQHAAQECAAHfAf0B3wHBAcABAQIAAd8B/QHfAeEBwAEB
-        AgAB3wH9Ad8B8QHAAQECAAHAAQEBwAEBAcABAQIABv8CAAb/GAAL
-</value>
-  </data>
-  <data name="lstMultiCat.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="splitGame.Panel2MinSize" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="splitGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>743, 510</value>
-  </data>
-  <data name="splitGame.SplitterDistance" type="System.Int32, mscorlib">
-    <value>375</value>
-  </data>
-  <data name="splitGame.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="splitBrowser.Panel1MinSize" type="System.Int32, mscorlib">
-    <value>200</value>
-  </data>
-  <data name="webBrowser1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="webBrowser1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="webBrowser1.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>20, 20</value>
-  </data>
-  <data name="webBrowser1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>539, 510</value>
-  </data>
-  <data name="webBrowser1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="splitBrowser.Panel2MinSize" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="splitBrowser.Size" type="System.Drawing.Size, System.Drawing">
-    <value>743, 510</value>
-  </data>
-  <data name="splitBrowser.SplitterDistance" type="System.Int32, mscorlib">
-    <value>200</value>
-  </data>
-  <data name="splitBrowser.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="splitContainer.Panel2MinSize" type="System.Int32, mscorlib">
-    <value>400</value>
-  </data>
-  <data name="splitContainer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>994, 510</value>
-  </data>
-  <data name="splitContainer.SplitterDistance" type="System.Int32, mscorlib">
-    <value>247</value>
-  </data>
-  <data name="splitContainer.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="mlblStatusSelection.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="mlblStatusSelection.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mlblStatusSelection.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Roboto, 11pt</value>
-  </data>
-  <data name="mlblStatusSelection.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mlblStatusSelection.Location" type="System.Drawing.Point, System.Drawing">
-    <value>795, 581</value>
-  </data>
-  <data name="mlblStatusSelection.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
-    <value>No</value>
-  </data>
-  <data name="mlblStatusSelection.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 19</value>
-  </data>
-  <data name="mlblStatusSelection.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="mlblStatusMsg.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="mlblStatusMsg.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mlblStatusMsg.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Roboto, 11pt</value>
-  </data>
-  <data name="mlblStatusMsg.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mlblStatusMsg.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 581</value>
-  </data>
-  <data name="mlblStatusMsg.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 19</value>
-  </data>
-  <data name="mlblStatusMsg.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="imglistFilter.TrayLocation" type="System.Drawing.Point, System.Drawing">
-    <value>17, 56</value>
-  </data>
-  <data name="imglistFilter.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACw
-        CQAAAk1TRnQBSQFMAgEBAwEAAfABDAEIAQ0BEAEAARABAAT/AQkBEAj/AUIBTQE2AQQGAAE2AQQCAAEo
-        AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
-        AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
-        AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
-        AWYDAAGZAwABzAIAATMDAAIzAgABMwFmAgABMwGZAgABMwHMAgABMwH/AgABZgMAAWYBMwIAAmYCAAFm
-        AZkCAAFmAcwCAAFmAf8CAAGZAwABmQEzAgABmQFmAgACmQIAAZkBzAIAAZkB/wIAAcwDAAHMATMCAAHM
-        AWYCAAHMAZkCAALMAgABzAH/AgAB/wFmAgAB/wGZAgAB/wHMAQABMwH/AgAB/wEAATMBAAEzAQABZgEA
-        ATMBAAGZAQABMwEAAcwBAAEzAQAB/wEAAf8BMwIAAzMBAAIzAWYBAAIzAZkBAAIzAcwBAAIzAf8BAAEz
-        AWYCAAEzAWYBMwEAATMCZgEAATMBZgGZAQABMwFmAcwBAAEzAWYB/wEAATMBmQIAATMBmQEzAQABMwGZ
-        AWYBAAEzApkBAAEzAZkBzAEAATMBmQH/AQABMwHMAgABMwHMATMBAAEzAcwBZgEAATMBzAGZAQABMwLM
-        AQABMwHMAf8BAAEzAf8BMwEAATMB/wFmAQABMwH/AZkBAAEzAf8BzAEAATMC/wEAAWYDAAFmAQABMwEA
-        AWYBAAFmAQABZgEAAZkBAAFmAQABzAEAAWYBAAH/AQABZgEzAgABZgIzAQABZgEzAWYBAAFmATMBmQEA
-        AWYBMwHMAQABZgEzAf8BAAJmAgACZgEzAQADZgEAAmYBmQEAAmYBzAEAAWYBmQIAAWYBmQEzAQABZgGZ
-        AWYBAAFmApkBAAFmAZkBzAEAAWYBmQH/AQABZgHMAgABZgHMATMBAAFmAcwBmQEAAWYCzAEAAWYBzAH/
-        AQABZgH/AgABZgH/ATMBAAFmAf8BmQEAAWYB/wHMAQABzAEAAf8BAAH/AQABzAEAApkCAAGZATMBmQEA
-        AZkBAAGZAQABmQEAAcwBAAGZAwABmQIzAQABmQEAAWYBAAGZATMBzAEAAZkBAAH/AQABmQFmAgABmQFm
-        ATMBAAGZATMBZgEAAZkBZgGZAQABmQFmAcwBAAGZATMB/wEAApkBMwEAApkBZgEAA5kBAAKZAcwBAAKZ
-        Af8BAAGZAcwCAAGZAcwBMwEAAWYBzAFmAQABmQHMAZkBAAGZAswBAAGZAcwB/wEAAZkB/wIAAZkB/wEz
-        AQABmQHMAWYBAAGZAf8BmQEAAZkB/wHMAQABmQL/AQABzAMAAZkBAAEzAQABzAEAAWYBAAHMAQABmQEA
-        AcwBAAHMAQABmQEzAgABzAIzAQABzAEzAWYBAAHMATMBmQEAAcwBMwHMAQABzAEzAf8BAAHMAWYCAAHM
-        AWYBMwEAAZkCZgEAAcwBZgGZAQABzAFmAcwBAAGZAWYB/wEAAcwBmQIAAcwBmQEzAQABzAGZAWYBAAHM
-        ApkBAAHMAZkBzAEAAcwBmQH/AQACzAIAAswBMwEAAswBZgEAAswBmQEAA8wBAALMAf8BAAHMAf8CAAHM
-        Af8BMwEAAZkB/wFmAQABzAH/AZkBAAHMAf8BzAEAAcwC/wEAAcwBAAEzAQAB/wEAAWYBAAH/AQABmQEA
-        AcwBMwIAAf8CMwEAAf8BMwFmAQAB/wEzAZkBAAH/ATMBzAEAAf8BMwH/AQAB/wFmAgAB/wFmATMBAAHM
-        AmYBAAH/AWYBmQEAAf8BZgHMAQABzAFmAf8BAAH/AZkCAAH/AZkBMwEAAf8BmQFmAQAB/wKZAQAB/wGZ
-        AcwBAAH/AZkB/wEAAf8BzAIAAf8BzAEzAQAB/wHMAWYBAAH/AcwBmQEAAf8CzAEAAf8BzAH/AQAC/wEz
-        AQABzAH/AWYBAAL/AZkBAAL/AcwBAAJmAf8BAAFmAf8BZgEAAWYC/wEAAf8CZgEAAf8BZgH/AQAC/wFm
-        AQABIQEAAaUBAANfAQADdwEAA4YBAAOWAQADywEAA7IBAAPXAQAD3QEAA+MBAAPqAQAD8QEAA/gBAAHw
-        AfsB/wEAAaQCoAEAA4ADAAH/AgAB/wMAAv8BAAH/AwAB/wEAAf8BAAL/AgAD/xcABP8HAAL/CgAC/xYA
-        Af8OAAL/BAQC/wQAAf8CAQH/CAAB/wIBAf8UAAH/AQIB/wwAAf8IBAH/AwAB/wMBAf8GAAH/AwEB/xMA
-        Af8DAgH/CgAB/wQEAv8EBAH/AwAB/wMBAf8EAAH/AwEB/xMAAf8FAgH/CAAB/wMEAv8CAAL/AwQB/wMA
-        Af8DAQH/AgAB/wMBAf8TAAH/AwIB/wMCAf8HAAH/AgQB/wYAAf8CBAH/BAAB/wMBAv8DAQH/FAAB/wIC
-        Af8BAAH/AwIB/wUAAf8DBAH/BgAB/wMEAf8EAAH/BgEB/xUAAf8BAgH/AwAB/wMCAf8EAAH/AgQB/wgA
-        Af8CBAH/BQAB/wQBAf8XAAH/BQAB/wMCAf8DAAH/AgQB/wgAAf8CBAH/BQAB/wQBAf8eAAH/AwIB/wIA
-        Af8DBAH/BgAB/wMEAf8EAAH/BgEB/x4AAf8DAgH/AgAB/wIEAf8GAAH/AgQB/wQAAf8DAQL/AwEB/x4A
-        Af8CAgH/AgAB/wMEAv8CAAL/AwQB/wMAAf8DAQH/AgAB/wMBAf8eAAH/AQIB/wMAAf8EBAL/BAQB/wMA
-        Af8DAQH/BAAB/wMBAf8eAAH/BQAB/wgEAf8DAAH/AwEB/wYAAf8DAQH/JAAC/wQEAv8EAAH/AgEB/wgA
-        Af8CAQH/JgAE/wcAAv8KAAL/EQABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEA
-        Av8B/AE/AZ8B+QIAAfsB/wHwAg8B8AIAAfEB/wHgAgcB4AIAAeAB/wHAAQMBgwHBAgABwAF/AoEBwQGD
-        AgABgAE/AYcB4QHgAQcCAAGEAR8BBwHgAfABDwIAAY4CDwHwAfgBHwIAAd8BBwEPAfAB+AEfAgAB/wGD
-        AQcB4AHwAQ8CAAH/AcEBhwHhAeABBwIAAf8B4QKBAcEBgwIAAf8B8QHAAQMBgwHBAgAB/wH7AeACBwHg
-        AgAC/wHwAg8B8AIAAv8B/AE/AZ8B+RgACw==
-</value>
-  </data>
-  <data name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing">
-    <value>17, 17</value>
-  </data>
-  <data name="menuStrip.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="menuStrip.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 9.75pt</value>
-  </data>
-  <data name="menu_File_NewProfile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Alt+N</value>
-  </data>
-  <data name="menu_File_NewProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 22</value>
-  </data>
   <data name="menu_File_NewProfile.Text" xml:space="preserve">
     <value>新建配置文件(&amp;N)...</value>
-  </data>
-  <data name="menu_File_LoadProfile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Alt+L</value>
-  </data>
-  <data name="menu_File_LoadProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 22</value>
   </data>
   <data name="menu_File_LoadProfile.Text" xml:space="preserve">
     <value>加载配置文件(&amp;L)...</value>
   </data>
-  <data name="menu_File_SaveProfile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+S</value>
-  </data>
-  <data name="menu_File_SaveProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 22</value>
-  </data>
   <data name="menu_File_SaveProfile.Text" xml:space="preserve">
     <value>保存配置文件(&amp;S)</value>
-  </data>
-  <data name="menu_File_SaveProfileAs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 22</value>
   </data>
   <data name="menu_File_SaveProfileAs.Text" xml:space="preserve">
     <value>配置文件另存为(&amp;A)...</value>
   </data>
-  <data name="menu_File_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 6</value>
-  </data>
-  <data name="menu_File_Close.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+F4</value>
-  </data>
-  <data name="menu_File_Close.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 22</value>
-  </data>
   <data name="menu_File_Close.Text" xml:space="preserve">
     <value>关闭配置文件(&amp;C)</value>
-  </data>
-  <data name="menu_File_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 6</value>
-  </data>
-  <data name="menu_File_Manual_Export.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 22</value>
   </data>
   <data name="menu_File_Manual_Export.Text" xml:space="preserve">
     <value>本地配置文件(&amp;C)...</value>
   </data>
-  <data name="menu_File_Manual.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 22</value>
-  </data>
   <data name="menu_File_Manual.Text" xml:space="preserve">
     <value>手动导出(&amp;M)</value>
-  </data>
-  <data name="menu_File_Sep3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 6</value>
-  </data>
-  <data name="menu_File_Exit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 22</value>
   </data>
   <data name="menu_File_Exit.Text" xml:space="preserve">
     <value>退出(&amp;X)</value>
   </data>
-  <data name="menu_File.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 20</value>
-  </data>
   <data name="menu_File.Text" xml:space="preserve">
     <value>文件(&amp;F)</value>
-  </data>
-  <data name="menu_Profile_Update.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+U</value>
-  </data>
-  <data name="menu_Profile_Update.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 22</value>
   </data>
   <data name="menu_Profile_Update.Text" xml:space="preserve">
     <value>更新游戏名单(&amp;U)</value>
   </data>
-  <data name="menu_Profile_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>238, 6</value>
-  </data>
-  <data name="menu_Profile_Import.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+I</value>
-  </data>
-  <data name="menu_Profile_Import.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 22</value>
-  </data>
   <data name="menu_Profile_Import.Text" xml:space="preserve">
     <value>导入 Steam 配置(&amp;I)</value>
-  </data>
-  <data name="menu_Profile_Export.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+E</value>
-  </data>
-  <data name="menu_Profile_Export.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 22</value>
   </data>
   <data name="menu_Profile_Export.Text" xml:space="preserve">
     <value>导出 Steam 配置(&amp;E)</value>
   </data>
-  <data name="menu_Profile_Restore_Config.ShowShortcutKeys" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="menu_Profile_Restore_Config.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 22</value>
-  </data>
   <data name="menu_Profile_Restore_Config.Text" xml:space="preserve">
     <value>还原 Steam 配置</value>
-  </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>238, 6</value>
-  </data>
-  <data name="menu_Profile_Edit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+P</value>
-  </data>
-  <data name="menu_Profile_Edit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 22</value>
   </data>
   <data name="menu_Profile_Edit.Text" xml:space="preserve">
     <value>编辑配置文件信息(&amp;P)</value>
   </data>
-  <data name="menu_Profile_Restore_Profile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 22</value>
-  </data>
   <data name="menu_Profile_Restore_Profile.Text" xml:space="preserve">
     <value>还原配置文件</value>
-  </data>
-  <data name="menu_Profile_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>238, 6</value>
-  </data>
-  <data name="menu_Profile_AutoCats.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+T</value>
-  </data>
-  <data name="menu_Profile_AutoCats.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 22</value>
   </data>
   <data name="menu_Profile_AutoCats.Text" xml:space="preserve">
     <value>编辑自动归类(&amp;T)...</value>
   </data>
-  <data name="menu_Profile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 20</value>
-  </data>
   <data name="menu_Profile.Text" xml:space="preserve">
     <value>配置文件(&amp;P)</value>
-  </data>
-  <data name="menu_Tools_Autocat_List.TrayLocation" type="System.Drawing.Point, System.Drawing">
-    <value>1047, 17</value>
-  </data>
-  <data name="menu_Tools_Autocat_List.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 4</value>
-  </data>
-  <data name="menu_Tools_AutocatAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>243, 22</value>
   </data>
   <data name="menu_Tools_AutocatAll.Text" xml:space="preserve">
     <value>自动归类全部(&amp;C)</value>
   </data>
-  <data name="menu_Tools_AutonameAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>243, 22</value>
-  </data>
   <data name="menu_Tools_AutonameAll.Text" xml:space="preserve">
     <value>自动命名全部(&amp;N)</value>
-  </data>
-  <data name="menu_Tools_RemoveEmpty.Size" type="System.Drawing.Size, System.Drawing">
-    <value>243, 22</value>
   </data>
   <data name="menu_Tools_RemoveEmpty.Text" xml:space="preserve">
     <value>移除空类别(&amp;R)</value>
   </data>
-  <data name="menu_Tools_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>240, 6</value>
-  </data>
-  <data name="autoModeHelperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>243, 22</value>
-  </data>
   <data name="autoModeHelperToolStripMenuItem.Text" xml:space="preserve">
     <value>自动模式助手...</value>
-  </data>
-  <data name="menu_Tools_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>240, 6</value>
-  </data>
-  <data name="menu_Tools_DBEdit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+D</value>
-  </data>
-  <data name="menu_Tools_DBEdit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>243, 22</value>
   </data>
   <data name="menu_Tools_DBEdit.Text" xml:space="preserve">
     <value>数据库编辑器(&amp;D)...</value>
   </data>
-  <data name="menu_Tools_Sep3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>240, 6</value>
-  </data>
-  <data name="menu_Tools_SingleCat.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+I</value>
-  </data>
-  <data name="menu_Tools_SingleCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>243, 22</value>
-  </data>
   <data name="menu_Tools_SingleCat.Text" xml:space="preserve">
     <value>单类别（文件夹）模式(&amp;I)</value>
-  </data>
-  <data name="menu_Tools_Settings.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+O</value>
-  </data>
-  <data name="menu_Tools_Settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>243, 22</value>
   </data>
   <data name="menu_Tools_Settings.Text" xml:space="preserve">
     <value>设置(&amp;S)...</value>
   </data>
-  <data name="menu_Tools.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 20</value>
-  </data>
   <data name="menu_Tools.Text" xml:space="preserve">
     <value>工具(&amp;T)</value>
-  </data>
-  <data name="menu_About.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 20</value>
   </data>
   <data name="menu_About.Text" xml:space="preserve">
     <value>关于(&amp;A)...</value>
   </data>
-  <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 0</value>
-  </data>
-  <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 24</value>
-  </data>
-  <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="picAvatar.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="picAvatar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="picAvatar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>963, 27</value>
-  </data>
-  <data name="picAvatar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 32</value>
-  </data>
-  <data name="picAvatar.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="imglistEarlyAccess.TrayLocation" type="System.Drawing.Point, System.Drawing">
-    <value>517, 56</value>
-  </data>
-  <data name="imglistEarlyAccess.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAA
-        gAAAAk1TRnQBSQFMAgEBAwEAASABAgE4AQIBPAEAATwBAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAHw
-        AwABPAMAAQEBAAEgBgAB4f8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/ACEAAwIBA+wAAwIBA+wA
-        AwIBA/8A3QADDAEQAwIBA+gAAwwBEAMCAQPoAAMMARADAgED/wDZAAMhATADDAEQAwIBA+QAAyEBMAMM
-        ARADAgED5AADIQEwAwwBEAMCAQP/ANUAAzcBWgMhATEDDQERAwIBA+AAAzcBWgMhATEDDQERAwIBA+AA
-        AzcBWgMhATEDDQERAwIBA/8A0QADXQHTAzUBVwMhATEDDQERAwIBA9wAA10B0wM1AVcDIQExAw0BEQMC
-        AQPcAANdAdMDNQFXAyEBMQMNAREDAgED/wDNAAHKAZ8BEQH/A1wB0QM1AVcDIQExAw0BEQMCAQPYAAHK
-        AZ8BEQH/A1wB0QM1AVcDIQExAw0BEQMCAQPYAAHKAZ8BEQH/A1wB0QM1AVcDIQExAw0BEQMCAQP/AMkA
-        AcoBnwERAf8BygGfAREB/wNeAdgDNQFXAyEBMQMMARADAgED1AABygGfAREB/wHKAZ8BEQH/A14B2AM1
-        AVcDIQExAwwBEAMCAQPUAAHKAZ8BEQH/AcoBnwERAf8DXgHYAzUBVwMhATEDDAEQAwIBA/8AxQABygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8DXwHjAzUBVwMhATADDAEQAwIBA9AAAcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/A18B4wM1AVcDIQEwAwwBEAMCAQPQAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wNfAeMDNQFX
-        AyEBMAMMARADAgED/wDBAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A2QB5wM1AVcDIQEx
-        Aw0BEQMCAQPMAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A2QB5wM1AVcDIQExAw0BEQMC
-        AQPMAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A2QB5wM1AVcDIQExAw0BEQMCAQP/AL0A
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wNeAd0DNwFaAyEBMQMNAREDAgED
-        yAABygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A14B3QM3AVoDIQExAw0BEQMC
-        AQPIAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DXgHdAzcBWgMhATEDDQER
-        AwIBA/8AuQABygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DXQHS
-        AzUBVwMhATEDDQERAwIBA8QAAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/A10B0gM1AVcDIQExAw0BEQMCAQPEAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wNdAdIDNQFXAyEBMQMNAREDAgED/wC1AAHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A10B0gM1AVcDIQExAw0BEQMCAQPAAAHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A10B0gM1
-        AVcDIQExAw0BEQMCAQPAAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/A10B0gM1AVcDIQExAw0BEQMCAQP/ALEAAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wNhAdoDNQFXAyEBMAMMARADAgED
-        vAABygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/A2EB2gM1AVcDIQEwAwwBEAMCAQO8AAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DYQHaAzUBVwMhATADDAEQAwIBA/8ArQABygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8DZQHlAzUBVwMhATADDAEQAwIBA7gAAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A2UB5QM1AVcDIQEwAwwBEAMC
-        AQO4AAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wNlAeUDNQFXAyEBMAMMARADAgED/wCpAAHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        A2EB5gM1AVcDIQExAw0BEQMCAQO0AAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A2EB5gM1AVcDIQExAw0BEQMC
-        AQO0AAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A2EB5gM1AVcDIQExAw0BEQMCAQP/AKUAAcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wNfAdsDNwFaAyEBMQMNAREDAgEDsAABygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/A18B2wM3AVoDIQExAw0BEQMCAQOwAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DXwHb
-        AzcBWgMhATEDDQERAwIBA/8AoQABygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8CXgFd
-        AdADNQFXAyEBMQMNAREDAgEDrAABygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8CXgFd
-        AdADNQFXAyEBMQMNAREDAgEDrAABygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8CXgFd
-        AdADNQFXAyEBMQMNAREDAgED/wCdAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/A10B0gM1AVcDIQEwAwwBEAMCAQOoAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/A10B0gM1AVcDIQEwAwwBEAMCAQOoAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/A10B0gM1AVcDIQEwAwwBEAMCAQP/AJkAAcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wNhAdwDNQFXAyEBMAMMARADAgEDpAABygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A2EB3AM1AVcDIQEw
-        AwwBEAMCAQOkAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8DYQHcAzUBVwMhATADDAEQAwIBA/8AlQABygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DZQHlAzUBVwMhATADDAEQAwIBA6AAAcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A2UB5QM1AVcDIQEw
-        AwwBEAMCAQOgAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wNlAeUDNQFXAyEBMAMMARADAgED/wCRAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A2UB5QM1AVcDIQExAw0BEQMC
-        AQOcAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/A2UB5QM1AVcDIQExAw0BEQMCAQOcAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A2UB5QM1AVcDIQExAw0BEQMC
-        AQP/AI0AAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wNeAdgDNwFaAyEBMQMNAREDAgEDmAABygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        A14B2AM3AVoDIQExAw0BEQMCAQOYAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BogE7AQAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DXgHYAzcBWgMhATEDDQERAwIBA/8A
-        iQABygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8CXgFdAdADNQFXAyEBMQMNAREDAgEDlAABygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8CXgFdAdADNQFXAyEBMQMNAREDAgEDlAABygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wMAAf8BDQIAAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8CXgFd
-        AdADNQFXAyEBMQMNAREDAgED/wCFAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AmABXAHU
-        AzUBVwMhATEDDQERAwIBA5AAAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8CYAFcAdQDNQFX
-        AyEBMQMNAREDAgEDkAABygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wMAAf8DAAH/ARoBBgEAAf8BogE7AQAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8CYAFcAdQDNQFXAyEBMQMNAREDAgED
-        /wCBAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DYAHeAzUBVwMhATEDDAEQ
-        AwIBA4wAAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wNgAd4DNQFXAyEBMQMM
-        ARADAgEDjAABygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BGgEG
-        AQAB/wMAAf8DAAH/AwAB/wMAAf8BvQGUAQsB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DYAHeAzUBVwMhATEDDAEQAwIBA/8AfQABygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DZAHnAzUBVwMhATADDAEQ
-        AwIBA4gAAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BrwGKAQYB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A2QB5wM1
-        AVcDIQEwAwwBEAMCAQOIAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wMAAf8DAAH/AcoBnwERAf8DAAH/AwAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A2QB5wM1AVcDIQEw
-        AwwBEAMCAQP/AHkAAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8DYQHmAzUBWAMhATEDDQERAwIBA4QAAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/ASgBEQEAAf8BDQIAAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A2EB5gM1AVgDIQExAw0BEQMCAQOEAAHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DAAH/AwAB/wMA
-        Af8DAAH/AwAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wNhAeYDNQFYAyEBMQMNAREDAgED/wB1AAHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DXQHXAzYBWQMh
-        ATEDDQERAwIBA4AAAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AwAB/wMAAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8DXQHXAzYBWQMhATEDDQERAwIBA4AAAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wMAAf8BhwEmAQAB/wMAAf8DAAH/AcoBnwER
-        Af8BygGfAREB/wG9AZQBCwH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wNdAdcDNgFZAyEBMQMNAREDAgED/wBxAAHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DAAH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/Al4BWwHQ
-        AzUBVwMhATEDDQERAwIBA3wAAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wG9AZQBCwH/AwAB/wHK
-        AZ8BEQH/AwAB/wMAAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/Al4BWwHQAzUBVwMhATEDDQERAwIBA3wAAcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AwAB/wMA
-        Af8BygGfAREB/wHKAZ8BEQH/AQ0CAAH/AwAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wJeAVsB0AM1AVcDIQExAw0BEQMC
-        AQP/AG0AAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BhgEkAQAB/wMA
-        Af8BwQGYAQ0B/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wNeAdUDNQFXAyEBMQMMARADAgEDeAABygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wG9AZQBCwH/AwAB/wHKAZ8BEQH/AwAB/wGHASYBAAH/ATUBGwEAAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DXgHV
-        AzUBVwMhATEDDAEQAwIBA3gAAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wEoAREBAAH/AQ0CAAH/
-        AwAB/wHKAZ8BEQH/AcoBnwERAf8BvQGUAQsB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DXgHVAzUBVwMhATEDDAEQAwIBA/8AaQABygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wMAAf8BuAGRAQkB/wMAAf8DAAH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/A18B4AM1AVcDIQEwAwwBEAMCAQN0AAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AZQBMQEAAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8DAAH/AwAB/wE6AR8BAAH/AwAB/wGHASYBAAH/AwAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wNfAeADNQFXAyEBMAMM
-        ARADAgEDdAABygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wMAAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DAAH/AwAB/wHKAZ8BEQH/AcoBnwERAf8DAAH/
-        AwAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wNfAeADNQFXAyEBMAMMARADAgED/wBlAAHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wGbATUBAAH/AwAB/wMAAf8BrwGJAQUB/wMAAf8DAAH/AcEBmAENAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        A2QB5wM1AVcDIQEwAwwBEAMCAQNwAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wEoAREBAAH/AwAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AYcBJgEA
-        Af8DAAH/AcoBnwERAf8BygGfAREB/wGHASYBAAH/AYcBJgEAAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DZAHnAzUBVwMh
-        ATADDAEQAwIBA3AAAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8DAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DAAH/Ab0BlAELAf8DAAH/
-        AwAB/wHKAZ8BEQH/AYcBJgEAAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DZAHnAzUBVwMhATADDAEQAwIBA/8AYQABygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DAAH/
-        AwAB/wHBAZgBDQH/AwAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wNfAeMDNgFZAyEBMQMNAREDAgEDbAABygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/ASgBEQEAAf8DAAH/AYcBJgEAAf8BygGfAREB/wMA
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DAAH/AcoBnwERAf8BygGfAREB/wMAAf8BygGfAREB/wGH
-        ASYBAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/A18B4wM2AVkDIQExAw0BEQMCAQNsAAHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wMAAf8DAAH/AwAB/wMAAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8DAAH/AwAB/wHKAZ8BEQH/AwAB/wMAAf8DAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A18B4wM2AVkDIQEx
-        Aw0BEQMCAQP/AF0AAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AYYBJAEAAf8BKgERAQAB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHBAZgBDQH/AwAB/wHKAZ8BEQH/AcoBnwERAf8BDwIAAf8BmwE1AQAB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wJg
-        AVwB1AM1AVgDIQExAw0BEQMCAQNoAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8DAAH/AcoBnwERAf8DAAH/Aa8BigEGAf8DAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8DAAH/AwAB/wG9AZQBCwH/AwAB/wE1ARsBAAH/AwAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wJgAVwB1AM1AVgDIQEx
-        Aw0BEQMCAQNoAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wMA
-        Af8DAAH/AwAB/wGiATsBAAH/AYcBJgEAAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wMA
-        Af8BKAERAQAB/wHKAZ8BEQH/AwAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AmABXAHUAzUBWAMhATEDDQER
-        AwIBA/8AWQABygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AYYBJAEAAf8DAAH/AwAB/wEqAREBAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AwAB/wMAAf8BygGfAREB/wMAAf8DAAH/AwAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wJeAV0B0AM1AVcDIQExAw0BEQMC
-        AQNkAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BogE7AQAB/wMAAf8BKAER
-        AQAB/wMAAf8DAAH/AZQBMQEAAf8DAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DAAH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/Ab0BlAELAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8CXgFdAdADNQFXAyEBMQMN
-        AREDAgEDZAABygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AaIBOwEAAf8DAAH/
-        Ab0BlAELAf8BygGfAREB/wMAAf8DAAH/AwAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wMAAf8BrwGK
-        AQYB/wHKAZ8BEQH/AcoBnwERAf8DAAH/AQ0CAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/Al4BXQHQAzUBVwMhATEDDQER
-        AwIBA/8AVQABygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wGGASQBAAH/AwAB/wMAAf8BygGfAREB/wEPAgAB/wEqAREBAAH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcEBmAENAf8BDwIAAf8DAAH/AcoBnwERAf8DAAH/AcEBmAENAf8BrwGJAQUB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DYAHW
-        AzUBVwMhATEDDQERAwIBA2AAAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BogE7AQAB/wEaAQYBAAH/AwAB/wMAAf8BygGfAREB/wGUATEBAAH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AwAB/wG9AZQBCwH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AwAB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wNgAdYDNQFXAyEBMQMNAREDAgEDYAABygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AwAB/wEoAREBAAH/AcoBnwERAf8DAAH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DAAH/ATUBGwEAAf8DAAH/AQ0CAAH/AcoBnwER
-        Af8DAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/A2AB1gM1AVcDIQExAw0BEQMCAQP/AFEAAcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BhgEkAQAB/wMAAf8BwQGYAQ0B/wGv
-        AYkBBQH/Aa8BiQEFAf8DAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DAAH/AYYBJAEA
-        Af8BygGfAREB/wHKAZ8BEQH/AwAB/wMAAf8BrwGJAQUB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DYQHiAzUBVwMhATADDAEQAwIBA1wA
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BrwGK
-        AQYB/wMAAf8BygGfAREB/wHKAZ8BEQH/ASgBEQEAAf8DAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8DAAH/Ab0BlAELAf8BygGfAREB/wMAAf8BrwGKAQYB/wHKAZ8BEQH/Ab0BlAELAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        A2EB4gM1AVcDIQEwAwwBEAMCAQNcAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DAAH/Aa8BigEGAf8BygGfAREB/wHKAZ8BEQH/AwAB/wMA
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DAAH/AQ0CAAH/AcoBnwERAf8DAAH/ASgBEQEAAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wNhAeIDNQFXAyEBMAMMARADAgED/wBNAAHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BhgEkAQAB/wMAAf8BygGf
-        AREB/wMAAf8DAAH/ASoBEQEAAf8BKgERAQAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wEPAgAB/wEP
-        AgAB/wMAAf8DAAH/AcoBnwERAf8DAAH/AbgBkQEJAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A2QB5wM1AVcDIQEwAwwBEAMCAQNYAAHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/ASgBEQEAAf8DAAH/AcoBnwERAf8BygGfAREB/wMAAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8DAAH/AwAB/wGvAYoBBgH/AcoBnwERAf8BygGfAREB/wMAAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8DZAHnAzUBVwMhATADDAEQAwIBA1gAAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AwAB/wE1ARsBAAH/AwAB/wEoAREBAAH/
-        ASgBEQEAAf8BGgEGAQAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AwAB/wMAAf8DAAH/
-        AcoBnwERAf8DAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A2QB5wM1AVcDIQEwAwwBEAMCAQP/AEkAAcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BwQGYAQ0B/wMAAf8DAAH/AwAB/wHBAZgBDQH/AwAB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wEPAgAB/wMAAf8BhgEkAQAB/wMAAf8BygGfAREB/wMAAf8BwQGYAQ0B/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DXwHgAzcBWgMh
-        ATEDDQERAwIBA1QAAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/Ab0BlAELAf8DAAH/AcoBnwERAf8DAAH/AwAB/wG9AZQBCwH/
-        AZQBMQEAAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DAAH/Ab0BlAELAf8BKAERAQAB/wMAAf8DAAH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8DXwHgAzcBWgMhATEDDQERAwIBA1QAAcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BGgEGAQAB/wENAgAB/wHKAZ8BEQH/AcoBnwERAf8BhwEmAQAB/wGHASYBAAH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AwAB/wGiATsBAAH/AwAB/wGiATsBAAH/AwAB/wGiATsBAAH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        A18B4AM3AVoDIQExAw0BEQMCAQP/AEUAAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BhgEkAQAB/wMAAf8BygGf
-        AREB/wHBAZgBDQH/AwAB/wGvAYkBBQH/AZEBLQEAAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DAAH/
-        ASoBEQEAAf8BygGfAREB/wGlAYEBAAH/AcoBnwERAf8DAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A10B0wM1AVcDIQEx
-        Aw0BEQMCAQNQAAHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wMAAf8BvQGUAQsB/wEo
-        AREBAAH/AwAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AwAB/wGUATEBAAH/AwAB/wHK
-        AZ8BEQH/AcoBnwERAf8DAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A10B0wM1AVcDIQExAw0BEQMCAQNQAAHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8DAAH/AwAB/wHKAZ8BEQH/ASgBEQEAAf8DAAH/AQ0CAAH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AwAB/wGHASYBAAH/AwAB/wGvAYoBBgH/AwAB/wMAAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8DXQHTAzUBVwMhATEDDQERAwIBA/8AQQADAQECAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHB
-        AZgBDQH/AwAB/wMAAf8DAAH/AwAB/wGGASQBAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/ATYBGwEA
-        Af8DAAH/AwAB/wMAAf8DAAH/AcEBmAENAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8CXgFdAdADNQFXAyEBMQMNAREDAgED
-        TAADAQECAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BrwGKAQYB/wG9AZQBCwH/ASgBEQEAAf8DAAH/AcoBnwER
-        Af8BygGfAREB/wMAAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wMAAf8BygGfAREB/wMA
-        Af8BvQGUAQsB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/Al4BXQHQAzUBVwMhATEDDQERAwIBA0wAAwEBAgHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wEoAREBAAH/AwAB/wHKAZ8BEQH/AwAB/wEN
-        AgAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wG9AZQBCwH/AwAB/wMAAf8BlAExAQAB/wHKAZ8BEQH/
-        AwAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wJeAV0B0AM1AVcDIQExAw0BEQMCAQP/AEEAAwEBAgHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcEBmAENAf8DAAH/AZsBNQEAAf8DAAH/AcoBnwERAf8BhgEkAQAB/wEqAREBAAH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AQ8CAAH/ASoBEQEAAf8BrwGJAQUB/wGbATUBAAH/AaUBgQEAAf8DAAH/
-        AcEBmAENAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/A14B2QM1AVcDIQEwAwwBEAMCAQNMAAMBAQIBygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wG9
-        AZQBCwH/AwAB/wHKAZ8BEQH/AwAB/wMAAf8BKAERAQAB/wMAAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BogE7AQAB/wMAAf8BvQGUAQsB/wHKAZ8BEQH/AwAB/wEaAQYBAAH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A14B2QM1
-        AVcDIQEwAwwBEAMCAQNMAAMBAQIBygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wGUATEBAAH/AwAB/wG9AZQBCwH/
-        AwAB/wHKAZ8BEQH/ARoBBgEAAf8BDQIAAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BvQGUAQsB/wHK
-        AZ8BEQH/AcoBnwERAf8DAAH/AQ0CAAH/AwAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wNeAdkDNQFXAyEBMAMMARADAgED
-        /wBBAAMBAQIBygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHBAZgBDQH/AwAB/wG4AZEBCQH/AYYBJAEAAf8DAAH/
-        AwAB/wEqAREBAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AR0BBwEAAf8BwQGYAQ0B/wMAAf8BDwIA
-        Af8BygGfAREB/wMAAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DYQHkAzUBVwMhATADDAEQAwIBA0wAAwEBAgHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wMAAf8BKAERAQAB/wMAAf8BKAERAQAB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AwAB/wG9AZQBCwH/AwAB/wEaAQYBAAH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wNhAeQDNQFXAyEBMAMMARADAgEDTAADAQECAcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BKAERAQAB/wMAAf8BygGfAREB/wGUATEBAAH/AcoBnwERAf8DAAH/ARoBBgEAAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wMAAf8BDQIAAf8BygGfAREB/wMAAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wNhAeQDNQFXAyEBMAMMARADAgED/wBBAAMCAQMBygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AYYBJAEAAf8DAAH/AcoBnwERAf8BygGfAREB/wE2ARsBAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BuAGRAQkB/wMAAf8BhgEkAQAB/wMAAf8BhgEkAQAB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        A2QB5wM1AVcDIQExAw0BEQMCAQNMAAMCAQMBygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wGvAYoBBgH/ASgBEQEA
-        Af8DAAH/AwAB/wHKAZ8BEQH/AwAB/wG9AZQBCwH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AwAB/wEa
-        AQYBAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DZAHnAzUBVwMh
-        ATEDDQERAwIBA0wAAwIBAwHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/ASgBEQEAAf8BhwEmAQAB/wMAAf8DAAH/
-        AwAB/wMAAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wMAAf8BNQEbAQAB/wMAAf8BKAER
-        AQAB/wHKAZ8BEQH/AYcBJgEAAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DZAHnAzUBVwMhATEDDQERAwIBA/8AQQADAQEC
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BhgEkAQAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AwAB/wGRAS0BAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AwAB/wMAAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wNeAd0DNwFaAyEBMQMNAREDAgEDTAADAQECAcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BrwGKAQYB/wHKAZ8BEQH/AwAB/wMAAf8BvQGUAQsB/wEoAREBAAH/AwAB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wNeAd0DNwFaAyEBMQMNAREDAgEDTAADAQECAcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BvQGUAQsB/wMAAf8BygGfAREB/wEaAQYBAAH/AaIBOwEAAf8DAAH/AQ0CAAH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AwAB/wE1ARsBAAH/AcoBnwERAf8DAAH/AwAB/wMAAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8DXgHdAzcBWgMhATEDDQERAwIBA/8AQQADAQECAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wE2
-        ARsBAAH/AwAB/wMAAf8BhgEkAQAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BwQGYAQ0B/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8DXAHRAzUBVwMhATEDDQERAwIBA0wAAwEBAgHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DAAH/
-        Ab0BlAELAf8BKAERAQAB/wMAAf8BKAERAQAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        A1wB0QM1AVcDIQExAw0BEQMCAQNMAAMBAQIBygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wGiATsBAAH/AwAB/wGi
-        ATsBAAH/AwAB/wG9AZQBCwH/AwAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8DAAH/ASgBEQEAAf8BvQGUAQsB/wMAAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wNcAdEDNQFXAyEBMQMN
-        AREDAgED/wBBAAMBAQIBygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wGvAYkBBQH/AcoBnwERAf8DAAH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DXQHSAzUBVwMh
-        ATEDDQERAwIBA0wAAwEBAgHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BKAERAQAB/wMAAf8DAAH/
-        AcoBnwERAf8DAAH/Ab0BlAELAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DXQHSAzUBVwMhATEDDQER
-        AwIBA0wAAwEBAgHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DAAH/Aa8BigEGAf8BhwEmAQAB/wMA
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AwAB/wGHASYBAAH/AwAB/wGU
-        ATEBAAH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wNdAdIDNQFXAyEBMQMNAREDAgED/wBBAAMB
-        AQIBygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wG4AZEBCQH/AwAB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DYQHcAzUBVwMhATEDDAEQAwIBA0wA
-        AwEBAgHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/Aa8BigEGAf8BygGfAREB/wMAAf8DAAH/Ab0BlAELAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A2EB3AM1AVcDIQExAwwBEAMCAQNMAAMB
-        AQIBygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wGiATsBAAH/AwAB/wMAAf8BvQGUAQsB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wMAAf8BogE7AQAB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A2EB3AM1AVcDIQExAwwBEAMCAQP/AEEAAwEBAgHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DYQHmAzUBVwMhATADDAEQAwIBA0wA
-        AwEBAgHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wGHASYBAAH/ATUBGwEAAf8DAAH/Ab0BlAELAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wNhAeYDNQFXAyEBMAMMARADAgED
-        TAADAQECAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wNhAeYDNQFXAyEBMAMM
-        ARADAgED/wBBAAMDAQQBygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/A2QB5wM1
-        AVcDIQEwAw0BEQMCAQNMAAMDAQQBygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        A2QB5wM1AVcDIQEwAw0BEQMCAQNMAAMDAQQBygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/A2QB5wM1AVcDIQEwAw0BEQMCAQP/AEEAAwEBAgHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8DXwHbAzcBWgMhATEDDQERAwIBA0wAAwEBAgHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8DXwHbAzcBWgMhATEDDQERAwIBA0wAAwEBAgHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DXwHbAzcBWgMhATEDDQERAwIBA/8AQQADAQECAcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wJeAV0B0AM1AVcDIQExAw0BEQMCAQNMAAMB
-        AQIBygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/Al4BXQHQAzUBVwMhATEDDQER
-        AwIBA0wAAwEBAgHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8CXgFdAdADNQFX
-        AyEBMQMNAREDAgED/wBBAAMBAQIBygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        A10B0gM1AVcDIQExAwwBEAMCAQNMAAMBAQIBygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/A10B0gM1AVcDIQExAwwBEAMCAQNMAAMBAQIBygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/A10B0gM1AVcDIQExAwwBEAMCAQP/AEEAAwEBAgHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8DYQHcAzUBVwMhATADDAEQAwIBA0wAAwEBAgHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DYQHcAzUBVwMhATADDAEQAwIBA0wAAwEBAgHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8DYQHcAzUBVwMhATADDAEQAwIBA/8AQQADAQEC
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wNhAeYDNQFXAyEBMAMMARADAgED
-        TAADAQECAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wNhAeYDNQFXAyEBMAMM
-        ARADAgEDTAADAQECAcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wNhAeYDNQFX
-        AyEBMAMMARADAgED/wBBAAMDAQQBygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        A2EB5gM1AVcDIQEwAw0BEQMCAQNMAAMDAQQBygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwER
-        Af8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHK
-        AZ8BEQH/A2EB5gM1AVcDIQEwAw0BEQMCAQNMAAMDAQQBygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/
-        AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGfAREB/wHKAZ8BEQH/AcoBnwERAf8BygGf
-        AREB/wHKAZ8BEQH/A2EB5gM1AVcDIQEwAw0BEQMCAQP/AAEAAUIBTQE+BwABPgMAASgDAAHwAwABPAMA
-        AQEBAAEBBQABgAEHFgAD/wEAFv8B8AkAFv8B8AkAFv8B8AkAFv8B8AkAAX8G/wH3B/8Bfwb/AfAJAAE/
-        Bv8B8wf/AT8G/wHwCQABHwb/AfEH/wEfBv8B8AkAAQ8G/wHwB/8BDwb/AfAJAAEHBv8B8AF/Bv8BBwb/
-        AfAJAAEDBv8B8AE/Bv8BAwb/AfAJAAEBBv8B8AEfBv8BAQb/AfAKAAb/AfABDwb/AQAG/wHwCgABfwX/
-        AfABBwb/AQABfwX/AfAKAAE/Bf8B8AEDBv8BAAE/Bf8B8AoAAR8F/wHwAQEG/wEAAR8F/wHwCgABDwX/
-        AfABAAb/AQABDwX/AfAKAAEHBf8B8AEAAX8F/wEAAQcF/wHwCgABAwX/AfABAAE/Bf8BAAEDBf8B8AoA
-        AQEF/wHwAQABHwX/AQABAQX/AfALAAX/AfABAAEPBf8CAAX/AfALAAF/BP8B8AEAAQcF/wIAAX8E/wHw
-        CwABPwT/AfABAAEDBf8CAAE/BP8B8AsAAR8E/wHwAQABAQX/AgABHwT/AfALAAEPBP8B8AIABf8CAAEP
-        BP8B8AsAAQcE/wHwAgABfwT/AgABBwT/AfALAAEDBP8B8AIAAT8E/wIAAQME/wHwCwABAQT/AfACAAEf
-        BP8CAAEBBP8B8AwABP8B8AIAAQ8E/wMABP8B8AwAAX8D/wHwAgABBwT/AwABfwP/AfAMAAE/A/8B8AIA
-        AQME/wMAAT8D/wHwDAABHwP/AfACAAEBBP8DAAEfA/8B8AwAAQ8D/wHwAwAE/wMAAQ8D/wHwDAABBwP/
-        AfADAAF/A/8DAAEHA/8B8AwAAQMD/wHwAwABPwP/AwABAwP/AfAMAAEBA/8B8AMAAR8D/wMAAQED/wHw
-        DQAD/wHwAwABDwP/BAAD/wHwDQABfwL/AfADAAEHA/8EAAF/Av8B8A0AAT8C/wHwAwABAwP/BAABPwL/
-        AfANAAEfAv8B8AMAAQED/wQAAR8C/wHwDQABDwL/AfAEAAP/BAABDwL/AfANAAEHAv8B8AQAAX8C/wQA
-        AQcC/wHwDQABAwL/AfAEAAE/Av8EAAEDAv8B8A0AAQEC/wHwBAABHwL/BAABAQL/AfAOAAL/AfAEAAEP
-        Av8FAAL/AfAOAAF/Af8B8AQAAQcC/wUAAX8B/wHwCQABgAQAAT8B/wH4BAABAwL/AYAEAAE/Af8B8AkA
-        AcAEAAEfAf8B/AQAAQEC/wHABAABHwH/AfAJAAHgBAABDwH/Af4FAAL/AeAEAAEPAf8B8AkAAfAEAAEH
-        Av8FAAF/Af8B8AQAAQcB/wHwCQAB+AQAAQMC/wGABAABPwH/AfgEAAEDAf8B8AkAAfwEAAEBAv8BwAQA
-        AR8B/wH8BAABAQH/AfAJAAH+BQAC/wHgBAABDwH/Af4FAAH/AfAJAAH/BQABfwH/AfAEAAEHAv8FAAF/
-        AfAJAAH/AYAEAAE/Af8B+AQAAQMC/wGABAABPwHwCQAB/wHABAABHwH/AfwEAAEBAv8BwAQAAR8B8AkA
-        Af8B4AQAAQ8B/wH+BQAC/wHgBAABDwHwCQAB/wHwBAABBwL/BQABfwH/AfAEAAEHAfAJAAH/AfgEAAED
-        Av8BgAQAAT8B/wH4BAABAwHwCQAB/wH8BAABAQL/AcAEAAEfAf8B/AQAAQEB8AkAAf8B/gUAAv8B4AQA
-        AQ8B/wH+BQAB8B8ACw==
-</value>
-  </data>
-  <data name="$this.Localizable" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1000, 600</value>
-  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAQAEBAAAAEAIABoBAAARgAAACAgAAABACAAqBAAAK4EAABAQAAAAQAgAChCAABWFQAAgIAAAAEA
@@ -3817,12 +1943,6 @@
         AA/4AAAAAAAAAAAAAAAAAAAf/AAAAAAAAAAAAAAAAAAAP/8AAAAAAAAAAAAAAAAAAP//wAAAAAAAAAAA
         AAAAAAP///gAAAAAAAAAAAAAAAAf/w==
 </value>
-  </data>
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>600, 350</value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterScreen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Depressurizer</value>

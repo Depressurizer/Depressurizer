@@ -117,588 +117,91 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="grpSteamDir.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="cmdSteamPathBrowse.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="cmdSteamPathBrowse.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="cmdSteamPathBrowse.Location" type="System.Drawing.Point, System.Drawing">
-    <value>464, 20</value>
-  </data>
-  <data name="cmdSteamPathBrowse.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="cmdSteamPathBrowse.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
   <data name="cmdSteamPathBrowse.Text" xml:space="preserve">
     <value>浏览...</value>
-  </data>
-  <data name="txtSteamPath.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="txtSteamPath.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 22</value>
-  </data>
-  <data name="txtSteamPath.Size" type="System.Drawing.Size, System.Drawing">
-    <value>447, 20</value>
-  </data>
-  <data name="txtSteamPath.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="grpSteamDir.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="grpSteamDir.Size" type="System.Drawing.Size, System.Drawing">
-    <value>548, 54</value>
-  </data>
-  <data name="grpSteamDir.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="grpSteamDir.Text" xml:space="preserve">
     <value>Steam 目录</value>
   </data>
-  <data name="grpStartup.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="radNone.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radNone.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radNone.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 65</value>
-  </data>
-  <data name="radNone.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 17</value>
-  </data>
-  <data name="radNone.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
   <data name="radNone.Text" xml:space="preserve">
     <value>无操作</value>
-  </data>
-  <data name="radCreate.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radCreate.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radCreate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 42</value>
-  </data>
-  <data name="radCreate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 17</value>
-  </data>
-  <data name="radCreate.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
   </data>
   <data name="radCreate.Text" xml:space="preserve">
     <value>创建配置文件</value>
   </data>
-  <data name="radLoad.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radLoad.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radLoad.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 19</value>
-  </data>
-  <data name="radLoad.Size" type="System.Drawing.Size, System.Drawing">
-    <value>84, 17</value>
-  </data>
-  <data name="radLoad.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="radLoad.Text" xml:space="preserve">
     <value>加载配置文件:</value>
-  </data>
-  <data name="cmdDefaultProfileBrowse.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="cmdDefaultProfileBrowse.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="cmdDefaultProfileBrowse.Location" type="System.Drawing.Point, System.Drawing">
-    <value>464, 16</value>
-  </data>
-  <data name="cmdDefaultProfileBrowse.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="cmdDefaultProfileBrowse.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
   </data>
   <data name="cmdDefaultProfileBrowse.Text" xml:space="preserve">
     <value>浏览...</value>
   </data>
-  <data name="txtDefaultProfile.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="txtDefaultProfile.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 18</value>
-  </data>
-  <data name="txtDefaultProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 20</value>
-  </data>
-  <data name="txtDefaultProfile.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="grpStartup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 66</value>
-  </data>
-  <data name="grpStartup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>548, 91</value>
-  </data>
-  <data name="grpStartup.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
   <data name="grpStartup.Text" xml:space="preserve">
     <value>启动时</value>
-  </data>
-  <data name="chkRemoveExtraEntries.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkRemoveExtraEntries.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkRemoveExtraEntries.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="chkRemoveExtraEntries.Size" type="System.Drawing.Size, System.Drawing">
-    <value>321, 17</value>
-  </data>
-  <data name="chkRemoveExtraEntries.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="chkRemoveExtraEntries.Text" xml:space="preserve">
     <value>导出时排除已删除或“未知”的游戏</value>
   </data>
-  <data name="cmdAccept.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="cmdAccept.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="cmdAccept.Location" type="System.Drawing.Point, System.Drawing">
-    <value>505, 475</value>
-  </data>
-  <data name="cmdAccept.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="cmdAccept.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
   <data name="cmdAccept.Text" xml:space="preserve">
     <value>确定</value>
-  </data>
-  <data name="cmdCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="cmdCancel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="cmdCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>424, 475</value>
-  </data>
-  <data name="cmdCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="cmdCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
   </data>
   <data name="cmdCancel.Text" xml:space="preserve">
     <value>取消</value>
   </data>
-  <data name="grpSaving.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="grpSaving.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 386</value>
-  </data>
-  <data name="grpSaving.Size" type="System.Drawing.Size, System.Drawing">
-    <value>548, 41</value>
-  </data>
-  <data name="grpSaving.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
   <data name="grpSaving.Text" xml:space="preserve">
     <value>手动操作</value>
-  </data>
-  <data name="tabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="grpStoreLanguage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="cmbStoreLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 19</value>
-  </data>
-  <data name="cmbStoreLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 21</value>
-  </data>
-  <data name="cmbStoreLanguage.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="grpStoreLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>311, 328</value>
-  </data>
-  <data name="grpStoreLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>243, 52</value>
-  </data>
-  <data name="grpStoreLanguage.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
   </data>
   <data name="grpStoreLanguage.Text" xml:space="preserve">
     <value>Steam 商店语言</value>
   </data>
-  <data name="grpDepressurizerUpdates.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="chkCheckForDepressurizerUpdates.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkCheckForDepressurizerUpdates.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkCheckForDepressurizerUpdates.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="chkCheckForDepressurizerUpdates.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 17</value>
-  </data>
-  <data name="chkCheckForDepressurizerUpdates.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="chkCheckForDepressurizerUpdates.Text" xml:space="preserve">
     <value>程序启动时检查 Depressurizer 有无更新</value>
-  </data>
-  <data name="grpDepressurizerUpdates.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 281</value>
-  </data>
-  <data name="grpDepressurizerUpdates.Size" type="System.Drawing.Size, System.Drawing">
-    <value>548, 41</value>
-  </data>
-  <data name="grpDepressurizerUpdates.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
   </data>
   <data name="grpDepressurizerUpdates.Text" xml:space="preserve">
     <value>Depressurizer 更新</value>
   </data>
-  <data name="grpDatabase.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="numScrapePromptDays.Location" type="System.Drawing.Point, System.Drawing">
-    <value>409, 87</value>
-  </data>
-  <data name="numScrapePromptDays.Size" type="System.Drawing.Size, System.Drawing">
-    <value>49, 20</value>
-  </data>
-  <data name="numScrapePromptDays.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="lblScrapePrompt2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblScrapePrompt2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblScrapePrompt2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>461, 89</value>
-  </data>
-  <data name="lblScrapePrompt2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 13</value>
-  </data>
-  <data name="lblScrapePrompt2.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
   <data name="lblScrapePrompt2.Text" xml:space="preserve">
     <value>天</value>
-  </data>
-  <data name="lblScapePrompt1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblScapePrompt1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblScapePrompt1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 89</value>
-  </data>
-  <data name="lblScapePrompt1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>402, 13</value>
-  </data>
-  <data name="lblScapePrompt1.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
   </data>
   <data name="lblScapePrompt1.Text" xml:space="preserve">
     <value>执行自动归类时，提示抓取超过x天未抓的游戏的数据：</value>
   </data>
-  <data name="helpIncludeImputedTimes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="helpIncludeImputedTimes.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="helpIncludeImputedTimes.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="helpIncludeImputedTimes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>498, 43</value>
-  </data>
-  <data name="helpIncludeImputedTimes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 15</value>
-  </data>
-  <data name="helpIncludeImputedTimes.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
   <data name="helpIncludeImputedTimes.Text" xml:space="preserve">
     <value>?</value>
-  </data>
-  <data name="chkIncludeImputedTimes.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkIncludeImputedTimes.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkIncludeImputedTimes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>341, 42</value>
-  </data>
-  <data name="chkIncludeImputedTimes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 17</value>
-  </data>
-  <data name="chkIncludeImputedTimes.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
   </data>
   <data name="chkIncludeImputedTimes.Text" xml:space="preserve">
     <value>包括估算的 HLTB 时数</value>
   </data>
-  <data name="chkUpdateHltbOnStartup.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkUpdateHltbOnStartup.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkUpdateHltbOnStartup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 42</value>
-  </data>
-  <data name="chkUpdateHltbOnStartup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 17</value>
-  </data>
-  <data name="chkUpdateHltbOnStartup.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
   <data name="chkUpdateHltbOnStartup.Text" xml:space="preserve">
     <value>程序启动时用 HLTB 数据更新数据库</value>
-  </data>
-  <data name="chkAutosaveDB.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkAutosaveDB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkAutosaveDB.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 65</value>
-  </data>
-  <data name="chkAutosaveDB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 17</value>
-  </data>
-  <data name="chkAutosaveDB.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
   </data>
   <data name="chkAutosaveDB.Text" xml:space="preserve">
     <value>自动更新和自动抓取后自动保存数据库</value>
   </data>
-  <data name="chkUpdateAppInfoOnStartup.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkUpdateAppInfoOnStartup.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkUpdateAppInfoOnStartup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 19</value>
-  </data>
-  <data name="chkUpdateAppInfoOnStartup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 17</value>
-  </data>
-  <data name="chkUpdateAppInfoOnStartup.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
   <data name="chkUpdateAppInfoOnStartup.Text" xml:space="preserve">
     <value>程序启动时用 AppInfo 更新数据库</value>
-  </data>
-  <data name="grpDatabase.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 163</value>
-  </data>
-  <data name="grpDatabase.Size" type="System.Drawing.Size, System.Drawing">
-    <value>548, 112</value>
-  </data>
-  <data name="grpDatabase.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
   </data>
   <data name="grpDatabase.Text" xml:space="preserve">
     <value>数据库选项</value>
   </data>
-  <data name="grpUILanguage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="cmbUILanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 19</value>
-  </data>
-  <data name="cmbUILanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>282, 21</value>
-  </data>
-  <data name="cmbUILanguage.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="grpUILanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 328</value>
-  </data>
-  <data name="grpUILanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>299, 52</value>
-  </data>
-  <data name="grpUILanguage.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
   <data name="grpUILanguage.Text" xml:space="preserve">
     <value>程序界面语言</value>
-  </data>
-  <data name="tabGeneral.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabGeneral.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabGeneral.Size" type="System.Drawing.Size, System.Drawing">
-    <value>560, 431</value>
-  </data>
-  <data name="tabGeneral.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="tabGeneral.Text" xml:space="preserve">
     <value>常规</value>
   </data>
-  <data name="cmdDefaultIgnored.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="cmdDefaultIgnored.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="cmdDefaultIgnored.Location" type="System.Drawing.Point, System.Drawing">
-    <value>451, 119</value>
-  </data>
-  <data name="cmdDefaultIgnored.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 23</value>
-  </data>
-  <data name="cmdDefaultIgnored.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
   <data name="cmdDefaultIgnored.Text" xml:space="preserve">
     <value>加载默认设置</value>
-  </data>
-  <data name="cmdIgnore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="cmdIgnore.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="cmdIgnore.Location" type="System.Drawing.Point, System.Drawing">
-    <value>451, 32</value>
-  </data>
-  <data name="cmdIgnore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 23</value>
-  </data>
-  <data name="cmdIgnore.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
   </data>
   <data name="cmdIgnore.Text" xml:space="preserve">
     <value>忽略</value>
   </data>
-  <data name="txtIgnore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="txtIgnore.Location" type="System.Drawing.Point, System.Drawing">
-    <value>451, 6</value>
-  </data>
-  <data name="txtIgnore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 20</value>
-  </data>
-  <data name="txtIgnore.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="cmdUnignore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="cmdUnignore.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="cmdUnignore.Location" type="System.Drawing.Point, System.Drawing">
-    <value>451, 90</value>
-  </data>
-  <data name="cmdUnignore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 23</value>
-  </data>
-  <data name="cmdUnignore.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
   <data name="cmdUnignore.Text" xml:space="preserve">
     <value>取消忽略选中</value>
-  </data>
-  <data name="lstIgnored.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="lstIgnored.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="lstIgnored.Size" type="System.Drawing.Size, System.Drawing">
-    <value>439, 419</value>
-  </data>
-  <data name="lstIgnored.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>560, 431</value>
-  </data>
-  <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
   </data>
   <data name="tabPage1.Text" xml:space="preserve">
     <value>忽略游戏</value>
   </data>
-  <data name="tabControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 12</value>
-  </data>
-  <data name="tabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>568, 457</value>
-  </data>
-  <data name="tabControl.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing">
-    <value>17, 17</value>
-  </data>
-  <data name="$this.Localizable" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>592, 508</value>
-  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAQAEBAAAAEAIABoBAAARgAAACAgAAABACAAqBAAAK4EAABAQAAAAQAgAChCAABWFQAAgIAAAAEA
@@ -2203,9 +1706,6 @@
         AA/4AAAAAAAAAAAAAAAAAAAf/AAAAAAAAAAAAAAAAAAAP/8AAAAAAAAAAAAAAAAAAP//wAAAAAAAAAAA
         AAAAAAP///gAAAAAAAAAAAAAAAAf/w==
 </value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterScreen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>设置</value>
