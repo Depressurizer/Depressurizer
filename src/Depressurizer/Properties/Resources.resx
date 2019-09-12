@@ -213,4 +213,10 @@
   <data name="ScrapeDialog_Title" xml:space="preserve">
     <value>Scraping data...</value>
   </data>
+  <data name="cmdStore_CommunityText" xml:space="preserve">
+    <value>View &amp;Community</value>
+  </data>
+  <data name="cmdStore_StoreText" xml:space="preserve">
+    <value>View &amp;Store</value>
+  </data>
 </root>

@@ -95,6 +95,11 @@ namespace Depressurizer.Core.Helpers
         public static string SteamStoreApp => "https://store.steampowered.com/app/{0}/";
 
         /// <summary>
+        ///     Generic URL for a single Steam Community page, must be formatted with an appid.
+        /// </summary>
+        public static string SteamCommunityApp => "https://steamcommunity.com/app/{0}/";
+
+        /// <summary>
         ///     URL to Steam Web API Key page.
         /// </summary>
         public static string SteamWebApiKey => "https://steamcommunity.com/dev/apikey";

@@ -1947,4 +1947,7 @@
   <data name="$this.Text" xml:space="preserve">
     <value>Depressurizer</value>
   </data>
+  <data name="contextGame_VisitSteamCommunity.Text" xml:space="preserve">
+    <value>访问社区页面</value>
+  </data>
 </root>

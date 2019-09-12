@@ -96,6 +96,7 @@ namespace Depressurizer {
             this.colParent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmdUpdateHltb = new System.Windows.Forms.Button();
             this.CheckShowIgnored = new System.Windows.Forms.CheckBox();
+            this.chkCommunityInsteadStore = new System.Windows.Forms.CheckBox();
             this.mainMenu.SuspendLayout();
             this.grpTypes.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -501,10 +502,20 @@ namespace Depressurizer {
             this.CheckShowIgnored.UseVisualStyleBackColor = true;
             this.CheckShowIgnored.CheckedChanged += new System.EventHandler(this.CheckShowIgnored_CheckedChanged);
             // 
+            // chkCommunityInsteadStore
+            // 
+            resources.ApplyResources(this.chkCommunityInsteadStore, "chkCommunityInsteadStore");
+            this.chkCommunityInsteadStore.Checked = true;
+            this.chkCommunityInsteadStore.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkCommunityInsteadStore.Name = "chkCommunityInsteadStore";
+            this.chkCommunityInsteadStore.UseVisualStyleBackColor = true;
+            this.chkCommunityInsteadStore.CheckedChanged += new System.EventHandler(this.ChkCommunityInsteadStore_CheckedChanged);
+            // 
             // DBEditDlg
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.chkCommunityInsteadStore);
             this.Controls.Add(this.CheckShowIgnored);
             this.Controls.Add(this.cmdUpdateHltb);
             this.Controls.Add(this.chkIdRange);
@@ -609,6 +620,7 @@ namespace Depressurizer {
         private System.Windows.Forms.CheckBox chkIdRange;
         private System.Windows.Forms.Button cmdUpdateHltb;
         private System.Windows.Forms.CheckBox CheckShowIgnored;
+        private System.Windows.Forms.CheckBox chkCommunityInsteadStore;
     }
 }
 
