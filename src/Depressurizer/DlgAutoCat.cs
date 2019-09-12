@@ -152,7 +152,6 @@ namespace Depressurizer
                 }
             }
 
-            AutoCatList.Sort();
             FillAutocatList();
             if (newAutoCat != null)
             {
@@ -308,7 +307,6 @@ namespace Depressurizer
                 ac.Name = name;
             }
 
-            AutoCatList.Sort();
             FillAutocatList();
         }
 
