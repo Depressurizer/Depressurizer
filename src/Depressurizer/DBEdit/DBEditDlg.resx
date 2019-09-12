@@ -191,6 +191,8 @@
   </data>
   <data name="mainMenu.Text" xml:space="preserve">
     <value>menuStrip1</value>
+    
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;mainMenu.Name" xml:space="preserve">
     <value>mainMenu</value>
@@ -617,6 +619,8 @@
   </data>
   <data name="statusStrip1.Text" xml:space="preserve">
     <value>statusStrip1</value>
+    
+    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;statusStrip1.Name" xml:space="preserve">
     <value>statusStrip1</value>
