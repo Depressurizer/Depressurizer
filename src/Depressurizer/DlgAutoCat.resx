@@ -250,7 +250,7 @@
     <value>15</value>
   </data>
   <data name="btnUp.Text" xml:space="preserve">
-    <value>+</value>
+    <value>↑</value>
     <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;btnUp.Name" xml:space="preserve">
@@ -281,7 +281,7 @@
     <value>16</value>
   </data>
   <data name="btnDown.Text" xml:space="preserve">
-    <value>-</value>
+    <value>↓</value>
     <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;btnDown.Name" xml:space="preserve">
