@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
+using Depressurizer.Properties;
 
 namespace Depressurizer.AutoCats
 {
@@ -91,7 +92,8 @@ namespace Depressurizer.AutoCats
             lstDevelopers.Columns[0].Width = -1;
             SortDevelopers(1, SortOrder.Descending);
             lstDevelopers.EndUpdate();
-            chkAllDevelopers.Text = "All (" + lstDevelopers.Items.Count + ")";
+            chkAllDevelopers.Text = string.Format(CultureInfo.CurrentCulture, Resources.AllButtonWithCount, lstDevelopers.Items.Count);
+
             Cursor = Cursors.Default;
         }
 
@@ -126,7 +128,7 @@ namespace Depressurizer.AutoCats
             lstPublishers.Columns[0].Width = -1;
             SortPublishers(1, SortOrder.Descending);
             lstPublishers.EndUpdate();
-            chkAllPublishers.Text = "All (" + lstPublishers.Items.Count + ")";
+            chkAllPublishers.Text = string.Format(CultureInfo.CurrentCulture, Resources.AllButtonWithCount, lstDevelopers.Items.Count);
             Cursor = Cursors.Default;
         }
 

@@ -132,7 +132,7 @@
     <value>0, 0</value>
   </data>
   <data name="clbTags.Size" type="System.Drawing.Size, System.Drawing">
-    <value>109, 92</value>
+    <value>109, 111</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="clbTags.TabIndex" type="System.Int32, mscorlib">
@@ -798,11 +798,14 @@
   <data name="cmdListRebuild.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
+  <data name="cmdListRebuild.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="cmdListRebuild.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 160</value>
+    <value>6, 159</value>
   </data>
   <data name="cmdListRebuild.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 21</value>
+    <value>105, 22</value>
   </data>
   <data name="cmdListRebuild.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>

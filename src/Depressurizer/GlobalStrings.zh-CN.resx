@@ -202,7 +202,7 @@
     <value>保存失败。</value>
   </data>
   <data name="DBEditDlg_SelectedDisplayedTotal" xml:space="preserve">
-    <value>{0} selected / {1} displayed / {2} total</value>
+    <value>{0} 项已选 / {1} 项已显示 / 总计 {2} 项</value>
   </data>
   <data name="DBEditDlg_UnsavedChanges" xml:space="preserve">
     <value>未保存的更改</value>
@@ -1177,7 +1177,7 @@
     <value>按开发者</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Hltb" xml:space="preserve">
-    <value>按 HowLongToBeat</value>
+    <value>按 HLTB</value>
   </data>
   <data name="AutoCatGroup_AutoCatsLoaded" xml:space="preserve">
     <value>自动归类已加载。</value>

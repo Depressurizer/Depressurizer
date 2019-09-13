@@ -61,6 +61,24 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Add ({0}) 的本地化字符串。
+        /// </summary>
+        internal static string AddButtonWithCount {
+            get {
+                return ResourceManager.GetString("AddButtonWithCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 All ({0}) 的本地化字符串。
+        /// </summary>
+        internal static string AllButtonWithCount {
+            get {
+                return ResourceManager.GetString("AllButtonWithCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Applied data... 的本地化字符串。
         /// </summary>
         internal static string AppliedData {
@@ -196,11 +214,38 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Included tags ({0}) 的本地化字符串。
+        /// </summary>
+        internal static string IncludedTagsWithCount {
+            get {
+                return ResourceManager.GetString("IncludedTagsWithCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Selected item is not a Filter! 的本地化字符串。
         /// </summary>
         internal static string ItemIsNotAFilter {
             get {
                 return ResourceManager.GetString("ItemIsNotAFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Rebuild List ({0}) 的本地化字符串。
+        /// </summary>
+        internal static string RebuildListButtonWithCount {
+            get {
+                return ResourceManager.GetString("RebuildListButtonWithCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Remove ({0}) 的本地化字符串。
+        /// </summary>
+        internal static string RemoveButtonWithCount {
+            get {
+                return ResourceManager.GetString("RemoveButtonWithCount", resourceCulture);
             }
         }
         

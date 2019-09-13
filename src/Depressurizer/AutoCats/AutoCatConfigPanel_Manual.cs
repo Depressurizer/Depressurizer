@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
 using Depressurizer.Core.Models;
+using Depressurizer.Properties;
 
 namespace Depressurizer.AutoCats
 {
@@ -422,12 +423,12 @@ namespace Depressurizer.AutoCats
 
         private void UpdateAddCount()
         {
-            groupAdd.Text = "Add (" + clbAddSelected.Items.Count + "):";
+            groupAdd.Text = string.Format(CultureInfo.CurrentCulture, Resources.AddButtonWithCount, clbAddSelected.Items.Count);
         }
 
         private void UpdateRemoveCount()
         {
-            groupRemove.Text = "Remove (" + clbRemoveSelected.Items.Count + "):";
+            groupRemove.Text = string.Format(CultureInfo.CurrentCulture, Resources.RemoveButtonWithCount, clbRemoveSelected.Items.Count);
         }
 
         #endregion
