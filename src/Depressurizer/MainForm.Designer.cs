@@ -118,6 +118,7 @@ namespace Depressurizer {
             this.colLanguageInterface = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colLanguageSubtitles = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colLanguageFullAudio = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colHoursPlayed = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colFiller = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.contextGame = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextGame_LaunchGame = new System.Windows.Forms.ToolStripMenuItem();
@@ -141,6 +142,7 @@ namespace Depressurizer {
             this.contextGameHidden_No = new System.Windows.Forms.ToolStripMenuItem();
             this.contextGame_Sep3 = new System.Windows.Forms.ToolStripSeparator();
             this.contextGame_VisitStore = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextGame_VisitSteamCommunity = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlLstGamesToolbar = new System.Windows.Forms.Panel();
             this.chkRegex = new MaterialSkin.Controls.MaterialCheckBox();
             this.mbtnCategories = new MaterialSkin.Controls.MaterialRaisedButton();
@@ -196,7 +198,6 @@ namespace Depressurizer {
             this.picAvatar = new System.Windows.Forms.PictureBox();
             this.imglistEarlyAccess = new System.Windows.Forms.ImageList(this.components);
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
-            this.colHoursPlayed = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -522,6 +523,7 @@ namespace Depressurizer {
             resources.ApplyResources(this.lvAutoCatType, "lvAutoCatType");
             this.lvAutoCatType.ForeColor = System.Drawing.Color.White;
             this.lvAutoCatType.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lvAutoCatType.HideSelection = false;
             this.lvAutoCatType.MultiSelect = false;
             this.lvAutoCatType.Name = "lvAutoCatType";
             this.tblLayoutPanelAutocats.SetRowSpan(this.lvAutoCatType, 4);
@@ -950,6 +952,11 @@ namespace Depressurizer {
             this.colLanguageFullAudio.Tag = "colLanguageFullAudio";
             this.colLanguageFullAudio.WordWrap = true;
             // 
+            // colHoursPlayed
+            // 
+            resources.ApplyResources(this.colHoursPlayed, "colHoursPlayed");
+            this.colHoursPlayed.WordWrap = true;
+            // 
             // colFiller
             // 
             this.colFiller.FillsFreeSpace = true;
@@ -975,7 +982,8 @@ namespace Depressurizer {
             this.contextGame_SetFav,
             this.contextGame_SetHidden,
             this.contextGame_Sep3,
-            this.contextGame_VisitStore});
+            this.contextGame_VisitStore,
+            this.contextGame_VisitSteamCommunity});
             this.contextGame.Name = "contextGame";
             this.contextGame.ShowImageMargin = false;
             resources.ApplyResources(this.contextGame, "contextGame");
@@ -1118,6 +1126,12 @@ namespace Depressurizer {
             resources.ApplyResources(this.contextGame_VisitStore, "contextGame_VisitStore");
             this.contextGame_VisitStore.Click += new System.EventHandler(this.contextGame_VisitStore_Click);
             // 
+            // contextGame_VisitSteamCommunity
+            // 
+            this.contextGame_VisitSteamCommunity.Name = "contextGame_VisitSteamCommunity";
+            resources.ApplyResources(this.contextGame_VisitSteamCommunity, "contextGame_VisitSteamCommunity");
+            this.contextGame_VisitSteamCommunity.Click += new System.EventHandler(this.ContextGame_VisitSteamCommunity_Click);
+            // 
             // pnlLstGamesToolbar
             // 
             this.pnlLstGamesToolbar.Controls.Add(this.chkRegex);
@@ -1222,6 +1236,7 @@ namespace Depressurizer {
             this.lstMultiCat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             resources.ApplyResources(this.lstMultiCat, "lstMultiCat");
             this.lstMultiCat.ForeColor = System.Drawing.Color.White;
+            this.lstMultiCat.HideSelection = false;
             this.lstMultiCat.MultiSelect = false;
             this.lstMultiCat.Name = "lstMultiCat";
             this.lstMultiCat.StateImageList = this.imglistTriState;
@@ -1556,11 +1571,6 @@ namespace Depressurizer {
             this.imglistEarlyAccess.Images.SetKeyName(1, "early_access_banner_russian.png");
             this.imglistEarlyAccess.Images.SetKeyName(2, "early_access_banner_spanish.png");
             // 
-            // colHoursPlayed
-            // 
-            resources.ApplyResources(this.colHoursPlayed, "colHoursPlayed");
-            this.colHoursPlayed.WordWrap = true;
-            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -1770,6 +1780,7 @@ namespace Depressurizer {
         private ComboBox cboFilter;
         private MaterialSkin.Controls.MaterialCheckBox chkRegex;
         private BrightIdeasSoftware.OLVColumn colHoursPlayed;
+        private ToolStripMenuItem contextGame_VisitSteamCommunity;
     }
 }
 

@@ -70,6 +70,11 @@ namespace Depressurizer.Core.Helpers
         public static string Shortcuts => @"{0}\userdata\{1}\config\shortcuts.vdf";
 
         /// <summary>
+        ///     Generic URL for a single Steam Community page, must be formatted with an appid.
+        /// </summary>
+        public static string SteamCommunityApp => "https://steamcommunity.com/app/{0}/";
+
+        /// <summary>
         ///     Generic URL for a curators Steam recommendations, must be formatted with the curator id and page index.
         /// </summary>
         public static string SteamCuratorRecommendations => "https://store.steampowered.com/curator/{0}/ajaxgetfilteredrecommendations/render/?query=&start={1}&count=50";

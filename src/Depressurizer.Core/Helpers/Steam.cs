@@ -396,6 +396,15 @@ namespace Depressurizer.Core.Helpers
         }
 
         /// <summary>
+        ///     Opens the Steam Community page for the specified app in the default browser.
+        /// </summary>
+        /// <param name="appId"></param>
+        public static void LaunchSteamCommunityPage(int appId)
+        {
+            Process.Start(string.Format(CultureInfo.InvariantCulture, Constants.SteamCommunityApp, appId));
+        }
+
+        /// <summary>
         ///     Opens the store page for the specified app in the default browser.
         /// </summary>
         /// <param name="appId"></param>

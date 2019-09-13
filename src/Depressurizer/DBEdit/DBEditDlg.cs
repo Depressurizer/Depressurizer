@@ -65,6 +65,9 @@ namespace Depressurizer
         public DBEditDlg(GameList owned = null)
         {
             InitializeComponent();
+
+            updateViewStoreButton();
+
             _ownedList = owned;
         }
 
@@ -242,6 +245,11 @@ namespace Depressurizer
             }
         }
 
+        private void ChkCommunityInsteadStore_CheckedChanged(object sender, EventArgs e)
+        {
+            updateViewStoreButton();
+        }
+
         private void chkOwned_CheckedChanged(object sender, EventArgs e)
         {
             RebuildDisplayList();
@@ -322,7 +330,14 @@ namespace Depressurizer
         {
             if (lstGames.SelectedIndices.Count > 0)
             {
-                Steam.LaunchStorePage(_displayedGames[lstGames.SelectedIndices[0]].AppId);
+                if (!chkCommunityInsteadStore.Checked)
+                {
+                    Steam.LaunchStorePage(_displayedGames[lstGames.SelectedIndices[0]].AppId);
+                }
+                else
+                {
+                    Steam.LaunchSteamCommunityPage(_displayedGames[lstGames.SelectedIndices[0]].AppId);
+                }
             }
         }
 
@@ -1041,6 +1056,18 @@ namespace Depressurizer
         {
             statSelected.Text = string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_SelectedDisplayedTotal, lstGames.SelectedIndices.Count, lstGames.VirtualListSize, Database.Count);
             cmdDeleteGame.Enabled = cmdEditGame.Enabled = cmdStore.Enabled = cmdUpdateSelected.Enabled = lstGames.SelectedIndices.Count >= 1;
+        }
+
+        private void updateViewStoreButton()
+        {
+            if (!chkCommunityInsteadStore.Checked)
+            {
+                cmdStore.Text = Resources.cmdStore_StoreText;
+            }
+            else
+            {
+                cmdStore.Text = Resources.cmdStore_CommunityText;
+            }
         }
 
         #endregion

@@ -1050,6 +1050,7 @@ namespace Depressurizer
             contextGame_RemCat.Enabled = selectedGames && contextGameRemCat.Items.Count > 0;
             contextGame_SetFav.Enabled = selectedGames;
             contextGame_VisitStore.Enabled = selectedGames;
+            contextGame_VisitSteamCommunity.Enabled = selectedGames;
             contextGame_LaunchGame.Enabled = selectedGames;
         }
 
@@ -1065,6 +1066,14 @@ namespace Depressurizer
             ClearStatus();
             AssignFavoriteToSelectedGames(true);
             FlushStatus();
+        }
+
+        private void ContextGame_VisitSteamCommunity_Click(object sender, EventArgs e)
+        {
+            if (lstGames.SelectedObjects.Count > 0)
+            {
+                Steam.LaunchSteamCommunityPage(_typedListGames.SelectedObjects[0].Id);
+            }
         }
 
         private void contextGame_VisitStore_Click(object sender, EventArgs e)

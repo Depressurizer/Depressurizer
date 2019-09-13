@@ -249,4 +249,7 @@
   <data name="$this.Text" xml:space="preserve">
     <value>数据库编辑器</value>
   </data>
+  <data name="chkCommunityInsteadStore.Text" xml:space="preserve">
+    <value>打开 Steam 社区而非商店页面</value>
+  </data>
 </root>
