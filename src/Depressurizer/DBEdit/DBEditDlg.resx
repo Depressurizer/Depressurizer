@@ -191,7 +191,6 @@
   </data>
   <data name="mainMenu.Text" xml:space="preserve">
     <value>menuStrip1</value>
-    
     <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;mainMenu.Name" xml:space="preserve">
