@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
+using Depressurizer.Properties;
 
 namespace Depressurizer.AutoCats
 {
@@ -85,8 +86,7 @@ namespace Depressurizer.AutoCats
             SortTags(1, SortOrder.Descending);
             lstIncluded.EndUpdate();
 
-            cmdListRebuild.Text = string.Format(CultureInfo.CurrentCulture,
-                Depressurizer.Properties.Resources.RebuildListButtonWithCount, lstIncluded.Items.Count);
+            cmdListRebuild.Text = string.Format(CultureInfo.CurrentCulture, Resources.RebuildListButtonWithCount, lstIncluded.Items.Count);
             loaded = true;
         }
 
@@ -206,8 +206,7 @@ namespace Depressurizer.AutoCats
                 workerThread.Start(e.Item);
             }
 
-            lblIncluded.Text = string.Format(CultureInfo.CurrentCulture,
-                Depressurizer.Properties.Resources.IncludedTagsWithCount, clbTags.Items.Count);
+            lblIncluded.Text = string.Format(CultureInfo.CurrentCulture, Resources.IncludedTagsWithCount, clbTags.Items.Count);
         }
 
         private void nameascendingTags_Click(object sender, EventArgs e)
@@ -247,9 +246,7 @@ namespace Depressurizer.AutoCats
             else
             {
                 clbTags.Items.Remove(obj);
-                lblIncluded.Text = string.Format(CultureInfo.CurrentCulture,
-                Depressurizer.Properties.Resources.IncludedTagsWithCount, clbTags.Items.Count);
-                
+                lblIncluded.Text = string.Format(CultureInfo.CurrentCulture, Resources.IncludedTagsWithCount, clbTags.Items.Count);
             }
         }
 

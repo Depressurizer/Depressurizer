@@ -1,15 +1,15 @@
-﻿using Depressurizer.Core;
-using Depressurizer.Core.Enums;
-using Depressurizer.Core.Helpers;
-using Depressurizer.Core.Models;
-using Depressurizer.Dialogs;
-using Depressurizer.Properties;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Depressurizer.Core;
+using Depressurizer.Core.Enums;
+using Depressurizer.Core.Helpers;
+using Depressurizer.Core.Models;
+using Depressurizer.Dialogs;
+using Depressurizer.Properties;
 
 namespace Depressurizer
 {
@@ -65,7 +65,7 @@ namespace Depressurizer
         public DBEditDlg(GameList owned = null)
         {
             InitializeComponent();
-            
+
             updateViewStoreButton();
 
             _ownedList = owned;
@@ -245,6 +245,11 @@ namespace Depressurizer
             }
         }
 
+        private void ChkCommunityInsteadStore_CheckedChanged(object sender, EventArgs e)
+        {
+            updateViewStoreButton();
+        }
+
         private void chkOwned_CheckedChanged(object sender, EventArgs e)
         {
             RebuildDisplayList();
@@ -325,13 +330,14 @@ namespace Depressurizer
         {
             if (lstGames.SelectedIndices.Count > 0)
             {
-                if (!chkCommunityInsteadStore.Checked) {
+                if (!chkCommunityInsteadStore.Checked)
+                {
                     Steam.LaunchStorePage(_displayedGames[lstGames.SelectedIndices[0]].AppId);
-                } else
+                }
+                else
                 {
                     Steam.LaunchSteamCommunityPage(_displayedGames[lstGames.SelectedIndices[0]].AppId);
                 }
-                
             }
         }
 
@@ -1052,8 +1058,6 @@ namespace Depressurizer
             cmdDeleteGame.Enabled = cmdEditGame.Enabled = cmdStore.Enabled = cmdUpdateSelected.Enabled = lstGames.SelectedIndices.Count >= 1;
         }
 
-        #endregion
-
         private void updateViewStoreButton()
         {
             if (!chkCommunityInsteadStore.Checked)
@@ -1065,9 +1069,7 @@ namespace Depressurizer
                 cmdStore.Text = Resources.cmdStore_CommunityText;
             }
         }
-        private void ChkCommunityInsteadStore_CheckedChanged(object sender, EventArgs e)
-        {
-            updateViewStoreButton();
-        }
+
+        #endregion
     }
 }

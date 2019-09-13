@@ -1068,6 +1068,14 @@ namespace Depressurizer
             FlushStatus();
         }
 
+        private void ContextGame_VisitSteamCommunity_Click(object sender, EventArgs e)
+        {
+            if (lstGames.SelectedObjects.Count > 0)
+            {
+                Steam.LaunchSteamCommunityPage(_typedListGames.SelectedObjects[0].Id);
+            }
+        }
+
         private void contextGame_VisitStore_Click(object sender, EventArgs e)
         {
             if (lstGames.SelectedObjects.Count > 0)
@@ -4678,13 +4686,5 @@ namespace Depressurizer
         }
 
         #endregion
-
-        private void ContextGame_VisitSteamCommunity_Click(object sender, EventArgs e)
-        {
-            if (lstGames.SelectedObjects.Count > 0)
-            {
-                Steam.LaunchSteamCommunityPage(_typedListGames.SelectedObjects[0].Id);
-            }
-        }
     }
 }
