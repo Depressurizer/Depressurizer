@@ -747,6 +747,7 @@ namespace Depressurizer
             {
                 path = Locations.File.DatabaseGzip;
             }
+
             try
             {
                 Database.Save(path);

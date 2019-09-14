@@ -18,6 +18,7 @@ namespace Depressurizer.Core.Helpers
             ///     Default database file location.
             /// </summary>
             public static string Database => "database.json";
+
             /// <summary>
             ///     Default database (gzipped) file location.
             /// </summary>
