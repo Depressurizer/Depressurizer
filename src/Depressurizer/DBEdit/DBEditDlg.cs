@@ -743,6 +743,10 @@ namespace Depressurizer
         {
             Cursor = Cursors.WaitCursor;
 
+            if (path == Locations.File.Database)
+            {
+                path = Locations.File.DatabaseGzip;
+            }
             try
             {
                 Database.Save(path);

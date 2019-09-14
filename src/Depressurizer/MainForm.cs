@@ -315,9 +315,11 @@ namespace Depressurizer
         {
             try
             {
-                if (File.Exists(Locations.File.Database))
+                Database.CheckDatabaseToGzip(Locations.File.Database, Locations.File.DatabaseGzip);
+                if (Database.getExistsDatabasePath() != "") // TODO: Convert to a public function
+
                 {
-                    Database.Load(Locations.File.Database);
+                    Database.Load();
                 }
                 else
                 {
@@ -3947,7 +3949,7 @@ namespace Depressurizer
         {
             try
             {
-                Database.Save(Locations.File.Database);
+                Database.Save(Locations.File.DatabaseGzip);
                 AddStatus(GlobalStrings.MainForm_Status_SavedDB);
             }
             catch (Exception e)
