@@ -262,7 +262,7 @@ namespace Depressurizer
             try
             {
                 Database.Reset();
-                if (Database.getExistsDatabasePath() != "")
+                if (!string.IsNullOrWhiteSpace(Database.getExistsDatabasePath()))
                 {
                     Database.Load();
                     success = true;
