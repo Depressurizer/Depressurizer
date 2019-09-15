@@ -52,7 +52,7 @@ namespace Depressurizer
 
         #region Properties
 
-        private static Database Database => Database.Instance;
+        private static IDatabase Database => SingletonKeeper.Database;
 
         private static Logger Logger => Logger.Instance;
 

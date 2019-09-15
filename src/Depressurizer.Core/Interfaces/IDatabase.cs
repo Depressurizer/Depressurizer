@@ -10,6 +10,10 @@ namespace Depressurizer.Core.Interfaces
 
         bool Contains(int appId, out DatabaseEntry entry);
 
+        string GetName(int appId);
+
+        bool IncludeItemInGameList(int appId);
+
         bool SupportsVR(int appId);
 
         #endregion
