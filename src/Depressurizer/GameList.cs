@@ -76,20 +76,20 @@ namespace Depressurizer
                 WebResponse response = req.GetResponse();
                 if (response.ResponseUri.Segments.Length < 4)
                 {
-                    throw new ProfileAccessException(GlobalStrings.GameData_SpecifiedProfileNotPublic);
+                    throw new SteamProfileAccessException(GlobalStrings.GameData_SpecifiedProfileNotPublic);
                 }
 
                 doc.Load(response.GetResponseStream());
                 response.Close();
                 if (doc.InnerText.Contains("This profile is private."))
                 {
-                    throw new ProfileAccessException(GlobalStrings.GameData_SpecifiedProfileNotPublic);
+                    throw new SteamProfileAccessException(GlobalStrings.GameData_SpecifiedProfileNotPublic);
                 }
 
                 Logger.Info(GlobalStrings.GameData_SuccessDownloadXMLGameList, uri);
                 return doc;
             }
-            catch (ProfileAccessException)
+            catch (SteamProfileAccessException)
             {
                 Logger.Warn("FetchGameListFromUri | Found a private profile...");
                 throw;
