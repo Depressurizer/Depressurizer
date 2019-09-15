@@ -76,17 +76,17 @@ namespace Depressurizer
                 WebResponse response = req.GetResponse();
                 if (response.ResponseUri.Segments.Length < 4)
                 {
-                    throw new SteamProfileAccessException(GlobalStrings.GameData_SpecifiedProfileNotPublic);
+                    throw new SteamProfileAccessException("The specified profile is not public.");
                 }
 
                 doc.Load(response.GetResponseStream());
                 response.Close();
                 if (doc.InnerText.Contains("This profile is private."))
                 {
-                    throw new SteamProfileAccessException(GlobalStrings.GameData_SpecifiedProfileNotPublic);
+                    throw new SteamProfileAccessException("The specified profile is not public.");
                 }
 
-                Logger.Info(GlobalStrings.GameData_SuccessDownloadXMLGameList, uri);
+                Logger.Info("FetchGameListFromUri | Successfully downloaded XML game list.", uri);
                 return doc;
             }
             catch (SteamProfileAccessException)
@@ -262,7 +262,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Logger.Warn(GlobalStrings.GameData_LoadingErrorSteamConfig, e.Message);
+                Logger.Warn("Loading existing Steam config failed: {0}", e.Message);
             }
 
             VDFNode appListNode = fileData.GetNodeAt(new[]
@@ -286,7 +286,7 @@ namespace Depressurizer
                             continue;
                         }
 
-                        Logger.Verbose(GlobalStrings.GameData_RemovingGameCategoryFromSteamConfig, gameId);
+                        Logger.Verbose("Removing game {0} category info from Steam config file.", gameId);
                         pair.Value.RemoveSubNode("tags");
                     }
                 }
@@ -303,7 +303,7 @@ namespace Depressurizer
                 }
 
                 // External games have negative identifier
-                Logger.Verbose(GlobalStrings.GameData_AddingGameToConfigFile, game.Id);
+                Logger.Verbose("Adding game {0} to config file.", game.Id);
                 VDFNode gameNode = appListNode[game.Id.ToString(CultureInfo.InvariantCulture)];
                 gameNode.MakeArray();
 
@@ -339,10 +339,10 @@ namespace Depressurizer
                 }
             }
 
-            Logger.Verbose(GlobalStrings.GameData_CleaningUpSteamConfigTree);
+            Logger.Verbose("Cleaning up steam config tree before writing to disk.");
             appListNode.CleanTree();
 
-            Logger.Info(GlobalStrings.GameData_WritingToDisk);
+            Logger.Info("Writing to disk...");
             VDFNode fullFile = new VDFNode();
             fullFile["UserLocalConfigStore"] = fileData;
             try
@@ -351,7 +351,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Logger.Error(GlobalStrings.Log_GameData_ConfigBackupFailed, e.Message);
+                Logger.Error("Steam config file backup failed: {0}", e.Message);
             }
 
             try
@@ -371,18 +371,18 @@ namespace Depressurizer
             }
             catch (ArgumentException e)
             {
-                Logger.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
-                throw new ApplicationException(GlobalStrings.GameData_FailedToSaveSteamConfigBadPath, e);
+                Logger.Error("Error saving steam config file: {0}", e.ToString());
+                throw new ApplicationException("Failed to save Steam config file: Invalid path specified.", e);
             }
             catch (IOException e)
             {
-                Logger.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
-                throw new ApplicationException(GlobalStrings.GameData_FailedToSaveSteamConfigFile + e.Message, e);
+                Logger.Error("Error saving steam config file: {0}", e.ToString());
+                throw new ApplicationException("Failed to save Steam config file:" + e.Message, e);
             }
             catch (UnauthorizedAccessException e)
             {
-                Logger.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
-                throw new ApplicationException(GlobalStrings.GameData_AccessDeniedSteamConfigFile + e.Message, e);
+                Logger.Error("Error saving steam config file: {0}", e.ToString());
+                throw new ApplicationException("Access denied on Steam config file:" + e.Message, e);
             }
         }
 
@@ -404,11 +404,11 @@ namespace Depressurizer
             }
             catch (FileNotFoundException e)
             {
-                Logger.Error(GlobalStrings.GameData_ErrorOpeningConfigFileParam, e.ToString());
+                Logger.Error("Error opening Steam config file: {0}", e.ToString());
             }
             catch (IOException e)
             {
-                Logger.Error(GlobalStrings.GameData_LoadingErrorSteamConfig, e.ToString());
+                Logger.Error("Loading existing Steam config failed: {0}", e.ToString());
             }
             finally
             {
@@ -447,7 +447,7 @@ namespace Depressurizer
                 GameInfo gameInfo = gamesToSave[matchingIndex];
                 gamesToSave.RemoveAt(matchingIndex);
 
-                Logger.Verbose(GlobalStrings.GameData_AddingGameToConfigFile, gameInfo.Id);
+                Logger.Verbose("Adding game {0} to config file.", gameInfo.Id);
                 VDFNode tagsNode = shortcutNode.GetNodeAt(new[]
                 {
                     "tags"
@@ -474,7 +474,7 @@ namespace Depressurizer
                 return;
             }
 
-            Logger.Info(GlobalStrings.GameData_SavingShortcutConfigFile, filePath);
+            Logger.Info("Saving Steam shortcuts config file: {0}.", filePath);
 
             try
             {
@@ -482,7 +482,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Logger.Error(GlobalStrings.Log_GameData_ShortcutBackupFailed, e.Message);
+                Logger.Error("Steam shortcut file backup failed: {0}", e.Message);
             }
 
             try
@@ -498,18 +498,18 @@ namespace Depressurizer
             }
             catch (ArgumentException e)
             {
-                Logger.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
-                throw new ApplicationException(GlobalStrings.GameData_FailedToSaveSteamConfigBadPath, e);
+                Logger.Error("Error saving steam config file: {0}", e.ToString());
+                throw new ApplicationException("Failed to save Steam config file: Invalid path specified.", e);
             }
             catch (IOException e)
             {
-                Logger.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
-                throw new ApplicationException(GlobalStrings.GameData_FailedToSaveSteamConfigFile + e.Message, e);
+                Logger.Error("Error saving steam config file: {0}", e.ToString());
+                throw new ApplicationException("Failed to save Steam config file:" + e.Message, e);
             }
             catch (UnauthorizedAccessException e)
             {
-                Logger.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
-                throw new ApplicationException(GlobalStrings.GameData_AccessDeniedSteamConfigFile + e.Message, e);
+                Logger.Error("Error saving steam config file: {0}", e.ToString());
+                throw new ApplicationException("Access denied on Steam config file:" + e.Message, e);
             }
         }
 
@@ -646,7 +646,7 @@ namespace Depressurizer
         /// <returns>The number of game entries found</returns>
         public int ImportSteamConfigFile(string filePath, SortedSet<int> ignore)
         {
-            Logger.Info(GlobalStrings.GameData_OpeningSteamConfigFile, filePath);
+            Logger.Info("Opening Steam config file: {0}", filePath);
             VDFNode dataRoot;
 
             try
@@ -658,13 +658,13 @@ namespace Depressurizer
             }
             catch (InvalidDataException e)
             {
-                Logger.Error(GlobalStrings.GameData_ErrorParsingConfigFileParam, e.Message);
-                throw new ApplicationException(GlobalStrings.GameData_ErrorParsingSteamConfigFile + e.Message, e);
+                Logger.Error("Error parsing Steam config file: {0}", e.Message);
+                throw new ApplicationException("Error parsing Steam config file:" + e.Message, e);
             }
             catch (IOException e)
             {
-                Logger.Error(GlobalStrings.GameData_ErrorOpeningConfigFileParam, e.Message);
-                throw new ApplicationException(GlobalStrings.GameData_ErrorOpeningSteamConfigFile + e.Message, e);
+                Logger.Error("Error opening Steam config file: {0}", e.Message);
+                throw new ApplicationException("Error opening Steam config file:" + e.Message, e);
             }
 
             VDFNode appsNode = dataRoot.GetNodeAt(new[]
@@ -675,7 +675,7 @@ namespace Depressurizer
                 "apps"
             }, true);
             int count = IntegrateFromNode(appsNode, ignore);
-            Logger.Info(GlobalStrings.GameData_SteamConfigFileLoaded, count);
+            Logger.Info("Steam config file loaded. {0} items found.", count);
             return count;
         }
 
@@ -745,11 +745,11 @@ namespace Depressurizer
             }
             catch (FileNotFoundException e)
             {
-                Logger.Error(GlobalStrings.GameData_ErrorOpeningConfigFileParam, e.ToString());
+                Logger.Error("Error opening Steam config file: {0}", e.ToString());
             }
             catch (IOException e)
             {
-                Logger.Error(GlobalStrings.GameData_LoadingErrorSteamConfig, e.ToString());
+                Logger.Error("Loading existing Steam config failed: {0}", e.ToString());
             }
             catch (InvalidDataException e)
             {
@@ -768,7 +768,7 @@ namespace Depressurizer
                 }
             }
 
-            Logger.Info(GlobalStrings.GameData_IntegratedShortCuts, loadedGames);
+            Logger.Info("Integrated external games into game list. {0} total items.", loadedGames);
 
             return loadedGames;
         }
@@ -859,7 +859,7 @@ namespace Depressurizer
                 }
             }
 
-            Logger.Info(GlobalStrings.GameData_IntegratedXMLDataIntoGameList, loadedGames, newItems);
+            Logger.Info("Integrated XML data into game list. {0} total items, {1} new.", loadedGames, newItems);
             return loadedGames;
         }
 
@@ -1190,11 +1190,11 @@ namespace Depressurizer
             }
             catch (FileNotFoundException e)
             {
-                Logger.Error(GlobalStrings.GameData_ErrorOpeningConfigFileParam, e.ToString());
+                Logger.Error("Error opening Steam config file: {0}", e.ToString());
             }
             catch (IOException e)
             {
-                Logger.Error(GlobalStrings.GameData_LoadingErrorSteamConfig, e.ToString());
+                Logger.Error("Loading existing Steam config failed: {0}", e.ToString());
             }
             finally
             {
@@ -1230,7 +1230,7 @@ namespace Depressurizer
                     {
                         game = new GameInfo(gameId, Database.GetName(gameId), this);
                         Games.Add(gameId, game);
-                        Logger.Verbose(GlobalStrings.GameData_AddedNewGame, gameId, game.Name);
+                        Logger.Verbose("Added new game found in Steam config: {0} - {1}", gameId, game.Name);
                     }
                     else
                     {
@@ -1287,7 +1287,7 @@ namespace Depressurizer
                 {
                     game = new GameInfo(gameId, Database.GetName(gameId), this);
                     Games.Add(gameId, game);
-                    Logger.Verbose(GlobalStrings.GameData_AddedNewGame, gameId, game.Name);
+                    Logger.Verbose("Added new game found in Steam config: {0} - {1}", gameId, game.Name);
                 }
                 else
                 {
@@ -1346,7 +1346,7 @@ namespace Depressurizer
             isNew = false;
             if (ignore != null && ignore.Contains(appId) || !Database.IncludeItemInGameList(appId))
             {
-                Logger.Verbose(GlobalStrings.GameData_SkippedIntegratingGame, appId, appName);
+                Logger.Verbose("Skipped integrating game: {0} - {1}.", appId, appName);
                 return null;
             }
 
@@ -1368,7 +1368,7 @@ namespace Depressurizer
 
             result.ApplySource(src);
 
-            Logger.Verbose(GlobalStrings.GameData_IntegratedGameIntoGameList, appId, appName, isNew);
+            Logger.Verbose("Integrated game into game list: {0} - {1}. New: {2}", appId, appName, isNew);
             return result;
         }
 
