@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Xml;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
+using Depressurizer.Core.Interfaces;
 using Depressurizer.Core.Models;
 
 namespace Depressurizer
@@ -138,7 +139,7 @@ namespace Depressurizer
 
         #region Properties
 
-        private static Database Database => Database.Instance;
+        private static IDatabase Database => SingletonKeeper.Database;
 
         #endregion
 

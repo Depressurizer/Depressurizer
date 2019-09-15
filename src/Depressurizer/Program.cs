@@ -90,6 +90,8 @@ namespace Depressurizer
 
                 Logger.Info("Running Depressurizer v{0}", DepressurizerVersion);
 
+                SingletonKeeper.Database = Database;
+
                 Database.Load();
                 Settings.Load();
 

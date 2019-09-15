@@ -10,13 +10,14 @@ using System.Net.Http;
 using Depressurizer.Core;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
+using Depressurizer.Core.Interfaces;
 using Depressurizer.Core.Models;
 using Depressurizer.Dialogs;
 using Newtonsoft.Json;
 
 namespace Depressurizer
 {
-    public sealed class Database
+    public sealed class Database : IDatabase
     {
         #region Static Fields
 
