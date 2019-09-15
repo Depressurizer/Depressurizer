@@ -22,7 +22,7 @@ namespace Depressurizer.Core.Helpers
             /// <summary>
             ///     Default database (gzipped) file location.
             /// </summary>
-            public static string DatabaseGzip => "database.json.gz";
+            public static string DatabaseGzip => Database + ".gz";
 
             /// <summary>
             ///     Default log file location.
