@@ -7,14 +7,12 @@ using System.Linq;
 using System.Net;
 using System.Xml;
 using System.Xml.XPath;
-using Depressurizer.Core;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Interfaces;
-using Depressurizer.Core.Models;
 using ValueType = Depressurizer.Core.Enums.ValueType;
 
-namespace Depressurizer
+namespace Depressurizer.Core.Models
 {
     /// <summary>
     ///     Represents a complete collection of games and categories.

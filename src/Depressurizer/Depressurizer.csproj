@@ -140,7 +140,6 @@
     <Compile Include="Dialogs\SteamKeyDialog.Designer.cs">
       <DependentUpon>SteamKeyDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameList.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IgnoreListViewItemComparer.cs" />
     <Compile Include="ListCategoriesComparer.cs" />
