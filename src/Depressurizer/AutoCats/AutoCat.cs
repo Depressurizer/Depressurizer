@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using Depressurizer.Core.AutoCats;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
+using Depressurizer.Core.Interfaces;
 using Depressurizer.Core.Models;
 using Depressurizer.Properties;
 
@@ -21,7 +22,7 @@ namespace Depressurizer.AutoCats
     {
         #region Fields
 
-        protected GameList games;
+        protected IGameList games;
 
         #endregion
 
@@ -285,7 +286,7 @@ namespace Depressurizer.AutoCats
         ///     or other preparation.
         ///     After this is called, no configuration options should be changed before using CategorizeGame.
         /// </summary>
-        public virtual void PreProcess(GameList games)
+        public virtual void PreProcess(IGameList games)
         {
             this.games = games;
         }

@@ -130,7 +130,7 @@ namespace Depressurizer
 
         public string FilePath { get; set; }
 
-        public GameList GameData { get; } = new GameList();
+        public IGameList GameData { get; } = new GameList();
 
         public SortedSet<int> IgnoreList
         {

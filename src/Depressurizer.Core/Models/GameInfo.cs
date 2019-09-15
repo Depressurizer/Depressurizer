@@ -4,9 +4,8 @@ using System.Xml;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Interfaces;
-using Depressurizer.Core.Models;
 
-namespace Depressurizer
+namespace Depressurizer.Core.Models
 {
     /// <summary>
     ///     Represents a single game and its categories.
@@ -51,9 +50,9 @@ namespace Depressurizer
 
         #region Constructors and Destructors
 
-        public GameInfo(int id, string name, GameList list) : this(id, name, list, null) { }
+        public GameInfo(int id, string name, IGameList list) : this(id, name, list, null) { }
 
-        public GameInfo(int id, string name, GameList list, string executable)
+        public GameInfo(int id, string name, IGameList list, string executable)
         {
             Id = id;
             Name = name;
@@ -145,7 +144,7 @@ namespace Depressurizer
 
         #region Public Methods and Operators
 
-        public static void AddFromNode(XmlNode node, Profile profile)
+        public static void AddFromNode(XmlNode node, IProfile profile)
         {
             if (!XmlUtil.TryGetIntFromNode(node[XmlNameGameId], out int id))
             {

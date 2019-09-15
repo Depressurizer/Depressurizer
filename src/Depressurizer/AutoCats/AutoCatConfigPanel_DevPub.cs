@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
+using Depressurizer.Core.Interfaces;
 using Depressurizer.Properties;
 
 namespace Depressurizer.AutoCats
@@ -11,7 +12,7 @@ namespace Depressurizer.AutoCats
     {
         #region Fields
 
-        private readonly GameList ownedGames;
+        private readonly IGameList ownedGames;
 
         private bool loaded;
 
@@ -22,7 +23,7 @@ namespace Depressurizer.AutoCats
 
         #region Constructors and Destructors
 
-        public AutoCatConfigPanel_DevPub(GameList g)
+        public AutoCatConfigPanel_DevPub(IGameList g)
         {
             InitializeComponent();
 

@@ -199,7 +199,7 @@ namespace Depressurizer
             DatabaseEntries.AddOrUpdate(entry.Id, entry, (i, entry1) => entry1.MergeIn(entry));
         }
 
-        public Dictionary<string, int> CalculateSortedDevList(GameList gameList, int minCount)
+        public Dictionary<string, int> CalculateSortedDevList(IGameList gameList, int minCount)
         {
             Dictionary<string, int> devCounts = new Dictionary<string, int>();
             if (gameList == null)
@@ -223,7 +223,7 @@ namespace Depressurizer
             return devCounts.Where(e => e.Value >= minCount).ToDictionary(p => p.Key, p => p.Value);
         }
 
-        public Dictionary<string, int> CalculateSortedPubList(GameList filter, int minCount)
+        public Dictionary<string, int> CalculateSortedPubList(IGameList filter, int minCount)
         {
             Dictionary<string, int> pubCounts = new Dictionary<string, int>();
             if (filter == null)
@@ -249,7 +249,7 @@ namespace Depressurizer
             return pubCounts.Where(e => e.Value >= minCount).ToDictionary(p => p.Key, p => p.Value);
         }
 
-        public Dictionary<string, float> CalculateSortedTagList(GameList filter, float weightFactor, int minScore, int tagsPerGame, bool excludeGenres, bool scoreSort)
+        public Dictionary<string, float> CalculateSortedTagList(IGameList filter, float weightFactor, int minScore, int tagsPerGame, bool excludeGenres, bool scoreSort)
         {
             Dictionary<string, float> tagCounts = new Dictionary<string, float>();
             if (filter == null)

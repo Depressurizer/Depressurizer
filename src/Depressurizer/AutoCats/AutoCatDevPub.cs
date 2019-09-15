@@ -6,6 +6,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
+using Depressurizer.Core.Interfaces;
 using Depressurizer.Core.Models;
 
 namespace Depressurizer.AutoCats
@@ -41,7 +42,7 @@ namespace Depressurizer.AutoCats
 
         private Dictionary<string, int> devList;
 
-        private GameList gamelist;
+        private IGameList gamelist;
 
         private Dictionary<string, int> pubList;
 
@@ -231,7 +232,7 @@ namespace Depressurizer.AutoCats
         ///     Prepares to categorize games. Prepares a list of genre categories to remove. Does nothing if removeothergenres is
         ///     false.
         /// </summary>
-        public override void PreProcess(GameList games)
+        public override void PreProcess(IGameList games)
         {
             base.PreProcess(games);
             gamelist = games;

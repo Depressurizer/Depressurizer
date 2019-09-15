@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
+using Depressurizer.Core.Interfaces;
 
 namespace Depressurizer.AutoCats
 {
@@ -11,7 +12,7 @@ namespace Depressurizer.AutoCats
     {
         #region Public Methods and Operators
 
-        public static AutoCatConfigPanel CreatePanel(AutoCat ac, GameList ownedGames, List<AutoCat> autocats)
+        public static AutoCatConfigPanel CreatePanel(AutoCat ac, IGameList ownedGames, List<AutoCat> autocats)
         {
             AutoCatType t = ac.AutoCatType;
             switch (t)

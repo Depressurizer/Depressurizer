@@ -1,9 +1,18 @@
-﻿using Depressurizer.Core.Models;
+﻿using System.Collections.Generic;
+using Depressurizer.Core.Models;
 
 namespace Depressurizer.Core.Interfaces
 {
     public interface IProfile
     {
+        #region Public Properties
+
+        IGameList GameData { get; }
+
+        SortedSet<int> IgnoreList { get; set; }
+
+        #endregion
+
         #region Public Methods and Operators
 
         Filter AddFilter(string name);

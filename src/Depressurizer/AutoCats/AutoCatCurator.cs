@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
+using Depressurizer.Core.Interfaces;
 using Depressurizer.Core.Models;
 using Depressurizer.Properties;
 
@@ -115,7 +116,7 @@ namespace Depressurizer.AutoCats
         }
 
         /// <inheritdoc />
-        public override void PreProcess(GameList games)
+        public override void PreProcess(IGameList games)
         {
             this.games = games;
 

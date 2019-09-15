@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Depressurizer.AutoCats;
 using Depressurizer.Core.Enums;
+using Depressurizer.Core.Interfaces;
 using Rallion;
 
 namespace Depressurizer
@@ -16,7 +17,7 @@ namespace Depressurizer
         private readonly AutoCat initial;
 
         //public List<Filter> FilterList;
-        private readonly GameList ownedGames;
+        private readonly IGameList ownedGames;
 
         private AutoCat current;
 
@@ -28,7 +29,7 @@ namespace Depressurizer
 
         #region Constructors and Destructors
 
-        public DlgAutoCat(List<AutoCat> autoCats, GameList ownedGames, AutoCat selected, string profile)
+        public DlgAutoCat(List<AutoCat> autoCats, IGameList ownedGames, AutoCat selected, string profile)
         {
             InitializeComponent();
 

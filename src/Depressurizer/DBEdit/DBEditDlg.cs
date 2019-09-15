@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Depressurizer.Core;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
+using Depressurizer.Core.Interfaces;
 using Depressurizer.Core.Models;
 using Depressurizer.Dialogs;
 using Depressurizer.Properties;
@@ -46,7 +47,7 @@ namespace Depressurizer
 
         private readonly List<DatabaseEntry> _displayedGames = new List<DatabaseEntry>();
 
-        private readonly GameList _ownedList;
+        private readonly IGameList _ownedList;
 
         private readonly StringBuilder _statusBuilder = new StringBuilder();
 
@@ -62,7 +63,7 @@ namespace Depressurizer
 
         #region Constructors and Destructors
 
-        public DBEditDlg(GameList owned = null)
+        public DBEditDlg(IGameList owned = null)
         {
             InitializeComponent();
 

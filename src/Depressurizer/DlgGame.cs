@@ -3,6 +3,8 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
+using Depressurizer.Core.Interfaces;
+using Depressurizer.Core.Models;
 using Depressurizer.Properties;
 
 namespace Depressurizer
@@ -13,7 +15,7 @@ namespace Depressurizer
 
         public GameInfo Game;
 
-        private readonly GameList Data;
+        private readonly IGameList Data;
 
         private readonly bool editMode;
 
@@ -21,7 +23,7 @@ namespace Depressurizer
 
         #region Constructors and Destructors
 
-        public DlgGame(GameList data, GameInfo game = null) : this()
+        public DlgGame(IGameList data, GameInfo game = null) : this()
         {
             Data = data;
             Game = game;
