@@ -93,7 +93,7 @@ namespace Depressurizer
 
         public Category FavoriteCategory => GameList?.FavoriteCategory;
 
-        public GameList GameList { get; }
+        public IGameList GameList { get; }
 
         public double HoursPlayed { get; set; }
 

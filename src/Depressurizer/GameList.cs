@@ -10,6 +10,7 @@ using System.Xml.XPath;
 using Depressurizer.Core;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
+using Depressurizer.Core.Interfaces;
 using Depressurizer.Core.Models;
 using ValueType = Depressurizer.Core.Enums.ValueType;
 
@@ -18,7 +19,7 @@ namespace Depressurizer
     /// <summary>
     ///     Represents a complete collection of games and categories.
     /// </summary>
-    public class GameList
+    public class GameList : IGameList
     {
         #region Constructors and Destructors
 
@@ -35,13 +36,13 @@ namespace Depressurizer
 
         #region Public Properties
 
-        public static string FavoriteConfigValue => "favorite";
-
-        public static string FavoriteNewConfigValue => "<Favorite>";
-
         public List<Category> Categories { get; set; }
 
         public Category FavoriteCategory { get; }
+
+        public string FavoriteConfigValue => "favorite";
+
+        public string FavoriteNewConfigValue => "<Favorite>";
 
         public List<Filter> Filters { get; set; }
 
