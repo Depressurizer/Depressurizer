@@ -1,7 +1,7 @@
 ---
 name: AutoCat request
 about: Suggest a new AutoCat for Depressurizer.
-title: "[REQUEST]"
+title: "[REQUEST] Add AutoCat support for <NAME>"
 labels: 'Type: Enhancement'
 assignees: ''
 
