@@ -5095,4 +5095,7 @@
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>MaterialSkin.Controls.MaterialForm, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
+  <data name="randomGameSelectionToolStripMenuItem.Text" xml:space="preserve">
+    <value>Random &amp;Game Selection</value>
+  </data>
 </root>
