@@ -169,6 +169,10 @@ When you **save**, you are saving your Depressurizer profile data. By default, t
 
 When you **export**, you are manually pushing your data to Steam. You should close Steam before doing this.
 
+<P><strong><U>SUPPORT</U></strong></P>
+Please show your support and love to the developers contributing towards a free and open source environment for the internet.
+
+
 ---
 
 # Wiki
