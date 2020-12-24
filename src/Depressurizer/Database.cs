@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using Depressurizer.Core;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
@@ -732,6 +733,7 @@ namespace Depressurizer
 
             using (WebClient client = new WebClient())
             {
+                client.Encoding = Encoding.UTF8;
                 string result = client.DownloadString(Constants.HowLongToBeat);
 
                 if (result.Contains("An error has occurred."))
