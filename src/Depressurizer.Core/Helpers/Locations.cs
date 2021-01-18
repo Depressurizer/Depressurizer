@@ -20,6 +20,11 @@ namespace Depressurizer.Core.Helpers
             public static string Database => "database.json";
 
             /// <summary>
+            ///     Default database (gzipped) file location.
+            /// </summary>
+            public static string DatabaseGzip => Database + ".gz";
+
+            /// <summary>
             ///     Default log file location.
             /// </summary>
             public static string Log => Path.Combine(Folder.Logs, string.Format(CultureInfo.InvariantCulture, "depressurizer-({0:dd-MM-yyyy}).log", DateTime.Now));

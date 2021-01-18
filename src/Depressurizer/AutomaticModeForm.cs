@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml.XPath;
@@ -263,9 +262,9 @@ namespace Depressurizer
             try
             {
                 Database.Reset();
-                if (File.Exists(Locations.File.Database))
+                if (!string.IsNullOrWhiteSpace(Database.getExistsDatabasePath()))
                 {
-                    Database.Load(Locations.File.Database);
+                    Database.Load();
                     success = true;
                 }
                 else
@@ -493,7 +492,7 @@ namespace Depressurizer
             Write("Saving database...");
             try
             {
-                Database.Save(Locations.File.Database);
+                Database.Save(Locations.File.DatabaseGzip);
                 success = true;
             }
             catch (Exception e)

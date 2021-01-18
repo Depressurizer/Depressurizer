@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -332,6 +333,26 @@ namespace Depressurizer
             Save();
         }
 
+        public bool CheckDatabaseToGzip(string path, string gzPath) // TODO: testcase
+        {
+            if (File.Exists(path) && !File.Exists(gzPath))
+            {
+                using (FileStream fs = new FileStream(gzPath, FileMode.Create, FileAccess.Write))
+                using (GZipStream compressor = new GZipStream(fs, CompressionLevel.Fastest))
+                using (StreamWriter gzWriter = new StreamWriter(compressor))
+
+                using (StreamReader jsonFile = File.OpenText(path))
+                {
+                    gzWriter.Write(jsonFile.ReadToEnd());
+                }
+
+                // Delete old database file in the future, if works fine.
+                return true;
+            }
+
+            return false;
+        }
+
         public void Clear()
         {
             DatabaseEntries.Clear();
@@ -441,6 +462,26 @@ namespace Depressurizer
             }
 
             return result;
+        }
+
+        public string getExistsDatabasePath(string custPath = "")
+        {
+            if (custPath != "" && File.Exists(custPath))
+            {
+                return custPath;
+            }
+
+            if (File.Exists(Locations.File.DatabaseGzip))
+            {
+                return Locations.File.DatabaseGzip;
+            }
+
+            if (File.Exists(Locations.File.Database))
+            {
+                return Locations.File.Database;
+            }
+
+            return "";
         }
 
         public SortedSet<string> GetFlagList(int appId)
@@ -578,7 +619,9 @@ namespace Depressurizer
 
         public void Load()
         {
-            Load(Locations.File.Database);
+            CheckDatabaseToGzip(Locations.File.Database, Locations.File.DatabaseGzip);
+
+            Load(getExistsDatabasePath());
         }
 
         public void Load(string path)
@@ -594,7 +637,9 @@ namespace Depressurizer
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            using (StreamReader file = File.OpenText(path))
+            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (GZipStream compressor = new GZipStream(fs, CompressionMode.Decompress))
+            using (StreamReader file = new StreamReader(compressor))
             {
                 JsonSerializer serializer = new JsonSerializer
                 {
@@ -628,7 +673,7 @@ namespace Depressurizer
 
         public void Save()
         {
-            Save(Locations.File.Database);
+            Save(Locations.File.DatabaseGzip);
         }
 
         public void Save(string path)
@@ -638,7 +683,9 @@ namespace Depressurizer
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            using (StreamWriter file = File.CreateText(path))
+            using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write))
+            using (GZipStream compressor = new GZipStream(fs, CompressionLevel.Fastest))
+            using (StreamWriter writer = new StreamWriter(compressor))
             {
                 JsonSerializer serializer = new JsonSerializer
                 {
@@ -647,7 +694,7 @@ namespace Depressurizer
 #endif
                 };
 
-                serializer.Serialize(file, _instance);
+                serializer.Serialize(writer, _instance);
             }
 
             sw.Stop();
