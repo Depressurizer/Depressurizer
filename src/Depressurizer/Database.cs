@@ -603,7 +603,11 @@ namespace Depressurizer
 #endif
                 };
 
-                _instance = (Database) serializer.Deserialize(file, typeof(Database));
+                Database database = (Database) serializer.Deserialize(file, typeof(Database));
+                foreach (DatabaseEntry entry in database.DatabaseEntries.Values)
+                {
+                    Add(entry);
+                }
             }
 
             sw.Stop();
@@ -623,7 +627,7 @@ namespace Depressurizer
         public void Reset()
         {
             Logger.Info("Database: Database was reset.");
-            _instance = new Database();
+            DatabaseEntries.Clear();
         }
 
         public void Save()
