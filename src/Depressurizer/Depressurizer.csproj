@@ -43,7 +43,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -78,6 +78,9 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>E0FD6CC0DFA685E6214FCB4EC31D86A4FE0872A8</ManifestCertificateThumbprint>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
