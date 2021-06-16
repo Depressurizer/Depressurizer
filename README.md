@@ -4,8 +4,7 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/Depressurizer/Depressurizer.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/graphs/contributors)
 [![GitHub issues](https://img.shields.io/github/issues/Depressurizer/Depressurizer.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/issues)
 [![GitHub license](https://img.shields.io/github/license/Depressurizer/Depressurizer.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/blob/dev/LICENSE)
-[![Travis](https://img.shields.io/travis/com/Depressurizer/Depressurizer/master.svg?style=flat-square)](https://travis-ci.com/Depressurizer/Depressurizer)
-[![AppVeyor](https://img.shields.io/appveyor/ci/mvegter/depressurizer/master.svg?style=flat-square)](https://ci.appveyor.com/project/mvegter/depressurizer)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/Depressurizer/Depressurizer/.NET%20Core%20Desktop/master?style=flat-square)
 
 <sup>This is a continuation of [rallion](https://github.com/rallion)'s [Depressurizer](https://github.com/rallion/depressurizer).</sup>
 
