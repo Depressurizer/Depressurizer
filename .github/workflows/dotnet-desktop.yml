@@ -61,8 +61,8 @@ jobs:
     env:
       Solution_Name: Depressurizer.sln
       Test_Project_Path: Depressurizer.Tests/Depressurizer.Tests.csproj
-      Wap_Project_Directory: your-wap-project-directory-name    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
-      Wap_Project_Path: your-wap-project-path                   # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
+      Wap_Project_Directory: Depressurizer
+      Wap_Project_Path: Depressurizer/Depressurizer.csproj
 
     steps:
     - name: Checkout
