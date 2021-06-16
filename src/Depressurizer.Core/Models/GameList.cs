@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -236,6 +237,7 @@ namespace Depressurizer.Core.Models
             {
                 ExportSteamShortcuts(steamId);
             }
+            Process.Start("steam://resetcollections");
         }
 
         /// <summary>
