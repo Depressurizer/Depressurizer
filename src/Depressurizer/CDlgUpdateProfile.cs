@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Xml.XPath;
 using Depressurizer.Core.Helpers;
@@ -68,14 +70,14 @@ namespace Depressurizer
             {
                 Logger.Info("Updating profile using Steam Web API!");
 
-                string json;
-                using (WebClient wc = new WebClient())
+                HttpClient client = new HttpClient();
+                using (Stream s = client.GetStreamAsync(string.Format(Constants.SteamWebApiOwnedGames, FormMain.CurrentProfile.SteamWebApiKey, SteamId)).Result)
+                using (StreamReader sr = new StreamReader(s))
+                using (JsonReader reader = new JsonTextReader(sr))
                 {
-                    wc.Encoding = Encoding.UTF8;
-                    json = wc.DownloadString(string.Format(Constants.SteamWebApiOwnedGames, FormMain.CurrentProfile.SteamWebApiKey, SteamId));
+                    JsonSerializer serializer = new JsonSerializer();
+                    ownedGamesObject = serializer.Deserialize<GetOwnedGamesObject>(reader);
                 }
-
-                ownedGamesObject = JsonConvert.DeserializeObject<GetOwnedGamesObject>(json);
             }
             else
             {

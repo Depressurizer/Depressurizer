@@ -107,7 +107,7 @@ namespace Depressurizer.Core.Helpers
         /// <summary>
         ///     Generic URL for the Steam Web API GetOwnedGames, must be formatted with an api key and id.
         /// </summary>
-        public static string SteamWebApiOwnedGames => "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={0}&steamid={1}&format=json&include_appinfo=true&include_played_free_games=true";
+        public static string SteamWebApiOwnedGames => "https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key={0}&steamid={1}&include_appinfo=1&include_played_free_games=1";
 
         /// <summary>
         ///     Generic URL for a single Steam Store banner, must be formatted with an appid.
