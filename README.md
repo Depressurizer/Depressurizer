@@ -167,9 +167,3 @@ When you **import** from Steam, the program is loading category and other inform
 When you **save**, you are saving your Depressurizer profile data. By default, this also exports to Steam, but this can be disabled in your profile settings.
 
 When you **export**, you are manually pushing your data to Steam. You should close Steam before doing this.
-
----
-
-# Wiki
-- [Home](../../wiki)
-- [FAQ & Troubleshoot](../../wiki/FAQ-&-Troubleshooting)
