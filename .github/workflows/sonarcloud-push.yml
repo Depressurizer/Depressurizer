@@ -24,6 +24,14 @@ jobs:
         with:
           java-version: 1.11
 
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 2.1.x
+
+      - name: Setup MSBuild.exe
+        uses: microsoft/setup-msbuild@v1.0.2
+
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
