@@ -1,6 +1,13 @@
 name: Sonar
 
-on: [push, pull_request, pull_request_target]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+  pull_request_target:
+    types: [opened, synchronize, reopened]
 
 defaults:
   run:
