@@ -583,31 +583,38 @@ namespace Depressurizer
 
         public void Load(string path)
         {
-            Logger.Info("Database: Loading database from '{0}'.", path);
-            if (!File.Exists(path))
+            lock (SyncRoot)
             {
-                Logger.Warn("Database: Database file not found at '{0}'.", path);
-
-                return;
-            }
-
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-
-            using (StreamReader file = File.OpenText(path))
-            {
-                JsonSerializer serializer = new JsonSerializer
+                Logger.Info("Database: Loading database from '{0}'.", path);
+                if (!File.Exists(path))
                 {
+                    Logger.Warn("Database: Database file not found at '{0}'.", path);
+
+                    return;
+                }
+
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+
+                using (StreamReader file = File.OpenText(path))
+                {
+                    JsonSerializer serializer = new JsonSerializer
+                    {
 #if DEBUG
-                    Formatting = Formatting.Indented
+                        Formatting = Formatting.Indented
 #endif
-                };
+                    };
 
-                _instance = (Database) serializer.Deserialize(file, typeof(Database));
+                    Database database = (Database)serializer.Deserialize(file, typeof(Database));
+                    foreach (DatabaseEntry entry in database.DatabaseEntries.Values)
+                    {
+                        Add(entry);
+                    }
+                }
+
+                sw.Stop();
+                Logger.Info("Database: Loaded database from '{0}', in {1}ms.", path, sw.ElapsedMilliseconds);
             }
-
-            sw.Stop();
-            Logger.Info("Database: Loaded database from '{0}', in {1}ms.", path, sw.ElapsedMilliseconds);
         }
 
         public bool Remove(int appId)
@@ -622,10 +629,13 @@ namespace Depressurizer
 
         public void Reset()
         {
-            Logger.Info("Database: Database was reset.");
-            _instance = new Database();
+            lock (SyncRoot)
+            {
+                DatabaseEntries.Clear();
+                _language = StoreLanguage.English;
+                Logger.Info("Database: Database was reset.");
+            }
         }
-
         public void Save()
         {
             Save(Locations.File.Database);
@@ -633,25 +643,28 @@ namespace Depressurizer
 
         public void Save(string path)
         {
-            Logger.Info("Database: Saving database to '{0}'.", path);
-
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-
-            using (StreamWriter file = File.CreateText(path))
+            lock (SyncRoot)
             {
-                JsonSerializer serializer = new JsonSerializer
+                Logger.Info("Database: Saving database to '{0}'.", path);
+
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+
+                using (StreamWriter file = File.CreateText(path))
                 {
+                    JsonSerializer serializer = new JsonSerializer
+                    {
 #if DEBUG
-                    Formatting = Formatting.Indented
+                        Formatting = Formatting.Indented
 #endif
-                };
+                    };
 
-                serializer.Serialize(file, _instance);
+                    serializer.Serialize(file, _instance);
+                }
+
+                sw.Stop();
+                Logger.Info("Database: Saved database to '{0}', in {1}ms.", path, sw.ElapsedMilliseconds);
             }
-
-            sw.Stop();
-            Logger.Info("Database: Saved database to '{0}', in {1}ms.", path, sw.ElapsedMilliseconds);
         }
 
         public bool SupportsVR(int appId)
