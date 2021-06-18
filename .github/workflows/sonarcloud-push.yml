@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+  pull_request_target:
+    types: [opened, synchronize, reopened]
 
 defaults:
   run:
@@ -53,6 +55,12 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
+          if ('${{ github.event_name }}' -eq 'pull_request_target')
+          {
+            $env:GITHUB_EVENT_NAME = 'pull_request'
+            $env:GITHUB_SHA = $(git show -s --format=%H)
+            $env:GITHUB_REF = 'refs/pull/${{ github.event.number }}/merge'
+          }
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"Depressurizer_Depressurizer" /o:"depressurizer" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
