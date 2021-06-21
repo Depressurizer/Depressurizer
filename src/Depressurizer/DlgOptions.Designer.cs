@@ -72,13 +72,16 @@ namespace Depressurizer {
             this.chkUpdateAppInfoOnStartup = new System.Windows.Forms.CheckBox();
             this.grpUILanguage = new System.Windows.Forms.GroupBox();
             this.cmbUILanguage = new System.Windows.Forms.ComboBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxPremiumServer = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.cmdDefaultIgnored = new System.Windows.Forms.Button();
             this.cmdIgnore = new System.Windows.Forms.Button();
             this.txtIgnore = new System.Windows.Forms.TextBox();
             this.cmdUnignore = new System.Windows.Forms.Button();
             this.lstIgnored = new System.Windows.Forms.ListView();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
-            this.cmdDefaultIgnored = new System.Windows.Forms.Button();
             this.grpSteamDir.SuspendLayout();
             this.grpStartup.SuspendLayout();
             this.grpSaving.SuspendLayout();
@@ -89,6 +92,8 @@ namespace Depressurizer {
             this.grpDatabase.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numScrapePromptDays)).BeginInit();
             this.grpUILanguage.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -188,6 +193,7 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.tabControl, "tabControl");
             this.tabControl.Controls.Add(this.tabGeneral);
+            this.tabControl.Controls.Add(this.tabPage2);
             this.tabControl.Controls.Add(this.tabPage1);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -310,6 +316,25 @@ namespace Depressurizer {
             resources.ApplyResources(this.cmbUILanguage, "cmbUILanguage");
             this.cmbUILanguage.Name = "cmbUILanguage";
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.groupBox1);
+            resources.ApplyResources(this.tabPage2, "tabPage2");
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.textBoxPremiumServer);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // textBoxPremiumServer
+            // 
+            resources.ApplyResources(this.textBoxPremiumServer, "textBoxPremiumServer");
+            this.textBoxPremiumServer.Name = "textBoxPremiumServer";
+            // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.cmdDefaultIgnored);
@@ -320,6 +345,13 @@ namespace Depressurizer {
             resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // cmdDefaultIgnored
+            // 
+            resources.ApplyResources(this.cmdDefaultIgnored, "cmdDefaultIgnored");
+            this.cmdDefaultIgnored.Name = "cmdDefaultIgnored";
+            this.cmdDefaultIgnored.UseVisualStyleBackColor = true;
+            this.cmdDefaultIgnored.Click += new System.EventHandler(this.cmdDefaultIgnored_Click);
             // 
             // cmdIgnore
             // 
@@ -344,17 +376,11 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.lstIgnored, "lstIgnored");
             this.lstIgnored.FullRowSelect = true;
+            this.lstIgnored.HideSelection = false;
             this.lstIgnored.Name = "lstIgnored";
             this.lstIgnored.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lstIgnored.UseCompatibleStateImageBehavior = false;
             this.lstIgnored.View = System.Windows.Forms.View.List;
-            // 
-            // cmdDefaultIgnored
-            // 
-            resources.ApplyResources(this.cmdDefaultIgnored, "cmdDefaultIgnored");
-            this.cmdDefaultIgnored.Name = "cmdDefaultIgnored";
-            this.cmdDefaultIgnored.UseVisualStyleBackColor = true;
-            this.cmdDefaultIgnored.Click += new System.EventHandler(this.cmdDefaultIgnored_Click);
             // 
             // DlgOptions
             // 
@@ -384,6 +410,9 @@ namespace Depressurizer {
             this.grpDatabase.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numScrapePromptDays)).EndInit();
             this.grpUILanguage.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
@@ -429,5 +458,8 @@ namespace Depressurizer {
         private System.Windows.Forms.TextBox txtIgnore;
         private System.Windows.Forms.Button cmdUnignore;
         private System.Windows.Forms.Button cmdDefaultIgnored;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox textBoxPremiumServer;
     }
 }

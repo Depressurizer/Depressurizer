@@ -455,8 +455,16 @@ namespace Depressurizer.Core.Models
         /// </param>
         public void ScrapeStore(string languageCode)
         {
-            AppType result = ScrapeStoreHelper(languageCode);
-            SetTypeFromStoreScrape(result);
+            AppType result;
+            if (Settings.Instance.PremiumServer != null)
+            {
+                DepressurizerPremium.load(this, languageCode);
+            }
+            else
+            {
+                result = ScrapeStoreHelper(languageCode);
+                SetTypeFromStoreScrape(result);
+            }
         }
 
         #endregion

@@ -111,7 +111,22 @@ namespace Depressurizer
 
         #region Public Properties
 
-        public static Profile CurrentProfile { get; private set; }
+        private static Profile _currentProfile;
+        public static Profile CurrentProfile
+        {
+            get => _currentProfile; private set
+            {
+                if (value == null)
+                {
+                    SingletonKeeper.SteamWebApiKey = null;
+                }
+                else
+                {
+                    SingletonKeeper.SteamWebApiKey = value.SteamWebApiKey;
+                }
+                _currentProfile = value;
+            }
+        }
 
         public static bool ProfileLoaded => CurrentProfile != null;
 

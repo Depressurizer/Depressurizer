@@ -35,6 +35,8 @@ namespace Depressurizer.Core.Helpers
             }
         }
 
+        public static string SteamWebApiKey { get; set; }
+
         #endregion
     }
 }

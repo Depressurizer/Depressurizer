@@ -195,6 +195,8 @@ namespace Depressurizer
             Settings.InterfaceLanguage = (InterfaceLanguage) cmbUILanguage.SelectedIndex;
             Settings.StoreLanguage = (StoreLanguage) cmbStoreLanguage.SelectedIndex;
 
+            Settings.PremiumServer = textBoxPremiumServer.Text;
+
             Thread.CurrentThread.CurrentUICulture = Language.GetCultureInfo(Settings.InterfaceLanguage);
             Database.ChangeLanguage(Settings.StoreLanguage);
 
