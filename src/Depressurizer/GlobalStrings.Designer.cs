@@ -521,7 +521,7 @@ namespace Depressurizer {
         ///   Looks up a localized string similar to Update the database with information from HLTB before running any autocat operations.
         ///Only updates if an update didn&apos;t occur for more than half a week.
         ///Slows operation by about 15-20 secs if an update occurs.
-        ///Recommended: Enabled..
+        ///Recommended: Enabled.
         /// </summary>
         internal static string AutoMode_Help_UpdateHltb {
             get {
@@ -3428,6 +3428,15 @@ namespace Depressurizer {
         internal static string Profile_SavingProfile {
             get {
                 return ResourceManager.GetString("Profile_SavingProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to Load Random Game Banner..
+        /// </summary>
+        internal static string RandomGame_Banner_Error {
+            get {
+                return ResourceManager.GetString("RandomGame_Banner_Error", resourceCulture);
             }
         }
         
