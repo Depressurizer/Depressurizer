@@ -68,6 +68,11 @@
         /// <summary>
         ///     Mod
         /// </summary>
-        Mod = 12
+        Mod = 12,
+
+        /// <summary>
+        ///     Music
+        /// </summary>
+        Music = 13,
     }
 }
