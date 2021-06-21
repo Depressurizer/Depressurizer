@@ -606,6 +606,8 @@ namespace Depressurizer
                     };
 
                     Database database = (Database)serializer.Deserialize(file, typeof(Database));
+                    Language = database.Language;
+                    LastHLTBUpdate = database.LastHLTBUpdate;
                     foreach (DatabaseEntry entry in database.DatabaseEntries.Values)
                     {
                         Add(entry);
