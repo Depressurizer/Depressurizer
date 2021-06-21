@@ -3635,8 +3635,9 @@ namespace Depressurizer
         /// <param name="e"></param>
         private void randomGameSelectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!ProfileLoaded) { 
-                return; 
+            if (!ProfileLoaded)
+            {
+                return;
             }
 
             //Set the limit and generate a random number
@@ -3645,7 +3646,6 @@ namespace Depressurizer
 
             //Get the GameInfo object for the game witht he index the random generator created.
             GameInfo game = (GameInfo)lstGames.GetModelObject(randomGame);
-
             using (DlgRandomGame dialog = new DlgRandomGame(game))
             {
                 dialog.ShowDialog();

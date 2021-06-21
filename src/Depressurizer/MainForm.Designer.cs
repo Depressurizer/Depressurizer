@@ -1515,7 +1515,7 @@ namespace Depressurizer {
             // 
             this.randomGameSelectionToolStripMenuItem.Name = "randomGameSelectionToolStripMenuItem";
             resources.ApplyResources(this.randomGameSelectionToolStripMenuItem, "randomGameSelectionToolStripMenuItem");
-            this.randomGameSelectionToolStripMenuItem.Click += new System.EventHandler(this.RandomGameSelectionToolStripMenuItem_Click);
+            this.randomGameSelectionToolStripMenuItem.Click += new System.EventHandler(this.randomGameSelectionToolStripMenuItem_Click);
             // 
             // menu_Tools_Sep1
             // 

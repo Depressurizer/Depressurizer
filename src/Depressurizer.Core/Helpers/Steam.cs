@@ -367,6 +367,11 @@ namespace Depressurizer.Core.Helpers
 
         #region Public Methods and Operators
 
+        public static async void GrabBanner(int appId)
+        {
+            GrabBanners(new int[] { appId });
+        }
+
         /// <summary>
         ///     Grabs the banner from the Steam store.
         /// </summary>

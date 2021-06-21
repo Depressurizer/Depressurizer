@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using BrightIdeasSoftware;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
 
@@ -17,16 +11,13 @@ namespace Depressurizer
     public partial class DlgRandomGame : Form
     {
         private GameInfo game;
-        List<GameInfo> gameInfos = new List<GameInfo>();
         private static Logger Logger => Logger.Instance;
 
         //Constructor
         public DlgRandomGame(GameInfo game)
         {
-            this.game = game;
-            this.gameInfos.Add(game);
-
             InitializeComponent();
+            this.game = game;
         }
 
         private void DlgRandomGame_Load(object sender, EventArgs e)
@@ -43,12 +34,11 @@ namespace Depressurizer
                 String bannerFile = Locations.File.Banner(game.Id);
                 if (!File.Exists(bannerFile))
                 {
-                    Steam.GrabBanners(gameInfos.Select(game => game.Id));
+                    Steam.GrabBanner(game.Id);
                 }
 
                 try
                 {
-                    Locations.File.Banner(game.Id);
                     Image gameBannerImage = Image.FromFile(bannerFile);
                     gameBannerBox.Image = gameBannerImage;
                 }
@@ -66,11 +56,10 @@ namespace Depressurizer
 
         private void btnLaunch_Click(object sender, EventArgs e)
         {
-            if (game != null)
-            {
-                game.LastPlayed = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-                System.Diagnostics.Process.Start(game.Executable);
-            }
+            game.LastPlayed = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            Process.Start(game.Executable);
+            Close();
         }
+
     }
 }

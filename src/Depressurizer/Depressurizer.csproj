@@ -115,6 +115,12 @@
     <Compile Include="Dialogs\SteamKeyDialog.Designer.cs">
       <DependentUpon>SteamKeyDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="DlgRandomGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgRandomGame.Designer.cs">
+      <DependentUpon>DlgRandomGame.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IgnoreListViewItemComparer.cs" />
     <Compile Include="ListCategoriesComparer.cs" />
