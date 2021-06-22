@@ -59,6 +59,14 @@ To resolve issues such as #194 (Internal server error due to scraping speed) and
 * The API is subject to fair usage, you can use it outside Depressurizer;
 * Improved data for removed games / software / apps.
 
+### Configuration
+* Include your [steamID64](https://steamid.io/) in your GitHub profile description for verification.
+* Send an email to [mvegter](mailto:depressurizer@martijnvegter.com) containing your:
+    * SteamID 64
+    * Steam Web API Key
+    * GitHub username
+* Open Depressurizer and go to `Tools` -> `Settings` -> `Premium` and enter the value you receive on your initial email.
+
 ## Manual categorization
 
 There are several ways to manually modify your games within Depressurizer.
