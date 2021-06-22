@@ -92,6 +92,8 @@ namespace Depressurizer {
             this.chkBypassIgnoreOnImport = new System.Windows.Forms.CheckBox();
             this.chkAutoIgnore = new System.Windows.Forms.CheckBox();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxSteamApi = new System.Windows.Forms.TextBox();
             this.grpUserInfo.SuspendLayout();
             this.grpProfInfo.SuspendLayout();
             this.grpActions.SuspendLayout();
@@ -105,6 +107,7 @@ namespace Depressurizer {
             this.tabIgnore.SuspendLayout();
             this.grpIgnored.SuspendLayout();
             this.grpIgnoreSettings.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtFilePath
@@ -323,6 +326,7 @@ namespace Depressurizer {
             // 
             // tabOpts
             // 
+            this.tabOpts.Controls.Add(this.groupBox1);
             this.tabOpts.Controls.Add(this.grpUpdateOpt);
             this.tabOpts.Controls.Add(this.grpOtherOpt);
             this.tabOpts.Controls.Add(this.grpSaveOpt);
@@ -432,6 +436,7 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.lstIgnored, "lstIgnored");
             this.lstIgnored.FullRowSelect = true;
+            this.lstIgnored.HideSelection = false;
             this.lstIgnored.Name = "lstIgnored";
             this.lstIgnored.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lstIgnored.UseCompatibleStateImageBehavior = false;
@@ -484,6 +489,18 @@ namespace Depressurizer {
             // 
             this.ttHelp.UseFading = false;
             // 
+            // groupBox1
+            // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.textBoxSteamApi);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // textBoxSteamApi
+            // 
+            resources.ApplyResources(this.textBoxSteamApi, "textBoxSteamApi");
+            this.textBoxSteamApi.Name = "textBoxSteamApi";
+            // 
             // DlgProfile
             // 
             this.AcceptButton = this.cmdOk;
@@ -520,6 +537,8 @@ namespace Depressurizer {
             this.grpIgnored.PerformLayout();
             this.grpIgnoreSettings.ResumeLayout(false);
             this.grpIgnoreSettings.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -576,5 +595,7 @@ namespace Depressurizer {
         private System.Windows.Forms.Label lblHelp_IncludeUnknown;
         private System.Windows.Forms.CheckBox chkBypassIgnoreOnImport;
         private System.Windows.Forms.CheckBox chkIncludeUnknown;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox textBoxSteamApi;
     }
 }

@@ -721,7 +721,7 @@
     <value>tabOpts</value>
   </data>
   <data name="&gt;&gt;grpLoadOpt.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="grpSaveOpt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -743,7 +743,6 @@
   </data>
   <data name="lblHelp_ExportDiscard.Text" xml:space="preserve">
     <value>?</value>
-    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;lblHelp_ExportDiscard.Name" xml:space="preserve">
     <value>lblHelp_ExportDiscard</value>
@@ -812,7 +811,7 @@
     <value>tabOpts</value>
   </data>
   <data name="&gt;&gt;grpSaveOpt.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="tabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -844,6 +843,57 @@
   <data name="&gt;&gt;tabMain.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxSteamApi.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxSteamApi.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 22</value>
+  </data>
+  <data name="textBoxSteamApi.Size" type="System.Drawing.Size, System.Drawing">
+    <value>536, 20</value>
+  </data>
+  <data name="textBoxSteamApi.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;textBoxSteamApi.Name" xml:space="preserve">
+    <value>textBoxSteamApi</value>
+  </data>
+  <data name="&gt;&gt;textBoxSteamApi.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxSteamApi.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;textBoxSteamApi.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 268</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>548, 54</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Steam WebAPI key</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>tabOpts</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="grpUpdateOpt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -861,7 +911,6 @@
   </data>
   <data name="lblHelp_LocalUpdate.Text" xml:space="preserve">
     <value>?</value>
-    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;lblHelp_LocalUpdate.Name" xml:space="preserve">
     <value>lblHelp_LocalUpdate</value>
@@ -892,7 +941,6 @@
   </data>
   <data name="lblHelp_WebUpdate.Text" xml:space="preserve">
     <value>?</value>
-    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;lblHelp_WebUpdate.Name" xml:space="preserve">
     <value>lblHelp_WebUpdate</value>
@@ -982,7 +1030,7 @@
     <value>tabOpts</value>
   </data>
   <data name="&gt;&gt;grpUpdateOpt.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="grpOtherOpt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -1066,7 +1114,7 @@
     <value>tabOpts</value>
   </data>
   <data name="&gt;&gt;grpOtherOpt.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="tabOpts.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -1271,7 +1319,6 @@
   </data>
   <data name="lblHelp_BypassIgnoreOnImport.Text" xml:space="preserve">
     <value>?</value>
-    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;lblHelp_BypassIgnoreOnImport.Name" xml:space="preserve">
     <value>lblHelp_BypassIgnoreOnImport</value>
@@ -1302,7 +1349,6 @@
   </data>
   <data name="lblHelp_IncludeUnknown.Text" xml:space="preserve">
     <value>?</value>
-    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;lblHelp_IncludeUnknown.Name" xml:space="preserve">
     <value>lblHelp_IncludeUnknown</value>
@@ -2978,7 +3024,7 @@
     <value>ttHelp</value>
   </data>
   <data name="&gt;&gt;ttHelp.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=4.3.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=4.13.1.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>DlgProfile</value>

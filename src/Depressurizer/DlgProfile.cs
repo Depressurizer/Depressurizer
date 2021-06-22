@@ -298,6 +298,7 @@ namespace Depressurizer
             txtFilePath.Text = Profile.FilePath;
             grpProfInfo.Enabled = false;
 
+            textBoxSteamApi.Text = Profile.SteamWebApiKey;
             chkActUpdate.Checked = false;
             chkActImport.Checked = false;
             chkSetStartup.Checked = false;
@@ -476,6 +477,7 @@ namespace Depressurizer
         {
             p.SteamID64 = long.Parse(txtUserID.Text);
 
+            p.SteamWebApiKey = textBoxSteamApi.Text;
             p.AutoUpdate = chkAutoUpdate.Checked;
             p.AutoImport = chkAutoImport.Checked;
             p.LocalUpdate = chkLocalUpdate.Checked;
