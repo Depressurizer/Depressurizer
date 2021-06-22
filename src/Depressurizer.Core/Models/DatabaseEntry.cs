@@ -456,7 +456,7 @@ namespace Depressurizer.Core.Models
         public void ScrapeStore(string languageCode)
         {
             AppType result;
-            if (Settings.Instance.PremiumServer != null)
+            if (!string.IsNullOrWhiteSpace(Settings.Instance.PremiumServer))
             {
                 DepressurizerPremium.load(this, languageCode);
             }

@@ -20,6 +20,9 @@ namespace Depressurizer.Core.Helpers
             public List<string> tags { get; set; }
             public List<string> developers { get; set; }
             public List<string> publishers { get; set; }
+            public List<string> virtualRealityHeadsets { get; set; }
+            public List<string> virtualRealityInput { get; set; }
+            public List<string> virtualRealityPlayArea { get; set; }
             public int releaseYear { get; set; }
             public string releaseDate { get; set; }
             public int totalAchievements { get; set; }
@@ -35,11 +38,31 @@ namespace Depressurizer.Core.Helpers
             public int hltbMain { get; set; }
         }
 
+        #region Properties
+
+        private static Logger Logger => Logger.Instance;
+
+        #endregion
+
         public static void load(DatabaseEntry entry, string languageCode)
         {
             string url = string.Format("{0}/{1}?key={2}&language={3}", Settings.Instance.PremiumServer, entry.AppId, SingletonKeeper.SteamWebApiKey, languageCode);
+
+            try
+            {
+                load(entry, new Uri(url));
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Could not load Premium API ({0}) due to: {1}", url, e.ToString());
+                throw e;
+            }
+        }
+
+        public static void load(DatabaseEntry entry, Uri uri)
+        {
             HttpClient client = new HttpClient();
-            using (Stream s = client.GetStreamAsync(url).Result)
+            using (Stream s = client.GetStreamAsync(uri).Result)
             using (StreamReader sr = new StreamReader(s))
             using (JsonReader reader = new JsonTextReader(sr))
             {
@@ -104,6 +127,12 @@ namespace Depressurizer.Core.Helpers
                     entry.Publishers.Add(publisher);
                 }
 
+                entry.VRSupport = new VRSupport()
+                {
+                    Headsets = response.virtualRealityHeadsets,
+                    Input = response.virtualRealityInput,
+                    PlayArea = response.virtualRealityPlayArea
+                };
 
                 entry.LastStoreScrape = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             }
