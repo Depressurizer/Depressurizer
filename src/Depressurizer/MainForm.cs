@@ -4677,6 +4677,7 @@ namespace Depressurizer
 
             if (success)
             {
+                SaveProfile();
                 MakeChange(true);
                 FullListRefresh();
             }
