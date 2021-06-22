@@ -124,6 +124,8 @@ namespace Depressurizer
 
             chkCheckForDepressurizerUpdates.Checked = settings.CheckForDepressurizerUpdates;
 
+            textBoxPremiumServer.Text = settings.PremiumServer;
+
             chkRemoveExtraEntries.Checked = settings.RemoveExtraEntries;
 
             // Languages
