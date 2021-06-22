@@ -31,9 +31,9 @@ namespace Depressurizer.Tests.Models
 
         public DatabaseEntryTests()
         {
-            _entry1.ScrapeStore(StoreLanguage.English);
-            _entry2.ScrapeStore(StoreLanguage.Dutch);
-            _entry3.ScrapeStore(StoreLanguage.ChineseSimplified);
+            _entry1.ScrapeStore("", StoreLanguage.English);
+            _entry2.ScrapeStore("", StoreLanguage.Dutch);
+            _entry3.ScrapeStore("", StoreLanguage.ChineseSimplified);
         }
 
         #endregion

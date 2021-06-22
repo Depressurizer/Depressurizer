@@ -44,9 +44,9 @@ namespace Depressurizer.Core.Helpers
 
         #endregion
 
-        public static void load(DatabaseEntry entry, string languageCode)
+        public static void load(DatabaseEntry entry, string steamWebApi, string languageCode)
         {
-            string url = string.Format("{0}/{1}?key={2}&language={3}", Settings.Instance.PremiumServer, entry.AppId, SingletonKeeper.SteamWebApiKey, languageCode);
+            string url = string.Format("{0}/{1}?key={2}&language={3}", Settings.Instance.PremiumServer, entry.AppId, steamWebApi, languageCode);
 
             try
             {

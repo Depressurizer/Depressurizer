@@ -114,21 +114,13 @@ namespace Depressurizer
         private static Profile _currentProfile;
         public static Profile CurrentProfile
         {
-            get => _currentProfile; private set
-            {
-                if (value == null)
-                {
-                    SingletonKeeper.SteamWebApiKey = null;
-                }
-                else
-                {
-                    SingletonKeeper.SteamWebApiKey = value.SteamWebApiKey;
-                }
-                _currentProfile = value;
-            }
+            get => _currentProfile;
+            private set => _currentProfile = value;
         }
 
         public static bool ProfileLoaded => CurrentProfile != null;
+
+        public static string SteamWebApiKey => ProfileLoaded ? CurrentProfile.SteamWebApiKey : string.Empty;
 
         #endregion
 

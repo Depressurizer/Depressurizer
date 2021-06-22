@@ -442,9 +442,9 @@ namespace Depressurizer.Core.Models
         /// <param name="storeLanguage">
         ///     Steam Store language.
         /// </param>
-        public void ScrapeStore(StoreLanguage storeLanguage)
+        public void ScrapeStore(string steamWebApi, StoreLanguage storeLanguage)
         {
-            ScrapeStore(Language.LanguageCode(storeLanguage));
+            ScrapeStore(steamWebApi, Language.LanguageCode(storeLanguage));
         }
 
         /// <summary>
@@ -453,12 +453,12 @@ namespace Depressurizer.Core.Models
         /// <param name="languageCode">
         ///     Steam API language code.
         /// </param>
-        public void ScrapeStore(string languageCode)
+        public void ScrapeStore(string steamWebApi, string languageCode)
         {
             AppType result;
             if (!string.IsNullOrWhiteSpace(Settings.Instance.PremiumServer))
             {
-                DepressurizerPremium.load(this, languageCode);
+                DepressurizerPremium.load(this, steamWebApi, languageCode);
             }
             else
             {

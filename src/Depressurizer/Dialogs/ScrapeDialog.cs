@@ -122,7 +122,7 @@ namespace Depressurizer.Dialogs
                 AppId = job.ScrapeId
             };
 
-            newGame.ScrapeStore(Database.LanguageCode);
+            newGame.ScrapeStore(FormMain.SteamWebApiKey, Database.LanguageCode);
             if (Stopped)
             {
                 return false;
