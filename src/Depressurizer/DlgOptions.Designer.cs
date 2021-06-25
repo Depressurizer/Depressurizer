@@ -82,6 +82,8 @@ namespace Depressurizer {
             this.cmdUnignore = new System.Windows.Forms.Button();
             this.lstIgnored = new System.Windows.Forms.ListView();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxPremiumApiKey = new System.Windows.Forms.TextBox();
             this.grpSteamDir.SuspendLayout();
             this.grpStartup.SuspendLayout();
             this.grpSaving.SuspendLayout();
@@ -95,6 +97,7 @@ namespace Depressurizer {
             this.tabPage2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpSteamDir
@@ -318,6 +321,7 @@ namespace Depressurizer {
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.groupBox1);
             resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
@@ -382,6 +386,19 @@ namespace Depressurizer {
             this.lstIgnored.UseCompatibleStateImageBehavior = false;
             this.lstIgnored.View = System.Windows.Forms.View.List;
             // 
+            // groupBox2
+            // 
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Controls.Add(this.textBoxPremiumApiKey);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
+            // 
+            // textBoxPremiumApiKey
+            // 
+            resources.ApplyResources(this.textBoxPremiumApiKey, "textBoxPremiumApiKey");
+            this.textBoxPremiumApiKey.Name = "textBoxPremiumApiKey";
+            this.textBoxPremiumApiKey.ReadOnly = true;
+            // 
             // DlgOptions
             // 
             this.AcceptButton = this.cmdAccept;
@@ -415,6 +432,8 @@ namespace Depressurizer {
             this.groupBox1.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -461,5 +480,7 @@ namespace Depressurizer {
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textBoxPremiumServer;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox textBoxPremiumApiKey;
     }
 }

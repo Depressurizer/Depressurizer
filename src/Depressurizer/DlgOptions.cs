@@ -124,6 +124,7 @@ namespace Depressurizer
 
             chkCheckForDepressurizerUpdates.Checked = settings.CheckForDepressurizerUpdates;
 
+            textBoxPremiumApiKey.Text = FormMain.SteamWebApiKey;
             textBoxPremiumServer.Text = settings.PremiumServer;
 
             chkRemoveExtraEntries.Checked = settings.RemoveExtraEntries;
