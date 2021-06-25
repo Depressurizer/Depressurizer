@@ -8,13 +8,13 @@ namespace Depressurizer
     {
         #region Fields
 
-        public bool Export;
+        public bool Export => chkSaveSteam.Checked;
 
         #endregion
 
         #region Constructors and Destructors
 
-        public DlgClose(string message, string title, Image picture, bool cancel, bool exportSteam)
+        public DlgClose(string message, string title, Image picture, bool cancel)
         {
             InitializeComponent();
 
@@ -22,18 +22,9 @@ namespace Depressurizer
             Text = title;
             pictureBox1.Image = picture;
             btnCancel.Visible = cancel;
-            chkSaveSteam.Checked = exportSteam;
         }
 
         #endregion
 
-        #region Methods
-
-        private void chkSaveSteam_CheckedChanged(object sender, EventArgs e)
-        {
-            Export = chkSaveSteam.Checked;
-        }
-
-        #endregion
     }
 }

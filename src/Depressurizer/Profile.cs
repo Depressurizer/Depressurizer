@@ -18,8 +18,6 @@ namespace Depressurizer
 
         private const string XmlNameAutoCatList = "autocats";
 
-        private const string XmlNameAutoExport = "auto_export";
-
         private const string XmlNameAutoIgnore = "auto_ignore";
 
         private const string XmlNameAutoImport = "auto_import";
@@ -73,8 +71,6 @@ namespace Depressurizer
         #region Public Properties
 
         public List<AutoCat> AutoCats { get; set; } = new List<AutoCat>();
-
-        public bool AutoExport { get; set; } = true;
 
         public bool AutoIgnore { get; set; } = true;
 
@@ -207,7 +203,6 @@ namespace Depressurizer
                 profile.AutoUpdate = XmlUtil.GetBoolFromNode(profileNode[XmlNameAutoUpdate], profile.AutoUpdate);
 
                 profile.AutoImport = XmlUtil.GetBoolFromNode(profileNode[XmlNameAutoImport], profile.AutoImport);
-                profile.AutoExport = XmlUtil.GetBoolFromNode(profileNode[XmlNameAutoExport], profile.AutoExport);
 
                 profile.LocalUpdate = XmlUtil.GetBoolFromNode(profileNode[XmlNameLocalUpdate], profile.LocalUpdate);
                 profile.WebUpdate = XmlUtil.GetBoolFromNode(profileNode[XmlNameWebUpdate], profile.WebUpdate);
@@ -394,7 +389,6 @@ namespace Depressurizer
 
             writer.WriteElementString(XmlNameAutoUpdate, AutoUpdate.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlNameAutoImport, AutoImport.ToString().ToLowerInvariant());
-            writer.WriteElementString(XmlNameAutoExport, AutoExport.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlNameLocalUpdate, LocalUpdate.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlNameWebUpdate, WebUpdate.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlNameWebKey, SteamWebApiKey.ToLowerInvariant());

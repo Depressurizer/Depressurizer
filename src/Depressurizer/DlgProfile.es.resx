@@ -205,12 +205,6 @@
   <data name="chkExportDiscard.Text" xml:space="preserve">
     <value>Eliminar entradas para juegos eliminados o desconocidos en el fichero de configuración de Steam</value>
   </data>
-  <data name="chkAutoExport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>350, 17</value>
-  </data>
-  <data name="chkAutoExport.Text" xml:space="preserve">
-    <value>Almacenar automáticamente categorías en Steam al almacenar perfil</value>
-  </data>
   <data name="grpSaveOpt.Text" xml:space="preserve">
     <value>Opciones de guardado del perfil</value>
   </data>

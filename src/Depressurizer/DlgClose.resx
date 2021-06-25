@@ -259,13 +259,13 @@
     <value>48, 60</value>
   </data>
   <data name="chkSaveSteam.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 17</value>
+    <value>146, 17</value>
   </data>
   <data name="chkSaveSteam.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
   <data name="chkSaveSteam.Text" xml:space="preserve">
-    <value>Save changes to Steam? (CLOSE STEAM FIRST!!!)</value>
+    <value>Save changes to Steam?</value>
   </data>
   <data name="&gt;&gt;chkSaveSteam.Name" xml:space="preserve">
     <value>chkSaveSteam</value>

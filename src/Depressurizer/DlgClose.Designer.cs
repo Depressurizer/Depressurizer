@@ -91,15 +91,15 @@ namespace Depressurizer
             // chkSaveSteam
             // 
             resources.ApplyResources(this.chkSaveSteam, "chkSaveSteam");
+            this.chkSaveSteam.Checked = true;
+            this.chkSaveSteam.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSaveSteam.Name = "chkSaveSteam";
             this.chkSaveSteam.UseVisualStyleBackColor = true;
-            this.chkSaveSteam.CheckedChanged += new System.EventHandler(this.chkSaveSteam_CheckedChanged);
             // 
             // DlgClose
             // 
             this.AcceptButton = this.btnYes;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ControlBox = false;

@@ -877,7 +877,7 @@ namespace Depressurizer
                 return true;
             }
 
-            using (DlgClose dialog = new DlgClose(GlobalStrings.MainForm_UnsavedChangesWillBeLost, GlobalStrings.MainForm_UnsavedChanges, SystemIcons.Warning.ToBitmap(), true, CurrentProfile.AutoExport))
+            using (DlgClose dialog = new DlgClose(GlobalStrings.MainForm_UnsavedChangesWillBeLost, GlobalStrings.MainForm_UnsavedChanges, SystemIcons.Warning.ToBitmap(), true))
             {
                 DialogResult result = dialog.ShowDialog();
 
@@ -891,10 +891,8 @@ namespace Depressurizer
                     return false;
                 }
 
-                CurrentProfile.AutoExport = dialog.Export;
+                return SaveProfile(null, dialog.Export);
             }
-
-            return SaveProfile();
         }
 
         private void chkRegex_CheckedChanged(object sender, EventArgs e)
@@ -3441,13 +3439,12 @@ namespace Depressurizer
         {
             ClearStatus();
 
-            using (DlgClose dialog = new DlgClose(GlobalStrings.MainForm_SaveProfileConfirm, GlobalStrings.MainForm_SaveProfile, SystemIcons.Question.ToBitmap(), false, CurrentProfile.AutoExport))
+            using (DlgClose dialog = new DlgClose(GlobalStrings.MainForm_SaveProfileConfirm, GlobalStrings.MainForm_SaveProfile, SystemIcons.Question.ToBitmap(), false))
             {
                 DialogResult result = dialog.ShowDialog();
                 if (result == DialogResult.Yes)
                 {
-                    CurrentProfile.AutoExport = dialog.Export;
-                    SaveProfile();
+                    SaveProfile(null, dialog.Export);
                 }
             }
 
@@ -4065,14 +4062,14 @@ namespace Depressurizer
         /// </summary>
         /// <param name="path">Path to save to. If null, just saves profile to its current path.</param>
         /// <returns>True if successful, false if there is a failure</returns>
-        private bool SaveProfile(string path = null)
+        private bool SaveProfile(string path = null, bool exportToSteam = true)
         {
             if (!ProfileLoaded)
             {
                 return false;
             }
 
-            if (CurrentProfile.AutoExport)
+            if (exportToSteam)
             {
                 ExportConfig();
             }
@@ -4603,7 +4600,7 @@ namespace Depressurizer
         /// <summary>
         ///     Updates the game list for the loaded profile.
         /// </summary>
-        private void UpdateLibrary()
+        private void UpdateLibrary(bool saveToSteam = false)
         {
             if (CurrentProfile == null)
             {
@@ -4678,7 +4675,7 @@ namespace Depressurizer
 
             if (success)
             {
-                SaveProfile();
+                SaveProfile(null, saveToSteam);
                 MakeChange(true);
                 FullListRefresh();
             }
