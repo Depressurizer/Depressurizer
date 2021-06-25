@@ -119,6 +119,7 @@ namespace Depressurizer {
             this.colLanguageSubtitles = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colLanguageFullAudio = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colHoursPlayed = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colDataAvailable = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colFiller = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.contextGame = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextGame_LaunchGame = new System.Windows.Forms.ToolStripMenuItem();
@@ -704,6 +705,7 @@ namespace Depressurizer {
             this.lstGames.AllColumns.Add(this.colLanguageSubtitles);
             this.lstGames.AllColumns.Add(this.colLanguageFullAudio);
             this.lstGames.AllColumns.Add(this.colHoursPlayed);
+            this.lstGames.AllColumns.Add(this.colDataAvailable);
             this.lstGames.AllColumns.Add(this.colFiller);
             this.lstGames.AllowColumnReorder = true;
             this.lstGames.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(44)))));
@@ -957,6 +959,12 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.colHoursPlayed, "colHoursPlayed");
             this.colHoursPlayed.WordWrap = true;
+            // 
+            // colDataAvailable
+            // 
+            resources.ApplyResources(this.colDataAvailable, "colDataAvailable");
+            this.colDataAvailable.IsVisible = false;
+            this.colDataAvailable.Tag = "colDataAvailable";
             // 
             // colFiller
             // 
@@ -1790,6 +1798,7 @@ namespace Depressurizer {
         private BrightIdeasSoftware.OLVColumn colHoursPlayed;
         private ToolStripMenuItem contextGame_VisitSteamCommunity;
         private ToolStripMenuItem randomGameSelectionToolStripMenuItem;
+        private BrightIdeasSoftware.OLVColumn colDataAvailable;
     }
 }
 

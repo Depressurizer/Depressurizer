@@ -2536,6 +2536,15 @@ namespace Depressurizer
 
                 return hours + "h " + mins + "m";
             };
+            colDataAvailable.AspectGetter = delegate (object g)
+            {
+                if (g == null || !(g is GameInfo gameInfo))
+                {
+                    return false;
+                }
+
+                return !(gameInfo.Id > 0 && (!Database.Contains(gameInfo.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0));
+            };
             colHltbExtras.AspectToStringConverter = hltb;
             colHltbCompletionist.AspectToStringConverter = hltb;
             colLastPlayed.AspectToStringConverter = delegate(object obj)
