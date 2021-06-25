@@ -1930,6 +1930,7 @@ namespace Depressurizer
         {
             FillAllCategoryLists();
             FillGameList();
+            UpdateTitle();
         }
 
         private ListViewItem GetCategoryItemAtPoint(int x, int y)
@@ -4698,6 +4699,11 @@ namespace Depressurizer
         private void UpdateTitle()
         {
             StringBuilder sb = new StringBuilder("Depressurizer");
+            if (ProfileLoaded && !string.IsNullOrWhiteSpace(Settings.PremiumServer))
+            {
+                sb.Append("Premium");
+            }
+
             if (ProfileLoaded)
             {
                 sb.Append(" - ");
