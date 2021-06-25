@@ -455,12 +455,13 @@ namespace Depressurizer.Core.Models
         /// </param>
         public void ScrapeStore(string steamWebApi, string languageCode)
         {
-            AppType result;
+            AppType result = AppType.Unknown;
             if (!string.IsNullOrWhiteSpace(Settings.Instance.PremiumServer))
             {
-                DepressurizerPremium.load(this, steamWebApi, languageCode);
+                result = DepressurizerPremium.load(this, steamWebApi, languageCode);
             }
-            else
+
+            if (result == AppType.Unknown)
             {
                 result = ScrapeStoreHelper(languageCode);
                 SetTypeFromStoreScrape(result);

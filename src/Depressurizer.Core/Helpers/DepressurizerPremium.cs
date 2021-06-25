@@ -44,22 +44,23 @@ namespace Depressurizer.Core.Helpers
 
         #endregion
 
-        public static void load(DatabaseEntry entry, string steamWebApi, string languageCode)
+        public static AppType load(DatabaseEntry entry, string steamWebApi, string languageCode)
         {
             string url = string.Format("{0}/{1}?key={2}&language={3}", Settings.Instance.PremiumServer, entry.AppId, steamWebApi, languageCode);
 
             try
             {
-                load(entry, new Uri(url));
+                return load(entry, new Uri(url));
             }
             catch (Exception e)
             {
                 Logger.Error("Could not load Premium API ({0}) due to: {1}", url, e.ToString());
-                throw e;
             }
+
+            return AppType.Unknown;
         }
 
-        public static void load(DatabaseEntry entry, Uri uri)
+        public static AppType load(DatabaseEntry entry, Uri uri)
         {
             HttpClient client = new HttpClient();
             using (Stream s = client.GetStreamAsync(uri).Result)
@@ -69,7 +70,7 @@ namespace Depressurizer.Core.Helpers
                 DepressurizerPremiumResponse response = new JsonSerializer().Deserialize<DepressurizerPremiumResponse>(reader);
                 if (!Enum.TryParse(response.appType, true, out AppType type) || type == AppType.Unknown)
                 {
-                    return;
+                    return AppType.Unknown;
                 }
 
                 entry.Name = response.name;
@@ -136,6 +137,8 @@ namespace Depressurizer.Core.Helpers
 
                 entry.LastStoreScrape = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             }
+
+            return entry.AppType;
         }
     }
 }
