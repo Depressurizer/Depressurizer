@@ -123,6 +123,7 @@ namespace Depressurizer
             numScrapePromptDays.Value = settings.ScrapePromptDays;
 
             chkCheckForDepressurizerUpdates.Checked = settings.CheckForDepressurizerUpdates;
+            checkBoxReadFromLevelDB.Checked = settings.ReadFromLevelDB;
 
             textBoxPremiumApiKey.Text = FormMain.SteamWebApiKey;
             textBoxPremiumServer.Text = settings.PremiumServer;
@@ -192,6 +193,7 @@ namespace Depressurizer
             Settings.ScrapePromptDays = (int) numScrapePromptDays.Value;
 
             Settings.CheckForDepressurizerUpdates = chkCheckForDepressurizerUpdates.Checked;
+            Settings.ReadFromLevelDB = checkBoxReadFromLevelDB.Checked;
 
             Settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;
 

@@ -73,6 +73,8 @@ namespace Depressurizer {
             this.grpUILanguage = new System.Windows.Forms.GroupBox();
             this.cmbUILanguage = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxPremiumApiKey = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxPremiumServer = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -82,8 +84,9 @@ namespace Depressurizer {
             this.cmdUnignore = new System.Windows.Forms.Button();
             this.lstIgnored = new System.Windows.Forms.ListView();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBoxPremiumApiKey = new System.Windows.Forms.TextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.checkBoxReadFromLevelDB = new System.Windows.Forms.CheckBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.grpSteamDir.SuspendLayout();
             this.grpStartup.SuspendLayout();
             this.grpSaving.SuspendLayout();
@@ -95,9 +98,11 @@ namespace Depressurizer {
             ((System.ComponentModel.ISupportInitialize)(this.numScrapePromptDays)).BeginInit();
             this.grpUILanguage.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpSteamDir
@@ -198,6 +203,7 @@ namespace Depressurizer {
             this.tabControl.Controls.Add(this.tabGeneral);
             this.tabControl.Controls.Add(this.tabPage2);
             this.tabControl.Controls.Add(this.tabPage1);
+            this.tabControl.Controls.Add(this.tabPage3);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             // 
@@ -327,6 +333,19 @@ namespace Depressurizer {
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // groupBox2
+            // 
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Controls.Add(this.textBoxPremiumApiKey);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
+            // 
+            // textBoxPremiumApiKey
+            // 
+            resources.ApplyResources(this.textBoxPremiumApiKey, "textBoxPremiumApiKey");
+            this.textBoxPremiumApiKey.Name = "textBoxPremiumApiKey";
+            this.textBoxPremiumApiKey.ReadOnly = true;
+            // 
             // groupBox1
             // 
             resources.ApplyResources(this.groupBox1, "groupBox1");
@@ -386,18 +405,25 @@ namespace Depressurizer {
             this.lstIgnored.UseCompatibleStateImageBehavior = false;
             this.lstIgnored.View = System.Windows.Forms.View.List;
             // 
-            // groupBox2
+            // tabPage3
             // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.Controls.Add(this.textBoxPremiumApiKey);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.TabStop = false;
+            this.tabPage3.Controls.Add(this.groupBox3);
+            resources.ApplyResources(this.tabPage3, "tabPage3");
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // textBoxPremiumApiKey
+            // checkBoxReadFromLevelDB
             // 
-            resources.ApplyResources(this.textBoxPremiumApiKey, "textBoxPremiumApiKey");
-            this.textBoxPremiumApiKey.Name = "textBoxPremiumApiKey";
-            this.textBoxPremiumApiKey.ReadOnly = true;
+            resources.ApplyResources(this.checkBoxReadFromLevelDB, "checkBoxReadFromLevelDB");
+            this.checkBoxReadFromLevelDB.Name = "checkBoxReadFromLevelDB";
+            this.checkBoxReadFromLevelDB.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            resources.ApplyResources(this.groupBox3, "groupBox3");
+            this.groupBox3.Controls.Add(this.checkBoxReadFromLevelDB);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.TabStop = false;
             // 
             // DlgOptions
             // 
@@ -428,12 +454,15 @@ namespace Depressurizer {
             ((System.ComponentModel.ISupportInitialize)(this.numScrapePromptDays)).EndInit();
             this.grpUILanguage.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -482,5 +511,8 @@ namespace Depressurizer {
         private System.Windows.Forms.TextBox textBoxPremiumServer;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textBoxPremiumApiKey;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox checkBoxReadFromLevelDB;
     }
 }

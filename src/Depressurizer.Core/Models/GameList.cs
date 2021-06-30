@@ -11,6 +11,7 @@ using System.Xml.XPath;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Interfaces;
+using static Depressurizer.Core.Models.SteamLevelDB;
 using ValueType = Depressurizer.Core.Enums.ValueType;
 
 namespace Depressurizer.Core.Models
@@ -54,6 +55,8 @@ namespace Depressurizer.Core.Models
         private static IDatabase Database => SingletonKeeper.Database;
 
         private static Logger Logger => Logger.Instance;
+
+        private static Settings Settings => Settings.Instance;
 
         #endregion
 
@@ -628,14 +631,44 @@ namespace Depressurizer.Core.Models
         /// <returns>The number of game entries found</returns>
         public int ImportSteamConfig(long steamId, SortedSet<int> ignore, bool includeShortcuts)
         {
-            string filePath = string.Format(CultureInfo.InvariantCulture, Constants.SharedConfig, Settings.Instance.SteamPath, Steam.ToSteam3Id(steamId));
-            int result = ImportSteamConfigFile(filePath, ignore);
+            int result = 0;
+            if (Settings.ReadFromLevelDB)
+            {
+                ImportSteamLevelDB(steamId);
+            }
+            else
+            {
+                string filePath = string.Format(CultureInfo.InvariantCulture, Constants.SharedConfig, Settings.Instance.SteamPath, Steam.ToSteam3Id(steamId));
+                result = ImportSteamConfigFile(filePath, ignore);
+            }
+
             if (includeShortcuts)
             {
                 result += ImportSteamShortcuts(steamId);
             }
 
             return result;
+        }
+
+        private void ImportSteamLevelDB(long steamId) {
+            Logger.Info("Importing from Steam LevelDB: {0}", steamId);
+
+            SteamLevelDB levelDB = new SteamLevelDB(Steam.ToSteam3Id(steamId));
+
+            List<CloudStorageNamespace.Element.SteamCollectionValue> collections = levelDB.getSteamCollections();
+            Logger.Info("Found {0} Steam Collections", collections.Count);
+            foreach (var game in Games.Values)
+            {
+                SetGameCategories(game.Id, new List<Category>(), false);
+            }
+
+            foreach(var collection in collections)
+            {
+                foreach (var appId in collection.added)
+                {
+                    Games[appId].AddCategory(GetCategory(collection.name));
+                }
+            }
         }
 
         /// <summary>
