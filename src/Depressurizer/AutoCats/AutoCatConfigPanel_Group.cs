@@ -102,7 +102,13 @@ namespace Depressurizer.AutoCats
         {
             if (lbAutocats.SelectedItems.Count > 1)
             {
+                LinkedList<string> selected = new LinkedList<string>();
                 foreach (string s in lbAutocats.SelectedItems)
+                {
+                    selected.AddLast(s);
+                }
+
+                foreach (string s in selected)
                 {
                     lbAutocats.Items.Remove(s);
                 }
