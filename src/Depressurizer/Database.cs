@@ -589,7 +589,6 @@ namespace Depressurizer
                 if (!File.Exists(path))
                 {
                     Logger.Warn("Database: Database file not found at '{0}'.", path);
-
                     return;
                 }
 
@@ -606,6 +605,12 @@ namespace Depressurizer
                     };
 
                     Database database = (Database)serializer.Deserialize(file, typeof(Database));
+                    if (database == null)
+                    {
+                        Logger.Warn("Database: Database file at '{0}' is corrupt.", path);
+                        return;
+                    }
+
                     Language = database.Language;
                     LastHLTBUpdate = database.LastHLTBUpdate;
                     foreach (DatabaseEntry entry in database.DatabaseEntries.Values)
