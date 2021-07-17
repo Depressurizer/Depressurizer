@@ -369,7 +369,7 @@ namespace Depressurizer.Core.Helpers
 
         public static async void GrabBanner(int appId)
         {
-            GrabBanners(new int[] { appId });
+            await Task.Run(() => GrabBanners(new int[] { appId }));
         }
 
         /// <summary>
