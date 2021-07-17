@@ -563,7 +563,7 @@ namespace Depressurizer
                 return false;
             }
 
-            return entry.AppType == AppType.Application || entry.AppType == AppType.Game;
+            return entry.AppType == AppType.Application || entry.AppType == AppType.Game || entry.AppType == AppType.Mod;
         }
 
         public bool IsType(int appId, AppType appType)

@@ -558,6 +558,11 @@ namespace Depressurizer
                     item.StateImageIndex = filter.Game;
                     _advFilter.Game = filter.Game;
                 }
+                else if (filterName.Equals(Resources.SpecialCategoryMods))
+                {
+                    item.StateImageIndex = filter.Mod;
+                    _advFilter.Mod = filter.Mod;
+                }
                 else if (filterName.Equals(Resources.SpecialCategorySoftware))
                 {
                     item.StateImageIndex = filter.Software;
@@ -1569,6 +1574,7 @@ namespace Depressurizer
             int vr = 0;
             int software = 0;
             int games = 0;
+            int mods = 0;
             foreach (GameInfo g in CurrentProfile.GameData.Games.Values)
             {
                 if (g.Id < 0 && !CurrentProfile.IncludeShortcuts)
@@ -1604,6 +1610,9 @@ namespace Depressurizer
                     case AppType.Game:
                         games++;
                         break;
+                    case AppType.Mod:
+                        mods++;
+                        break;
                     case AppType.Application:
                         software++;
                         break;
@@ -1626,6 +1635,14 @@ namespace Depressurizer
             {
                 Tag = Resources.SpecialCategoryGames,
                 Name = Resources.SpecialCategoryGames
+            };
+            lstCategories.Items.Add(listViewItem);
+
+            // <Mods>
+            listViewItem = new ListViewItem(CategoryListViewItemText(Resources.SpecialCategoryMods, mods))
+            {
+                Tag = Resources.SpecialCategoryMods,
+                Name = Resources.SpecialCategoryMods
             };
             lstCategories.Items.Add(listViewItem);
 
@@ -1959,6 +1976,10 @@ namespace Depressurizer
             if (i.Tag.ToString() == Resources.SpecialCategoryGames)
             {
                 _advFilter.Game = i.StateImageIndex;
+            }
+            else if (i.Tag.ToString() == Resources.SpecialCategoryMods)
+            {
+                _advFilter.Mod = i.StateImageIndex;
             }
             else if (i.Tag.ToString() == Resources.SpecialCategorySoftware)
             {
@@ -3549,6 +3570,8 @@ namespace Depressurizer
             }
 
             LoadDatabase();
+            FillCategoryList();
+            FilterGameList(true);
         }
 
         private void menu_Tools_RemoveEmpty_Click(object sender, EventArgs e)
@@ -4254,6 +4277,12 @@ namespace Depressurizer
                 return;
             }
 
+            if(categoryName == Resources.SpecialCategoryMods)
+            {
+                _advFilter.Mod = state;
+                return;
+            }
+
             if (categoryName == Resources.SpecialCategorySoftware)
             {
                 _advFilter.Software = state;
@@ -4377,6 +4406,12 @@ namespace Depressurizer
             if (lstCategories.SelectedItems[0].Tag.ToString() == Resources.SpecialCategoryGames)
             {
                 return inDatabase && entry.AppType == AppType.Game;
+            }
+
+            // <Mods>
+            if (lstCategories.SelectedItems[0].Tag.ToString() == Resources.SpecialCategoryMods)
+            {
+                return inDatabase && entry.AppType == AppType.Mod;
             }
 
             // <Software>

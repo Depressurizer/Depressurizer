@@ -406,6 +406,20 @@ namespace Depressurizer.Core.Models
                     return false;
             }
 
+
+            bool isMod = false;
+            if (f.Mod != (int)AdvancedFilterState.None)
+            {
+                isMod = inDatabase && entry.AppType == AppType.Mod;
+            }
+
+            switch (f.Mod)
+            {
+                case (int)AdvancedFilterState.Exclude when isMod:
+                case (int)AdvancedFilterState.Require when !isMod:
+                    return false;
+            }
+
             if (IsAnySpecialCategoryAllowed(f) || f.Allow.Count > 0)
             {
                 if (f.Uncategorized != (int) AdvancedFilterState.Allow || isCategorized)
@@ -418,9 +432,12 @@ namespace Depressurizer.Core.Models
                             {
                                 if (f.Game != (int) AdvancedFilterState.Allow || !isGame)
                                 {
-                                    if (!Categories.Overlaps(f.Allow))
+                                    if (f.Mod != (int)AdvancedFilterState.Allow || !isMod)
                                     {
-                                        return false;
+                                        if (!Categories.Overlaps(f.Allow))
+                                        {
+                                            return false;
+                                        }
                                     }
                                 }
                             }

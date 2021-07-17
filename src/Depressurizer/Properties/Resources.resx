@@ -234,4 +234,7 @@
   <data name="RemoveButtonWithCount" xml:space="preserve">
     <value>Remove ({0})</value>
   </data>
+  <data name="SpecialCategoryMods" xml:space="preserve">
+    <value>&lt;Mods&gt;</value>
+  </data>
 </root>

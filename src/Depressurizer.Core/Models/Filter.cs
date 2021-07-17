@@ -21,6 +21,8 @@ namespace Depressurizer.Core.Models
 
         private const string XmlNameFilterGame = "Game";
 
+        private const string XmlNameFilterMod = "Mod";
+
         private const string XmlNameFilterHidden = "Hidden";
 
         private const string XmlNameFilterRequire = "Require";
@@ -70,6 +72,8 @@ namespace Depressurizer.Core.Models
 
         public int Game { get; set; } = -1;
 
+        public int Mod { get; set; } = -1;
+
         public int Hidden { get; set; } = -1;
 
         /// <summary>
@@ -102,9 +106,14 @@ namespace Depressurizer.Core.Models
             }
 
             Filter filter = profile.AddFilter(name);
-            if (XmlUtil.TryGetIntFromNode(node[XmlNameFilterSoftware], out int game))
+            if (XmlUtil.TryGetIntFromNode(node[XmlNameFilterGame], out int game))
             {
                 filter.Game = game;
+            }
+
+            if (XmlUtil.TryGetIntFromNode(node[XmlNameFilterMod], out int mod))
+            {
+                filter.Mod = mod;
             }
 
             if (XmlUtil.TryGetIntFromNode(node[XmlNameFilterSoftware], out int software))
@@ -213,6 +222,7 @@ namespace Depressurizer.Core.Models
 
             writer.WriteElementString(Serialization.Constants.Name, Name);
             writer.WriteElementString(XmlNameFilterGame, Game.ToString(CultureInfo.InvariantCulture));
+            writer.WriteElementString(XmlNameFilterMod, Mod.ToString(CultureInfo.InvariantCulture));
             writer.WriteElementString(XmlNameFilterSoftware, Software.ToString(CultureInfo.InvariantCulture));
             writer.WriteElementString(XmlNameFilterUncategorized, Uncategorized.ToString(CultureInfo.InvariantCulture));
             writer.WriteElementString(XmlNameFilterHidden, Hidden.ToString(CultureInfo.InvariantCulture));
