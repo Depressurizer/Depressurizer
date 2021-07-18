@@ -805,6 +805,12 @@ namespace Depressurizer.Core.Models
                 resp?.Dispose();
                 return AppType.Unknown;
             }
+            catch (WebException e)
+            {
+                Logger.Warn("Scraping {0}: Exception thrown while reading page - {1}.", AppId, e);
+                resp?.Dispose();
+                return AppType.Unknown;
+            }
             catch (Exception e)
             {
                 Logger.Warn("Scraping {0}: Exception thrown while reading page; {1}.", AppId, e);
