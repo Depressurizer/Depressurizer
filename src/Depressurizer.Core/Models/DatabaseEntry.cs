@@ -455,17 +455,21 @@ namespace Depressurizer.Core.Models
         /// </param>
         public void ScrapeStore(string steamWebApi, string languageCode)
         {
-            AppType result = AppType.Unknown;
             if (!string.IsNullOrWhiteSpace(Settings.Instance.PremiumServer))
             {
-                result = DepressurizerPremium.load(this, steamWebApi, languageCode);
+                try
+                {
+                    DepressurizerPremium.load(this, steamWebApi, languageCode);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    Logger.Error("Could not load Premium API ({0}) due to: {1}. Failing over to Steam Store", AppId, e);
+                }
             }
 
-            if (result == AppType.Unknown)
-            {
-                result = ScrapeStoreHelper(languageCode);
-                SetTypeFromStoreScrape(result);
-            }
+            AppType result = ScrapeStoreHelper(languageCode);
+            SetTypeFromStoreScrape(result);
         }
 
         #endregion
