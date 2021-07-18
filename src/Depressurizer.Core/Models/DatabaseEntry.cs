@@ -474,7 +474,7 @@ namespace Depressurizer.Core.Models
 
         private static HttpWebRequest GetSteamRequest(string url)
         {
-            HttpWebRequest req = (HttpWebRequest) WebRequest.Create(url);
+            HttpWebRequest req = WebRequest.CreateHttp(url);
             // Cookie bypasses the age gate
             req.CookieContainer = new CookieContainer(3);
             req.CookieContainer.Add(new Cookie("birthtime", "-473392799", "/", "store.steampowered.com"));
@@ -482,6 +482,7 @@ namespace Depressurizer.Core.Models
             req.CookieContainer.Add(new Cookie("lastagecheckage", "1-January-1955", "/", "store.steampowered.com"));
             // Cookies get discarded on automatic redirects so we have to follow them manually
             req.AllowAutoRedirect = false;
+            req.Timeout = 10_000;
             return req;
         }
 
@@ -791,6 +792,12 @@ namespace Depressurizer.Core.Models
 
                     Logger.Verbose("Scraping {0}: Redirected to a different id: {1}.", AppId, redirectTarget);
                 }
+            }
+            catch (UriFormatException e)
+            {
+                Logger.Warn("Scraping {0}: Caught an UriFormatException most likely something on Steam side is wrong; {1}.", AppId, e);
+                resp?.Dispose();
+                return AppType.Unknown;
             }
             catch (WebException e) when (e.Status == WebExceptionStatus.Timeout)
             {
