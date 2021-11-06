@@ -11,9 +11,9 @@
 
   <ItemGroup>
     <PackageReference Include="IronLeveldb" Version="1.0.0" />
-    <PackageReference Include="JetBrains.Annotations" Version="2021.1.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
     <PackageReference Include="newtonsoft.json" Version="13.0.1" />
-    <PackageReference Include="Sentry" Version="3.8.1" />
+    <PackageReference Include="Sentry" Version="3.11.1" />
   </ItemGroup>
 
 </Project>

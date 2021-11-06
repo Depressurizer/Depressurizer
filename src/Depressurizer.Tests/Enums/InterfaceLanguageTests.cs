@@ -11,12 +11,12 @@ namespace Depressurizer.Tests.Enums
         [Fact]
         public void Values()
         {
-            InterfaceLanguage.English.Should().Be(0);
-            InterfaceLanguage.Spanish.Should().Be(1);
-            InterfaceLanguage.Russian.Should().Be(2);
-            InterfaceLanguage.Ukrainian.Should().Be(3);
-            InterfaceLanguage.Dutch.Should().Be(4);
-            InterfaceLanguage.SChinese.Should().Be(5);
+            ((int)InterfaceLanguage.English).Should().Be(0);
+            ((int)InterfaceLanguage.Spanish).Should().Be(1);
+            ((int)InterfaceLanguage.Russian).Should().Be(2);
+            ((int)InterfaceLanguage.Ukrainian).Should().Be(3);
+            ((int)InterfaceLanguage.Dutch).Should().Be(4);
+            ((int)InterfaceLanguage.SChinese).Should().Be(5);
         }
 
         #endregion
