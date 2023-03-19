@@ -18,6 +18,9 @@ namespace Depressurizer.Core.Helpers
 
         private static FileStream _fileStream;
 
+        private const uint Magic27 = 0x07_56_44_27;
+        private const uint Magic28 = 0x07_56_44_28;
+
         #endregion
 
         #region Constructors and Destructors
@@ -34,17 +37,18 @@ namespace Depressurizer.Core.Helpers
                 _binaryReader = new BinaryReader(_fileStream);
 
                 // Read some header fields
-                _binaryReader.ReadByte();
-                if (_binaryReader.ReadByte() != 0x44 || _binaryReader.ReadByte() != 0x56)
+                var magic = _binaryReader.ReadUInt32();
+                if (magic != Magic27 && magic != Magic28)
                 {
                     throw new InvalidDataException("Invalid VDF format");
                 }
 
                 // Skip more header fields
-                _binaryReader.ReadBytes(5);
+                _binaryReader.ReadUInt32();
 
                 while (true)
                 {
+                    // uint32 - AppID
                     uint id = _binaryReader.ReadUInt32();
                     if (id == 0)
                     {
@@ -52,7 +56,18 @@ namespace Depressurizer.Core.Helpers
                     }
 
                     // Skip unused fields
+                    // uint32 - size
+                    // uint32 - infoState
+                    // uint32 - lastUpdated
+                    // uint64 - picsToken
+                    // 20bytes - SHA1 of text appinfo vdf
+                    // uint32 - changeNumber
                     _binaryReader.ReadBytes(44);
+                    if (magic == Magic28)
+                    {
+                        // 20bytes - SHA1 of binary_vdf
+                        _binaryReader.ReadBytes(20);
+                    }
 
                     // Load details
                     Items[id] = ReadEntries();
