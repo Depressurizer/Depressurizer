@@ -120,61 +120,9 @@
   <metadata name="mainMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="menu_File_Save.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+S</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="menu_File_Save.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
-  </data>
-  <data name="menu_File_Save.Text" xml:space="preserve">
-    <value>&amp;Save Database</value>
-  </data>
-  <data name="menu_File_SaveAs.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Alt+S</value>
-  </data>
-  <data name="menu_File_SaveAs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
-  </data>
-  <data name="menu_File_SaveAs.Text" xml:space="preserve">
-    <value>Save &amp;As...</value>
-  </data>
-  <data name="menu_File_Load.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+L</value>
-  </data>
-  <data name="menu_File_Load.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
-  </data>
-  <data name="menu_File_Load.Text" xml:space="preserve">
-    <value>&amp;Load...</value>
-  </data>
-  <data name="menu_File_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 6</value>
-  </data>
-  <data name="menu_File_Clear.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+C</value>
-  </data>
-  <data name="menu_File_Clear.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
-  </data>
-  <data name="menu_File_Clear.Text" xml:space="preserve">
-    <value>&amp;Clear</value>
-  </data>
-  <data name="menu_File_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 6</value>
-  </data>
-  <data name="menu_File_Exit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Alt+F4</value>
-  </data>
-  <data name="menu_File_Exit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
-  </data>
-  <data name="menu_File_Exit.Text" xml:space="preserve">
-    <value>Clos&amp;e</value>
-  </data>
   <data name="menu_File.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 21</value>
+    <value>37, 20</value>
   </data>
   <data name="menu_File.Text" xml:space="preserve">
     <value>File</value>
@@ -183,7 +131,7 @@
     <value>0, 0</value>
   </data>
   <data name="mainMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>872, 25</value>
+    <value>872, 24</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="mainMenu.TabIndex" type="System.Int32, mscorlib">
@@ -191,7 +139,6 @@
   </data>
   <data name="mainMenu.Text" xml:space="preserve">
     <value>menuStrip1</value>
-    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;mainMenu.Name" xml:space="preserve">
     <value>mainMenu</value>
@@ -205,6 +152,58 @@
   <data name="&gt;&gt;mainMenu.ZOrder" xml:space="preserve">
     <value>24</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="menu_File_Save.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+S</value>
+  </data>
+  <data name="menu_File_Save.Size" type="System.Drawing.Size, System.Drawing">
+    <value>189, 22</value>
+  </data>
+  <data name="menu_File_Save.Text" xml:space="preserve">
+    <value>&amp;Save Database</value>
+  </data>
+  <data name="menu_File_SaveAs.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Alt+S</value>
+  </data>
+  <data name="menu_File_SaveAs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>189, 22</value>
+  </data>
+  <data name="menu_File_SaveAs.Text" xml:space="preserve">
+    <value>Save &amp;As...</value>
+  </data>
+  <data name="menu_File_Load.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+L</value>
+  </data>
+  <data name="menu_File_Load.Size" type="System.Drawing.Size, System.Drawing">
+    <value>189, 22</value>
+  </data>
+  <data name="menu_File_Load.Text" xml:space="preserve">
+    <value>&amp;Load...</value>
+  </data>
+  <data name="menu_File_Sep1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>186, 6</value>
+  </data>
+  <data name="menu_File_Clear.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+C</value>
+  </data>
+  <data name="menu_File_Clear.Size" type="System.Drawing.Size, System.Drawing">
+    <value>189, 22</value>
+  </data>
+  <data name="menu_File_Clear.Text" xml:space="preserve">
+    <value>&amp;Clear</value>
+  </data>
+  <data name="menu_File_Sep2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>186, 6</value>
+  </data>
+  <data name="menu_File_Exit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+F4</value>
+  </data>
+  <data name="menu_File_Exit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>189, 22</value>
+  </data>
+  <data name="menu_File_Exit.Text" xml:space="preserve">
+    <value>Clos&amp;e</value>
+  </data>
   <data name="cmdFetch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
@@ -212,13 +211,13 @@
     <value>NoControl</value>
   </data>
   <data name="cmdFetch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>748, 420</value>
+    <value>748, 455</value>
   </data>
   <data name="cmdFetch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 21</value>
+    <value>116, 23</value>
   </data>
   <data name="cmdFetch.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+    <value>22</value>
   </data>
   <data name="cmdFetch.Text" xml:space="preserve">
     <value>&amp;Fetch List</value>
@@ -242,13 +241,13 @@
     <value>NoControl</value>
   </data>
   <data name="cmdUpdateNew.Location" type="System.Drawing.Point, System.Drawing">
-    <value>748, 445</value>
+    <value>748, 482</value>
   </data>
   <data name="cmdUpdateNew.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 21</value>
+    <value>116, 23</value>
   </data>
   <data name="cmdUpdateNew.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+    <value>23</value>
   </data>
   <data name="cmdUpdateNew.Text" xml:space="preserve">
     <value>Scrape Unscraped</value>
@@ -272,13 +271,13 @@
     <value>NoControl</value>
   </data>
   <data name="cmdUpdateSelected.Location" type="System.Drawing.Point, System.Drawing">
-    <value>623, 445</value>
+    <value>623, 482</value>
   </data>
   <data name="cmdUpdateSelected.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 21</value>
+    <value>116, 23</value>
   </data>
   <data name="cmdUpdateSelected.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+    <value>20</value>
   </data>
   <data name="cmdUpdateSelected.Text" xml:space="preserve">
     <value>&amp;Scrape Selected</value>
@@ -302,13 +301,13 @@
     <value>NoControl</value>
   </data>
   <data name="cmdEditGame.Location" type="System.Drawing.Point, System.Drawing">
-    <value>623, 384</value>
+    <value>623, 416</value>
   </data>
   <data name="cmdEditGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 21</value>
+    <value>116, 23</value>
   </data>
   <data name="cmdEditGame.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>16</value>
   </data>
   <data name="cmdEditGame.Text" xml:space="preserve">
     <value>&amp;Edit Game</value>
@@ -332,13 +331,13 @@
     <value>NoControl</value>
   </data>
   <data name="cmdDeleteGame.Location" type="System.Drawing.Point, System.Drawing">
-    <value>748, 384</value>
+    <value>748, 416</value>
   </data>
   <data name="cmdDeleteGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 21</value>
+    <value>116, 23</value>
   </data>
   <data name="cmdDeleteGame.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>18</value>
   </data>
   <data name="cmdDeleteGame.Text" xml:space="preserve">
     <value>&amp;Delete Game</value>
@@ -362,13 +361,13 @@
     <value>NoControl</value>
   </data>
   <data name="cmdAddGame.Location" type="System.Drawing.Point, System.Drawing">
-    <value>623, 360</value>
+    <value>623, 390</value>
   </data>
   <data name="cmdAddGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 21</value>
+    <value>116, 23</value>
   </data>
   <data name="cmdAddGame.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>15</value>
   </data>
   <data name="cmdAddGame.Text" xml:space="preserve">
     <value>&amp;Add Game</value>
@@ -395,10 +394,10 @@
     <value>NoControl</value>
   </data>
   <data name="chkTypeUnknown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>125, 49</value>
+    <value>125, 53</value>
   </data>
   <data name="chkTypeUnknown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 16</value>
+    <value>72, 17</value>
   </data>
   <data name="chkTypeUnknown.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -425,10 +424,10 @@
     <value>NoControl</value>
   </data>
   <data name="chkTypeOther.Location" type="System.Drawing.Point, System.Drawing">
-    <value>125, 33</value>
+    <value>125, 36</value>
   </data>
   <data name="chkTypeOther.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 16</value>
+    <value>52, 17</value>
   </data>
   <data name="chkTypeOther.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -455,10 +454,10 @@
     <value>NoControl</value>
   </data>
   <data name="chkTypeDLC.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 49</value>
+    <value>6, 53</value>
   </data>
   <data name="chkTypeDLC.Size" type="System.Drawing.Size, System.Drawing">
-    <value>42, 16</value>
+    <value>47, 17</value>
   </data>
   <data name="chkTypeDLC.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -485,10 +484,10 @@
     <value>NoControl</value>
   </data>
   <data name="chkTypeGame.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 33</value>
+    <value>6, 36</value>
   </data>
   <data name="chkTypeGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 16</value>
+    <value>54, 17</value>
   </data>
   <data name="chkTypeGame.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -515,10 +514,10 @@
     <value>NoControl</value>
   </data>
   <data name="chkTypeAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 18</value>
+    <value>6, 20</value>
   </data>
   <data name="chkTypeAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>42, 16</value>
+    <value>37, 17</value>
   </data>
   <data name="chkTypeAll.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -539,13 +538,13 @@
     <value>4</value>
   </data>
   <data name="grpTypes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>623, 94</value>
+    <value>623, 102</value>
   </data>
   <data name="grpTypes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 72</value>
+    <value>241, 78</value>
   </data>
   <data name="grpTypes.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>11</value>
   </data>
   <data name="grpTypes.Text" xml:space="preserve">
     <value>Types</value>
@@ -569,13 +568,13 @@
     <value>NoControl</value>
   </data>
   <data name="cmdStore.Location" type="System.Drawing.Point, System.Drawing">
-    <value>748, 360</value>
+    <value>748, 390</value>
   </data>
   <data name="cmdStore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 21</value>
+    <value>116, 23</value>
   </data>
   <data name="cmdStore.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>17</value>
   </data>
   <data name="cmdStore.Text" xml:space="preserve">
     <value>View &amp;Store</value>
@@ -595,20 +594,8 @@
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>127, 17</value>
   </metadata>
-  <data name="statusMsg.Size" type="System.Drawing.Size, System.Drawing">
-    <value>857, 17</value>
-  </data>
-  <data name="statusMsg.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="statSelected.Size" type="System.Drawing.Size, System.Drawing">
-    <value>0, 17</value>
-  </data>
-  <data name="statSelected.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
   <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 498</value>
+    <value>0, 541</value>
   </data>
   <data name="statusStrip1.Size" type="System.Drawing.Size, System.Drawing">
     <value>872, 22</value>
@@ -618,8 +605,6 @@
   </data>
   <data name="statusStrip1.Text" xml:space="preserve">
     <value>statusStrip1</value>
-    
-    <comment>@Invariant</comment>
   </data>
   <data name="&gt;&gt;statusStrip1.Name" xml:space="preserve">
     <value>statusStrip1</value>
@@ -633,6 +618,18 @@
   <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
     <value>14</value>
   </data>
+  <data name="statusMsg.Size" type="System.Drawing.Size, System.Drawing">
+    <value>857, 17</value>
+  </data>
+  <data name="statusMsg.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="statSelected.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 17</value>
+  </data>
+  <data name="statSelected.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
   <data name="cmdUpdateAppInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
@@ -640,13 +637,13 @@
     <value>NoControl</value>
   </data>
   <data name="cmdUpdateAppInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>623, 420</value>
+    <value>623, 455</value>
   </data>
   <data name="cmdUpdateAppInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 21</value>
+    <value>116, 23</value>
   </data>
   <data name="cmdUpdateAppInfo.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+    <value>19</value>
   </data>
   <data name="cmdUpdateAppInfo.Text" xml:space="preserve">
     <value>Update App Info</value>
@@ -673,10 +670,10 @@
     <value>NoControl</value>
   </data>
   <data name="radWebNo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>123, 34</value>
+    <value>123, 40</value>
   </data>
   <data name="radWebNo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 16</value>
+    <value>77, 17</value>
   </data>
   <data name="radWebNo.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -703,10 +700,10 @@
     <value>NoControl</value>
   </data>
   <data name="radWebSince.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 57</value>
+    <value>6, 62</value>
   </data>
   <data name="radWebSince.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 16</value>
+    <value>108, 17</value>
   </data>
   <data name="radWebSince.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -733,10 +730,10 @@
     <value>NoControl</value>
   </data>
   <data name="radWebYes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 34</value>
+    <value>6, 40</value>
   </data>
   <data name="radWebYes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 16</value>
+    <value>65, 17</value>
   </data>
   <data name="radWebYes.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -763,10 +760,10 @@
     <value>NoControl</value>
   </data>
   <data name="radWebAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 18</value>
+    <value>6, 20</value>
   </data>
   <data name="radWebAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 16</value>
+    <value>36, 17</value>
   </data>
   <data name="radWebAll.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -787,13 +784,13 @@
     <value>3</value>
   </data>
   <data name="dateWeb.Location" type="System.Drawing.Point, System.Drawing">
-    <value>123, 55</value>
+    <value>123, 60</value>
   </data>
   <data name="dateWeb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 21</value>
+    <value>108, 20</value>
   </data>
   <data name="dateWeb.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>0</value>
   </data>
   <data name="&gt;&gt;dateWeb.Name" xml:space="preserve">
     <value>dateWeb</value>
@@ -808,13 +805,13 @@
     <value>4</value>
   </data>
   <data name="grpWebUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>623, 172</value>
+    <value>623, 186</value>
   </data>
   <data name="grpWebUpdate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 79</value>
+    <value>241, 86</value>
   </data>
   <data name="grpWebUpdate.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>12</value>
   </data>
   <data name="grpWebUpdate.Text" xml:space="preserve">
     <value>Web Scrape Status</value>
@@ -841,10 +838,10 @@
     <value>NoControl</value>
   </data>
   <data name="radAppNo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 51</value>
+    <value>6, 55</value>
   </data>
   <data name="radAppNo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 16</value>
+    <value>105, 17</value>
   </data>
   <data name="radAppNo.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -871,10 +868,10 @@
     <value>NoControl</value>
   </data>
   <data name="radAppYes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 34</value>
+    <value>6, 37</value>
   </data>
   <data name="radAppYes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 16</value>
+    <value>90, 17</value>
   </data>
   <data name="radAppYes.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -901,10 +898,10 @@
     <value>NoControl</value>
   </data>
   <data name="radAppAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 18</value>
+    <value>6, 20</value>
   </data>
   <data name="radAppAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 16</value>
+    <value>36, 17</value>
   </data>
   <data name="radAppAll.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -925,13 +922,13 @@
     <value>2</value>
   </data>
   <data name="grpAppInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>623, 257</value>
+    <value>623, 278</value>
   </data>
   <data name="grpAppInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 74</value>
+    <value>241, 80</value>
   </data>
   <data name="grpAppInfo.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>13</value>
   </data>
   <data name="grpAppInfo.Text" xml:space="preserve">
     <value>App Info Status</value>
@@ -955,13 +952,13 @@
     <value>NoControl</value>
   </data>
   <data name="chkOwned.Location" type="System.Drawing.Point, System.Drawing">
-    <value>625, 72</value>
+    <value>625, 78</value>
   </data>
   <data name="chkOwned.Size" type="System.Drawing.Size, System.Drawing">
-    <value>114, 16</value>
+    <value>114, 17</value>
   </data>
   <data name="chkOwned.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>9</value>
   </data>
   <data name="chkOwned.Text" xml:space="preserve">
     <value>Show Owned Only</value>
@@ -982,13 +979,13 @@
     <value>Top, Right</value>
   </data>
   <data name="txtSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>673, 25</value>
+    <value>673, 27</value>
   </data>
   <data name="txtSearch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 21</value>
+    <value>170, 20</value>
   </data>
   <data name="txtSearch.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;txtSearch.Name" xml:space="preserve">
     <value>txtSearch</value>
@@ -1012,13 +1009,13 @@
     <value>NoControl</value>
   </data>
   <data name="lblSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>623, 28</value>
+    <value>623, 30</value>
   </data>
   <data name="lblSearch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 12</value>
+    <value>44, 13</value>
   </data>
   <data name="lblSearch.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
+    <value>2</value>
   </data>
   <data name="lblSearch.Text" xml:space="preserve">
     <value>Search:</value>
@@ -1045,13 +1042,13 @@
     <value>NoControl</value>
   </data>
   <data name="cmdSearchClear.Location" type="System.Drawing.Point, System.Drawing">
-    <value>843, 25</value>
+    <value>843, 27</value>
   </data>
   <data name="cmdSearchClear.Size" type="System.Drawing.Size, System.Drawing">
-    <value>20, 18</value>
+    <value>20, 20</value>
   </data>
   <data name="cmdSearchClear.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
+    <value>4</value>
   </data>
   <data name="cmdSearchClear.Text" xml:space="preserve">
     <value>X</value>
@@ -1072,13 +1069,13 @@
     <value>Top, Right</value>
   </data>
   <data name="numIdRangeMax.Location" type="System.Drawing.Point, System.Drawing">
-    <value>795, 49</value>
+    <value>795, 53</value>
   </data>
   <data name="numIdRangeMax.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 21</value>
+    <value>69, 20</value>
   </data>
   <data name="numIdRangeMax.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
+    <value>8</value>
   </data>
   <data name="&gt;&gt;numIdRangeMax.Name" xml:space="preserve">
     <value>numIdRangeMax</value>
@@ -1096,13 +1093,13 @@
     <value>Top, Right</value>
   </data>
   <data name="numIdRangeMin.Location" type="System.Drawing.Point, System.Drawing">
-    <value>710, 49</value>
+    <value>710, 53</value>
   </data>
   <data name="numIdRangeMin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 21</value>
+    <value>69, 20</value>
   </data>
   <data name="numIdRangeMin.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
+    <value>6</value>
   </data>
   <data name="&gt;&gt;numIdRangeMin.Name" xml:space="preserve">
     <value>numIdRangeMin</value>
@@ -1126,13 +1123,13 @@
     <value>NoControl</value>
   </data>
   <data name="lblIdRangeSep.Location" type="System.Drawing.Point, System.Drawing">
-    <value>782, 51</value>
+    <value>782, 55</value>
   </data>
   <data name="lblIdRangeSep.Size" type="System.Drawing.Size, System.Drawing">
-    <value>11, 12</value>
+    <value>10, 13</value>
   </data>
   <data name="lblIdRangeSep.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
+    <value>7</value>
   </data>
   <data name="lblIdRangeSep.Text" xml:space="preserve">
     <value>-</value>
@@ -1156,13 +1153,13 @@
     <value>NoControl</value>
   </data>
   <data name="chkIdRange.Location" type="System.Drawing.Point, System.Drawing">
-    <value>626, 51</value>
+    <value>626, 55</value>
   </data>
   <data name="chkIdRange.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 16</value>
+    <value>75, 17</value>
   </data>
   <data name="chkIdRange.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
+    <value>5</value>
   </data>
   <data name="chkIdRange.Text" xml:space="preserve">
     <value>ID Range:</value>
@@ -1219,19 +1216,19 @@
     <value>Parent</value>
   </data>
   <data name="lstGames.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 25</value>
+    <value>12, 27</value>
   </data>
   <data name="lstGames.Size" type="System.Drawing.Size, System.Drawing">
-    <value>605, 472</value>
+    <value>605, 511</value>
   </data>
   <data name="lstGames.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;lstGames.Name" xml:space="preserve">
     <value>lstGames</value>
   </data>
   <data name="&gt;&gt;lstGames.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=4.12.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=5.3.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;lstGames.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1246,13 +1243,13 @@
     <value>NoControl</value>
   </data>
   <data name="cmdUpdateHltb.Location" type="System.Drawing.Point, System.Drawing">
-    <value>623, 472</value>
+    <value>623, 511</value>
   </data>
   <data name="cmdUpdateHltb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 21</value>
+    <value>116, 23</value>
   </data>
   <data name="cmdUpdateHltb.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
+    <value>21</value>
   </data>
   <data name="cmdUpdateHltb.Text" xml:space="preserve">
     <value>Update from HLTB</value>
@@ -1276,13 +1273,13 @@
     <value>NoControl</value>
   </data>
   <data name="CheckShowIgnored.Location" type="System.Drawing.Point, System.Drawing">
-    <value>748, 73</value>
+    <value>748, 79</value>
   </data>
   <data name="CheckShowIgnored.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 16</value>
+    <value>91, 17</value>
   </data>
   <data name="CheckShowIgnored.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
+    <value>10</value>
   </data>
   <data name="CheckShowIgnored.Text" xml:space="preserve">
     <value>Show ignored</value>
@@ -1306,13 +1303,13 @@
     <value>NoControl</value>
   </data>
   <data name="chkCommunityInsteadStore.Location" type="System.Drawing.Point, System.Drawing">
-    <value>623, 337</value>
+    <value>623, 365</value>
   </data>
   <data name="chkCommunityInsteadStore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>240, 16</value>
+    <value>209, 17</value>
   </data>
   <data name="chkCommunityInsteadStore.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
+    <value>14</value>
   </data>
   <data name="chkCommunityInsteadStore.Text" xml:space="preserve">
     <value>Open community instead of Store page</value>
@@ -1333,13 +1330,13 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 12</value>
+    <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>872, 520</value>
+    <value>872, 563</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>685, 460</value>
+    <value>685, 495</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
