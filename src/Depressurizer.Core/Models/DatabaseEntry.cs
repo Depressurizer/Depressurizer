@@ -29,7 +29,8 @@ namespace Depressurizer.Core.Models
 
         private static readonly Regex RegexFlags = new Regex(@"href=""https?://store\.steampowered\.com/search/\?category2=[^>]+><div [^>]+><img [^>]+></div><div [^>]+>([^<]+)</div></a>", RegexOptions.Compiled);
 
-        private static readonly Regex RegexGenre = new Regex(@"<div[^>]*class=""details_block"">\s*<b>[^:]*:</b>.*?<br>\s*<b>[^:]*:</b>\s*(<a href=""https?://store\.steampowered\.com/genre/[^>]*>([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
+        private static readonly Regex RegexGenre1 = new Regex(@"<div id=""genresAndManufacturer"" class=""details_block"">\s*<b>[^:]*:<\/b>.*?<br>\s*<b>[^:]*:<\/b>\s*<span data-panel[^>]+>(.*)<\/span><br>", RegexOptions.Compiled);
+        private static readonly Regex RegexGenre2 = new Regex(@"<a href=""https?:\/\/store\.steampowered\.com\/genre\/[^>]*>([^<]+)<\/a>", RegexOptions.Compiled);
 
         private static readonly Regex RegexIsDLC = new Regex(@"<img class=""category_icon"" src=""https?://store\.akamai\.steamstatic\.com/public/images/v6/ico/ico_dlc\.png"">", RegexOptions.Compiled);
 
@@ -493,18 +494,26 @@ namespace Depressurizer.Core.Models
         private void GetAllDataFromPage(string page)
         {
             // Genres
-            Match m = RegexGenre.Match(page);
+            Match m = RegexGenre1.Match(page);
+            MatchCollection matches = null;
             if (m.Success)
             {
+                matches = RegexGenre2.Matches(m.Value);
                 Genres.Clear();
-                foreach (Capture cap in m.Groups[2].Captures)
+                foreach (Match ma in matches)
                 {
-                    Genres.Add(cap.Value);
+                    string genre = ma.Groups[1].Value;
+                    if (string.IsNullOrWhiteSpace(genre))
+                    {
+                        continue;
+                    }
+
+                    Genres.Add(genre);
                 }
             }
 
             // Flags
-            MatchCollection matches = RegexFlags.Matches(page);
+            matches = RegexFlags.Matches(page);
             if (matches.Count > 0)
             {
                 Flags.Clear();
