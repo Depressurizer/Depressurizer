@@ -635,7 +635,8 @@ namespace Depressurizer.Core.Models
         public int ImportSteamConfig(long steamId, SortedSet<int> ignore, bool includeShortcuts)
         {
             int result = 0;
-            if (Settings.ReadFromLevelDB) {
+            if (Settings.ReadFromLevelDB)
+            {
                 ImportSteamLevelDB(steamId);
             }
             else
@@ -652,8 +653,7 @@ namespace Depressurizer.Core.Models
             return result;
         }
 
-        private void ImportSteamLevelDB(long steamId)
-        {
+        private void ImportSteamLevelDB(long steamId) {
             Logger.Info("Importing from Steam LevelDB: {0}", steamId);
 
             SteamLevelDB levelDB = new SteamLevelDB(Steam.ToSteam3Id(steamId));
