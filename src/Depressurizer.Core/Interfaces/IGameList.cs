@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Depressurizer.Core.Models;
+using System;
+using System.Collections.Generic;
 using System.Xml.XPath;
-using Depressurizer.Core.Models;
 
 namespace Depressurizer.Core.Interfaces
 {
@@ -24,7 +25,7 @@ namespace Depressurizer.Core.Interfaces
 
         #region Public Methods and Operators
 
-        Category AddCategory(string dialogValue);
+        Category AddCategory(string dialogValue, bool forModification = false);
 
         Filter AddFilter(string name);
 
@@ -32,7 +33,7 @@ namespace Depressurizer.Core.Interfaces
 
         void AddGameCategory(int[] appIds, Category category);
 
-        bool CategoryExists(string prefix);
+        bool CategoryExists(string prefix, StringComparison stringComparison = StringComparison.OrdinalIgnoreCase);
 
         void ClearGameCategories(int appId, bool preserveFavorite);
 
