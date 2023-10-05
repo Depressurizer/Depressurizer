@@ -25,7 +25,7 @@ namespace Depressurizer.Core.Interfaces
 
         #region Public Methods and Operators
 
-        Category AddCategory(string dialogValue, bool forModification = false);
+        Category AddCategory(string name, bool forRename = false);
 
         Filter AddFilter(string name);
 
@@ -33,7 +33,7 @@ namespace Depressurizer.Core.Interfaces
 
         void AddGameCategory(int[] appIds, Category category);
 
-        bool CategoryExists(string prefix, StringComparison stringComparison = StringComparison.OrdinalIgnoreCase);
+        bool CategoryExists(string name, StringComparison stringComparison = StringComparison.OrdinalIgnoreCase);
 
         void ClearGameCategories(int appId, bool preserveFavorite);
 
