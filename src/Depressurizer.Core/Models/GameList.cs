@@ -1,6 +1,3 @@
-using Depressurizer.Core.Enums;
-using Depressurizer.Core.Helpers;
-using Depressurizer.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -11,6 +8,9 @@ using System.Linq;
 using System.Net;
 using System.Xml;
 using System.Xml.XPath;
+using Depressurizer.Core.Enums;
+using Depressurizer.Core.Helpers;
+using Depressurizer.Core.Interfaces;
 using static Depressurizer.Core.Models.SteamLevelDB;
 using ValueType = Depressurizer.Core.Enums.ValueType;
 
@@ -635,8 +635,7 @@ namespace Depressurizer.Core.Models
         public int ImportSteamConfig(long steamId, SortedSet<int> ignore, bool includeShortcuts)
         {
             int result = 0;
-            if (Settings.ReadFromLevelDB)
-            {
+            if (Settings.ReadFromLevelDB) {
                 ImportSteamLevelDB(steamId);
             }
             else
@@ -666,7 +665,7 @@ namespace Depressurizer.Core.Models
                 SetGameCategories(game.Id, new List<Category>(), false);
             }
 
-            foreach (var collection in collections)
+            foreach(var collection in collections)
             {
                 foreach (var appId in collection.added)
                 {
@@ -942,13 +941,13 @@ namespace Depressurizer.Core.Models
             }
 
             foreach (GameInfo g in Games.Values)
-                foreach (Category c in g.Categories)
+            foreach (Category c in g.Categories)
+            {
+                if (counts.ContainsKey(c))
                 {
-                    if (counts.ContainsKey(c))
-                    {
-                        counts[c]++;
-                    }
+                    counts[c]++;
                 }
+            }
 
             int removed = 0;
             foreach (KeyValuePair<Category, int> pair in counts)

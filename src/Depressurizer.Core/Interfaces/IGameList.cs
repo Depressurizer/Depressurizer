@@ -1,7 +1,7 @@
-﻿using Depressurizer.Core.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Xml.XPath;
+using Depressurizer.Core.Models;
 
 namespace Depressurizer.Core.Interfaces
 {
