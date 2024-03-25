@@ -109,6 +109,9 @@
     </Compile>
     <Compile Include="AutoCats\AutoCatHoursPlayed.cs" />
     <Compile Include="CommaClusteringStrategy.cs" />
+    <Compile Include="Dialogs\ScrapeDialogHLTB.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialogs\SteamKeyDialog.cs">
       <SubType>Form</SubType>
     </Compile>
