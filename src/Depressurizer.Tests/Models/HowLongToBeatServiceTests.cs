@@ -4,6 +4,7 @@ using System.Threading;
 using Depressurizer.Core.Helpers;
 using FluentAssertions;
 using Xunit;
+using System.Net.Http;
 
 namespace Depressurizer.Tests.Models
 {
@@ -49,8 +50,13 @@ namespace Depressurizer.Tests.Models
             // Arrange
             var service = new HowLongToBeatService();
 
-            // Act & Assert
-            await Assert.ThrowsAsync<ArgumentException>(async () => await service.Detail("123"));
+            // Act
+            var exception = await Record.ExceptionAsync(async () => await service.Detail("123"));
+
+            // Assert
+            Assert.NotNull(exception);
+            Assert.IsType<System.Exception>(exception);
+            Assert.IsType<HttpRequestException>(exception.InnerException);
         }
 
         [Fact]

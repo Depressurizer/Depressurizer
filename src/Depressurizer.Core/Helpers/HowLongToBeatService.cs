@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -10,16 +9,30 @@ using Fastenshtein;
 using Newtonsoft.Json;
 using RandomUserAgent;
 using AngleSharp;
-using AngleSharp.Dom;
+using Depressurizer.Core.Models;
+using Microsoft.Data.Edm.Validation;
+using System.Collections;
 
 namespace Depressurizer.Core.Helpers
 {
+    /// <summary>
+    /// Provides services to interact with the HowLongToBeat website, allowing users to search for games and retrieve detailed information about them.
+    /// </summary>
     public class HowLongToBeatService
     {
         private HltbSearch hltb = new HltbSearch();
 
+        /// <summary>
+        /// Initializes a new instance of the HowLongToBeatService class.
+        /// </summary>
         public HowLongToBeatService() { }
 
+        /// <summary>
+        /// Retrieves detailed information about a specific game by its unique identifier.
+        /// </summary>
+        /// <param name="gameId">The unique identifier for the game.</param>
+        /// <param name="signal">Optional cancellation token to cancel the request.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the detailed information about the game.</returns>
         public async Task<HowLongToBeatEntry> Detail(string gameId, CancellationToken signal = default)
         {
             var detailPage = await hltb.DetailHtml(gameId, signal);
@@ -27,6 +40,12 @@ namespace Depressurizer.Core.Helpers
             return entry;
         }
 
+        /// <summary>
+        /// Searches for games that match the specified query.
+        /// </summary>
+        /// <param name="query">The search query string.</param>
+        /// <param name="signal">Optional cancellation token to cancel the request.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a list of games that match the query.</returns>
         public async Task<List<HowLongToBeatEntry>> Search(string query, CancellationToken signal = default)
         {
             var searchTerms = query.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
@@ -35,22 +54,28 @@ namespace Depressurizer.Core.Helpers
             foreach (var resultEntry in search.data)
             {
                 hltbEntries.Add(new HowLongToBeatEntry(
-                    resultEntry.id.ToString(),
-                    resultEntry.name,
+                    resultEntry.game_id.ToString(),
+                    resultEntry.game_name,
                     "", // no description
-                    resultEntry.platforms != null ? resultEntry.platforms : new string[0],
-                    HltbSearch.IMAGE_URL + resultEntry.imageUrl,
+                    string.IsNullOrEmpty(resultEntry.profile_platform) ? new string[0] : resultEntry.profile_platform.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries),
+                    $"{HltbSearch.IMAGE_URL}{resultEntry.game_image}",
                     new List<string[]> { new string[] { "Main", "Main" }, new string[] { "Main + Extra", "Main + Extra" }, new string[] { "Completionist", "Completionist" } },
-                    (int)Math.Round(resultEntry.gameplayMain / 3600.0),
-                    (int)Math.Round(resultEntry.gameplayMainExtra / 3600.0),
-                    (int)Math.Round(resultEntry.gameplayCompletionist / 3600.0),
-                    CalcDistancePercentage(resultEntry.name, query),
+                    (int)Math.Round(resultEntry.comp_main / 3600.0),
+                    (int)Math.Round(resultEntry.comp_plus / 3600.0),
+                    (int)Math.Round(resultEntry.comp_100 / 3600.0),
+                    CalcDistancePercentage(resultEntry.game_name, query),
                     query
                 ));
             }
             return hltbEntries;
         }
 
+        /// <summary>
+        /// Calculates the similarity percentage between two strings based on the Levenshtein distance.
+        /// </summary>
+        /// <param name="text">The first string to compare.</param>
+        /// <param name="term">The second string to compare.</param>
+        /// <returns>The similarity percentage between the two strings.</returns>
         public static double CalcDistancePercentage(string text, string term)
         {
             var longer = text.ToLower().Trim();
@@ -69,21 +94,88 @@ namespace Depressurizer.Core.Helpers
         }
     }
 
+    /// <summary>
+    /// Represents an entry from the HowLongToBeat website, containing information about a game.
+    /// </summary>
     public class HowLongToBeatEntry
     {
+        #region Public Properties
+        /// <summary>
+        /// Gets an array of platform names on which the game can be played. This property provides backward compatibility for platforms information.
+        /// </summary>
         public readonly string[] PlayableOn;
+        /// <summary>
+        /// Gets the unique identifier for the game.
+        /// </summary>
         public readonly string Id;
+
+        /// <summary>
+        /// Gets the name of the game.
+        /// </summary>
         public readonly string Name;
+
+        /// <summary>
+        /// Gets a description of the game. This may include a brief overview or storyline of the game.
+        /// </summary>
         public readonly string Description;
+
+        /// <summary>
+        /// Gets an array of platforms on which the game is available. Each string in the array represents a different gaming platform.
+        /// </summary>
         public readonly string[] Platforms;
+
+        /// <summary>
+        /// Gets the URL of the game's image. This URL points to the cover art or a primary promotional image of the game.
+        /// </summary>
         public readonly string ImageUrl;
+
+        /// <summary>
+        /// Gets a list of string arrays where each array represents a time label and its corresponding gameplay time category. Each array includes two strings: the category identifier and the label text.
+        /// </summary>
         public readonly List<string[]> TimeLabels;
+
+        /// <summary>
+        /// Gets the main gameplay duration in hours. This represents the average time it takes to complete the main objectives of the game.
+        /// </summary>
         public readonly int GameplayMain;
+
+        /// <summary>
+        /// Gets the gameplay duration in hours for completing main objectives along with extra content or side missions. This represents a more thorough playthrough than the main gameplay.
+        /// </summary>
         public readonly int GameplayMainExtra;
+
+        /// <summary>
+        /// Gets the completionist gameplay duration in hours. This time represents how long it takes to complete the game to its fullest extent, including all side missions, collectibles, and achievements.
+        /// </summary>
         public readonly int GameplayCompletionist;
+
+        /// <summary>
+        /// Gets the similarity score between the search term used to find the game and the game's name. This score is a measure of how closely the game matches the search criteria.
+        /// </summary>
         public readonly double Similarity;
+
+        /// <summary>
+        /// Gets the search term that was used to find this game. This reflects the user's original query.
+        /// </summary>
         public readonly string SearchTerm;
 
+        #endregion
+
+        #region Public Methods
+        /// <summary>
+        /// Initializes a new instance of the HowLongToBeatEntry class with specified details about a game.
+        /// </summary>
+        /// <param name="id">The unique identifier of the game.</param>
+        /// <param name="name">The name of the game.</param>
+        /// <param name="description">A description of the game.</param>
+        /// <param name="platforms">The platforms the game is available on.</param>
+        /// <param name="imageUrl">The URL of the game's image.</param>
+        /// <param name="timeLabels">Labels for different gameplay time categories.</param>
+        /// <param name="gameplayMain">The main gameplay duration in hours.</param>
+        /// <param name="gameplayMainExtra">The gameplay duration with extras in hours.</param>
+        /// <param name="gameplayCompletionist">The completionist gameplay duration in hours.</param>
+        /// <param name="similarity">The similarity score of the search term to the game name.</param>
+        /// <param name="searchTerm">The search term used to find this game.</param>
         public HowLongToBeatEntry(string id, string name, string description, string[] platforms, string imageUrl, List<string[]> timeLabels, int gameplayMain, int gameplayMainExtra, int gameplayCompletionist, double similarity, string searchTerm)
         {
             Id = id;
@@ -99,10 +191,21 @@ namespace Depressurizer.Core.Helpers
             SearchTerm = searchTerm;
             PlayableOn = platforms; // Backward compatibility
         }
+
+        #endregion
     }
 
+    /// <summary>
+    /// Parses HTML content from the HowLongToBeat website to extract detailed information about games.
+    /// </summary>
     public class HowLongToBeatParser
     {
+        /// <summary>
+        /// Parses the HTML content of a game's detail page to extract game information.
+        /// </summary>
+        /// <param name="html">The HTML content of the detail page.</param>
+        /// <param name="id">The unique identifier of the game.</param>
+        /// <returns>An instance of HowLongToBeatEntry containing the parsed game details.</returns>
         public static HowLongToBeatEntry ParseDetails(string html, string id)
         {
             var config = Configuration.Default;
@@ -190,21 +293,52 @@ namespace Depressurizer.Core.Helpers
         }
     }
 
-
+    /// <summary>
+    /// Handles HTTP requests to the HowLongToBeat website for searching games and retrieving game details.
+    /// </summary>
     public class HltbSearch
     {
+
+        #region Public Properties
+        /// <summary>
+        /// Gets the base URL for the HowLongToBeat website. This URL is the starting point for accessing various resources on the site.
+        /// </summary>
         public static string BASE_URL = "https://howlongtobeat.com/";
+
+        /// <summary>
+        /// Gets the URL template for accessing the detail page of a specific game on the HowLongToBeat website. The game's unique identifier should be appended to this URL.
+        /// </summary>
         public static string DETAIL_URL = $"{BASE_URL}game?id=";
+
+        /// <summary>
+        /// Gets the URL for the search API on the HowLongToBeat website. This URL is used to query the site's database for games that match specific search criteria.
+        /// </summary>
         public static string SEARCH_URL = $"{BASE_URL}api/search";
+
+        /// <summary>
+        /// Gets the base URL for accessing images of games on the HowLongToBeat website. This URL is used as a prefix for the relative paths to game images.
+        /// </summary>
         public static string IMAGE_URL = $"{BASE_URL}games/";
+
+        #endregion
 
         private HttpClient httpClient;
 
+        #region Public Methods
+        /// <summary>
+        /// Initializes a new instance of the HltbSearch class.
+        /// </summary>
         public HltbSearch()
         {
             httpClient = new HttpClient();
         }
 
+        /// <summary>
+        /// Fetches the HTML content of a game's detail page by its unique identifier.
+        /// </summary>
+        /// <param name="gameId">The unique identifier of the game.</param>
+        /// <param name="cancellationToken">Optional cancellation token to cancel the request.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the HTML content of the game's detail page.</returns>
         public async Task<string> DetailHtml(string gameId, CancellationToken? cancellationToken = null)
         {
             try
@@ -229,30 +363,33 @@ namespace Depressurizer.Core.Helpers
             }
         }
 
+        /// <summary>
+        /// Performs a search query on the HowLongToBeat website and returns the search results.
+        /// </summary>
         public async Task<SearchResponse> Search(List<string> query, CancellationToken? cancellationToken = null)
         {
-            var payload = new SearchPayload
+            var payload = new HLTBSearchPayload
             {
-                searchType = "games",
-                searchTerms = query,
-                searchPage = 1,
-                size = 20,
-                searchOptions = new SearchOptions
+                SearchType = "games",
+                SearchTerms = query,
+                SearchPage = 1,
+                Size = 20,
+                SearchOptions = new HLTBSearchPayload.SearchOptionsProperty
                 {
-                    games = new GamesOptions
+                    Games = new HLTBSearchPayload.GamesOptions
                     {
-                        userId = 0,
-                        platform = "",
-                        sortCategory = "popular",
-                        rangeCategory = "main",
-                        rangeTime = new RangeTime { min = 0, max = 0 },
-                        gameplay = new GameplayOptions { perspective = "", flow = "", genre = "" },
-                        modifier = ""
+                        UserId = 0,
+                        Platform = "",
+                        SortCategory = "popular",
+                        RangeCategory = "main",
+                        RangeTime = new HLTBSearchPayload.RangeTime { Min = 0, Max = 0 },
+                        Gameplay = new HLTBSearchPayload.GameplayOptions { Perspective = "", Flow = "", Genre = "" },
+                        Modifier = ""
                     },
-                    users = new UsersOptions { sortCategory = "postcount" },
-                    filter = "",
-                    sort = 0,
-                    randomizer = 0
+                    Users = new HLTBSearchPayload.UsersOptions { SortCategory = "postcount" },
+                    Filter = "",
+                    Sort = 0,
+                    Randomizer = 0
                 }
             };
 
@@ -271,240 +408,208 @@ namespace Depressurizer.Core.Helpers
 
                 response.EnsureSuccessStatusCode();
                 var jsonString = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<SearchResponse>(jsonString);
+                var obj = JsonConvert.DeserializeObject<SearchResponse>(jsonString);
+                return obj;
             }
             catch (HttpRequestException ex)
             {
                 throw new Exception("Failed to perform search.", ex);
             }
         }
+
+        #endregion
     }
 
+    /// <summary>
+    /// Represents the response received from a search query to the HowLongToBeat website. Contains an array of <see cref="HLTBSearchEntry"/> objects, each representing a game that matches the search criteria.
+    /// </summary>
     public class SearchResponse
     {
-        public SearchEntry[] data { get; set; } 
-    }
+        /// <summary>
+        /// Gets or sets an array of <see cref="HLTBSearchEntry"/> objects, each representing a game that matches the search criteria. This array contains the data returned by the HowLongToBeat search API.
+        /// </summary>
+        public HLTBSearchResponseEntry[] data { get; set; }
 
-    public class SearchEntry
-    {
-        public string id { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public string[] platforms { get; set; }
-        public string imageUrl { get; set; }
-        public string[][] timeLabels { get; set; }
-        public int gameplayMain { get; set; }
-        public int gameplayMainExtra { get; set; }
-        public int gameplayCompletionist { get; set; }
-        public double similarity { get; set; }
-        public string searchTerm { get; set; }
-        public string[] playableOn { get; set; }
-    }
+        /// <summary>
+        /// Gets or sets a <see cref="HLTBSearchEntry"/> object, representing a game that matches the search criteria
+        /// </summary>
+        public sealed class HLTBSearchResponseEntry
+        {
+            /// <summary>
+            /// Gets or sets the unique identifier for the game.
+            /// </summary>
+            public int game_id { get; set; }
 
-    public class SearchPayload
-    {
-        public string searchType { get; set; }
-        public List<string> searchTerms { get; set; }
-        public int searchPage { get; set; }
-        public int size { get; set; }
-        public SearchOptions searchOptions { get; set; }
-    }
+            /// <summary>
+            /// Gets or sets the name of the game.
+            /// </summary>
+            public string game_name { get; set; }
 
-    public class SearchOptions
-    {
-        public GamesOptions games { get; set; }
-        public UsersOptions users { get; set; }
-        public string filter { get; set; }
-        public int sort { get; set; }
-        public int randomizer { get; set; }
-    }
+            /// <summary>
+            /// Gets or sets the date associated with the game name. This is likely to be used for versioning or release years.
+            /// </summary>
+            public int game_name_date { get; set; }
 
-    public class GamesOptions
-    {
-        public int userId { get; set; }
-        public string platform { get; set; }
-        public string sortCategory { get; set; }
-        public string rangeCategory { get; set; }
-        public RangeTime rangeTime { get; set; }
-        public GameplayOptions gameplay { get; set; }
-        public string modifier { get; set; }
-    }
+            /// <summary>
+            /// Gets or sets the alias or alternative name for the game.
+            /// </summary>
+            public string game_alias { get; set; }
 
-    public class UsersOptions
-    {
-        public string sortCategory { get; set; }
-    }
+            /// <summary>
+            /// Gets or sets the type of the game (e.g., game, DLC).
+            /// </summary>
+            public string game_type { get; set; }
 
-    public class RangeTime
-    {
-        public int min { get; set; }
-        public int max { get; set; }
-    }
+            /// <summary>
+            /// Gets or sets the file name or path of the game's cover image.
+            /// </summary>
+            public string game_image { get; set; }
 
-    public class GameplayOptions
-    {
-        public string perspective { get; set; }
-        public string flow { get; set; }
-        public string genre { get; set; }
+            /// <summary>
+            /// Gets or sets the combined completion level for the game.
+            /// </summary>
+            public int comp_lvl_combine { get; set; }
+
+            /// <summary>
+            /// Gets or sets the completion level for single-player mode.
+            /// </summary>
+            public int comp_lvl_sp { get; set; }
+
+            /// <summary>
+            /// Gets or sets the completion level for co-op mode.
+            /// </summary>
+            public int comp_lvl_co { get; set; }
+
+            /// <summary>
+            /// Gets or sets the completion level for multiplayer mode.
+            /// </summary>
+            public int comp_lvl_mp { get; set; }
+
+            /// <summary>
+            /// Gets or sets the completion level for speedrun mode.
+            /// </summary>
+            public int comp_lvl_spd { get; set; }
+
+            /// <summary>
+            /// Gets or sets the average completion time for the main content.
+            /// </summary>
+            public int comp_main { get; set; }
+
+            /// <summary>
+            /// Gets or sets the average completion time including main content plus extras.
+            /// </summary>
+            public int comp_plus { get; set; }
+
+            /// <summary>
+            /// Gets or sets the average completion time for 100% completion.
+            /// </summary>
+            public int comp_100 { get; set; }
+
+            /// <summary>
+            /// Gets or sets the average completion time for all available content.
+            /// </summary>
+            public int comp_all { get; set; }
+
+            /// <summary>
+            /// Gets or sets the count of users who completed the main content.
+            /// </summary>
+            public int comp_main_count { get; set; }
+
+            /// <summary>
+            /// Gets or sets the count of users who completed the main content plus extras.
+            /// </summary>
+            public int comp_plus_count { get; set; }
+
+            /// <summary>
+            /// Gets or sets the count of users who achieved 100% completion.
+            /// </summary>
+            public int comp_100_count { get; set; }
+
+            /// <summary>
+            /// Gets or sets the count of users who completed all available content.
+            /// </summary>
+            public int comp_all_count { get; set; }
+
+            /// <summary>
+            /// Gets or sets the time invested in co-op mode.
+            /// </summary>
+            public int invested_co { get; set; }
+
+            /// <summary>
+            /// Gets or sets the time invested in multiplayer mode.
+            /// </summary>
+            public int invested_mp { get; set; }
+
+            /// <summary>
+            /// Gets or sets the count of users who invested time in co-op mode.
+            /// </summary>
+            public int invested_co_count { get; set; }
+
+            /// <summary>
+            /// Gets or sets the count of users who invested time in multiplayer mode.
+            /// </summary>
+            public int invested_mp_count { get; set; }
+
+            /// <summary>
+            /// Gets or sets the total count of completions.
+            /// </summary>
+            public int count_comp { get; set; }
+
+            /// <summary>
+            /// Gets or sets the count of speedrun attempts.
+            /// </summary>
+            public int count_speedrun { get; set; }
+
+            /// <summary>
+            /// Gets or sets the count of users who have added the game to their backlog.
+            /// </summary>
+            public int count_backlog { get; set; }
+
+            /// <summary>
+            /// Gets or sets the count of reviews for the game.
+            /// </summary>
+            public int count_review { get; set; }
+
+            /// <summary>
+            /// Gets or sets the average review score for the game.
+            /// </summary>
+            public int review_score { get; set; }
+
+            /// <summary>
+            /// Gets or sets the count of users currently playing the game.
+            /// </summary>
+            public int count_playing { get; set; }
+
+            /// <summary>
+            /// Gets or sets the count of users who have retired from playing the game.
+            /// </summary>
+            public int count_retired { get; set; }
+
+            /// <summary>
+            /// Gets or sets the developer of the game.
+            /// </summary>
+            public string profile_dev { get; set; }
+
+            /// <summary>
+            /// Gets or sets the popularity rank of the game on the HowLongToBeat website.
+            /// </summary>
+            public int profile_popular { get; set; }
+
+            /// <summary>
+            /// Gets or sets the game's Steam ID, if available.
+            /// </summary>
+            public int profile_steam { get; set; }
+
+            /// <summary>
+            /// Gets or sets the platforms the game is available on.
+            /// </summary>
+            public string profile_platform { get; set; }
+
+            /// <summary>
+            /// Gets or sets the worldwide release year of the game.
+            /// </summary>
+            public int release_world { get; set; }
+
+        }
     }
 }
-
-
-
-/* [
-  HowLongToBeatEntry {
-    id: '36936',
-    name: 'Nioh',
-    description: '',
-    platforms: [ 'PC', 'PlayStation 4' ],
-    imageUrl: 'https://howlongtobeat.com/games/36936_Nioh.jpg',
-    timeLabels: [ [Array], [Array], [Array] ],
-    gameplayMain: 35,
-    gameplayMainExtra: 64,
-    gameplayCompletionist: 97,
-    similarity: 1,
-    searchTerm: 'Nioh',
-    playableOn: [ 'PC', 'PlayStation 4' ]
-  },
-  HowLongToBeatEntry {
-    id: '85713',
-    name: 'Nioh 2: Complete Edition',
-    description: '',
-    platforms: [ 'PC', 'PlayStation 4', 'PlayStation 5' ],
-    imageUrl: 'https://howlongtobeat.com/games/85713_Nioh_2_Complete_Edition.jpg',
-    timeLabels: [ [Array], [Array], [Array] ],
-    gameplayMain: 43,
-    gameplayMainExtra: 87,
-    gameplayCompletionist: 130,
-    similarity: 0.17,
-    searchTerm: 'Nioh',
-    playableOn: [ 'PC', 'PlayStation 4', 'PlayStation 5' ]
-  },
-  HowLongToBeatEntry {
-    id: '50419',
-    name: 'Nioh: Complete Edition',
-    description: '',
-    platforms: [ 'PC', 'PlayStation 4', 'PlayStation 5' ],
-    imageUrl: 'https://howlongtobeat.com/games/50419_Nioh_Complete_Edition.jpg',
-    timeLabels: [ [Array], [Array], [Array] ],
-    gameplayMain: 42,
-    gameplayMainExtra: 74,
-    gameplayCompletionist: 143,
-    similarity: 0.18,
-    searchTerm: 'Nioh',
-    playableOn: [ 'PC', 'PlayStation 4', 'PlayStation 5' ]
-  },
-  HowLongToBeatEntry {
-    id: '60877',
-    name: 'Nioh 2',
-    description: '',
-    platforms: [ 'PC', 'PlayStation 4' ],
-    imageUrl: 'https://howlongtobeat.com/games/60877_Nioh_2.jpg',
-    timeLabels: [ [Array], [Array], [Array] ],
-    gameplayMain: 45,
-    gameplayMainExtra: 73,
-    gameplayCompletionist: 106,
-    similarity: 0.67,
-    searchTerm: 'Nioh',
-    playableOn: [ 'PC', 'PlayStation 4' ]
-  },
-  HowLongToBeatEntry {
-    id: '84043',
-    name: 'Nioh 2 - Darkness in the Capital',
-    description: '',
-    platforms: [ 'PC', 'PlayStation 4', 'PlayStation 5' ],
-    imageUrl: 'https://howlongtobeat.com/games/84043_Nioh_2_-_Darkness_in_the_Capital.jpg',
-    timeLabels: [ [Array], [Array], [Array] ],
-    gameplayMain: 5,
-    gameplayMainExtra: 11,
-    gameplayCompletionist: 12,
-    similarity: 0.13,
-    searchTerm: 'Nioh',
-    playableOn: [ 'PC', 'PlayStation 4', 'PlayStation 5' ]
-  },
-  HowLongToBeatEntry {
-    id: '81537',
-    name: "Nioh 2 - The Tengu's Disciple",
-    description: '',
-    platforms: [ 'PC', 'PlayStation 4', 'PlayStation 5' ],
-    imageUrl: 'https://howlongtobeat.com/games/81537_Nioh_2_-_The_Tengus_Disciple.jpg',
-    timeLabels: [ [Array], [Array], [Array] ],
-    gameplayMain: 4,
-    gameplayMainExtra: 10,
-    gameplayCompletionist: 11,
-    similarity: 0.14,
-    searchTerm: 'Nioh',
-    playableOn: [ 'PC', 'PlayStation 4', 'PlayStation 5' ]
-  },
-  HowLongToBeatEntry {
-    id: '85711',
-    name: 'Nioh 2 - The First Samurai',
-    description: '',
-    platforms: [ 'PC', 'PlayStation 4', 'PlayStation 5' ],
-    imageUrl: 'https://howlongtobeat.com/games/85711_Nioh_2_-_The_First_Samurai.jpg',
-    timeLabels: [ [Array], [Array], [Array] ],
-    gameplayMain: 4,
-    gameplayMainExtra: 9,
-    gameplayCompletionist: 21,
-    similarity: 0.15,
-    searchTerm: 'Nioh',
-    playableOn: [ 'PC', 'PlayStation 4', 'PlayStation 5' ]
-  },
-  HowLongToBeatEntry {
-    id: '50087',
-    name: "Nioh - Bloodshed's End DLC",
-    description: '',
-    platforms: [ 'PC', 'PlayStation 4' ],
-    imageUrl: 'https://howlongtobeat.com/games/50087_Nioh_-_Bloodsheds_End_DLC.jpg',
-    timeLabels: [ [Array], [Array], [Array] ],
-    gameplayMain: 6,
-    gameplayMainExtra: 10,
-    gameplayCompletionist: 16,
-    similarity: 0.15,
-    searchTerm: 'Nioh',
-    playableOn: [ 'PC', 'PlayStation 4' ]
-  },
-  HowLongToBeatEntry {
-    id: '47796',
-    name: 'Nioh - Defiant Honor DLC',
-    description: '',
-    platforms: [ 'PC', 'PlayStation 4' ],
-    imageUrl: 'https://howlongtobeat.com/games/47796_Nioh_-_Defiant_Honor_DLC.jpg',
-    timeLabels: [ [Array], [Array], [Array] ],
-    gameplayMain: 5,
-    gameplayMainExtra: 9,
-    gameplayCompletionist: 15,
-    similarity: 0.17,
-    searchTerm: 'Nioh',
-    playableOn: [ 'PC', 'PlayStation 4' ]
-  },
-  HowLongToBeatEntry {
-    id: '46360',
-    name: 'Nioh - Dragon of the North DLC',
-    description: '',
-    platforms: [ 'PC', 'PlayStation 4' ],
-    imageUrl: 'https://howlongtobeat.com/games/46360_Nioh_-_Dragon_of_the_north_DLC.jpg',
-    timeLabels: [ [Array], [Array], [Array] ],
-    gameplayMain: 7,
-    gameplayMainExtra: 10,
-    gameplayCompletionist: 12,
-    similarity: 0.13,
-    searchTerm: 'Nioh',
-    playableOn: [ 'PC', 'PlayStation 4' ]
-  },
-  HowLongToBeatEntry {
-    id: '94652',
-    name: 'Nioh Collection',
-    description: '',
-    platforms: [ 'PlayStation 5' ],
-    imageUrl: 'https://howlongtobeat.com/games/94652_Nioh_Collection.jpg',
-    timeLabels: [ [Array], [Array], [Array] ],
-    gameplayMain: 0,
-    gameplayMainExtra: 160,
-    gameplayCompletionist: 0,
-    similarity: 0.27,
-    searchTerm: 'Nioh',
-    playableOn: [ 'PlayStation 5' ]
-  }
-]
-*/
