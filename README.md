@@ -6,9 +6,19 @@
 [![GitHub license](https://img.shields.io/github/license/Depressurizer/Depressurizer.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/blob/dev/LICENSE)
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/Depressurizer/Depressurizer/.NET%20Core%20Desktop/master?style=flat-square)
 
+
 <sup>This is a continuation of [rallion](https://github.com/rallion)'s [Depressurizer](https://github.com/rallion/depressurizer).</sup>
 
 # Summary
+
+
+This is an unofficial 5.4 Realease of Depressurizer Created by mvegter
+
+With some Pull request merged :
+
+Depressurizer#249 : by LearnTheNext
+Depressurizer#264 : by kswilliames
+
 
 <img src="http://i.imgur.com/2K70Jog.jpg" width="50%" height="auto"  align="right" >
 
