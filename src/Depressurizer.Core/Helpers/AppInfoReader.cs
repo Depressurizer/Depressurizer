@@ -18,8 +18,11 @@ namespace Depressurizer.Core.Helpers
 
         private static FileStream _fileStream;
 
-        private const uint Magic27 = 0x07_56_44_27;
-        private const uint Magic28 = 0x07_56_44_28;
+        private const ulong Magic27 = 0x01_07_56_44_27;
+        private const ulong Magic28 = 0x01_07_56_44_28;
+        private const ulong Magic29 = 0x01_07_56_44_29;
+
+        private static List<string> _stringPool;
 
         #endregion
 
@@ -37,14 +40,25 @@ namespace Depressurizer.Core.Helpers
                 _binaryReader = new BinaryReader(_fileStream);
 
                 // Read some header fields
-                var magic = _binaryReader.ReadUInt32();
-                if (magic != Magic27 && magic != Magic28)
+                var magic = _binaryReader.ReadUInt64();
+                if (magic != Magic27 && magic != Magic28 && magic != Magic29)
                 {
                     throw new InvalidDataException("Invalid VDF format");
                 }
 
-                // Skip more header fields
-                _binaryReader.ReadUInt32();
+                if (magic == Magic29)
+                {
+                    _stringPool = new List<string>();
+                    var stringOffset = _binaryReader.ReadUInt64();
+                    var prevOffset = _binaryReader.BaseStream.Position;
+                    _binaryReader.BaseStream.Position = (long) stringOffset;
+                    var stringCount = _binaryReader.ReadUInt32();
+                    for (int i = 0; i < stringCount; i++)
+                    {
+                        _stringPool.Add(ReadString());
+                    }
+                    _binaryReader.BaseStream.Position = prevOffset;
+                }
 
                 while (true)
                 {
@@ -63,14 +77,14 @@ namespace Depressurizer.Core.Helpers
                     // 20bytes - SHA1 of text appinfo vdf
                     // uint32 - changeNumber
                     _binaryReader.ReadBytes(44);
-                    if (magic == Magic28)
+                    if (magic == Magic28 || magic == Magic29)
                     {
                         // 20bytes - SHA1 of binary_vdf
                         _binaryReader.ReadBytes(20);
                     }
 
                     // Load details
-                    Items[id] = ReadEntries();
+                    Items[id] = ReadEntries(magic);
                 }
             }
             catch (Exception e)
@@ -103,7 +117,7 @@ namespace Depressurizer.Core.Helpers
 
         #region Methods
 
-        private static AppInfoNode ReadEntries()
+        private static AppInfoNode ReadEntries(ulong version)
         {
             AppInfoNode result = new AppInfoNode();
 
@@ -115,12 +129,12 @@ namespace Depressurizer.Core.Helpers
                     break;
                 }
 
-                string key = ReadString();
+                string key = version == Magic29 ? ReadString29() : ReadString();
 
                 switch (type)
                 {
                     case 0x00:
-                        result[key] = ReadEntries();
+                        result[key] = ReadEntries(version);
 
                         break;
                     case 0x01:
@@ -168,6 +182,12 @@ namespace Depressurizer.Core.Helpers
             }
 
             return Encoding.UTF8.GetString(bytes.ToArray());
+        }
+
+        private static string ReadString29()
+        {
+            uint index = _binaryReader.ReadUInt32();
+            return _stringPool[(int) index];
         }
 
         #endregion
