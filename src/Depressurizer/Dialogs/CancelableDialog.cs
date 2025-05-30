@@ -4,6 +4,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Properties;
+using System.ComponentModel;
 
 namespace Depressurizer.Dialogs
 {
@@ -45,10 +46,13 @@ namespace Depressurizer.Dialogs
 
         #region Public Properties
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Exception Error { get; protected set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int JobsCompleted { get; protected set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public sealed override string Text
         {
             get => base.Text;
@@ -57,6 +61,7 @@ namespace Depressurizer.Dialogs
 
         public ICollection<Thread> Threads { get; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int TotalJobs { get; protected set; }
 
         #endregion

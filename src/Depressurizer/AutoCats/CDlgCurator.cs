@@ -48,7 +48,7 @@ namespace Depressurizer.AutoCats
         {
             string json;
 
-            using (WebClient wc = new WebClient())
+            using (WebClient wc = new())
             {
                 wc.Encoding = Encoding.UTF8;
                 json = wc.DownloadString(string.Format(CultureInfo.InvariantCulture, Constants.SteamCuratorRecommendations, curatorId, 0));
@@ -63,7 +63,7 @@ namespace Depressurizer.AutoCats
                 for (int currentPosition = 50; currentPosition < TotalCount; currentPosition += 50)
                 {
                     SetText(GlobalStrings.CDlgCurator_GettingRecommendations + " " + string.Format(CultureInfo.CurrentCulture, GlobalStrings.CDlg_Progress, currentPosition, TotalCount));
-                    using (WebClient wc = new WebClient())
+                    using (WebClient wc = new())
                     {
                         wc.Encoding = Encoding.UTF8;
                         json = wc.DownloadString(string.Format(CultureInfo.InvariantCulture, Constants.SteamCuratorRecommendations, curatorId, currentPosition));

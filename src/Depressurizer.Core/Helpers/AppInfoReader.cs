@@ -1,29 +1,38 @@
-﻿using System;
+﻿using Depressurizer.Core.Models;
+using Sentry.Protocol;
+using System;
+using System.Buffers;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
-using Depressurizer.Core.Models;
+using ValveKeyValue;
 
 namespace Depressurizer.Core.Helpers
 {
+    public enum EUniverse
+    {
+        Invalid = 0,
+        Public = 1,
+        Beta = 2,
+        Internal = 3,
+        Dev = 4,
+        Max = 5,
+    }
+
     /// <summary>
     ///     Steam AppInfo.vdf Reader
     /// </summary>
     public class AppInfoReader
     {
-        #region Static Fields
-
-        private static BinaryReader _binaryReader;
-
-        private static FileStream _fileStream;
-
-        private const uint Magic27 = 0x07_56_44_27;
+        private const uint Magic29 = 0x07_56_44_29;
         private const uint Magic28 = 0x07_56_44_28;
+        private const uint Magic27 = 0x07_56_44_27;
 
-        #endregion
-
-        #region Constructors and Destructors
+        public EUniverse Universe { get; set; }
+        public Dictionary<uint, AppInfoNode> Items { get; } = new Dictionary<uint, AppInfoNode>();
 
         /// <summary>
         ///     Steam AppInfo.vdf Reader
@@ -33,44 +42,71 @@ namespace Depressurizer.Core.Helpers
         {
             try
             {
-                _fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
-                _binaryReader = new BinaryReader(_fileStream);
+                var _fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                var reader = new BinaryReader(_fileStream);
 
                 // Read some header fields
-                var magic = _binaryReader.ReadUInt32();
-                if (magic != Magic27 && magic != Magic28)
+                var magic = reader.ReadUInt32();
+                if (magic != Magic27 && magic != Magic28 && magic != Magic29)
                 {
                     throw new InvalidDataException("Invalid VDF format");
                 }
 
-                // Skip more header fields
-                _binaryReader.ReadUInt32();
+                Universe = (EUniverse)reader.ReadUInt32();
+
+                var options = new KVSerializerOptions();
+
+                if (magic == Magic29)
+                {
+                    var stringTableOffset = reader.ReadInt64();
+                    var offset = reader.BaseStream.Position;
+                    reader.BaseStream.Position = stringTableOffset;
+                    var stringCount = reader.ReadUInt32();
+                    var stringPool = new string[stringCount];
+
+                    for (var i = 0; i < stringCount; i++)
+                    {
+                        stringPool[i] = ReadNullTermUtf8String(reader.BaseStream);
+                    }
+
+                    reader.BaseStream.Position = offset;
+
+                    options.StringTable = new(stringPool);
+                }
+
+                var deserializer = KVSerializer.Create(KVSerializationFormat.KeyValues1Binary);
 
                 while (true)
                 {
-                    // uint32 - AppID
-                    uint id = _binaryReader.ReadUInt32();
-                    if (id == 0)
+                    var appid = reader.ReadUInt32();
+
+                    if (appid == 0)
                     {
                         break;
                     }
 
-                    // Skip unused fields
-                    // uint32 - size
-                    // uint32 - infoState
-                    // uint32 - lastUpdated
-                    // uint64 - picsToken
-                    // 20bytes - SHA1 of text appinfo vdf
-                    // uint32 - changeNumber
-                    _binaryReader.ReadBytes(44);
-                    if (magic == Magic28)
+                    var size = reader.ReadUInt32(); // size until end of Data
+                    var end = reader.BaseStream.Position + size;
+
+                    var infoState = reader.ReadUInt32();
+                    var lastUpdated = DateTimeFromUnixTime(reader.ReadUInt32());
+                    var token = reader.ReadUInt64();
+                    var hash = new ReadOnlyCollection<byte>(reader.ReadBytes(20));
+                    var changeNumber = reader.ReadUInt32();
+
+                    if (magic == Magic28 || magic == Magic29)
                     {
-                        // 20bytes - SHA1 of binary_vdf
-                        _binaryReader.ReadBytes(20);
+                        var binaryDataHash = new ReadOnlyCollection<byte>(reader.ReadBytes(20));
                     }
 
-                    // Load details
-                    Items[id] = ReadEntries();
+                    var data = deserializer.Deserialize(_fileStream, options);
+
+                    if (reader.BaseStream.Position != end)
+                    {
+                        throw new InvalidDataException();
+                    }
+
+                    Items[appid] = ReadEntries(data);
                 }
             }
             catch (Exception e)
@@ -79,97 +115,63 @@ namespace Depressurizer.Core.Helpers
 
                 throw;
             }
+        }
+
+        private static string ReadNullTermUtf8String(Stream stream)
+        {
+            var buffer = ArrayPool<byte>.Shared.Rent(32);
+
+            try
+            {
+                var position = 0;
+
+                do
+                {
+                    var b = stream.ReadByte();
+
+                    if (b <= 0) // null byte or stream ended
+                    {
+                        break;
+                    }
+
+                    if (position >= buffer.Length)
+                    {
+                        var newBuffer = ArrayPool<byte>.Shared.Rent(buffer.Length * 2);
+                        Buffer.BlockCopy(buffer, 0, newBuffer, 0, buffer.Length);
+                        ArrayPool<byte>.Shared.Return(buffer);
+                        buffer = newBuffer;
+                    }
+
+                    buffer[position++] = (byte)b;
+                }
+                while (true);
+
+                return Encoding.UTF8.GetString(buffer[..position]);
+            }
             finally
             {
-                if (_fileStream != null)
-                {
-                    _fileStream.Dispose();
-                }
-
-                if (_binaryReader != null)
-                {
-                    _binaryReader.Dispose();
-                }
+                ArrayPool<byte>.Shared.Return(buffer);
             }
         }
 
-        #endregion
+        private static DateTime DateTimeFromUnixTime(uint unixTime)
+        {
+            return new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTime);
+        }
 
-        #region Public Properties
-
-        public Dictionary<uint, AppInfoNode> Items { get; } = new Dictionary<uint, AppInfoNode>();
-
-        #endregion
-
-        #region Methods
-
-        private static AppInfoNode ReadEntries()
+        private static AppInfoNode ReadEntries(IEnumerable<KVObject> data)
         {
             AppInfoNode result = new AppInfoNode();
 
-            while (true)
+            foreach (var item in data)
             {
-                byte type = _binaryReader.ReadByte();
-                if (type == 0x08)
-                {
-                    break;
-                }
-
-                string key = ReadString();
-
-                switch (type)
-                {
-                    case 0x00:
-                        result[key] = ReadEntries();
-
-                        break;
-                    case 0x01:
-                        result[key] = new AppInfoNode(ReadString());
-
-                        break;
-                    case 0x02:
-                        result[key] = new AppInfoNode(_binaryReader.ReadUInt32().ToString(CultureInfo.InvariantCulture));
-
-                        break;
-                    default:
-
-                        throw new ArgumentOutOfRangeException(string.Format(CultureInfo.InvariantCulture, "Unknown entry type '{0}'", type));
-                }
+                if (item.Children.Any())
+                    result[item.Name] = ReadEntries(item.Children);
+                else
+                    result[item.Name] = new AppInfoNode(item.Value.ToString());
             }
 
             return result;
         }
-
-        private static string ReadString()
-        {
-            List<byte> bytes = new List<byte>();
-
-            try
-            {
-                bool stringDone = false;
-                do
-                {
-                    byte b = _binaryReader.ReadByte();
-                    if (b == 0)
-                    {
-                        stringDone = true;
-                    }
-                    else
-                    {
-                        bytes.Add(b);
-                    }
-                } while (!stringDone);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-
-                throw;
-            }
-
-            return Encoding.UTF8.GetString(bytes.ToArray());
-        }
-
-        #endregion
     }
 }

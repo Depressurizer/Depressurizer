@@ -112,6 +112,7 @@ namespace Depressurizer
         #region Public Properties
 
         private static Profile _currentProfile;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public static Profile CurrentProfile
         {
             get => _currentProfile;
@@ -1820,7 +1821,6 @@ namespace Depressurizer
                 return;
             }
 
-            new RegistryPermission(PermissionState.Unrestricted).Assert();
             try
             {
                 existingSubKey = Registry.LocalMachine.OpenSubKey(installKey, RegistryKeyPermissionCheck.ReadWriteSubTree);
@@ -1829,10 +1829,6 @@ namespace Depressurizer
             catch
             {
                 MessageBox.Show(GlobalStrings.MainForm_AdminRights, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            finally
-            {
-                CodeAccessPermission.RevertAssert();
             }
         }
 

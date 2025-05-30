@@ -9,6 +9,7 @@ using Depressurizer.Core.Interfaces;
 using Depressurizer.Core.Models;
 using Depressurizer.Dialogs;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace Depressurizer
 {
@@ -48,8 +49,10 @@ namespace Depressurizer
 
         #region Public Properties
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int Added { get; private set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int Fetched { get; private set; }
 
         #endregion
