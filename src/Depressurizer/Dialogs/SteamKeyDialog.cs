@@ -31,7 +31,11 @@ namespace Depressurizer.Dialogs
 
         private void ButtonGetKey_Click(object sender, EventArgs e)
         {
-            Process.Start(Constants.SteamWebApiKey);
+            ProcessStartInfo startInfo = new ProcessStartInfo(Constants.SteamWebApiKey)
+            {
+                UseShellExecute = true,
+            };
+            Process.Start(startInfo);
         }
 
         private void ButtonSaveKey_Click(object sender, EventArgs e)
