@@ -74,6 +74,7 @@ namespace Depressurizer
                 Logger.Info("Updating profile using Steam Web API!");
 
                 HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0");
                 using (Stream s = client.GetStreamAsync(string.Format(Constants.SteamWebApiOwnedGames, FormMain.CurrentProfile.SteamWebApiKey, SteamId)).Result)
                 using (StreamReader sr = new StreamReader(s))
                 using (JsonReader reader = new JsonTextReader(sr))
