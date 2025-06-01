@@ -1,4 +1,12 @@
-﻿using System;
+﻿using CsvHelper;
+using Depressurizer.Core;
+using Depressurizer.Core.Enums;
+using Depressurizer.Core.Helpers;
+using Depressurizer.Core.Interfaces;
+using Depressurizer.Core.Models;
+using Depressurizer.Dialogs;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,13 +16,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using Depressurizer.Core;
-using Depressurizer.Core.Enums;
-using Depressurizer.Core.Helpers;
-using Depressurizer.Core.Interfaces;
-using Depressurizer.Core.Models;
-using Depressurizer.Dialogs;
-using Newtonsoft.Json;
 
 namespace Depressurizer
 {
@@ -761,11 +762,34 @@ namespace Depressurizer
                     return updated;
                 }
 
-                HLTB_RawData rawData = JsonConvert.DeserializeObject<HLTB_RawData>(result);
-
-                if (rawData == null)
+                HLTB_RawData rawData = new()
                 {
-                    return updated;
+                    Games = new()
+                };
+
+                using (var reader = new StringReader(result))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    foreach (dynamic record in csv.GetRecords<dynamic>())
+                    {
+                        if (!string.IsNullOrEmpty(record.steam_id))
+                        {
+                            rawData.Games.Add(new()
+                            {
+                                SteamAppData = new()
+                                {
+                                    SteamAppId = int.Parse(record.steam_id),
+                                    SteamName = record.game_name,
+                                    HltbInfo = new()
+                                    {
+                                        MainTtb = int.Parse(record.comp_main),
+                                        ExtrasTtb = int.Parse(record.comp_plus),
+                                        CompletionistTtb = int.Parse(record.comp_100)
+                                    }
+                                }
+                            });
+                        }
+                    }
                 }
 
                 foreach (Game game in rawData.Games)

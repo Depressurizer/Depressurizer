@@ -43,6 +43,7 @@
     <PackageReference Include="Costura.Fody" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="CsvHelper" Version="33.0.1" />
     <PackageReference Include="Fody" Version="6.9.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>

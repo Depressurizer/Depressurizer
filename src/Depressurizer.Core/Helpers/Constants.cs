@@ -37,7 +37,7 @@ namespace Depressurizer.Core.Helpers
         /// <summary>
         ///     URL to the API page of HowLongToBeat.com.
         /// </summary>
-        public static Uri HowLongToBeat => new Uri("https://www.howlongtobeatsteam.com/api/games/library/cached/all");
+        public static Uri HowLongToBeat => new Uri("https://github.com/julianxhokaxhiu/hltb-scraper/releases/latest/download/howlongtobeat_games.csv");
 
         /// <summary>
         ///     Generic path to localconfig.vdf, must be formatted with the Steam installation path and the Steam ID.
