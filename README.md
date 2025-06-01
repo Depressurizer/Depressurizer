@@ -1,12 +1,12 @@
 # Depressurizer
-[![Github All Releases](https://img.shields.io/github/downloads/Depressurizer/Depressurizer/total.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/releases/latest)
-[![GitHub stars](https://img.shields.io/github/stars/Depressurizer/Depressurizer.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/stargazers)
-[![GitHub contributors](https://img.shields.io/github/contributors/Depressurizer/Depressurizer.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/graphs/contributors)
-[![GitHub issues](https://img.shields.io/github/issues/Depressurizer/Depressurizer.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/issues)
-[![GitHub license](https://img.shields.io/github/license/Depressurizer/Depressurizer.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/blob/dev/LICENSE)
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/Depressurizer/Depressurizer/.NET%20Core%20Desktop/master?style=flat-square)
+[![Github All Releases](https://img.shields.io/github/downloads/julianxhokaxhiu/Depressurizer/total.svg?style=flat-square)](https://github.com/julianxhokaxhiu/Depressurizer/releases/latest)
+[![GitHub stars](https://img.shields.io/github/stars/julianxhokaxhiu/Depressurizer.svg?style=flat-square)](https://github.com/julianxhokaxhiu/Depressurizer/stargazers)
+[![GitHub contributors](https://img.shields.io/github/contributors/julianxhokaxhiu/Depressurizer.svg?style=flat-square)](https://github.com/julianxhokaxhiu/Depressurizer/graphs/contributors)
+[![GitHub issues](https://img.shields.io/github/issues/julianxhokaxhiu/Depressurizer.svg?style=flat-square)](https://github.com/julianxhokaxhiu/Depressurizer/issues)
+[![GitHub license](https://img.shields.io/github/license/julianxhokaxhiu/Depressurizer.svg?style=flat-square)](https://github.com/julianxhokaxhiu/Depressurizer/blob/dev/LICENSE)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/julianxhokaxhiu/Depressurizer/.NET%20Core%20Desktop/master?style=flat-square)
 
-<sup>This is a continuation of [rallion](https://github.com/rallion)'s [Depressurizer](https://github.com/rallion/depressurizer).</sup>
+<sup>This is a continuation of [Depressurizer](https://github.com/Depressurizer)'s [Depressurizer](https://github.com/Depressurizer/Depressurizer).</sup>
 
 # Summary
 
@@ -26,7 +26,7 @@ It also saves your configuration information independently of Steam, providing a
 
 ## Requirements
 
- - Depressurizer requires the [.NET Framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework/net48).
+ - Depressurizer requires the [.NET Framework 9.0](https://dotnet.microsoft.com/en-us/download/dotnet/9.0).
 
  - It must be run on the same computer on which you use Steam, or one one of the computers on which you use Steam.
 
@@ -49,23 +49,6 @@ When you are ready to save your changes, **you must first completely close Steam
 Once Steam is closed, all you need to do is click on File > Save in Depressurizer. This will save your profile and, if you haven't changed any settings, will also automatically update your Steam config files with your changes. When you re-open Steam, your games should be organized.
 
 By default, Depressurizer will automatically load and update your profile the next time you launch the program.
-
-## Depressurizer (Premium) API 🚀 
-To resolve issues such as #194 (Internal server error due to scraping speed) and #189 ([REQUEST] Use Steam Database for removed games) a Depressurizer API was built. To get access you have to become a [GitHub sponsor](https://github.com/sponsors/mvegter).
-
-### Advantages
-* When the Steam Store page format changes you will not have to wait for a new Depressurizer release. The Depressurizer (Premium) API will take care of the new format without you having to take action;
-* You will not spam the Steam servers anymore, so no more Steam Store timeouts;
-* The API is subject to fair usage, you can use it outside Depressurizer;
-* Improved data for removed games / software / apps.
-
-### Configuration
-* Include your [steamID64](https://steamid.io/) in your GitHub profile description for verification.
-* Send an email to [mvegter](mailto:depressurizer@martijnvegter.com) containing your:
-    * SteamID 64
-    * Steam Web API Key
-    * GitHub username
-* Open Depressurizer and go to `Tools` -> `Settings` -> `Premium` and enter the value you receive on your initial email.
 
 ## Manual categorization
 
