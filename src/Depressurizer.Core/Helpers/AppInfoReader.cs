@@ -106,7 +106,8 @@ namespace Depressurizer.Core.Helpers
                         throw new InvalidDataException();
                     }
 
-                    Items[appid] = ReadEntries(data);
+                    Items[appid] = new("appinfo");
+                    Items[appid]["appinfo"] = ReadEntries(data);
                 }
             }
             catch (Exception e)
