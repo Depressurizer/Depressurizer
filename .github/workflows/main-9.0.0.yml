@@ -1,0 +1,87 @@
+name: Depressurizer
+
+run-name: 9.0.0.${{ github.run_number }}
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - master
+    tags:
+    - "*"
+  pull_request:
+    branches:
+    - master
+
+env:
+  _IS_BUILD_CANARY: false
+  _IS_GITHUB_RELEASE: false
+  _RELEASE_NAME: Depressurizer
+  _RELEASE_VERSION: v0
+  _RELEASE_CONFIGURATION: Release
+  _BUILD_BRANCH: "${{ github.ref }}"
+  _BUILD_VERSION: "9.0.0.${{ github.run_number }}"
+  # GIT: Fix reporting from stderr to stdout
+  GIT_REDIRECT_STDERR: 2>&1
+
+jobs:
+  Depressurizer:
+    runs-on: windows-latest
+    timeout-minutes: 1440
+    strategy:
+      max-parallel: 1
+    steps:
+    - name: Set Git Config
+      run: |
+        git config --global core.autocrlf false
+        git config --global core.filemode false
+        git config --global core.longpaths true
+    - name: Checkout
+      uses: actions/checkout@v4.1.0
+    - name: Prepare Environment
+      run: ".github/workflows/prepare.ps1"
+      shell: pwsh
+    - name: Update project version
+      uses: roryprimrose/set-vs-sdk-project-version@v1
+      with:
+        version: "${{ env._BUILD_VERSION }}"
+        assemblyVersion: "${{ env._BUILD_VERSION }}"
+        fileVersion: "${{ env._BUILD_VERSION }}"
+        informationalVersion: "${{ env._BUILD_VERSION }}"
+    - name: Restore NuGet Packages
+      run: nuget restore ${{ github.workspace }}\src\${{ env._RELEASE_NAME }}.sln
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.3.2
+    - name: Run MSBuild
+      run: msbuild ${{ github.workspace }}\src\${{ env._RELEASE_NAME }}.sln /p:WindowsTargetPlatformVersion=10.0.19041.0 /m -p:Configuration=${{ env._RELEASE_CONFIGURATION }} -p:Platform="Any CPU"
+    - name: Package the release
+      run: ".github/workflows/package.ps1"
+      shell: pwsh
+    - name: Publish PR artifacts
+      if: env._IS_GITHUB_RELEASE == 'false' && success()
+      uses: actions/upload-artifact@v4.0.0
+      with:
+        name: "${{ env._RELEASE_NAME }}-${{ env._RELEASE_VERSION }}"
+        path: ".dist/*.zip"
+    - name: Publish Canary release
+      uses: ncipollo/release-action@v1
+      if: env._IS_GITHUB_RELEASE == 'true' && env._IS_BUILD_CANARY == 'true' && success()
+      with:
+        artifacts: ".dist/*.zip"
+        allowUpdates: true
+        generateReleaseNotes: true
+        prerelease: true
+        removeArtifacts: true
+        tag: canary
+        name: "${{ env._RELEASE_NAME }}-${{ env._RELEASE_VERSION }}"
+        body: |
+          This is a canary build. Please be aware it may be prone to crashing and is NOT tested by anyone. Use this build AT YOUR OWN RISK!
+    - name: Publish Stable release
+      uses: ncipollo/release-action@v1
+      if: env._IS_GITHUB_RELEASE == 'true' && env._IS_BUILD_CANARY == 'false' && success()
+      with:
+        artifacts: ".dist/*.zip"
+        generateReleaseNotes: true
+        makeLatest: true
+        removeArtifacts: true
+        name: "${{ env._RELEASE_NAME }}-${{ env._RELEASE_VERSION }}"
