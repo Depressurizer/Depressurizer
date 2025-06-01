@@ -2566,8 +2566,7 @@ namespace Depressurizer
             colLastPlayed.AspectToStringConverter = delegate(object obj)
             {
                 DateTime lastPlayed = (DateTime) obj;
-                Thread threadForCulture = new Thread(delegate() { });
-                string format = threadForCulture.CurrentCulture.DateTimeFormat.ShortDatePattern;
+                string format = Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern;
                 return lastPlayed == DateTime.MinValue ? null : lastPlayed.ToString(format, CultureInfo.CurrentCulture);
             };
 
