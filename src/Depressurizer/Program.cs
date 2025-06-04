@@ -58,7 +58,7 @@ namespace Depressurizer
                     url = (string) parsedJson.SelectToken("html_url");
                 }
 
-                if (githubVersion <= DepressurizerVersion)
+                if (githubVersion <= DepressurizerVersion || DepressurizerVersion == new Version("0.0.0.0"))
                 {
                     return;
                 }
