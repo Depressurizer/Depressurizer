@@ -125,9 +125,6 @@ namespace Depressurizer
             chkCheckForDepressurizerUpdates.Checked = settings.CheckForDepressurizerUpdates;
             checkBoxReadFromLevelDB.Checked = settings.ReadFromLevelDB;
 
-            textBoxPremiumApiKey.Text = FormMain.SteamWebApiKey;
-            textBoxPremiumServer.Text = settings.PremiumServer;
-
             chkRemoveExtraEntries.Checked = settings.RemoveExtraEntries;
 
             // Languages
@@ -199,8 +196,6 @@ namespace Depressurizer
 
             Settings.InterfaceLanguage = (InterfaceLanguage) cmbUILanguage.SelectedIndex;
             Settings.StoreLanguage = (StoreLanguage) cmbStoreLanguage.SelectedIndex;
-
-            Settings.PremiumServer = textBoxPremiumServer.Text;
 
             Thread.CurrentThread.CurrentUICulture = Language.GetCultureInfo(Settings.InterfaceLanguage);
             Database.ChangeLanguage(Settings.StoreLanguage);

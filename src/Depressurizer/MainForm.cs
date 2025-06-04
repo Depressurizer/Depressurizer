@@ -4729,10 +4729,6 @@ namespace Depressurizer
         private void UpdateTitle()
         {
             StringBuilder sb = new StringBuilder("Depressurizer");
-            if (ProfileLoaded && !string.IsNullOrWhiteSpace(Settings.PremiumServer))
-            {
-                sb.Append("Premium");
-            }
 
             if (ProfileLoaded)
             {

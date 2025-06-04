@@ -74,9 +74,7 @@ namespace Depressurizer {
             this.cmbUILanguage = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBoxPremiumApiKey = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBoxPremiumServer = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.cmdDefaultIgnored = new System.Windows.Forms.Button();
             this.cmdIgnore = new System.Windows.Forms.Button();
@@ -333,31 +331,6 @@ namespace Depressurizer {
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
-            // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.Controls.Add(this.textBoxPremiumApiKey);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.TabStop = false;
-            // 
-            // textBoxPremiumApiKey
-            // 
-            resources.ApplyResources(this.textBoxPremiumApiKey, "textBoxPremiumApiKey");
-            this.textBoxPremiumApiKey.Name = "textBoxPremiumApiKey";
-            this.textBoxPremiumApiKey.ReadOnly = true;
-            // 
-            // groupBox1
-            // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Controls.Add(this.textBoxPremiumServer);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
-            // 
-            // textBoxPremiumServer
-            // 
-            resources.ApplyResources(this.textBoxPremiumServer, "textBoxPremiumServer");
-            this.textBoxPremiumServer.Name = "textBoxPremiumServer";
-            // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.cmdDefaultIgnored);
@@ -508,9 +481,7 @@ namespace Depressurizer {
         private System.Windows.Forms.Button cmdDefaultIgnored;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBoxPremiumServer;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBoxPremiumApiKey;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox checkBoxReadFromLevelDB;

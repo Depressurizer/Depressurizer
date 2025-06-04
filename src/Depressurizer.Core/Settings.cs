@@ -250,8 +250,6 @@ namespace Depressurizer.Core
 
         public string ProfileToLoad { get; set; }
 
-        public string PremiumServer { get; set; }
-
         public bool RemoveExtraEntries { get; set; } = true;
 
         public int ScrapePromptDays { get; set; } = 30;
