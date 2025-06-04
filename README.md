@@ -1,10 +1,6 @@
 # Depressurizer
-[![Github All Releases](https://img.shields.io/github/downloads/julianxhokaxhiu/Depressurizer/total.svg?style=flat-square)](https://github.com/julianxhokaxhiu/Depressurizer/releases/latest)
-[![GitHub stars](https://img.shields.io/github/stars/julianxhokaxhiu/Depressurizer.svg?style=flat-square)](https://github.com/julianxhokaxhiu/Depressurizer/stargazers)
-[![GitHub contributors](https://img.shields.io/github/contributors/julianxhokaxhiu/Depressurizer.svg?style=flat-square)](https://github.com/julianxhokaxhiu/Depressurizer/graphs/contributors)
-[![GitHub issues](https://img.shields.io/github/issues/julianxhokaxhiu/Depressurizer.svg?style=flat-square)](https://github.com/julianxhokaxhiu/Depressurizer/issues)
-[![GitHub license](https://img.shields.io/github/license/julianxhokaxhiu/Depressurizer.svg?style=flat-square)](https://github.com/julianxhokaxhiu/Depressurizer/blob/dev/LICENSE)
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/julianxhokaxhiu/Depressurizer/.NET%20Core%20Desktop/master?style=flat-square)
+![License](https://img.shields.io/github/license/julianxhokaxhiu/Depressurizer) ![Overall Downloads](https://img.shields.io/github/downloads/julianxhokaxhiu/Depressurizer/total?label=Overall%20Downloads) ![Latest Stable Downloads](https://img.shields.io/github/downloads/julianxhokaxhiu/Depressurizer/latest/total?label=Latest%20Stable%20Downloads&sort=semver) ![Latest Canary Downloads](https://img.shields.io/github/downloads/julianxhokaxhiu/Depressurizer/canary/total?label=Latest%20Canary%20Downloads) ![GitHub Actions Workflow Status](https://github.com/julianxhokaxhiu/Depressurizer/actions/workflows/main-9.0.0.yml/badge.svg?branch=master)
+
 
 <sup>This is a continuation of [Depressurizer](https://github.com/Depressurizer)'s [Depressurizer](https://github.com/Depressurizer/Depressurizer).</sup>
 
