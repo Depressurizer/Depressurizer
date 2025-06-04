@@ -17,12 +17,12 @@ namespace Depressurizer.Core.Helpers
         /// <summary>
         ///     URL to the Depressurizer homepage.
         /// </summary>
-        public static string DepressurizerHomepage => "https://github.com/Depressurizer/depressurizer";
+        public static string DepressurizerHomepage => "https://github.com/julianxhokaxhiu/depressurizer";
 
         /// <summary>
         ///     URL to the API page for the latest Depressurizer release.
         /// </summary>
-        public static string DepressurizerLatestRelease => "https://api.github.com/repos/Depressurizer/Depressurizer/releases/latest";
+        public static string DepressurizerLatestRelease => "https://api.github.com/repos/julianxhokaxhiu/depressurizer/releases/latest";
 
         /// <summary>
         ///     Generic URL for the game list of a Steam profile, must be formatted with a SteamID64.
