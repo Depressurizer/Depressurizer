@@ -3,6 +3,8 @@
     <TargetFramework>net9.0-windows7.0</TargetFramework>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>WinExe</OutputType>
+    <Version>0.0.0</Version>
+    <Copyright>Julian Xhokaxhiu 2025</Copyright>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -26,7 +28,6 @@
     <StartupObject>Depressurizer.Program</StartupObject>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     <DebugType>embedded</DebugType>
-	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>

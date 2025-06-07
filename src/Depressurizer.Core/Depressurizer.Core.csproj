@@ -3,7 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <Platforms>AnyCPU</Platforms>
-	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Version>0.0.0</Version>
+    <Copyright>Julian Xhokaxhiu 2025</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
