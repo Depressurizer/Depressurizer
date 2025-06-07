@@ -467,6 +467,8 @@ namespace Depressurizer.Core.Models
         private static HttpWebRequest GetSteamRequest(string url)
         {
             HttpWebRequest req = WebRequest.CreateHttp(url);
+            // Set user agent
+            req.UserAgent = Constants.UserAgent;
             // Cookie bypasses the age gate
             req.CookieContainer = new CookieContainer(3);
             req.CookieContainer.Add(new Cookie("birthtime", "-473392799", "/", "store.steampowered.com"));

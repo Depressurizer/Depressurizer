@@ -114,6 +114,11 @@ namespace Depressurizer.Core.Helpers
         /// </summary>
         public static string StoreBanner => "https://steamcdn-a.akamaihd.net/steam/apps/{0}/capsule_sm_120.jpg";
 
+        /// <summary>
+        ///     User agent used by HTTP clients
+        /// </summary>
+        public static string UserAgent => "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0";
+
         #endregion
     }
 }
