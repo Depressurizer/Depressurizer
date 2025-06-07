@@ -240,7 +240,11 @@ namespace Depressurizer.Core.Models
             {
                 ExportSteamShortcuts(steamId);
             }
-            Process.Start("steam://resetcollections");
+            ProcessStartInfo startInfo = new ProcessStartInfo("steam://resetcollections")
+            {
+                UseShellExecute = true,
+            };
+            Process.Start(startInfo);
         }
 
         /// <summary>
