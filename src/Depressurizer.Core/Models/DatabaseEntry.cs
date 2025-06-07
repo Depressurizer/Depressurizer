@@ -720,7 +720,6 @@ namespace Depressurizer.Core.Models
                 int count = 0;
                 while (resp.StatusCode == HttpStatusCode.Found && count < MaxFollowAttempts)
                 {
-                    resp.Close();
                     if (Regexes.IsSteamStore.IsMatch(resp.Headers[HttpResponseHeader.Location]))
                     {
                         Logger.Warn("Scraping {0}: Location header points to the Steam Store homepage, aborting scraping.", AppId);
@@ -735,7 +734,10 @@ namespace Depressurizer.Core.Models
                     }
 
                     req = GetSteamRequest(resp.Headers[HttpResponseHeader.Location]);
+                    
+                    resp.Close();
                     resp = (HttpWebResponse) req.GetResponse();
+                    
                     count++;
                 }
 
