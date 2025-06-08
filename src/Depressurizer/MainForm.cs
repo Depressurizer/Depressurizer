@@ -2936,13 +2936,16 @@ namespace Depressurizer
             {
                 if (entry.Tags.Contains(EarlyAccessTag))
                 {
-                    ImageDecoration earlyAccessDecoration = new ImageDecoration(imglistEarlyAccess.Images[0])
+                    if (imglistEarlyAccess.Images.Count > 0)
                     {
-                        AdornmentCorner = ContentAlignment.TopLeft,
-                        ReferenceCorner = ContentAlignment.TopLeft,
-                        Transparency = 200
-                    };
-                    e.SubItem.Decorations.Add(earlyAccessDecoration);
+                        ImageDecoration earlyAccessDecoration = new ImageDecoration(imglistEarlyAccess.Images[0])
+                        {
+                            AdornmentCorner = ContentAlignment.TopLeft,
+                            ReferenceCorner = ContentAlignment.TopLeft,
+                            Transparency = 200
+                        };
+                        e.SubItem.Decorations.Add(earlyAccessDecoration);
+                    }
                 }
             }
 
