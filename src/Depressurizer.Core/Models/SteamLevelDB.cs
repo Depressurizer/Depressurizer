@@ -1,4 +1,4 @@
-﻿using IronLevelDB;
+﻿using RocksDbSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -9,21 +9,22 @@ namespace Depressurizer.Core.Models
 {
     public class SteamLevelDB
     {
-        private readonly IIronLeveldb internalDatabase;
+        private readonly RocksDb internalDatabase;
         private readonly string steamID3;
 
         private string KeyPrefix => $"_https://steamloopback.host\u0000\u0001U{steamID3}-cloud-storage-namespace-1";
 
         public SteamLevelDB(string steamID3)
         {
-            this.internalDatabase = IronLeveldbBuilder.BuildFromPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Steam", "htmlcache", "Local Storage", "leveldb"));
+            var options = new DbOptions();
+            this.internalDatabase = RocksDb.OpenReadOnly(options, Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Steam", "htmlcache", "Local Storage", "leveldb"), false);
             this.steamID3 = steamID3;
         }
 
         public List<CloudStorageNamespace.Element.SteamCollectionValue> getSteamCollections()
         {
             // IEnumerable<IByteArrayKeyValuePair> data = internalDatabase.SeekFirst();
-            string data = internalDatabase.GetAsString(KeyPrefix);
+            string data = internalDatabase.Get(KeyPrefix);
 
             CloudStorageNamespace collections = new CloudStorageNamespace();
             foreach (JToken item in JArray.Parse(data.Substring(1)).Children())
