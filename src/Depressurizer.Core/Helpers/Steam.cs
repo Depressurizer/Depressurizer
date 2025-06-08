@@ -7,7 +7,6 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Sentry;
 
 namespace Depressurizer.Core.Helpers
 {
@@ -395,8 +394,6 @@ namespace Depressurizer.Core.Helpers
 
             InvalidDataException exception = new InvalidDataException("Found new failing banners!");
             exception.Data.Add("IgnoreList", JsonConvert.SerializeObject(IgnoreList.Distinct()));
-
-            SentrySdk.CaptureException(exception);
 #endif
         }
 

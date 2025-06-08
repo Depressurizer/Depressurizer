@@ -1,5 +1,4 @@
 ﻿using Depressurizer.Core.Models;
-using Sentry.Protocol;
 using System;
 using System.Buffers;
 using System.Collections.Generic;

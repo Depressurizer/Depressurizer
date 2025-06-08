@@ -12,7 +12,6 @@ using Depressurizer.Properties;
 using NDesk.Options;
 using Newtonsoft.Json.Linq;
 using Rallion;
-using Sentry;
 using Constants = Depressurizer.Core.Helpers.Constants;
 
 namespace Depressurizer
@@ -81,38 +80,35 @@ namespace Depressurizer
         [STAThread]
         private static void Main(string[] args)
         {
-            using (SentrySdk.Init(Constants.SentryDSN))
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.ApplicationExit += ApplicationExit;
+
+            FatalError.InitializeHandler();
+
+            Logger.Info("Running Depressurizer v{0}", DepressurizerVersion);
+
+            SingletonKeeper.Database = Database;
+
+            Database.Load();
+            Settings.Load();
+
+            if (Settings.CheckForDepressurizerUpdates)
             {
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.ApplicationExit += ApplicationExit;
+                CheckForDepressurizerUpdates();
+            }
 
-                FatalError.InitializeHandler();
-
-                Logger.Info("Running Depressurizer v{0}", DepressurizerVersion);
-
-                SingletonKeeper.Database = Database;
-
-                Database.Load();
-                Settings.Load();
-
-                if (Settings.CheckForDepressurizerUpdates)
-                {
-                    CheckForDepressurizerUpdates();
-                }
-
-                AutomaticModeOptions autoOpts = ParseAutoOptions(args);
-                if (autoOpts != null)
-                {
-                    Logger.Info("Automatic mode set, loading automatic mode form.");
-                    Logger.Verbose("Automatic Mode Options: {0}", autoOpts);
-                    Application.Run(new AutomaticModeForm(autoOpts));
-                }
-                else
-                {
-                    Logger.Info("Automatic mode not set, loading main form.");
-                    Application.Run(new FormMain());
-                }
+            AutomaticModeOptions autoOpts = ParseAutoOptions(args);
+            if (autoOpts != null)
+            {
+                Logger.Info("Automatic mode set, loading automatic mode form.");
+                Logger.Verbose("Automatic Mode Options: {0}", autoOpts);
+                Application.Run(new AutomaticModeForm(autoOpts));
+            }
+            else
+            {
+                Logger.Info("Automatic mode not set, loading main form.");
+                Application.Run(new FormMain());
             }
         }
 

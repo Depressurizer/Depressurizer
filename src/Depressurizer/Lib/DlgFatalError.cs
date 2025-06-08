@@ -6,7 +6,6 @@ using System.Threading;
 using System.Windows.Forms;
 using Depressurizer;
 using Depressurizer.Core.Helpers;
-using Sentry;
 
 namespace Rallion
 {
@@ -54,8 +53,6 @@ namespace Rallion
 
         private FatalError(Exception e)
         {
-            SentrySdk.CaptureException(e);
-
             InitializeComponent();
             ex = e;
             ShowingInfo = true;
