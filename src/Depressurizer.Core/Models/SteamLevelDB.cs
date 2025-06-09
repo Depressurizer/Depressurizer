@@ -24,7 +24,10 @@ namespace Depressurizer.Core.Models
 
         public List<CloudStorageNamespace.Element.SteamCollectionValue> getSteamCollections()
         {
-            var options = new Options();
+            var options = new Options()
+            {
+                ParanoidChecks = true,
+            };
             var db = new DB(options, this.databasePath);
 
             string data = db.Get(KeyPrefix).Replace("\x01", "").Replace("\0", "");
@@ -78,7 +81,10 @@ namespace Depressurizer.Core.Models
             var newArray = GenerateCategories(categoryData);
 
             // Save the new categories in leveldb
-            var options = new Options();
+            var options = new Options()
+            {
+                ParanoidChecks = true,
+            };
             var db = new DB(options, this.databasePath);
 
             string data = db.Get(KeyPrefix).Replace("\x01", "").Replace("\0", "");

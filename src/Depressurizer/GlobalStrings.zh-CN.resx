@@ -694,6 +694,21 @@
   <data name="Profile_SavingProfile" xml:space="preserve">
     <value>正在保存配置文件: {0}</value>
   </data>
+  <data name="TextVdfFile_CanNotGetKey" xml:space="preserve">
+    <value>节点是值，但不是数组，无法获取键 {0}</value>
+  </data>
+  <data name="TextVdfFile_CanNotSetKey" xml:space="preserve">
+    <value>节点是值，但不是数组，无法设定键 {0}</value>
+  </data>
+  <data name="TextVdfFile_UnexpectedCharacterKey" xml:space="preserve">
+    <value>预期为键时遇到意外字符 {0}。</value>
+  </data>
+  <data name="TextVdfFile_UnexpectedCharacterValue" xml:space="preserve">
+    <value>预期为值时发现意外的字符 {0}。</value>
+  </data>
+  <data name="TextVdfFile_UnexpectedEOF" xml:space="preserve">
+    <value>意外遇到文件结尾：字符串未终止。</value>
+  </data>
   <data name="DlgProfile_EditProfile" xml:space="preserve">
     <value>编辑配置文件</value>
   </data>
@@ -1289,19 +1304,7 @@ See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
   <data name="AutoCat_Name_HoursPlayed" xml:space="preserve">
     <value>已玩小时</value>
   </data>
-  <data name="TextVdfFile_CanNotSetKey" xml:space="preserve">
-    <value>节点是值，但不是数组，无法设定键 {0}</value>
-  </data>
-  <data name="TextVdfFile_CanNotGetKey" xml:space="preserve">
-    <value>节点是值，但不是数组，无法获取键 {0}</value>
-  </data>
-  <data name="TextVdfFile_UnexpectedEOF" xml:space="preserve">
-    <value>意外遇到文件结尾：字符串未终止。</value>
-  </data>
-  <data name="TextVdfFile_UnexpectedCharacterValue" xml:space="preserve">
-    <value>预期为值时发现意外的字符 {0}。</value>
-  </data>
-  <data name="TextVdfFile_UnexpectedCharacterKey" xml:space="preserve">
-    <value>预期为键时遇到意外字符 {0}。</value>
+  <data name="TextSteam_AlreayRunning" xml:space="preserve">
+    <value />
   </data>
 </root>

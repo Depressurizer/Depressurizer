@@ -1308,4 +1308,8 @@ This could take up to a few seconds per game.</value>
   <data name="RandomGame_Banner_Error" xml:space="preserve">
     <value>Unable to Load Random Game Banner.</value>
   </data>
+  <data name="TextSteam_AlreayRunning" xml:space="preserve">
+    <value>Detected Steam running.
+Please close it to prevent further DB corruption before using Depressurizer.</value>
+  </data>
 </root>

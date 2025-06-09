@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Net;
-using System.Reflection;
-using System.Windows.Forms;
-using Depressurizer.Core;
+﻿using Depressurizer.Core;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Properties;
 using NDesk.Options;
 using Newtonsoft.Json.Linq;
 using Rallion;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
+using System.Net;
+using System.Reflection;
+using System.Windows.Forms;
 using Constants = Depressurizer.Core.Helpers.Constants;
 
 namespace Depressurizer
@@ -74,6 +75,18 @@ namespace Depressurizer
             }
         }
 
+        static bool IsSteamRunning()
+        {
+            Process[] processes = Process.GetProcessesByName("steam");
+            if (processes.Any())
+            {
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.TextSteam_AlreayRunning), Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return true;
+            }
+
+            return false;
+        }
+
         /// <summary>
         ///     The main entry point for the application.
         /// </summary>
@@ -87,6 +100,12 @@ namespace Depressurizer
             FatalError.InitializeHandler();
 
             Logger.Info("Running Depressurizer v{0}", DepressurizerVersion);
+
+            if (IsSteamRunning())
+            {
+                Logger.Error("Steam Detected. Closing to prevent further DB corruption.");
+                return;
+            }
 
             SingletonKeeper.Database = Database;
 
