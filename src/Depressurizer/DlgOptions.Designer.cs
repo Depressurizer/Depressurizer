@@ -79,10 +79,8 @@ namespace Depressurizer {
             txtIgnore = new System.Windows.Forms.TextBox();
             cmdUnignore = new System.Windows.Forms.Button();
             lstIgnored = new System.Windows.Forms.ListView();
-            tabPage3 = new System.Windows.Forms.TabPage();
-            groupBox3 = new System.Windows.Forms.GroupBox();
-            checkBoxReadFromLevelDB = new System.Windows.Forms.CheckBox();
             ttHelp = new Depressurizer.Lib.ExtToolTip();
+            checkBoxReadFromLevelDB = new System.Windows.Forms.CheckBox();
             grpSteamDir.SuspendLayout();
             grpStartup.SuspendLayout();
             grpSaving.SuspendLayout();
@@ -94,8 +92,6 @@ namespace Depressurizer {
             ((System.ComponentModel.ISupportInitialize)numScrapePromptDays).BeginInit();
             grpUILanguage.SuspendLayout();
             tabPage1.SuspendLayout();
-            tabPage3.SuspendLayout();
-            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // grpSteamDir
@@ -195,7 +191,6 @@ namespace Depressurizer {
             resources.ApplyResources(tabControl, "tabControl");
             tabControl.Controls.Add(tabGeneral);
             tabControl.Controls.Add(tabPage1);
-            tabControl.Controls.Add(tabPage3);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
             // 
@@ -242,6 +237,7 @@ namespace Depressurizer {
             // grpDatabase
             // 
             resources.ApplyResources(grpDatabase, "grpDatabase");
+            grpDatabase.Controls.Add(checkBoxReadFromLevelDB);
             grpDatabase.Controls.Add(numScrapePromptDays);
             grpDatabase.Controls.Add(lblScrapePrompt2);
             grpDatabase.Controls.Add(lblScapePrompt1);
@@ -359,20 +355,6 @@ namespace Depressurizer {
             lstIgnored.UseCompatibleStateImageBehavior = false;
             lstIgnored.View = System.Windows.Forms.View.List;
             // 
-            // tabPage3
-            // 
-            tabPage3.Controls.Add(groupBox3);
-            resources.ApplyResources(tabPage3, "tabPage3");
-            tabPage3.Name = "tabPage3";
-            tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // groupBox3
-            // 
-            resources.ApplyResources(groupBox3, "groupBox3");
-            groupBox3.Controls.Add(checkBoxReadFromLevelDB);
-            groupBox3.Name = "groupBox3";
-            groupBox3.TabStop = false;
-            // 
             // checkBoxReadFromLevelDB
             // 
             resources.ApplyResources(checkBoxReadFromLevelDB, "checkBoxReadFromLevelDB");
@@ -409,9 +391,6 @@ namespace Depressurizer {
             grpUILanguage.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
-            tabPage3.ResumeLayout(false);
-            groupBox3.ResumeLayout(false);
-            groupBox3.PerformLayout();
             ResumeLayout(false);
 
         }
@@ -455,8 +434,6 @@ namespace Depressurizer {
         private System.Windows.Forms.TextBox txtIgnore;
         private System.Windows.Forms.Button cmdUnignore;
         private System.Windows.Forms.Button cmdDefaultIgnored;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox checkBoxReadFromLevelDB;
     }
 }

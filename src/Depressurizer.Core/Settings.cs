@@ -210,7 +210,7 @@ namespace Depressurizer.Core
 
         public string Category { get; set; }
 
-        public bool ReadFromLevelDB { get; set; } = false;
+        public bool ReadFromLevelDB { get; set; } = true;
 
         public bool CheckForDepressurizerUpdates { get; set; } = true;
 
