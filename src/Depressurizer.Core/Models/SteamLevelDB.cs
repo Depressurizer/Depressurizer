@@ -27,12 +27,12 @@ namespace Depressurizer.Core.Models
             var options = new Options();
             var db = new DB(options, this.databasePath);
 
-            string data = db.Get(KeyPrefix);
+            string data = db.Get(KeyPrefix).Replace("\x01", "").Replace("\0", "");
 
             db.Close();
 
             CloudStorageNamespace collections = new CloudStorageNamespace();
-            foreach (JToken item in JArray.Parse(data.Substring(1)).Children())
+            foreach (JToken item in JArray.Parse(data).Children())
             {
                 collections.children.Add(item[0].ToString(), JsonConvert.DeserializeObject<CloudStorageNamespace.Element>(item[1].ToString(), new JsonSerializerSettings
                 {
@@ -81,8 +81,8 @@ namespace Depressurizer.Core.Models
             var options = new Options();
             var db = new DB(options, this.databasePath);
 
-            string data = db.Get(KeyPrefix);
-            var existingArray = JArray.Parse(data.Substring(1));
+            string data = db.Get(KeyPrefix).Replace("\x01", "").Replace("\0", "");
+            var existingArray = JArray.Parse(data);
 
             JObject existingObj = ToObjectByKey(existingArray);
             JObject newObj = ToObjectByKey(newArray);
