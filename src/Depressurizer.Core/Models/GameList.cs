@@ -240,6 +240,10 @@ namespace Depressurizer.Core.Models
             {
                 ExportSteamShortcuts(steamId);
             }
+            // Include LevelDB
+            SteamLevelDB levelDB = new SteamLevelDB(Steam.ToSteam3Id(steamId));
+            levelDB.setSteamCollections(Games);
+
             ProcessStartInfo startInfo = new ProcessStartInfo("steam://resetcollections")
             {
                 UseShellExecute = true,

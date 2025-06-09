@@ -1,30 +1,35 @@
-﻿using RocksDbSharp;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using LevelDB;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Depressurizer.Core.Models
 {
     public class SteamLevelDB
     {
-        private readonly RocksDb internalDatabase;
+        private readonly string databasePath;
         private readonly string steamID3;
 
         private string KeyPrefix => $"_https://steamloopback.host\u0000\u0001U{steamID3}-cloud-storage-namespace-1";
 
         public SteamLevelDB(string steamID3)
         {
-            var options = new DbOptions();
-            this.internalDatabase = RocksDb.OpenReadOnly(options, Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Steam", "htmlcache", "Local Storage", "leveldb"), false);
+            this.databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Steam", "htmlcache", "Local Storage", "leveldb");
             this.steamID3 = steamID3;
         }
 
         public List<CloudStorageNamespace.Element.SteamCollectionValue> getSteamCollections()
         {
-            // IEnumerable<IByteArrayKeyValuePair> data = internalDatabase.SeekFirst();
-            string data = internalDatabase.Get(KeyPrefix);
+            var options = new Options();
+            var db = new DB(options, this.databasePath);
+
+            string data = db.Get(KeyPrefix);
+
+            db.Close();
 
             CloudStorageNamespace collections = new CloudStorageNamespace();
             foreach (JToken item in JArray.Parse(data.Substring(1)).Children())
@@ -48,6 +53,117 @@ namespace Depressurizer.Core.Models
             }
 
             return steamCollections;
+        }
+
+        public void setSteamCollections(Dictionary<int, GameInfo> Games)
+        {
+            var categoryData = new Dictionary<string, List<int>>();
+
+            // Prepare output categories
+            foreach (GameInfo game in Games.Values)
+            {
+                foreach (Category c in game.Categories)
+                {
+                    string categoryName = c.Name.ToUpper();
+
+                    if (!categoryData.ContainsKey(categoryName))
+                    {
+                        categoryData[categoryName] = new List<int>();
+                    }
+
+                    categoryData[categoryName].Add(game.Id);
+                }
+            }
+
+            var newArray = GenerateCategories(categoryData);
+
+            // Save the new categories in leveldb
+            var options = new Options();
+            var db = new DB(options, this.databasePath);
+
+            string data = db.Get(KeyPrefix);
+            var existingArray = JArray.Parse(data.Substring(1));
+
+            JObject existingObj = ToObjectByKey(existingArray);
+            JObject newObj = ToObjectByKey(newArray);
+
+            existingObj.Merge(newObj, new JsonMergeSettings
+            {
+                MergeArrayHandling = MergeArrayHandling.Union
+            });
+
+            JArray mergedArray = ToArrayFromKeyedObject(existingObj);
+
+            db.Put(KeyPrefix, mergedArray.ToString(Formatting.None));
+            db.Close();
+        }
+
+        private static JArray GenerateCategories(Dictionary<string, List<int>> categoryData)
+        {
+            var result = new JArray();
+            long timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            string version = DateTime.UtcNow.ToString("yyyyMMdd");
+
+            foreach (var entry in categoryData)
+            {
+                string categoryName = entry.Key;
+                List<int> gameIds = entry.Value;
+
+                string id = "uc-" + GetDeterministicId(categoryName);
+                string key = "user-collections." + id;
+
+                var inner = new JObject
+                {
+                    ["key"] = key,
+                    ["timestamp"] = timestamp,
+                    ["value"] = JsonConvert.SerializeObject(new
+                    {
+                        id = id,
+                        name = categoryName.ToUpper(),
+                        added = gameIds,
+                        removed = new List<int>()
+                    }),
+                    ["version"] = version,
+                    ["conflictResolutionMethod"] = "custom",
+                    ["strMethodId"] = "union-collections"
+                };
+
+                result.Add(new JArray { key, inner });
+            }
+
+            return result;
+        }
+
+        private static JObject ToObjectByKey(JArray array)
+        {
+            var obj = new JObject();
+            foreach (var item in array)
+            {
+                if (item is JArray arr && arr.Count == 2)
+                {
+                    obj[arr[0]?.ToString()] = arr[1];
+                }
+            }
+            return obj;
+        }
+
+        private static JArray ToArrayFromKeyedObject(JObject obj)
+        {
+            var array = new JArray();
+            foreach (var prop in obj)
+            {
+                array.Add(new JArray { prop.Key, prop.Value });
+            }
+            return array;
+        }
+
+        private static string GetDeterministicId(string input)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                var hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(input.ToLowerInvariant()));
+                return Convert.ToBase64String(hash).Replace("+", "").Replace("/", "").Replace("=", "").Substring(0, 12);
+            }
         }
 
         public class CloudStorageNamespace
