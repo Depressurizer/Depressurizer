@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Linq;
 
 namespace Depressurizer.Core.Models
 {
@@ -15,6 +16,8 @@ namespace Depressurizer.Core.Models
         private readonly string steamID3;
 
         private string KeyPrefix => $"_https://steamloopback.host\u0000\u0001U{steamID3}-cloud-storage-namespace-1";
+        private JArray parsedCatalog = new();
+        private Encoding catalogEncoding = Encoding.UTF8;
 
         public SteamLevelDB(string steamID3)
         {
@@ -29,13 +32,19 @@ namespace Depressurizer.Core.Models
                 ParanoidChecks = true,
             };
             var db = new DB(options, this.databasePath);
+            byte[] dataBytes = db.Get(Encoding.UTF8.GetBytes(KeyPrefix));
 
-            string data = db.Get(KeyPrefix).Replace("\x01", "").Replace("\0", "");
+            if (dataBytes[0] == 0x0) catalogEncoding = Encoding.Unicode;
+            else catalogEncoding = Encoding.UTF8;
+
+            string data = catalogEncoding.GetString(dataBytes.Skip(1).ToArray());
 
             db.Close();
 
+            parsedCatalog = JArray.Parse(data);
+
             CloudStorageNamespace collections = new CloudStorageNamespace();
-            foreach (JToken item in JArray.Parse(data).Children())
+            foreach (JToken item in parsedCatalog.Children())
             {
                 collections.children.Add(item[0].ToString(), JsonConvert.DeserializeObject<CloudStorageNamespace.Element>(item[1].ToString(), new JsonSerializerSettings
                 {
@@ -87,10 +96,7 @@ namespace Depressurizer.Core.Models
             };
             var db = new DB(options, this.databasePath);
 
-            string data = db.Get(KeyPrefix).Replace("\x01", "").Replace("\0", "");
-            var existingArray = JArray.Parse(data);
-
-            JObject existingObj = ToObjectByKey(existingArray);
+            JObject existingObj = ToObjectByKey(parsedCatalog);
             JObject newObj = ToObjectByKey(newArray);
 
             existingObj.Merge(newObj, new JsonMergeSettings
@@ -99,8 +105,14 @@ namespace Depressurizer.Core.Models
             });
 
             JArray mergedArray = ToArrayFromKeyedObject(existingObj);
+            string mergedArrayStr = mergedArray.ToString(Formatting.None);
+            byte[] res = new byte[mergedArrayStr.Length + 1];
+            byte[] encodedArray = Encoding.Convert(Encoding.UTF8, catalogEncoding, Encoding.UTF8.GetBytes(mergedArrayStr));
 
-            db.Put(KeyPrefix, mergedArray.ToString(Formatting.None));
+            res[0] = (byte)(catalogEncoding == Encoding.Unicode ? 0x01 : 0x0);
+            Array.Copy(encodedArray, 0, res, 1, encodedArray.Length);
+
+            db.Put(Encoding.UTF8.GetBytes(KeyPrefix), res);
             db.Close();
         }
 
