@@ -89,29 +89,24 @@ namespace Depressurizer.Core.Models
 
             var newArray = GenerateCategories(categoryData);
 
+            JObject existingObj = ToObjectByKey(parsedCatalog);
+            JObject newObj = ToObjectByKey(newArray);
+            existingObj.Merge(newObj, new JsonMergeSettings
+            {
+                MergeArrayHandling = MergeArrayHandling.Union
+            });
+
+            byte[] encodedArray = catalogEncoding.GetBytes(ToArrayFromKeyedObject(existingObj).ToString(Formatting.None));
+            byte[] res = new byte[encodedArray.Length + 1];
+            res[0] = (byte)(catalogEncoding.CodePage == Encoding.Unicode.CodePage ? 0x01 : 0x00);
+            Buffer.BlockCopy(encodedArray, 0, res, 1, encodedArray.Length);
+
             // Save the new categories in leveldb
             var options = new Options()
             {
                 ParanoidChecks = true,
             };
             var db = new DB(options, this.databasePath);
-
-            JObject existingObj = ToObjectByKey(parsedCatalog);
-            JObject newObj = ToObjectByKey(newArray);
-
-            existingObj.Merge(newObj, new JsonMergeSettings
-            {
-                MergeArrayHandling = MergeArrayHandling.Union
-            });
-
-            JArray mergedArray = ToArrayFromKeyedObject(existingObj);
-            string mergedArrayStr = mergedArray.ToString(Formatting.None);
-            byte[] res = new byte[mergedArrayStr.Length + 1];
-            byte[] encodedArray = Encoding.Convert(Encoding.UTF8, catalogEncoding, Encoding.UTF8.GetBytes(mergedArrayStr));
-
-            res[0] = (byte)(catalogEncoding == Encoding.Unicode ? 0x01 : 0x0);
-            Array.Copy(encodedArray, 0, res, 1, encodedArray.Length);
-
             db.Put(Encoding.UTF8.GetBytes(KeyPrefix), res);
             db.Close();
         }
