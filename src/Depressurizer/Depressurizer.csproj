@@ -60,7 +60,7 @@
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters.CoreServices" Version="2.0.0" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.5" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.6" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="AutoCats\AutoCatConfigPanel_HoursPlayed.cs">
