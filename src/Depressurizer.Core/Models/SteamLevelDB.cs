@@ -111,7 +111,7 @@ namespace Depressurizer.Core.Models
             db.Close();
         }
 
-        private static JArray GenerateCategories(Dictionary<string, List<int>> categoryData)
+        private JArray GenerateCategories(Dictionary<string, List<int>> categoryData)
         {
             var result = new JArray();
             long timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
@@ -147,7 +147,7 @@ namespace Depressurizer.Core.Models
             return result;
         }
 
-        private static JObject ToObjectByKey(JArray array)
+        private JObject ToObjectByKey(JArray array)
         {
             var obj = new JObject();
             foreach (var item in array)
@@ -160,7 +160,7 @@ namespace Depressurizer.Core.Models
             return obj;
         }
 
-        private static JArray ToArrayFromKeyedObject(JObject obj)
+        private JArray ToArrayFromKeyedObject(JObject obj)
         {
             var array = new JArray();
             foreach (var prop in obj)
@@ -170,11 +170,11 @@ namespace Depressurizer.Core.Models
             return array;
         }
 
-        private static string GetDeterministicId(string input)
+        private string GetDeterministicId(string input)
         {
             using (var sha256 = SHA256.Create())
             {
-                var hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(input.ToLowerInvariant()));
+                var hash = sha256.ComputeHash(catalogEncoding.GetBytes(input.ToLowerInvariant()));
                 return Convert.ToBase64String(hash).Replace("+", "").Replace("/", "").Replace("=", "").Substring(0, 12);
             }
         }
