@@ -166,7 +166,7 @@ namespace Depressurizer.AutoCats
             ach.Rules.Add(new HowLongToBeatRule(" 5-10", 5, 10, TimeType.Extras));
             ach.Rules.Add(new HowLongToBeatRule("10-20", 10, 20, TimeType.Extras));
             ach.Rules.Add(new HowLongToBeatRule("20-50", 20, 50, TimeType.Extras));
-            ach.Rules.Add(new HowLongToBeatRule("50+", 20, 0, TimeType.Extras));
+            ach.Rules.Add(new HowLongToBeatRule("50+", 50, 0, TimeType.Extras));
             list.Add(ach);
 
             //By Platform
