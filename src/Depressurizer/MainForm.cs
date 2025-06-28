@@ -2397,7 +2397,7 @@ namespace Depressurizer
                     return 9;
                 }
 
-                if (reviewPositivePercentage >= 85 && reviewTotal >= 50)
+                if (reviewPositivePercentage >= 80 && reviewTotal >= 50)
                 {
                     return 8;
                 }
