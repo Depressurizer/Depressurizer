@@ -782,9 +782,9 @@ namespace Depressurizer
                                     SteamName = record.game_name,
                                     HltbInfo = new()
                                     {
-                                        MainTtb = int.Parse(record.comp_main),
-                                        ExtrasTtb = int.Parse(record.comp_plus),
-                                        CompletionistTtb = int.Parse(record.comp_100)
+                                        MainTtb = (int)Math.Ceiling(int.Parse(record.comp_main) / 60.0f),
+                                        ExtrasTtb = (int)Math.Ceiling(int.Parse(record.comp_plus) / 60.0f),
+                                        CompletionistTtb = (int)Math.Ceiling(int.Parse(record.comp_100) / 60.0f)
                                     }
                                 }
                             });
