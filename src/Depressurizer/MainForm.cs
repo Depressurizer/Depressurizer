@@ -313,7 +313,7 @@ namespace Depressurizer
             }
 
             gameInfo.LastPlayed = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-            Process.Start(gameInfo.Executable);
+            Utils.RunProcess(gameInfo.Executable);
         }
 
         /// <summary>

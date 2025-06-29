@@ -65,7 +65,7 @@ namespace Depressurizer
 
                 if (MessageBox.Show(GlobalStrings.MainForm_Msg_UpdateFound, GlobalStrings.MainForm_Msg_UpdateFoundTitle, MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    Process.Start(url);
+                    Utils.RunProcess(url);
                 }
             }
             catch (Exception e)

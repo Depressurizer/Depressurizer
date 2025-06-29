@@ -403,7 +403,7 @@ namespace Depressurizer.Core.Helpers
         /// <param name="appId"></param>
         public static void LaunchSteamCommunityPage(int appId)
         {
-            Process.Start(string.Format(CultureInfo.InvariantCulture, Constants.SteamCommunityApp, appId));
+            Utils.RunProcess(string.Format(CultureInfo.InvariantCulture, Constants.SteamCommunityApp, appId));
         }
 
         /// <summary>
@@ -412,7 +412,7 @@ namespace Depressurizer.Core.Helpers
         /// <param name="appId"></param>
         public static void LaunchStorePage(int appId)
         {
-            Process.Start(string.Format(CultureInfo.InvariantCulture, Constants.SteamStoreApp, appId));
+            Utils.RunProcess(string.Format(CultureInfo.InvariantCulture, Constants.SteamStoreApp, appId));
         }
 
         public static string ToSteam3Id(long id)

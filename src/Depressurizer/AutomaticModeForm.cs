@@ -247,11 +247,11 @@ namespace Depressurizer
                     break;
                 case SteamLaunchType.Normal:
                     WriteLine("Launching Steam in normal mode.");
-                    Process.Start("steam://open/main");
+                    Utils.RunProcess("steam://open/main");
                     break;
                 case SteamLaunchType.BigPicture:
                     WriteLine("Launching Steam in big picture mode.");
-                    Process.Start("steam://open/bigpicture");
+                    Utils.RunProcess("steam://open/bigpicture");
                     break;
             }
         }
@@ -612,7 +612,7 @@ namespace Depressurizer
 
                 string steamDir = Settings.Instance.SteamPath;
                 Write("Trying to close Steam...");
-                Process closeProc = Process.Start(new ProcessStartInfo(steamDir + "\\steam.exe", "-shutdown"));
+                Process closeProc = Utils.RunProcess(steamDir + "\\steam.exe", "-shutdown");
                 bool closeProcSuccess = closeProc != null && closeProc.WaitForExit(5000);
 
                 if (!closeProcSuccess)

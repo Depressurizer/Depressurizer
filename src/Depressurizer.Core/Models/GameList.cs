@@ -244,11 +244,7 @@ namespace Depressurizer.Core.Models
             SteamLevelDB levelDB = new SteamLevelDB(Steam.ToSteam3Id(steamId));
             levelDB.setSteamCollections(Games);
 
-            ProcessStartInfo startInfo = new ProcessStartInfo("steam://resetcollections")
-            {
-                UseShellExecute = true,
-            };
-            Process.Start(startInfo);
+            Utils.RunProcess("steam://resetcollections");
         }
 
         /// <summary>
