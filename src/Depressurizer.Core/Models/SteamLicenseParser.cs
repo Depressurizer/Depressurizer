@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 
 /*
- * Thanks a lot to https://github.com/wynick27/steam-missing-covers-downloader/blob/master/license_parser.py for the having the decrypted the logic on how to read the Steam licensecache files
- * Thanks as well to https://github.com/SteamDatabase/Protobufs/blob/master/steam/steammessages_clientserver.proto#L161 for the Protobuf definition
+ * Thanks a lot to:
+ * - https://github.com/wynick27/steam-missing-covers-downloader/blob/master/license_parser.py for the decryptiong logic on how to read the Steam licensecache files
+ * - https://github.com/SteamDatabase/Protobufs/blob/master/steam/steammessages_clientserver.proto#L161 for the Protobuf definition
  * 
  * This code wouldn't have been possible without you!
  */
