@@ -1071,9 +1071,34 @@ namespace Depressurizer.Core.Models
 
             Dictionary<int, GameListingSource> ownedApps = new Dictionary<int, GameListingSource>();
 
-            string localConfigPath = string.Format(CultureInfo.InvariantCulture, Constants.LocalConfig, Settings.Instance.SteamPath, Steam.ToSteam3Id(accountId));
+            // Import via License cache layer
             string licenseCachePath = string.Format(CultureInfo.InvariantCulture, Constants.LicenseCache, Settings.Instance.SteamPath, Steam.ToSteam3Id(accountId));
+            var licensesNode = LicenseParser.Parse(licenseCachePath, Steam.ToSteamId32(accountId));
+            if (licensesNode != null)
+            {
+                foreach (var item in licensesNode.Licenses)
+                {
+                    int ownedPackageId = (int)item.PackageId;
 
+                    PackageInfo ownedPackage = allPackages[ownedPackageId];
+                    if (ownedPackageId == 0)
+                    {
+                        continue;
+                    }
+
+                    GameListingSource src = ownedPackage.BillingType == PackageBillingType.FreeOnDemand || ownedPackage.BillingType == PackageBillingType.AutoGrant ? GameListingSource.PackageFree : GameListingSource.PackageNormal;
+                    foreach (int ownedAppId in ownedPackage.AppIds)
+                    {
+                        if (!ownedApps.ContainsKey(ownedAppId) || src == GameListingSource.PackageNormal && ownedApps[ownedAppId] == GameListingSource.PackageFree)
+                        {
+                            ownedApps[ownedAppId] = src;
+                        }
+                    }
+                }
+            }
+
+            // Import via Local Cache layer
+            string localConfigPath = string.Format(CultureInfo.InvariantCulture, Constants.LocalConfig, Settings.Instance.SteamPath, Steam.ToSteam3Id(accountId));
             VDFNode vdfFile;
             using (StreamReader streamReader = new StreamReader(localConfigPath))
             {
@@ -1082,30 +1107,6 @@ namespace Depressurizer.Core.Models
 
             if (vdfFile != null)
             {
-                var licensesNode = LicenseParser.Parse(licenseCachePath, Steam.ToSteamId32(accountId));
-                if (licensesNode != null)
-                {
-                    foreach (var item in licensesNode.Licenses)
-                    {
-                        int ownedPackageId = (int)item.PackageId;
-
-                        PackageInfo ownedPackage = allPackages[ownedPackageId];
-                        if (ownedPackageId == 0)
-                        {
-                            continue;
-                        }
-
-                        GameListingSource src = ownedPackage.BillingType == PackageBillingType.FreeOnDemand || ownedPackage.BillingType == PackageBillingType.AutoGrant ? GameListingSource.PackageFree : GameListingSource.PackageNormal;
-                        foreach (int ownedAppId in ownedPackage.AppIds)
-                        {
-                            if (!ownedApps.ContainsKey(ownedAppId) || src == GameListingSource.PackageNormal && ownedApps[ownedAppId] == GameListingSource.PackageFree)
-                            {
-                                ownedApps[ownedAppId] = src;
-                            }
-                        }
-                    }
-                }
-
                 // update LastPlayed
                 VDFNode appsNode = vdfFile.GetNodeAt(new[]
                 {
