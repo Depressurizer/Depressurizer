@@ -415,7 +415,7 @@ namespace Depressurizer.Core.Models
             }
             catch (FileNotFoundException e)
             {
-                Logger.Error("Error opening Steam config file: {0}", e.ToString());
+                Logger.Warn("Could not find the Steam shortcuts file at this path, will refuse updating it: {0}", filePath);
             }
             catch (IOException e)
             {
