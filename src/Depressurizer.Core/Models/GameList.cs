@@ -1072,6 +1072,7 @@ namespace Depressurizer.Core.Models
             Dictionary<int, GameListingSource> ownedApps = new Dictionary<int, GameListingSource>();
 
             string localConfigPath = string.Format(CultureInfo.InvariantCulture, Constants.LocalConfig, Settings.Instance.SteamPath, Steam.ToSteam3Id(accountId));
+            string licenseCachePath = string.Format(CultureInfo.InvariantCulture, Constants.LicenseCache, Settings.Instance.SteamPath, Steam.ToSteam3Id(accountId));
 
             VDFNode vdfFile;
             using (StreamReader streamReader = new StreamReader(localConfigPath))
@@ -1081,19 +1082,12 @@ namespace Depressurizer.Core.Models
 
             if (vdfFile != null)
             {
-                VDFNode licensesNode = vdfFile.GetNodeAt(new[]
+                var licensesNode = LicenseParser.Parse(licenseCachePath, Steam.ToSteamId32(accountId));
+                if (licensesNode != null)
                 {
-                    "UserLocalConfigStore",
-                    "Licenses"
-                }, false);
-                if (licensesNode != null && licensesNode.NodeType == ValueType.Array)
-                {
-                    foreach (string key in licensesNode.NodeArray.Keys)
+                    foreach (var item in licensesNode.Licenses)
                     {
-                        if (!int.TryParse(key, out int ownedPackageId))
-                        {
-                            continue;
-                        }
+                        int ownedPackageId = (int)item.PackageId;
 
                         PackageInfo ownedPackage = allPackages[ownedPackageId];
                         if (ownedPackageId == 0)

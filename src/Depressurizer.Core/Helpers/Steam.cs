@@ -420,6 +420,11 @@ namespace Depressurizer.Core.Helpers
             return (id - ProfileConstant).ToString(CultureInfo.InvariantCulture);
         }
 
+        public static int ToSteamId32(long id)
+        {
+            return (int)(id - ProfileConstant);
+        }
+
         public static long ToSteamId64(string id)
         {
             if (long.TryParse(id, out long res))

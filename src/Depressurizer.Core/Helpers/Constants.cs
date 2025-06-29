@@ -40,6 +40,11 @@ namespace Depressurizer.Core.Helpers
         public static Uri HowLongToBeat => new Uri("https://github.com/julianxhokaxhiu/hltb-scraper/releases/latest/download/howlongtobeat_games.csv");
 
         /// <summary>
+        ///     Generic path to licensecache, must be formatted with the Steam installation path and the Steam ID.
+        /// </summary>
+        public static string LicenseCache => @"{0}\userdata\{1}\config\licensecache";
+
+        /// <summary>
         ///     Generic path to localconfig.vdf, must be formatted with the Steam installation path and the Steam ID.
         /// </summary>
         public static string LocalConfig => @"{0}\userdata\{1}\config\localconfig.vdf";
