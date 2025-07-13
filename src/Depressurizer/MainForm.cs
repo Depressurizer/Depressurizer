@@ -4508,7 +4508,7 @@ namespace Depressurizer
         }
 
         /// <summary>
-        ///     Updates the database using data from howlongtobeatsteam.com. Displays an error message on failure. Saves the DB
+        ///     Updates the database using data from github.com/julianxhokaxhiu/hltb-scraper. Displays an error message on failure. Saves the DB
         ///     afterwards if AutoSaveDatabase is set.
         /// </summary>
         private void UpdateDatabaseFromHLTB()

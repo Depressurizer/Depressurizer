@@ -1068,7 +1068,7 @@
     <value>更新 HLTB 数据出错。</value>
   </data>
   <data name="DBEditDlg_ErrorWhileUpdatingHltb" xml:space="preserve">
-    <value>从 howlongtobeatsteam.com 更新数据时发生错误: {0}</value>
+    <value>从 github.com/julianxhokaxhiu/hltb-scraper 更新数据时发生错误: {0}</value>
   </data>
   <data name="DBEditDlg_HltbUpdateFailed" xml:space="preserve">
     <value>从 HLTB 更新数据失败: {0}</value>
@@ -1080,7 +1080,7 @@
     <value>从 HLTB 更新了 {0} 项。</value>
   </data>
   <data name="DlgOptions_Help_IncludeImputedTimes" xml:space="preserve">
-    <value>使用来自 howlongtobeatsteam.com 的从统计学上估算的时间弥补缺失的时数。</value>
+    <value>使用来自 github.com/julianxhokaxhiu/hltb-scraper 的从统计学上估算的时间弥补缺失的时数。</value>
   </data>
   <data name="AutoCat_Name_Hltb" xml:space="preserve">
     <value>HLTB 时数</value>
