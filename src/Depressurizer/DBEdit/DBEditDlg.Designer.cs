@@ -406,7 +406,7 @@ namespace Depressurizer {
             0});
             this.numIdRangeMax.Name = "numIdRangeMax";
             this.numIdRangeMax.Value = new decimal(new int[] {
-            9999999,
+            long.MaxValue,
             0,
             0,
             0});
