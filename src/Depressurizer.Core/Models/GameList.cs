@@ -25,7 +25,7 @@ namespace Depressurizer.Core.Models
 
         public GameList()
         {
-            Games = new Dictionary<int, GameInfo>();
+            Games = new Dictionary<long, GameInfo>();
             Categories = new List<Category>();
             Filters = new List<Filter>();
             FavoriteCategory = new Category(FavoriteNewConfigValue);
@@ -46,7 +46,7 @@ namespace Depressurizer.Core.Models
 
         public List<Filter> Filters { get; set; }
 
-        public Dictionary<int, GameInfo> Games { get; set; }
+        public Dictionary<long, GameInfo> Games { get; set; }
 
         #endregion
 
@@ -142,7 +142,7 @@ namespace Depressurizer.Core.Models
         /// </summary>
         /// <param name="appId">Game ID to add category to</param>
         /// <param name="category">Category to add</param>
-        public void AddGameCategory(int appId, Category category)
+        public void AddGameCategory(long appId, Category category)
         {
             Games[appId].AddCategory(category);
         }
@@ -152,7 +152,7 @@ namespace Depressurizer.Core.Models
         /// </summary>
         /// <param name="appIds">List of game IDs to add to</param>
         /// <param name="category">Category to add</param>
-        public void AddGameCategory(int[] appIds, Category category)
+        public void AddGameCategory(long[] appIds, Category category)
         {
             if (appIds == null || category == null)
             {
@@ -200,7 +200,7 @@ namespace Depressurizer.Core.Models
         /// </summary>
         /// <param name="appId">Game ID to clear categories from</param>
         /// <param name="preserveFavorite">If true, preserves the favorite category.</param>
-        public void ClearGameCategories(int appId, bool preserveFavorite)
+        public void ClearGameCategories(long appId, bool preserveFavorite)
         {
             Games[appId].ClearCategories(!preserveFavorite);
         }
@@ -210,14 +210,14 @@ namespace Depressurizer.Core.Models
         /// </summary>
         /// <param name="appIds">List of game IDs to clear categories from</param>
         /// <param name="preserveFavorite">If true, preserves the favorite category.</param>
-        public void ClearGameCategories(int[] appIds, bool preserveFavorite)
+        public void ClearGameCategories(long[] appIds, bool preserveFavorite)
         {
             if (appIds == null)
             {
                 return;
             }
 
-            foreach (int appId in appIds)
+            foreach (long appId in appIds)
             {
                 ClearGameCategories(appId, preserveFavorite);
             }
@@ -603,7 +603,7 @@ namespace Depressurizer.Core.Models
         /// </summary>
         /// <param name="appId">Game ID to hide/unhide</param>
         /// <param name="isHidden">Whether the game should be hidden.</param>
-        public void HideGames(int appId, bool isHidden)
+        public void HideGames(long appId, bool isHidden)
         {
             Games[appId].SetHidden(isHidden);
         }
@@ -613,7 +613,7 @@ namespace Depressurizer.Core.Models
         /// </summary>
         /// <param name="appIds">List of game IDs to hide/unhide</param>
         /// <param name="isHidden">Whether the games should be hidden.</param>
-        public void HideGames(int[] appIds, bool isHidden)
+        public void HideGames(long[] appIds, bool isHidden)
         {
             if (appIds == null)
             {
@@ -633,7 +633,7 @@ namespace Depressurizer.Core.Models
         /// <param name="ignore">Set of games to ignore</param>
         /// <param name="includeShortcuts">If true, also import shortcut data</param>
         /// <returns>The number of game entries found</returns>
-        public int ImportSteamConfig(long steamId, SortedSet<int> ignore, bool includeShortcuts)
+        public int ImportSteamConfig(long steamId, SortedSet<long> ignore, bool includeShortcuts)
         {
             int result = 0;
             if (Settings.ReadFromLevelDB)
@@ -681,7 +681,7 @@ namespace Depressurizer.Core.Models
         /// <param name="filePath">The path of the file to open</param>
         /// <param name="ignore">Set of game IDs to ignore</param>
         /// <returns>The number of game entries found</returns>
-        public int ImportSteamConfigFile(string filePath, SortedSet<int> ignore)
+        public int ImportSteamConfigFile(string filePath, SortedSet<long> ignore)
         {
             Logger.Info("Opening Steam config file: {0}", filePath);
             VDFNode dataRoot;
@@ -810,7 +810,7 @@ namespace Depressurizer.Core.Models
             return loadedGames;
         }
 
-        public int IntegrateGameList(GetOwnedGamesObject doc, bool overwrite, SortedSet<int> ignore, out int newItems)
+        public int IntegrateGameList(GetOwnedGamesObject doc, bool overwrite, SortedSet<long> ignore, out int newItems)
         {
             newItems = 0;
             if (doc == null)
@@ -841,7 +841,7 @@ namespace Depressurizer.Core.Models
             return loadedGames;
         }
 
-        public int IntegrateGameList(IXPathNavigable doc, bool overwrite, SortedSet<int> ignore, out int newItems)
+        public int IntegrateGameList(IXPathNavigable doc, bool overwrite, SortedSet<long> ignore, out int newItems)
         {
             newItems = 0;
             if (doc == null || !(doc is XmlNode node))
@@ -972,7 +972,7 @@ namespace Depressurizer.Core.Models
         /// </summary>
         /// <param name="appId">Game ID to remove from</param>
         /// <param name="category">Category to remove</param>
-        public void RemoveGameCategory(int appId, Category category)
+        public void RemoveGameCategory(long appId, Category category)
         {
             Games[appId].RemoveCategory(category);
         }
@@ -982,9 +982,9 @@ namespace Depressurizer.Core.Models
         /// </summary>
         /// <param name="appIds">List of game IDs to remove from</param>
         /// <param name="category">Category to remove</param>
-        public void RemoveGameCategory(int[] appIds, Category category)
+        public void RemoveGameCategory(long[] appIds, Category category)
         {
-            foreach (int appId in appIds)
+            foreach (long appId in appIds)
             {
                 RemoveGameCategory(appId, category);
             }
@@ -1025,7 +1025,7 @@ namespace Depressurizer.Core.Models
             return newCategory;
         }
 
-        public void SetGameCategories(int[] appIds, Category cat, bool preserveFavorites)
+        public void SetGameCategories(long[] appIds, Category cat, bool preserveFavorites)
         {
             SetGameCategories(appIds, new List<Category>
             {
@@ -1039,7 +1039,7 @@ namespace Depressurizer.Core.Models
         /// <param name="appId">Game ID to modify</param>
         /// <param name="catSet">Set of categories to apply</param>
         /// <param name="preserveFavorites">If true, will not remove "favorite" category</param>
-        public void SetGameCategories(int appId, ICollection<Category> catSet, bool preserveFavorites)
+        public void SetGameCategories(long appId, ICollection<Category> catSet, bool preserveFavorites)
         {
             Games[appId].SetCategories(catSet, preserveFavorites);
         }
@@ -1050,7 +1050,7 @@ namespace Depressurizer.Core.Models
         /// <param name="appIds">Game IDs to modify</param>
         /// <param name="catSet">Set of categories to apply</param>
         /// <param name="preserveFavorites">If true, will not remove "favorite" category</param>
-        public void SetGameCategories(int[] appIds, ICollection<Category> catSet, bool preserveFavorites)
+        public void SetGameCategories(long[] appIds, ICollection<Category> catSet, bool preserveFavorites)
         {
             foreach (int appId in appIds)
             {
@@ -1058,7 +1058,7 @@ namespace Depressurizer.Core.Models
             }
         }
 
-        public int UpdateGameListFromOwnedPackageInfo(long accountId, SortedSet<int> ignored, out int newApps)
+        public int UpdateGameListFromOwnedPackageInfo(long accountId, SortedSet<long> ignored, out int newApps)
         {
             newApps = 0;
             int totalApps = 0;
@@ -1234,7 +1234,7 @@ namespace Depressurizer.Core.Models
             }
         }
 
-        private void GetLastPlayedFromVdf(VDFNode appsNode, ICollection<int> ignore)
+        private void GetLastPlayedFromVdf(VDFNode appsNode, ICollection<long> ignore)
         {
             Dictionary<string, VDFNode> gameNodeArray = appsNode?.NodeArray;
             if (gameNodeArray == null)
@@ -1280,7 +1280,7 @@ namespace Depressurizer.Core.Models
             }
         }
 
-        private int IntegrateFromNode(VDFNode appsNode, ICollection<int> ignore)
+        private int IntegrateFromNode(VDFNode appsNode, ICollection<long> ignore)
         {
             int loadedGames = 0;
 
@@ -1291,7 +1291,7 @@ namespace Depressurizer.Core.Models
             }
 
             // Make sure ignore list is not null
-            ignore = ignore ?? new List<int>();
+            ignore = ignore ?? new List<long>();
 
             foreach (KeyValuePair<string, VDFNode> gameNodePair in gameNodeArray)
             {
@@ -1373,7 +1373,7 @@ namespace Depressurizer.Core.Models
         /// <param name="src">The listing source that this request came from.</param>
         /// <param name="isNew">If true, a new game was added. If false, an existing game was updated, or the operation failed.</param>
         /// <returns>True if the game was integrated, false otherwise.</returns>
-        private GameInfo IntegrateGame(int appId, string appName, bool overwriteName, SortedSet<int> ignore, GameListingSource src, out bool isNew)
+        private GameInfo IntegrateGame(int appId, string appName, bool overwriteName, SortedSet<long> ignore, GameListingSource src, out bool isNew)
         {
             isNew = false;
             if (ignore != null && ignore.Contains(appId) || !Database.IncludeItemInGameList(appId))

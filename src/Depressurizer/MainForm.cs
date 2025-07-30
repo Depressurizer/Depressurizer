@@ -2717,20 +2717,20 @@ namespace Depressurizer
                 {
                     if (dropCat == CurrentProfile.GameData.FavoriteCategory)
                     {
-                        CurrentProfile.GameData.AddGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
+                        CurrentProfile.GameData.AddGameCategory((long[]) e.Data.GetData(typeof(long[])), dropCat);
                     }
                     else
                     {
-                        CurrentProfile.GameData.SetGameCategories((int[]) e.Data.GetData(typeof(int[])), dropCat, true);
+                        CurrentProfile.GameData.SetGameCategories((long[]) e.Data.GetData(typeof(long[])), dropCat, true);
                     }
                 }
                 else if (e.Effect == DragDropEffects.Link)
                 {
-                    CurrentProfile.GameData.RemoveGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
+                    CurrentProfile.GameData.RemoveGameCategory((long[]) e.Data.GetData(typeof(long[])), dropCat);
                 }
                 else if (e.Effect == DragDropEffects.Copy)
                 {
-                    CurrentProfile.GameData.AddGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
+                    CurrentProfile.GameData.AddGameCategory((long[]) e.Data.GetData(typeof(long[])), dropCat);
                 }
 
                 FillAllCategoryLists();
@@ -2739,14 +2739,14 @@ namespace Depressurizer
             }
             else if ((string) dropItem.Tag == Resources.SpecialCategoryUncategorized)
             {
-                CurrentProfile.GameData.ClearGameCategories((int[]) e.Data.GetData(typeof(int[])), true);
+                CurrentProfile.GameData.ClearGameCategories((long[]) e.Data.GetData(typeof(long[])), true);
                 FillCategoryList();
                 FilterGameList(false);
                 MakeChange(true);
             }
             else if ((string) dropItem.Tag == Resources.SpecialCategoryHidden)
             {
-                CurrentProfile.GameData.HideGames((int[]) e.Data.GetData(typeof(int[])), true);
+                CurrentProfile.GameData.HideGames((long[])e.Data.GetData(typeof(long[])), true);
                 FillCategoryList();
                 FilterGameList(false);
                 MakeChange(true);
@@ -2982,7 +2982,7 @@ namespace Depressurizer
 
         private void lstGames_ItemDrag(object sender, ItemDragEventArgs e)
         {
-            int[] selectedGames = new int[lstGames.SelectedObjects.Count];
+            long[] selectedGames = new long[lstGames.SelectedObjects.Count];
             for (int i = 0; i < lstGames.SelectedObjects.Count; i++)
             {
                 selectedGames[i] = _typedListGames.SelectedObjects[i].Id;

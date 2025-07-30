@@ -31,7 +31,7 @@ namespace Depressurizer
 
         #region Fields
 
-        public readonly ConcurrentDictionary<int, DatabaseEntry> DatabaseEntries = new ConcurrentDictionary<int, DatabaseEntry>();
+        public readonly ConcurrentDictionary<long, DatabaseEntry> DatabaseEntries = new ConcurrentDictionary<long, DatabaseEntry>();
 
         private StoreLanguage _language = StoreLanguage.English;
 
@@ -237,7 +237,7 @@ namespace Depressurizer
             }
             else
             {
-                foreach (int appId in filter.Games.Keys)
+                foreach (long appId in filter.Games.Keys)
                 {
                     if (!Contains(appId, out DatabaseEntry entry) || filter.Games[appId].IsHidden)
                     {
@@ -338,12 +338,12 @@ namespace Depressurizer
             DatabaseEntries.Clear();
         }
 
-        public bool Contains(int appId)
+        public bool Contains(long appId)
         {
             return DatabaseEntries.ContainsKey(appId);
         }
 
-        public bool Contains(int appId, out DatabaseEntry entry)
+        public bool Contains(long appId, out DatabaseEntry entry)
         {
             return DatabaseEntries.TryGetValue(appId, out entry);
         }
@@ -423,12 +423,12 @@ namespace Depressurizer
             return added;
         }
 
-        public SortedSet<string> GetDevelopers(int appId)
+        public SortedSet<string> GetDevelopers(long appId)
         {
             return GetDevelopers(appId, 3);
         }
 
-        public SortedSet<string> GetDevelopers(int appId, int depth)
+        public SortedSet<string> GetDevelopers(long appId, int depth)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {
@@ -444,12 +444,12 @@ namespace Depressurizer
             return result;
         }
 
-        public SortedSet<string> GetFlagList(int appId)
+        public SortedSet<string> GetFlagList(long appId)
         {
             return GetFlagList(appId, 3);
         }
 
-        public SortedSet<string> GetFlagList(int appId, int depth)
+        public SortedSet<string> GetFlagList(long appId, int depth)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {
@@ -465,7 +465,7 @@ namespace Depressurizer
             return result;
         }
 
-        public SortedSet<string> GetGenreList(int appId, int depth, bool tagFallback)
+        public SortedSet<string> GetGenreList(long appId, int depth, bool tagFallback)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {
@@ -490,7 +490,7 @@ namespace Depressurizer
             return result;
         }
 
-        public string GetName(int appId)
+        public string GetName(long appId)
         {
             if (Contains(appId, out DatabaseEntry entry))
             {
@@ -500,12 +500,12 @@ namespace Depressurizer
             return string.Empty;
         }
 
-        public SortedSet<string> GetPublishers(int appId)
+        public SortedSet<string> GetPublishers(long appId)
         {
             return GetPublishers(appId, 3);
         }
 
-        public SortedSet<string> GetPublishers(int appId, int depth)
+        public SortedSet<string> GetPublishers(long appId, int depth)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {
@@ -521,7 +521,7 @@ namespace Depressurizer
             return result;
         }
 
-        public int GetReleaseYear(int appId)
+        public int GetReleaseYear(long appId)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {
@@ -536,12 +536,12 @@ namespace Depressurizer
             return 0;
         }
 
-        public SortedSet<string> GetTagList(int appId)
+        public SortedSet<string> GetTagList(long appId)
         {
             return GetTagList(appId, 3);
         }
 
-        public SortedSet<string> GetTagList(int appId, int depth)
+        public SortedSet<string> GetTagList(long appId, int depth)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {
@@ -557,7 +557,7 @@ namespace Depressurizer
             return tags;
         }
 
-        public bool IncludeItemInGameList(int appId)
+        public bool IncludeItemInGameList(long appId)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {
@@ -567,7 +567,7 @@ namespace Depressurizer
             return entry.AppType == AppType.Application || entry.AppType == AppType.Game || entry.AppType == AppType.Mod;
         }
 
-        public bool IsType(int appId, AppType appType)
+        public bool IsType(long appId, AppType appType)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {
@@ -625,12 +625,12 @@ namespace Depressurizer
             }
         }
 
-        public bool Remove(int appId)
+        public bool Remove(long appId)
         {
             return Remove(appId, out _);
         }
 
-        public bool Remove(int appId, out DatabaseEntry entry)
+        public bool Remove(long appId, out DatabaseEntry entry)
         {
             return DatabaseEntries.TryRemove(appId, out entry);
         }
@@ -675,12 +675,12 @@ namespace Depressurizer
             }
         }
 
-        public bool SupportsVR(int appId)
+        public bool SupportsVR(long appId)
         {
             return SupportsVR(appId, 3);
         }
 
-        public bool SupportsVR(int appId, int depth)
+        public bool SupportsVR(long appId, int depth)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {

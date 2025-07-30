@@ -62,7 +62,7 @@ namespace Depressurizer
 
         #region Fields
 
-        private SortedSet<int> _ignoreList = new SortedSet<int>();
+        private SortedSet<long> _ignoreList = new SortedSet<long>();
 
         private string _steamWebApiKey;
 
@@ -128,9 +128,9 @@ namespace Depressurizer
 
         public IGameList GameData { get; } = new GameList();
 
-        public SortedSet<int> IgnoreList
+        public SortedSet<long> IgnoreList
         {
-            get => _ignoreList ?? (_ignoreList = new SortedSet<int>());
+            get => _ignoreList ?? (_ignoreList = new SortedSet<long>());
             set => _ignoreList = value;
         }
 

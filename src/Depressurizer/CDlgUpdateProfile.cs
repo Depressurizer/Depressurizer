@@ -19,7 +19,7 @@ namespace Depressurizer
 
         private readonly IGameList data;
 
-        private readonly SortedSet<int> ignore;
+        private readonly SortedSet<long> ignore;
 
         private readonly bool overwrite;
 
@@ -33,7 +33,7 @@ namespace Depressurizer
 
         #region Constructors and Destructors
 
-        public CDlgUpdateProfile(IGameList data, long accountId, bool overwrite, SortedSet<int> ignore) : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
+        public CDlgUpdateProfile(IGameList data, long accountId, bool overwrite, SortedSet<long> ignore) : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
         {
             SteamId = accountId;
 

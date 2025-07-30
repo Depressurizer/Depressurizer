@@ -67,9 +67,9 @@ namespace Depressurizer.Core.Models
             return steamCollections;
         }
 
-        public void setSteamCollections(Dictionary<int, GameInfo> Games)
+        public void setSteamCollections(Dictionary<long, GameInfo> Games)
         {
-            var categoryData = new Dictionary<string, List<int>>();
+            var categoryData = new Dictionary<string, List<long>>();
 
             // Prepare output categories
             foreach (GameInfo game in Games.Values)
@@ -80,7 +80,7 @@ namespace Depressurizer.Core.Models
 
                     if (!categoryData.ContainsKey(categoryName))
                     {
-                        categoryData[categoryName] = new List<int>();
+                        categoryData[categoryName] = new List<long>();
                     }
 
                     categoryData[categoryName].Add(game.Id);
@@ -111,7 +111,7 @@ namespace Depressurizer.Core.Models
             db.Close();
         }
 
-        private JArray GenerateCategories(Dictionary<string, List<int>> categoryData)
+        private JArray GenerateCategories(Dictionary<string, List<long>> categoryData)
         {
             var result = new JArray();
             long timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
@@ -120,7 +120,7 @@ namespace Depressurizer.Core.Models
             foreach (var entry in categoryData)
             {
                 string categoryName = entry.Key;
-                List<int> gameIds = entry.Value;
+                List<long> gameIds = entry.Value;
 
                 string id = "uc-" + GetDeterministicId(categoryName);
                 string key = "user-collections." + id;
@@ -202,8 +202,8 @@ namespace Depressurizer.Core.Models
                 {
                     public string id { get; set; }
                     public string name { get; set; }
-                    public int[] added { get; set; }
-                    public int[] removed { get; set; }
+                    public long[] added { get; set; }
+                    public long[] removed { get; set; }
                 }
             }
         }

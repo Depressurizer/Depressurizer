@@ -23,7 +23,7 @@ namespace Depressurizer.AutoCats
 
         #region Fields
 
-        private Dictionary<int, CuratorRecommendation> curatorRecommendations;
+        private Dictionary<long, CuratorRecommendation> curatorRecommendations;
 
         #endregion
 

@@ -21,12 +21,12 @@ namespace Depressurizer.Core.Helpers
         /// <summary>
         ///     List containing the id's of the apps who's banner failed to download.
         /// </summary>
-        private static readonly List<int> BannerFailed = new List<int>();
+        private static readonly List<long> BannerFailed = new List<long>();
 #endif
         /// <summary>
         ///     List of known id's that don't have a banner available.
         /// </summary>
-        private static readonly List<int> IgnoreList = new List<int>
+        private static readonly List<long> IgnoreList = new List<long>
         {
             5,
             7,
@@ -366,9 +366,9 @@ namespace Depressurizer.Core.Helpers
 
         #region Public Methods and Operators
 
-        public static async void GrabBanner(int appId)
+        public static async void GrabBanner(long appId)
         {
-            await Task.Run(() => GrabBanners(new int[] { appId }));
+            await Task.Run(() => GrabBanners(new long[] { appId }));
         }
 
         /// <summary>
@@ -377,7 +377,7 @@ namespace Depressurizer.Core.Helpers
         /// <param name="appIds">
         ///     IEnumerable containing the id's of the apps to download the banner for.
         /// </param>
-        public static async void GrabBanners(IEnumerable<int> appIds)
+        public static async void GrabBanners(IEnumerable<long> appIds)
         {
             appIds = appIds.Distinct().Except(IgnoreList);
             await Task.Run(() => { Parallel.ForEach(appIds, FetchBanner); });
@@ -401,7 +401,7 @@ namespace Depressurizer.Core.Helpers
         ///     Opens the Steam Community page for the specified app in the default browser.
         /// </summary>
         /// <param name="appId"></param>
-        public static void LaunchSteamCommunityPage(int appId)
+        public static void LaunchSteamCommunityPage(long appId)
         {
             Utils.RunProcess(string.Format(CultureInfo.InvariantCulture, Constants.SteamCommunityApp, appId));
         }
@@ -410,7 +410,7 @@ namespace Depressurizer.Core.Helpers
         ///     Opens the store page for the specified app in the default browser.
         /// </summary>
         /// <param name="appId"></param>
-        public static void LaunchStorePage(int appId)
+        public static void LaunchStorePage(long appId)
         {
             Utils.RunProcess(string.Format(CultureInfo.InvariantCulture, Constants.SteamStoreApp, appId));
         }
@@ -445,7 +445,7 @@ namespace Depressurizer.Core.Helpers
         /// <param name="appId">
         ///     Id of the target app, must be greater than zero.
         /// </param>
-        private static void FetchBanner(int appId)
+        private static void FetchBanner(long appId)
         {
             if (appId <= 0 || IgnoreList.Contains(appId))
             {

@@ -94,7 +94,7 @@ namespace Depressurizer.Core.Models
         /// <param name="appId">
         ///     Steam Application ID.
         /// </param>
-        public DatabaseEntry(int appId)
+        public DatabaseEntry(long appId)
         {
             Id = AppId = appId;
         }
@@ -106,7 +106,7 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     Steam Application ID.
         /// </summary>
-        public int AppId { get; set; }
+        public long AppId { get; set; }
 
         /// <summary>
         ///     Type of this application.
@@ -161,7 +161,7 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     Depressurizer id.
         /// </summary>
-        public int Id { get; }
+        public long Id { get; }
 
         /// <remarks>
         ///     TODO: Add field to DB edit dialog
