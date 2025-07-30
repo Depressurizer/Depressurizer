@@ -400,7 +400,7 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.numIdRangeMax, "numIdRangeMax");
             this.numIdRangeMax.Maximum = new decimal(new int[] {
-            9999999,
+            long.MaxValue,
             0,
             0,
             0});
