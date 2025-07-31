@@ -78,7 +78,7 @@ namespace Depressurizer
 
         private static Database Database => Database.Instance;
 
-        private static long FilterMaxId => 9999999;
+        private static long FilterMaxId => long.MaxValue;
 
         private static Logger Logger => Logger.Instance;
 
