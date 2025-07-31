@@ -3493,5 +3493,16 @@ namespace Depressurizer {
                 return ResourceManager.GetString("TextVdfFile_UnexpectedEOF", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected end-of-file reached: Unterminated string..
+        /// </summary>
+        internal static string TextSteam_AlreayRunning
+        {
+            get
+            {
+                return ResourceManager.GetString("TextSteam_AlreayRunning", resourceCulture);
+            }
+        }
     }
 }

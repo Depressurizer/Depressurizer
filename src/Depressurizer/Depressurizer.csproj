@@ -1,22 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <TargetFramework>net9.0-windows7.0</TargetFramework>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9E36EFA4-82E9-44B8-ABCE-BD73B8A6CD21}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Depressurizer</RootNamespace>
-    <AssemblyName>Depressurizer</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
-    <FileAlignment>512</FileAlignment>
+    <Version>0.0.0</Version>
+    <Copyright>Julian Xhokaxhiu 2025</Copyright>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -27,723 +16,107 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>0.6.1.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-  </PropertyGroup>
-  <PropertyGroup>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <GenerateManifests>false</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
-  </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup>
     <SignManifests>false</SignManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup>
     <ApplicationIcon>depressurizer_icon.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup>
     <StartupObject>Depressurizer.Program</StartupObject>
-  </PropertyGroup>
-  <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <PropertyGroup>
-    <DebugType>embedded</DebugType>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Build.Framework" />
-    <Reference Include="Microsoft.Build.Utilities.v4.0" />
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="Costura.Fody" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="CsvHelper" Version="33.1.0" />
+    <PackageReference Include="Fody" Version="6.9.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="MaterialSkin.NET5" Version="1.0.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="ObjectListView.Repack.NET6Plus" Version="2.9.5" />
+    <PackageReference Include="Resource.Embedder" Version="2.2.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters.CoreServices" Version="2.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.6" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoCats\AutoCatConfigPanel_HoursPlayed.cs">
+    <Compile Update="AutoCats\AutoCatConfigPanel_HoursPlayed.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_HoursPlayed.Designer.cs">
-      <DependentUpon>AutoCatConfigPanel_HoursPlayed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AutoCats\AutoCatHoursPlayed.cs" />
-    <Compile Include="CommaClusteringStrategy.cs" />
-    <Compile Include="Dialogs\SteamKeyDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\SteamKeyDialog.Designer.cs">
-      <DependentUpon>SteamKeyDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DlgRandomGame.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgRandomGame.Designer.cs">
-      <DependentUpon>DlgRandomGame.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="IgnoreListViewItemComparer.cs" />
-    <Compile Include="ListCategoriesComparer.cs" />
-    <Compile Include="AutoCats\AutoCatConfigPanel_Curator.cs">
+    <Compile Update="AutoCats\AutoCatConfigPanel_Curator.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Curator.Designer.cs">
-      <DependentUpon>AutoCatConfigPanel_Curator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Platform.cs">
+    <Compile Update="AutoCats\AutoCatConfigPanel_Platform.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Platform.Designer.cs">
-      <DependentUpon>AutoCatConfigPanel_Platform.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AutoCats\AutoCatPlatform.cs" />
-    <Compile Include="AutoCats\AutoCatCurator.cs" />
-    <Compile Include="AutoCats\AutoCat.cs" />
-    <Compile Include="AutoCats\AutoCatConfigPanel.cs">
+    <Compile Update="AutoCats\AutoCatConfigPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Language.cs">
+    <Compile Update="AutoCats\AutoCatConfigPanel_Language.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Language.Designer.cs">
-      <DependentUpon>AutoCatConfigPanel_Language.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_VrSupport.cs">
+    <Compile Update="AutoCats\AutoCatConfigPanel_VrSupport.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_VrSupport.Designer.cs">
-      <DependentUpon>AutoCatConfigPanel_VrSupport.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Flags.cs">
+    <Compile Update="AutoCats\AutoCatConfigPanel_Flags.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Flags.Designer.cs">
-      <DependentUpon>AutoCatConfigPanel_Flags.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_DevPub.cs">
+    <Compile Update="AutoCats\AutoCatConfigPanel_DevPub.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_DevPub.Designer.cs">
-      <DependentUpon>AutoCatConfigPanel_DevPub.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Group.cs">
+    <Compile Update="AutoCats\AutoCatConfigPanel_Group.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Group.Designer.cs">
-      <DependentUpon>AutoCatConfigPanel_Group.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Manual.cs">
+    <Compile Update="AutoCats\AutoCatConfigPanel_Manual.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Manual.Designer.cs">
-      <DependentUpon>AutoCatConfigPanel_Manual.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Genre.cs">
+    <Compile Update="AutoCats\AutoCatConfigPanel_Genre.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Genre.Designer.cs">
-      <DependentUpon>AutoCatConfigPanel_Genre.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Name.cs">
+    <Compile Update="AutoCats\AutoCatConfigPanel_Name.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Name.Designer.cs">
-      <DependentUpon>AutoCatConfigPanel_Name.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Tags.cs">
+    <Compile Update="AutoCats\AutoCatConfigPanel_Tags.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Tags.Designer.cs">
-      <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Hltb.cs">
+    <Compile Update="AutoCats\AutoCatConfigPanel_Hltb.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Hltb.Designer.cs">
-      <DependentUpon>AutoCatConfigPanel_Hltb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_UserScore.cs">
+    <Compile Update="AutoCats\AutoCatConfigPanel_UserScore.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_UserScore.Designer.cs">
-      <DependentUpon>AutoCatConfigPanel_UserScore.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Year.cs">
+    <Compile Update="AutoCats\AutoCatConfigPanel_Year.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCats\AutoCatConfigPanel_Year.Designer.cs">
-      <DependentUpon>AutoCatConfigPanel_Year.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AutoCats\AutoCatLanguage.cs" />
-    <Compile Include="AutoCats\AutoCatVrSupport.cs" />
-    <Compile Include="AutoCats\AutoCatFlags.cs" />
-    <Compile Include="AutoCats\AutoCatGenre.cs" />
-    <Compile Include="AutoCats\AutoCatDevPub.cs" />
-    <Compile Include="AutoCats\AutoCatManual.cs" />
-    <Compile Include="AutoCats\AutoCatName.cs" />
-    <Compile Include="AutoCats\AutoCatTags.cs" />
-    <Compile Include="AutoCats\AutoCatHltb.cs" />
-    <Compile Include="AutoCats\AutoCatUserScore.cs" />
-    <Compile Include="AutoCats\AutoCatGroup.cs" />
-    <Compile Include="AutoCats\AutoCatYear.cs" />
-    <Compile Include="AutoCats\CDlgCurator.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AutomaticModeForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AutomaticModeForm.Designer.cs">
-      <DependentUpon>AutomaticModeForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CDlgHltb.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgAbout.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgAbout.Designer.cs">
-      <DependentUpon>DlgAbout.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DlgAutoCatSelect.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgAutoCatSelect.Designer.cs">
-      <DependentUpon>DlgAutoCatSelect.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DlgAutoCat.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgAutoCat.Designer.cs">
-      <DependentUpon>DlgAutoCat.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DlgAutoCatCreate.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgAutoCatCreate.Designer.cs">
-      <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DlgAutomaticModeHelper.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgAutomaticModeHelper.Designer.cs">
-      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DlgClose.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgClose.Designer.cs">
-      <DependentUpon>DlgClose.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DlgRestore.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgRestore.Designer.cs">
-      <DependentUpon>DlgRestore.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Lib\ExtListView.cs">
+    <Compile Update="Lib\ExtListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Lib\ExtToolTip.cs">
+    <Compile Update="Lib\ExtToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Lib\Options.cs" />
-    <Compile Include="ListViewComparer.cs" />
-    <Compile Include="MyRenderer.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <DependentUpon>Resources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Helpers\ToolStripItemComparer.cs" />
-    <Compile Include="Utility.cs" />
-    <Compile Include="DBEdit\DBEditDlg.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DBEdit\DBEditDlg.Designer.cs">
-      <DependentUpon>DBEditDlg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DBEdit\DlgGameDBEntry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DBEdit\DlgGameDBEntry.Designer.cs">
-      <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\ScrapeDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgManualDownload.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgManualDownload.Designer.cs">
-      <DependentUpon>DlgManualDownload.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Database.cs" />
-    <Compile Include="CDlgGetSteamID.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GlobalStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GlobalStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="DlgGame.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgGame.Designer.cs">
-      <DependentUpon>DlgGame.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\CancelableDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\CancelableDialog.Designer.cs">
-      <DependentUpon>CancelableDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Lib\MultiColumnListViewComparer.cs" />
-    <Compile Include="DlgProfile.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgProfile.Designer.cs">
-      <DependentUpon>DlgProfile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Lib\DlgFatalError.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Lib\DlgFatalError.designer.cs">
-      <DependentUpon>DlgFatalError.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Lib\DlgGetString.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Lib\DlgGetString.Designer.cs">
-      <DependentUpon>DlgGetString.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DlgOptions.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgOptions.Designer.cs">
-      <DependentUpon>DlgOptions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Profile.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="DlgSteamPath.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgSteamPath.Designer.cs">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CDlgUpdateProfile.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Curator.resx">
-      <DependentUpon>AutoCatConfigPanel_Curator.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Curator.zh-CN.resx">
-      <DependentUpon>AutoCatConfigPanel_Curator.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_DevPub.zh-CN.resx">
-      <DependentUpon>AutoCatConfigPanel_DevPub.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Flags.zh-CN.resx">
-      <DependentUpon>AutoCatConfigPanel_Flags.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Genre.zh-CN.resx">
-      <DependentUpon>AutoCatConfigPanel_Genre.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Group.zh-CN.resx">
-      <DependentUpon>AutoCatConfigPanel_Group.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Hltb.zh-CN.resx">
-      <DependentUpon>AutoCatConfigPanel_Hltb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_HoursPlayed.resx">
-      <DependentUpon>AutoCatConfigPanel_HoursPlayed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_HoursPlayed.zh-CN.resx">
-      <DependentUpon>AutoCatConfigPanel_HoursPlayed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Language.resx">
-      <DependentUpon>AutoCatConfigPanel_Language.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Language.zh-CN.resx">
-      <DependentUpon>AutoCatConfigPanel_Language.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Manual.zh-CN.resx">
-      <DependentUpon>AutoCatConfigPanel_Manual.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Name.zh-CN.resx">
-      <DependentUpon>AutoCatConfigPanel_Name.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Platform.resx">
-      <DependentUpon>AutoCatConfigPanel_Platform.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Platform.zh-CN.resx">
-      <DependentUpon>AutoCatConfigPanel_Platform.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Tags.zh-CN.resx">
-      <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_UserScore.zh-CN.resx">
-      <DependentUpon>AutoCatConfigPanel_UserScore.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_VrSupport.resx">
-      <DependentUpon>AutoCatConfigPanel_VrSupport.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Flags.resx">
-      <DependentUpon>AutoCatConfigPanel_Flags.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_DevPub.resx">
-      <DependentUpon>AutoCatConfigPanel_DevPub.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Group.resx">
-      <DependentUpon>AutoCatConfigPanel_Group.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Manual.resx">
-      <DependentUpon>AutoCatConfigPanel_Manual.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Genre.resx">
-      <DependentUpon>AutoCatConfigPanel_Genre.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Name.resx">
-      <DependentUpon>AutoCatConfigPanel_Name.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Tags.resx">
-      <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Hltb.resx">
-      <DependentUpon>AutoCatConfigPanel_Hltb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_UserScore.resx">
-      <DependentUpon>AutoCatConfigPanel_UserScore.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_VrSupport.zh-CN.resx">
-      <DependentUpon>AutoCatConfigPanel_VrSupport.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Year.resx">
-      <DependentUpon>AutoCatConfigPanel_Year.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Year.zh-CN.resx">
-      <DependentUpon>AutoCatConfigPanel_Year.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutomaticModeForm.resx">
-      <DependentUpon>AutomaticModeForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutomaticModeForm.zh-CN.resx">
-      <DependentUpon>AutomaticModeForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DBEdit\DBEditDlg.ru.resx">
-      <DependentUpon>DBEditDlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DBEdit\DBEditDlg.uk.resx">
-      <DependentUpon>DBEditDlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DBEdit\DBEditDlg.zh-CN.resx">
-      <DependentUpon>DBEditDlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DBEdit\DlgGameDBEntry.ru.resx">
-      <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DBEdit\DlgGameDBEntry.uk.resx">
-      <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DBEdit\DlgGameDBEntry.zh-CN.resx">
-      <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\CancelableDialog.zh-CN.resx">
-      <DependentUpon>CancelableDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\SteamKeyDialog.resx">
-      <DependentUpon>SteamKeyDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\SteamKeyDialog.zh-CN.resx">
-      <DependentUpon>SteamKeyDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAbout.resx">
-      <DependentUpon>DlgAbout.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAbout.zh-CN.resx">
-      <DependentUpon>DlgAbout.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutoCat.resx">
-      <DependentUpon>DlgAutoCat.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutoCat.zh-CN.resx">
-      <DependentUpon>DlgAutoCat.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutoCatCreate.resx">
-      <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutoCatCreate.zh-CN.resx">
-      <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutoCatSelect.resx">
-      <DependentUpon>DlgAutoCatSelect.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutoCatSelect.zh-CN.resx">
-      <DependentUpon>DlgAutoCatSelect.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutomaticModeHelper.nl.resx">
-      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutomaticModeHelper.resx">
-      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutomaticModeHelper.zh-CN.resx">
-      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgClose.es.resx">
-      <DependentUpon>DlgClose.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgClose.nl.resx">
-      <DependentUpon>DlgClose.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgClose.resx">
-      <DependentUpon>DlgClose.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgClose.ru.resx">
-      <DependentUpon>DlgClose.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgClose.uk.resx">
-      <DependentUpon>DlgClose.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgClose.zh-CN.resx">
-      <DependentUpon>DlgClose.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgGame.nl.resx">
-      <DependentUpon>DlgGame.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgGame.ru.resx">
-      <DependentUpon>DlgGame.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgGame.uk.resx">
-      <DependentUpon>DlgGame.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgGame.zh-CN.resx">
-      <DependentUpon>DlgGame.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgManualDownload.nl.resx">
-      <DependentUpon>DlgManualDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgManualDownload.ru.resx">
-      <DependentUpon>DlgManualDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgManualDownload.uk.resx">
-      <DependentUpon>DlgManualDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgManualDownload.zh-CN.resx">
-      <DependentUpon>DlgManualDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgOptions.nl.resx">
-      <DependentUpon>DlgOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgOptions.ru.resx">
-      <DependentUpon>DlgOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgOptions.uk.resx">
-      <DependentUpon>DlgOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgOptions.zh-CN.resx">
-      <DependentUpon>DlgOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgProfile.nl.resx">
-      <DependentUpon>DlgProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgProfile.ru.resx">
-      <DependentUpon>DlgProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgProfile.uk.resx">
-      <DependentUpon>DlgProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgProfile.zh-CN.resx">
-      <DependentUpon>DlgProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgRestore.es.resx">
-      <DependentUpon>DlgRestore.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgRestore.nl.resx">
-      <DependentUpon>DlgRestore.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgRestore.resx">
-      <DependentUpon>DlgRestore.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgRestore.ru.resx">
-      <DependentUpon>DlgRestore.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgRestore.uk.resx">
-      <DependentUpon>DlgRestore.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgRestore.zh-CN.resx">
-      <DependentUpon>DlgRestore.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgSteamPath.nl.resx">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgSteamPath.ru.resx">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgSteamPath.uk.resx">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DBEdit\DBEditDlg.es.resx">
-      <DependentUpon>DBEditDlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DBEdit\DBEditDlg.resx">
-      <DependentUpon>DBEditDlg.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DBEdit\DlgGameDBEntry.es.resx">
-      <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DBEdit\DlgGameDBEntry.resx">
-      <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgGame.es.resx">
-      <DependentUpon>DlgGame.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgManualDownload.es.resx">
-      <DependentUpon>DlgManualDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgManualDownload.resx">
-      <DependentUpon>DlgManualDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgGame.resx">
-      <DependentUpon>DlgGame.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgOptions.es.resx">
-      <DependentUpon>DlgOptions.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgProfile.es.resx">
-      <DependentUpon>DlgProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgSteamPath.es.resx">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgSteamPath.zh-CN.resx">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GlobalStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>GlobalStrings.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\CancelableDialog.resx">
-      <DependentUpon>CancelableDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgProfile.resx">
-      <DependentUpon>DlgProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GlobalStrings.zh-CN.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgFatalError.es.resx">
-      <DependentUpon>DlgFatalError.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgFatalError.resx">
-      <DependentUpon>DlgFatalError.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgFatalError.ru.resx">
-      <DependentUpon>DlgFatalError.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgFatalError.uk.resx">
-      <DependentUpon>DlgFatalError.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgFatalError.zh-CN.resx">
-      <DependentUpon>DlgFatalError.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgGetString.es.resx">
-      <DependentUpon>DlgGetString.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgGetString.resx">
-      <DependentUpon>DlgGetString.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgGetString.ru.resx">
-      <DependentUpon>DlgGetString.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgGetString.uk.resx">
-      <DependentUpon>DlgGetString.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgGetString.zh-CN.resx">
-      <DependentUpon>DlgGetString.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.es.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.nl.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgOptions.resx">
-      <DependentUpon>DlgOptions.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.ru.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.uk.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgSteamPath.resx">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.zh-CN.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.zh-CN.resx" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -797,11 +170,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="FodyWeavers.xsd">
+    <None Update="FodyWeavers.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="IWshRuntimeLibrary">
@@ -815,48 +186,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Depressurizer.Core\Depressurizer.Core.csproj">
-      <Project>{45eac201-e9c9-4eaf-bcc1-18e432b8fe62}</Project>
-      <Name>Depressurizer.Core</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\Depressurizer.Core\Depressurizer.Core.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Costura.Fody">
-      <Version>5.7.0</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Fody">
-      <Version>6.6.0</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="MaterialSkin.Updated">
-      <Version>0.2.2</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers">
-      <Version>5.0.3</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="ObjectListView.Official">
-      <Version>2.9.1</Version>
-    </PackageReference>
-    <PackageReference Include="Resource.Embedder">
-      <Version>2.1.1</Version>
-    </PackageReference>
-    <PackageReference Include="Sentry">
-      <Version>3.11.1</Version>
-    </PackageReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

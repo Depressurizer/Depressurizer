@@ -9,7 +9,7 @@ namespace Depressurizer.Core.Interfaces
 
         IGameList GameData { get; }
 
-        SortedSet<int> IgnoreList { get; set; }
+        SortedSet<long> IgnoreList { get; set; }
 
         #endregion
 

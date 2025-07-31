@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace Rallion
 {
@@ -18,19 +19,21 @@ namespace Rallion
         #endregion
 
         #region Public Properties
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string AcceptButtonText
         {
             get => cmdOk.Text;
             set => cmdOk.Text = value ?? string.Empty;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string LabelText
         {
             get => lblValue.Text;
             set => lblValue.Text = value ?? string.Empty;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Value
         {
             get => txtValue.Text;

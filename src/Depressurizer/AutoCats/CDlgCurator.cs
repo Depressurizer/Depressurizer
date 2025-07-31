@@ -15,7 +15,7 @@ namespace Depressurizer.AutoCats
     {
         #region Fields
 
-        public Dictionary<int, CuratorRecommendation> CuratorRecommendations;
+        public Dictionary<long, CuratorRecommendation> CuratorRecommendations;
 
         public int TotalCount;
 
@@ -29,7 +29,7 @@ namespace Depressurizer.AutoCats
         {
             SetText(GlobalStrings.CDlgCurator_GettingRecommendations);
             this.curatorId = curatorId;
-            CuratorRecommendations = new Dictionary<int, CuratorRecommendation>();
+            CuratorRecommendations = new Dictionary<long, CuratorRecommendation>();
         }
 
         #endregion
@@ -48,7 +48,7 @@ namespace Depressurizer.AutoCats
         {
             string json;
 
-            using (WebClient wc = new WebClient())
+            using (WebClient wc = new())
             {
                 wc.Encoding = Encoding.UTF8;
                 json = wc.DownloadString(string.Format(CultureInfo.InvariantCulture, Constants.SteamCuratorRecommendations, curatorId, 0));
@@ -63,7 +63,7 @@ namespace Depressurizer.AutoCats
                 for (int currentPosition = 50; currentPosition < TotalCount; currentPosition += 50)
                 {
                     SetText(GlobalStrings.CDlgCurator_GettingRecommendations + " " + string.Format(CultureInfo.CurrentCulture, GlobalStrings.CDlg_Progress, currentPosition, TotalCount));
-                    using (WebClient wc = new WebClient())
+                    using (WebClient wc = new())
                     {
                         wc.Encoding = Encoding.UTF8;
                         json = wc.DownloadString(string.Format(CultureInfo.InvariantCulture, Constants.SteamCuratorRecommendations, curatorId, currentPosition));
@@ -99,9 +99,9 @@ namespace Depressurizer.AutoCats
         ///     https://store.steampowered.com/curator/{0}/ajaxgetfilteredrecommendations/render/?query=&amp;start={1}&amp;count=50
         /// </param>
         /// <returns>A dictionary containing ids of games and their respective recommendations</returns>
-        private static Dictionary<int, CuratorRecommendation> GetCuratorRecommendationsFromPage(string page)
+        private static Dictionary<long, CuratorRecommendation> GetCuratorRecommendationsFromPage(string page)
         {
-            Dictionary<int, CuratorRecommendation> curatorRecommendations = new Dictionary<int, CuratorRecommendation>();
+            Dictionary<long, CuratorRecommendation> curatorRecommendations = new Dictionary<long, CuratorRecommendation>();
             Regex curatorRegex = new Regex(@"data-ds-appid=\""(\d+)\"".*?color_(\w+)", RegexOptions.Singleline | RegexOptions.Multiline | RegexOptions.Compiled);
             MatchCollection matches = curatorRegex.Matches(page);
             if (matches.Count > 0)

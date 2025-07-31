@@ -57,7 +57,7 @@ namespace Depressurizer
         private void btnLaunch_Click(object sender, EventArgs e)
         {
             game.LastPlayed = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-            Process.Start(game.Executable);
+            Utils.RunProcess(game.Executable);
             Close();
         }
 

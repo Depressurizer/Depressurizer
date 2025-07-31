@@ -99,7 +99,7 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     Positive ID matches to a Steam ID, negative means it's a non-steam game (= -1 - shortcut ID)
         /// </summary>
-        public int Id { get; }
+        public long Id { get; }
 
         public bool IsHidden { get; set; }
 

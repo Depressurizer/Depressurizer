@@ -628,11 +628,6 @@ namespace NDesk.Options
             OptionName = optionName;
         }
 
-        protected OptionException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-            OptionName = info.GetString("OptionName");
-        }
-
         #endregion
 
         #region Public Properties
@@ -643,7 +638,7 @@ namespace NDesk.Options
 
         #region Public Methods and Operators
 
-        [SecurityPermission(SecurityAction.LinkDemand, SerializationFormatter = true)]
+        [Obsolete]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);

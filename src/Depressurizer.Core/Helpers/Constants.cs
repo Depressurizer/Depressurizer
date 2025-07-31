@@ -17,12 +17,12 @@ namespace Depressurizer.Core.Helpers
         /// <summary>
         ///     URL to the Depressurizer homepage.
         /// </summary>
-        public static string DepressurizerHomepage => "https://github.com/Depressurizer/depressurizer";
+        public static string DepressurizerHomepage => "https://github.com/julianxhokaxhiu/depressurizer";
 
         /// <summary>
         ///     URL to the API page for the latest Depressurizer release.
         /// </summary>
-        public static string DepressurizerLatestRelease => "https://api.github.com/repos/Depressurizer/Depressurizer/releases/latest";
+        public static string DepressurizerLatestRelease => "https://api.github.com/repos/julianxhokaxhiu/depressurizer/releases/latest";
 
         /// <summary>
         ///     Generic URL for the game list of a Steam profile, must be formatted with a SteamID64.
@@ -37,7 +37,12 @@ namespace Depressurizer.Core.Helpers
         /// <summary>
         ///     URL to the API page of HowLongToBeat.com.
         /// </summary>
-        public static Uri HowLongToBeat => new Uri("https://www.howlongtobeatsteam.com/api/games/library/cached/all");
+        public static Uri HowLongToBeat => new Uri("https://github.com/julianxhokaxhiu/hltb-scraper/releases/latest/download/howlongtobeat_games.csv");
+
+        /// <summary>
+        ///     Generic path to licensecache, must be formatted with the Steam installation path and the Steam ID.
+        /// </summary>
+        public static string LicenseCache => @"{0}\userdata\{1}\config\licensecache";
 
         /// <summary>
         ///     Generic path to localconfig.vdf, must be formatted with the Steam installation path and the Steam ID.
@@ -53,11 +58,6 @@ namespace Depressurizer.Core.Helpers
         ///     Generic path to screenshots.vdf, must be formatted with the Steam installation path and the Steam ID.
         /// </summary>
         public static string Screenshots => @"{0}\userdata\{1}\760\screenshots.vdf";
-
-        /// <summary>
-        ///     Sentry Data Source Name.
-        /// </summary>
-        public static string SentryDSN => "https://9771482bc19c450b86ea6bcead6f7b6f@sentry.io/267726";
 
         /// <summary>
         ///     Generic path to sharedconfig.vdf, must be formatted with the Steam installation path and the Steam ID.
@@ -113,6 +113,11 @@ namespace Depressurizer.Core.Helpers
         ///     Generic URL for a single Steam Store banner, must be formatted with an appid.
         /// </summary>
         public static string StoreBanner => "https://steamcdn-a.akamaihd.net/steam/apps/{0}/capsule_sm_120.jpg";
+
+        /// <summary>
+        ///     User agent used by HTTP clients
+        /// </summary>
+        public static string UserAgent => "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0";
 
         #endregion
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
+using System.ComponentModel;
 
 namespace Depressurizer
 {
@@ -67,8 +68,10 @@ namespace Depressurizer
 
         #region Public Properties
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string SelectedName { get; set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public AutoCatType SelectedType { get; set; }
 
         #endregion

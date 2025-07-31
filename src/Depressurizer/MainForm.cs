@@ -112,6 +112,7 @@ namespace Depressurizer
         #region Public Properties
 
         private static Profile _currentProfile;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public static Profile CurrentProfile
         {
             get => _currentProfile;
@@ -312,7 +313,7 @@ namespace Depressurizer
             }
 
             gameInfo.LastPlayed = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-            Process.Start(gameInfo.Executable);
+            Utils.RunProcess(gameInfo.Executable);
         }
 
         /// <summary>
@@ -1820,7 +1821,6 @@ namespace Depressurizer
                 return;
             }
 
-            new RegistryPermission(PermissionState.Unrestricted).Assert();
             try
             {
                 existingSubKey = Registry.LocalMachine.OpenSubKey(installKey, RegistryKeyPermissionCheck.ReadWriteSubTree);
@@ -1829,10 +1829,6 @@ namespace Depressurizer
             catch
             {
                 MessageBox.Show(GlobalStrings.MainForm_AdminRights, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            finally
-            {
-                CodeAccessPermission.RevertAssert();
             }
         }
 
@@ -2401,7 +2397,7 @@ namespace Depressurizer
                     return 9;
                 }
 
-                if (reviewPositivePercentage >= 85 && reviewTotal >= 50)
+                if (reviewPositivePercentage >= 80 && reviewTotal >= 50)
                 {
                     return 8;
                 }
@@ -2570,8 +2566,7 @@ namespace Depressurizer
             colLastPlayed.AspectToStringConverter = delegate(object obj)
             {
                 DateTime lastPlayed = (DateTime) obj;
-                Thread threadForCulture = new Thread(delegate() { });
-                string format = threadForCulture.CurrentCulture.DateTimeFormat.ShortDatePattern;
+                string format = Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern;
                 return lastPlayed == DateTime.MinValue ? null : lastPlayed.ToString(format, CultureInfo.CurrentCulture);
             };
 
@@ -2722,20 +2717,20 @@ namespace Depressurizer
                 {
                     if (dropCat == CurrentProfile.GameData.FavoriteCategory)
                     {
-                        CurrentProfile.GameData.AddGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
+                        CurrentProfile.GameData.AddGameCategory((long[]) e.Data.GetData(typeof(long[])), dropCat);
                     }
                     else
                     {
-                        CurrentProfile.GameData.SetGameCategories((int[]) e.Data.GetData(typeof(int[])), dropCat, true);
+                        CurrentProfile.GameData.SetGameCategories((long[]) e.Data.GetData(typeof(long[])), dropCat, true);
                     }
                 }
                 else if (e.Effect == DragDropEffects.Link)
                 {
-                    CurrentProfile.GameData.RemoveGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
+                    CurrentProfile.GameData.RemoveGameCategory((long[]) e.Data.GetData(typeof(long[])), dropCat);
                 }
                 else if (e.Effect == DragDropEffects.Copy)
                 {
-                    CurrentProfile.GameData.AddGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
+                    CurrentProfile.GameData.AddGameCategory((long[]) e.Data.GetData(typeof(long[])), dropCat);
                 }
 
                 FillAllCategoryLists();
@@ -2744,14 +2739,14 @@ namespace Depressurizer
             }
             else if ((string) dropItem.Tag == Resources.SpecialCategoryUncategorized)
             {
-                CurrentProfile.GameData.ClearGameCategories((int[]) e.Data.GetData(typeof(int[])), true);
+                CurrentProfile.GameData.ClearGameCategories((long[]) e.Data.GetData(typeof(long[])), true);
                 FillCategoryList();
                 FilterGameList(false);
                 MakeChange(true);
             }
             else if ((string) dropItem.Tag == Resources.SpecialCategoryHidden)
             {
-                CurrentProfile.GameData.HideGames((int[]) e.Data.GetData(typeof(int[])), true);
+                CurrentProfile.GameData.HideGames((long[])e.Data.GetData(typeof(long[])), true);
                 FillCategoryList();
                 FilterGameList(false);
                 MakeChange(true);
@@ -2941,13 +2936,16 @@ namespace Depressurizer
             {
                 if (entry.Tags.Contains(EarlyAccessTag))
                 {
-                    ImageDecoration earlyAccessDecoration = new ImageDecoration(imglistEarlyAccess.Images[0])
+                    if (imglistEarlyAccess.Images.Count > 0)
                     {
-                        AdornmentCorner = ContentAlignment.TopLeft,
-                        ReferenceCorner = ContentAlignment.TopLeft,
-                        Transparency = 200
-                    };
-                    e.SubItem.Decorations.Add(earlyAccessDecoration);
+                        ImageDecoration earlyAccessDecoration = new ImageDecoration(imglistEarlyAccess.Images[0])
+                        {
+                            AdornmentCorner = ContentAlignment.TopLeft,
+                            ReferenceCorner = ContentAlignment.TopLeft,
+                            Transparency = 200
+                        };
+                        e.SubItem.Decorations.Add(earlyAccessDecoration);
+                    }
                 }
             }
 
@@ -2984,7 +2982,7 @@ namespace Depressurizer
 
         private void lstGames_ItemDrag(object sender, ItemDragEventArgs e)
         {
-            int[] selectedGames = new int[lstGames.SelectedObjects.Count];
+            long[] selectedGames = new long[lstGames.SelectedObjects.Count];
             for (int i = 0; i < lstGames.SelectedObjects.Count; i++)
             {
                 selectedGames[i] = _typedListGames.SelectedObjects[i].Id;
@@ -4510,7 +4508,7 @@ namespace Depressurizer
         }
 
         /// <summary>
-        ///     Updates the database using data from howlongtobeatsteam.com. Displays an error message on failure. Saves the DB
+        ///     Updates the database using data from github.com/julianxhokaxhiu/hltb-scraper. Displays an error message on failure. Saves the DB
         ///     afterwards if AutoSaveDatabase is set.
         /// </summary>
         private void UpdateDatabaseFromHLTB()
@@ -4734,10 +4732,6 @@ namespace Depressurizer
         private void UpdateTitle()
         {
             StringBuilder sb = new StringBuilder("Depressurizer");
-            if (ProfileLoaded && !string.IsNullOrWhiteSpace(Settings.PremiumServer))
-            {
-                sb.Append("Premium");
-            }
 
             if (ProfileLoaded)
             {
