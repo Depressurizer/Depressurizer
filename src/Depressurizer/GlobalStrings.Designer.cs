@@ -19,7 +19,7 @@ namespace Depressurizer {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class GlobalStrings {
@@ -922,7 +922,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occured while updating from howlongtobeatsteam.com: {0}.
+        ///   Looks up a localized string similar to An error occured while updating from github.com/julianxhokaxhiu/hltb-scraper: {0}.
         /// </summary>
         internal static string DBEditDlg_ErrorWhileUpdatingHltb {
             get {
@@ -1382,7 +1382,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Whether to use imputed (statistically probable) times from howlongtobeatsteam.com for missing times. .
+        ///   Looks up a localized string similar to Whether to use imputed (statistically probable) times from github.com/julianxhokaxhiu/hltb-scraper for missing times. .
         /// </summary>
         internal static string DlgOptions_Help_IncludeImputedTimes {
             get {
@@ -2071,6 +2071,15 @@ namespace Depressurizer {
         internal static string Log_AutoCat_GamelistNull {
             get {
                 return ResourceManager.GetString("Log_AutoCat_GamelistNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to Autocategorize game because gamename was null or empty..
+        /// </summary>
+        internal static string Log_AutoCat_GameNameNullOrEmpty {
+            get {
+                return ResourceManager.GetString("Log_AutoCat_GameNameNullOrEmpty", resourceCulture);
             }
         }
         
@@ -3450,6 +3459,16 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Detected Steam running.
+        ///Please close it to prevent further DB corruption before using Depressurizer..
+        /// </summary>
+        internal static string TextSteam_AlreayRunning {
+            get {
+                return ResourceManager.GetString("TextSteam_AlreayRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Node is a value, not an array. Cannot get key {0}.
         /// </summary>
         internal static string TextVdfFile_CanNotGetKey {
@@ -3491,17 +3510,6 @@ namespace Depressurizer {
         internal static string TextVdfFile_UnexpectedEOF {
             get {
                 return ResourceManager.GetString("TextVdfFile_UnexpectedEOF", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Unexpected end-of-file reached: Unterminated string..
-        /// </summary>
-        internal static string TextSteam_AlreayRunning
-        {
-            get
-            {
-                return ResourceManager.GetString("TextSteam_AlreayRunning", resourceCulture);
             }
         }
     }
