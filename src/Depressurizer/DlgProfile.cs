@@ -490,10 +490,10 @@ namespace Depressurizer
             p.IncludeUnknown = chkIncludeUnknown.Checked;
             p.BypassIgnoreOnImport = chkBypassIgnoreOnImport.Checked;
 
-            SortedSet<int> ignoreSet = new SortedSet<int>();
+            SortedSet<long> ignoreSet = new SortedSet<long>();
             foreach (ListViewItem item in lstIgnored.Items)
             {
-                if (int.TryParse(item.Text, out int id))
+                if (long.TryParse(item.Text, out long id))
                 {
                     ignoreSet.Add(id);
                 }

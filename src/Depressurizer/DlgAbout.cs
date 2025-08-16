@@ -30,17 +30,17 @@ namespace Depressurizer
 
         private void lnkHomepage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(Constants.DepressurizerHomepage);
+            Utils.RunProcess(Constants.DepressurizerHomepage);
         }
 
         private void lnkLicense_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("http://www.gnu.org/licenses/");
+            Utils.RunProcess("http://www.gnu.org/licenses/");
         }
 
         private void lnkNDesk_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("http://www.novell.com");
+            Utils.RunProcess("http://www.novell.com");
         }
 
         #endregion

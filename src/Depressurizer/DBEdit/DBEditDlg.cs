@@ -53,9 +53,9 @@ namespace Depressurizer
 
         private string _currentFilter = string.Empty;
 
-        private int _currentMaxId = FilterMaxId;
+        private long _currentMaxId = FilterMaxId;
 
-        private int _currentMinId;
+        private long _currentMinId;
 
         private bool _filterSuspend;
 
@@ -78,7 +78,7 @@ namespace Depressurizer
 
         private static Database Database => Database.Instance;
 
-        private static int FilterMaxId => 1000000;
+        private static long FilterMaxId => long.MaxValue;
 
         private static Logger Logger => Logger.Instance;
 
@@ -152,12 +152,12 @@ namespace Depressurizer
 
         private void ApplyIdFilterChange()
         {
-            int oldMinId = _currentMinId, oldMaxId = _currentMaxId;
+            long oldMinId = _currentMinId, oldMaxId = _currentMaxId;
 
             if (chkIdRange.Checked)
             {
-                _currentMinId = (int) numIdRangeMin.Value;
-                _currentMaxId = (int) numIdRangeMax.Value;
+                _currentMinId = (long) numIdRangeMin.Value;
+                _currentMaxId = (long) numIdRangeMax.Value;
             }
             else
             {

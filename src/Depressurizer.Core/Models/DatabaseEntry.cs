@@ -94,7 +94,7 @@ namespace Depressurizer.Core.Models
         /// <param name="appId">
         ///     Steam Application ID.
         /// </param>
-        public DatabaseEntry(int appId)
+        public DatabaseEntry(long appId)
         {
             Id = AppId = appId;
         }
@@ -106,7 +106,7 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     Steam Application ID.
         /// </summary>
-        public int AppId { get; set; }
+        public long AppId { get; set; }
 
         /// <summary>
         ///     Type of this application.
@@ -161,7 +161,7 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     Depressurizer id.
         /// </summary>
-        public int Id { get; }
+        public long Id { get; }
 
         /// <remarks>
         ///     TODO: Add field to DB edit dialog
@@ -456,19 +456,6 @@ namespace Depressurizer.Core.Models
         /// </param>
         public void ScrapeStore(string steamWebApi, string languageCode)
         {
-            if (!string.IsNullOrWhiteSpace(Settings.Instance.PremiumServer))
-            {
-                try
-                {
-                    DepressurizerPremium.load(this, steamWebApi, languageCode);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    Logger.Error("Could not load Premium API ({0}) due to: {1}. Failing over to Steam Store", AppId, e);
-                }
-            }
-
             AppType result = ScrapeStoreHelper(languageCode);
             SetTypeFromStoreScrape(result);
         }
@@ -480,6 +467,8 @@ namespace Depressurizer.Core.Models
         private static HttpWebRequest GetSteamRequest(string url)
         {
             HttpWebRequest req = WebRequest.CreateHttp(url);
+            // Set user agent
+            req.UserAgent = Constants.UserAgent;
             // Cookie bypasses the age gate
             req.CookieContainer = new CookieContainer(3);
             req.CookieContainer.Add(new Cookie("birthtime", "-473392799", "/", "store.steampowered.com"));
@@ -733,7 +722,6 @@ namespace Depressurizer.Core.Models
                 int count = 0;
                 while (resp.StatusCode == HttpStatusCode.Found && count < MaxFollowAttempts)
                 {
-                    resp.Close();
                     if (Regexes.IsSteamStore.IsMatch(resp.Headers[HttpResponseHeader.Location]))
                     {
                         Logger.Warn("Scraping {0}: Location header points to the Steam Store homepage, aborting scraping.", AppId);
@@ -748,7 +736,10 @@ namespace Depressurizer.Core.Models
                     }
 
                     req = GetSteamRequest(resp.Headers[HttpResponseHeader.Location]);
+                    
+                    resp.Close();
                     resp = (HttpWebResponse) req.GetResponse();
+                    
                     count++;
                 }
 

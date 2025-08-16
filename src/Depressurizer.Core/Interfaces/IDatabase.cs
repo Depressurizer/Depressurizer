@@ -6,15 +6,15 @@ namespace Depressurizer.Core.Interfaces
     {
         #region Public Methods and Operators
 
-        bool Contains(int appId);
+        bool Contains(long appId);
 
-        bool Contains(int appId, out DatabaseEntry entry);
+        bool Contains(long appId, out DatabaseEntry entry);
 
-        string GetName(int appId);
+        string GetName(long appId);
 
-        bool IncludeItemInGameList(int appId);
+        bool IncludeItemInGameList(long appId);
 
-        bool SupportsVR(int appId);
+        bool SupportsVR(long appId);
 
         #endregion
     }

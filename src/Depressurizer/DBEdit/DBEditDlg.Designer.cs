@@ -399,27 +399,15 @@ namespace Depressurizer {
             // numIdRangeMax
             // 
             resources.ApplyResources(this.numIdRangeMax, "numIdRangeMax");
-            this.numIdRangeMax.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
+            this.numIdRangeMax.Maximum = long.MaxValue;
+            this.numIdRangeMax.Value = long.MaxValue;
             this.numIdRangeMax.Name = "numIdRangeMax";
-            this.numIdRangeMax.Value = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
             this.numIdRangeMax.ValueChanged += new System.EventHandler(this.IdFilter_Changed);
             // 
             // numIdRangeMin
             // 
             resources.ApplyResources(this.numIdRangeMin, "numIdRangeMin");
-            this.numIdRangeMin.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
+            this.numIdRangeMin.Maximum = long.MaxValue;
             this.numIdRangeMin.Name = "numIdRangeMin";
             this.numIdRangeMin.ValueChanged += new System.EventHandler(this.IdFilter_Changed);
             // 

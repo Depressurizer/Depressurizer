@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Net;
-using System.Reflection;
-using System.Windows.Forms;
-using Depressurizer.Core;
+﻿using Depressurizer.Core;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Properties;
 using NDesk.Options;
 using Newtonsoft.Json.Linq;
 using Rallion;
-using Sentry;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
+using System.Net;
+using System.Reflection;
+using System.Windows.Forms;
 using Constants = Depressurizer.Core.Helpers.Constants;
 
 namespace Depressurizer
@@ -58,14 +58,14 @@ namespace Depressurizer
                     url = (string) parsedJson.SelectToken("html_url");
                 }
 
-                if (githubVersion <= DepressurizerVersion)
+                if (githubVersion <= DepressurizerVersion || DepressurizerVersion == new Version("0.0.0.0"))
                 {
                     return;
                 }
 
                 if (MessageBox.Show(GlobalStrings.MainForm_Msg_UpdateFound, GlobalStrings.MainForm_Msg_UpdateFoundTitle, MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    Process.Start(url);
+                    Utils.RunProcess(url);
                 }
             }
             catch (Exception e)
@@ -75,44 +75,59 @@ namespace Depressurizer
             }
         }
 
+        static bool IsSteamRunning()
+        {
+            Process[] processes = Process.GetProcessesByName("steam");
+            if (processes.Any())
+            {
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.TextSteam_AlreayRunning), Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return true;
+            }
+
+            return false;
+        }
+
         /// <summary>
         ///     The main entry point for the application.
         /// </summary>
         [STAThread]
         private static void Main(string[] args)
         {
-            using (SentrySdk.Init(Constants.SentryDSN))
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.ApplicationExit += ApplicationExit;
+
+            FatalError.InitializeHandler();
+
+            Logger.Info("Running Depressurizer v{0}", DepressurizerVersion);
+
+            if (IsSteamRunning())
             {
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.ApplicationExit += ApplicationExit;
+                Logger.Error("Steam Detected. Closing to prevent further DB corruption.");
+                return;
+            }
 
-                FatalError.InitializeHandler();
+            SingletonKeeper.Database = Database;
 
-                Logger.Info("Running Depressurizer v{0}", DepressurizerVersion);
+            Database.Load();
+            Settings.Load();
 
-                SingletonKeeper.Database = Database;
+            if (Settings.CheckForDepressurizerUpdates)
+            {
+                CheckForDepressurizerUpdates();
+            }
 
-                Database.Load();
-                Settings.Load();
-
-                if (Settings.CheckForDepressurizerUpdates)
-                {
-                    CheckForDepressurizerUpdates();
-                }
-
-                AutomaticModeOptions autoOpts = ParseAutoOptions(args);
-                if (autoOpts != null)
-                {
-                    Logger.Info("Automatic mode set, loading automatic mode form.");
-                    Logger.Verbose("Automatic Mode Options: {0}", autoOpts);
-                    Application.Run(new AutomaticModeForm(autoOpts));
-                }
-                else
-                {
-                    Logger.Info("Automatic mode not set, loading main form.");
-                    Application.Run(new FormMain());
-                }
+            AutomaticModeOptions autoOpts = ParseAutoOptions(args);
+            if (autoOpts != null)
+            {
+                Logger.Info("Automatic mode set, loading automatic mode form.");
+                Logger.Verbose("Automatic Mode Options: {0}", autoOpts);
+                Application.Run(new AutomaticModeForm(autoOpts));
+            }
+            else
+            {
+                Logger.Info("Automatic mode not set, loading main form.");
+                Application.Run(new FormMain());
             }
         }
 

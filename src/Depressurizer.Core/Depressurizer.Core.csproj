@@ -1,19 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Platforms>AnyCPU</Platforms>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\Depressurizer.Core.xml</DocumentationFile>
+    <Version>0.0.0</Version>
+    <Copyright>Julian Xhokaxhiu 2025</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IronLeveldb" Version="1.0.0" />
-    <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
-    <PackageReference Include="newtonsoft.json" Version="13.0.1" />
-    <PackageReference Include="Sentry" Version="3.11.1" />
+    <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
+    <PackageReference Include="LevelDBSharp" Version="1.0.0" />
+    <PackageReference Include="newtonsoft.json" Version="13.0.3" />
+    <PackageReference Include="protobuf-net" Version="3.2.52" />
+    <PackageReference Include="ValveKeyValue" Version="0.13.1.398" />
   </ItemGroup>
 
 </Project>

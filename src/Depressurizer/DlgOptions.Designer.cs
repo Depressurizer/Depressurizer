@@ -40,430 +40,358 @@ namespace Depressurizer {
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DlgOptions));
-            this.grpSteamDir = new System.Windows.Forms.GroupBox();
-            this.cmdSteamPathBrowse = new System.Windows.Forms.Button();
-            this.txtSteamPath = new System.Windows.Forms.TextBox();
-            this.grpStartup = new System.Windows.Forms.GroupBox();
-            this.radNone = new System.Windows.Forms.RadioButton();
-            this.radCreate = new System.Windows.Forms.RadioButton();
-            this.radLoad = new System.Windows.Forms.RadioButton();
-            this.cmdDefaultProfileBrowse = new System.Windows.Forms.Button();
-            this.txtDefaultProfile = new System.Windows.Forms.TextBox();
-            this.chkRemoveExtraEntries = new System.Windows.Forms.CheckBox();
-            this.cmdAccept = new System.Windows.Forms.Button();
-            this.cmdCancel = new System.Windows.Forms.Button();
-            this.grpSaving = new System.Windows.Forms.GroupBox();
-            this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabGeneral = new System.Windows.Forms.TabPage();
-            this.grpStoreLanguage = new System.Windows.Forms.GroupBox();
-            this.cmbStoreLanguage = new System.Windows.Forms.ComboBox();
-            this.grpDepressurizerUpdates = new System.Windows.Forms.GroupBox();
-            this.chkCheckForDepressurizerUpdates = new System.Windows.Forms.CheckBox();
-            this.grpDatabase = new System.Windows.Forms.GroupBox();
-            this.numScrapePromptDays = new System.Windows.Forms.NumericUpDown();
-            this.lblScrapePrompt2 = new System.Windows.Forms.Label();
-            this.lblScapePrompt1 = new System.Windows.Forms.Label();
-            this.helpIncludeImputedTimes = new System.Windows.Forms.Label();
-            this.chkIncludeImputedTimes = new System.Windows.Forms.CheckBox();
-            this.chkUpdateHltbOnStartup = new System.Windows.Forms.CheckBox();
-            this.chkAutosaveDB = new System.Windows.Forms.CheckBox();
-            this.chkUpdateAppInfoOnStartup = new System.Windows.Forms.CheckBox();
-            this.grpUILanguage = new System.Windows.Forms.GroupBox();
-            this.cmbUILanguage = new System.Windows.Forms.ComboBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBoxPremiumApiKey = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBoxPremiumServer = new System.Windows.Forms.TextBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.cmdDefaultIgnored = new System.Windows.Forms.Button();
-            this.cmdIgnore = new System.Windows.Forms.Button();
-            this.txtIgnore = new System.Windows.Forms.TextBox();
-            this.cmdUnignore = new System.Windows.Forms.Button();
-            this.lstIgnored = new System.Windows.Forms.ListView();
-            this.ttHelp = new Depressurizer.Lib.ExtToolTip();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.checkBoxReadFromLevelDB = new System.Windows.Forms.CheckBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.grpSteamDir.SuspendLayout();
-            this.grpStartup.SuspendLayout();
-            this.grpSaving.SuspendLayout();
-            this.tabControl.SuspendLayout();
-            this.tabGeneral.SuspendLayout();
-            this.grpStoreLanguage.SuspendLayout();
-            this.grpDepressurizerUpdates.SuspendLayout();
-            this.grpDatabase.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numScrapePromptDays)).BeginInit();
-            this.grpUILanguage.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.SuspendLayout();
+            grpSteamDir = new System.Windows.Forms.GroupBox();
+            cmdSteamPathBrowse = new System.Windows.Forms.Button();
+            txtSteamPath = new System.Windows.Forms.TextBox();
+            grpStartup = new System.Windows.Forms.GroupBox();
+            radNone = new System.Windows.Forms.RadioButton();
+            radCreate = new System.Windows.Forms.RadioButton();
+            radLoad = new System.Windows.Forms.RadioButton();
+            cmdDefaultProfileBrowse = new System.Windows.Forms.Button();
+            txtDefaultProfile = new System.Windows.Forms.TextBox();
+            chkRemoveExtraEntries = new System.Windows.Forms.CheckBox();
+            cmdAccept = new System.Windows.Forms.Button();
+            cmdCancel = new System.Windows.Forms.Button();
+            grpSaving = new System.Windows.Forms.GroupBox();
+            tabControl = new System.Windows.Forms.TabControl();
+            tabGeneral = new System.Windows.Forms.TabPage();
+            grpStoreLanguage = new System.Windows.Forms.GroupBox();
+            cmbStoreLanguage = new System.Windows.Forms.ComboBox();
+            grpDepressurizerUpdates = new System.Windows.Forms.GroupBox();
+            chkCheckForDepressurizerUpdates = new System.Windows.Forms.CheckBox();
+            grpDatabase = new System.Windows.Forms.GroupBox();
+            numScrapePromptDays = new System.Windows.Forms.NumericUpDown();
+            lblScrapePrompt2 = new System.Windows.Forms.Label();
+            lblScapePrompt1 = new System.Windows.Forms.Label();
+            helpIncludeImputedTimes = new System.Windows.Forms.Label();
+            chkIncludeImputedTimes = new System.Windows.Forms.CheckBox();
+            chkUpdateHltbOnStartup = new System.Windows.Forms.CheckBox();
+            chkAutosaveDB = new System.Windows.Forms.CheckBox();
+            chkUpdateAppInfoOnStartup = new System.Windows.Forms.CheckBox();
+            grpUILanguage = new System.Windows.Forms.GroupBox();
+            cmbUILanguage = new System.Windows.Forms.ComboBox();
+            tabPage1 = new System.Windows.Forms.TabPage();
+            cmdDefaultIgnored = new System.Windows.Forms.Button();
+            cmdIgnore = new System.Windows.Forms.Button();
+            txtIgnore = new System.Windows.Forms.TextBox();
+            cmdUnignore = new System.Windows.Forms.Button();
+            lstIgnored = new System.Windows.Forms.ListView();
+            ttHelp = new Depressurizer.Lib.ExtToolTip();
+            checkBoxReadFromLevelDB = new System.Windows.Forms.CheckBox();
+            grpSteamDir.SuspendLayout();
+            grpStartup.SuspendLayout();
+            grpSaving.SuspendLayout();
+            tabControl.SuspendLayout();
+            tabGeneral.SuspendLayout();
+            grpStoreLanguage.SuspendLayout();
+            grpDepressurizerUpdates.SuspendLayout();
+            grpDatabase.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numScrapePromptDays).BeginInit();
+            grpUILanguage.SuspendLayout();
+            tabPage1.SuspendLayout();
+            SuspendLayout();
             // 
             // grpSteamDir
             // 
-            resources.ApplyResources(this.grpSteamDir, "grpSteamDir");
-            this.grpSteamDir.Controls.Add(this.cmdSteamPathBrowse);
-            this.grpSteamDir.Controls.Add(this.txtSteamPath);
-            this.grpSteamDir.Name = "grpSteamDir";
-            this.grpSteamDir.TabStop = false;
+            resources.ApplyResources(grpSteamDir, "grpSteamDir");
+            grpSteamDir.Controls.Add(cmdSteamPathBrowse);
+            grpSteamDir.Controls.Add(txtSteamPath);
+            grpSteamDir.Name = "grpSteamDir";
+            grpSteamDir.TabStop = false;
             // 
             // cmdSteamPathBrowse
             // 
-            resources.ApplyResources(this.cmdSteamPathBrowse, "cmdSteamPathBrowse");
-            this.cmdSteamPathBrowse.Name = "cmdSteamPathBrowse";
-            this.cmdSteamPathBrowse.UseVisualStyleBackColor = true;
-            this.cmdSteamPathBrowse.Click += new System.EventHandler(this.cmdSteamPathBrowse_Click);
+            resources.ApplyResources(cmdSteamPathBrowse, "cmdSteamPathBrowse");
+            cmdSteamPathBrowse.Name = "cmdSteamPathBrowse";
+            cmdSteamPathBrowse.UseVisualStyleBackColor = true;
+            cmdSteamPathBrowse.Click += cmdSteamPathBrowse_Click;
             // 
             // txtSteamPath
             // 
-            resources.ApplyResources(this.txtSteamPath, "txtSteamPath");
-            this.txtSteamPath.Name = "txtSteamPath";
+            resources.ApplyResources(txtSteamPath, "txtSteamPath");
+            txtSteamPath.Name = "txtSteamPath";
             // 
             // grpStartup
             // 
-            resources.ApplyResources(this.grpStartup, "grpStartup");
-            this.grpStartup.Controls.Add(this.radNone);
-            this.grpStartup.Controls.Add(this.radCreate);
-            this.grpStartup.Controls.Add(this.radLoad);
-            this.grpStartup.Controls.Add(this.cmdDefaultProfileBrowse);
-            this.grpStartup.Controls.Add(this.txtDefaultProfile);
-            this.grpStartup.Name = "grpStartup";
-            this.grpStartup.TabStop = false;
+            resources.ApplyResources(grpStartup, "grpStartup");
+            grpStartup.Controls.Add(radNone);
+            grpStartup.Controls.Add(radCreate);
+            grpStartup.Controls.Add(radLoad);
+            grpStartup.Controls.Add(cmdDefaultProfileBrowse);
+            grpStartup.Controls.Add(txtDefaultProfile);
+            grpStartup.Name = "grpStartup";
+            grpStartup.TabStop = false;
             // 
             // radNone
             // 
-            resources.ApplyResources(this.radNone, "radNone");
-            this.radNone.Name = "radNone";
-            this.radNone.TabStop = true;
-            this.radNone.UseVisualStyleBackColor = true;
+            resources.ApplyResources(radNone, "radNone");
+            radNone.Name = "radNone";
+            radNone.TabStop = true;
+            radNone.UseVisualStyleBackColor = true;
             // 
             // radCreate
             // 
-            resources.ApplyResources(this.radCreate, "radCreate");
-            this.radCreate.Name = "radCreate";
-            this.radCreate.TabStop = true;
-            this.radCreate.UseVisualStyleBackColor = true;
+            resources.ApplyResources(radCreate, "radCreate");
+            radCreate.Name = "radCreate";
+            radCreate.TabStop = true;
+            radCreate.UseVisualStyleBackColor = true;
             // 
             // radLoad
             // 
-            resources.ApplyResources(this.radLoad, "radLoad");
-            this.radLoad.Name = "radLoad";
-            this.radLoad.TabStop = true;
-            this.radLoad.UseVisualStyleBackColor = true;
+            resources.ApplyResources(radLoad, "radLoad");
+            radLoad.Name = "radLoad";
+            radLoad.TabStop = true;
+            radLoad.UseVisualStyleBackColor = true;
             // 
             // cmdDefaultProfileBrowse
             // 
-            resources.ApplyResources(this.cmdDefaultProfileBrowse, "cmdDefaultProfileBrowse");
-            this.cmdDefaultProfileBrowse.Name = "cmdDefaultProfileBrowse";
-            this.cmdDefaultProfileBrowse.UseVisualStyleBackColor = true;
-            this.cmdDefaultProfileBrowse.Click += new System.EventHandler(this.cmdDefaultProfileBrowse_Click);
+            resources.ApplyResources(cmdDefaultProfileBrowse, "cmdDefaultProfileBrowse");
+            cmdDefaultProfileBrowse.Name = "cmdDefaultProfileBrowse";
+            cmdDefaultProfileBrowse.UseVisualStyleBackColor = true;
+            cmdDefaultProfileBrowse.Click += cmdDefaultProfileBrowse_Click;
             // 
             // txtDefaultProfile
             // 
-            resources.ApplyResources(this.txtDefaultProfile, "txtDefaultProfile");
-            this.txtDefaultProfile.Name = "txtDefaultProfile";
+            resources.ApplyResources(txtDefaultProfile, "txtDefaultProfile");
+            txtDefaultProfile.Name = "txtDefaultProfile";
             // 
             // chkRemoveExtraEntries
             // 
-            resources.ApplyResources(this.chkRemoveExtraEntries, "chkRemoveExtraEntries");
-            this.chkRemoveExtraEntries.Name = "chkRemoveExtraEntries";
-            this.chkRemoveExtraEntries.UseVisualStyleBackColor = true;
+            resources.ApplyResources(chkRemoveExtraEntries, "chkRemoveExtraEntries");
+            chkRemoveExtraEntries.Name = "chkRemoveExtraEntries";
+            chkRemoveExtraEntries.UseVisualStyleBackColor = true;
             // 
             // cmdAccept
             // 
-            resources.ApplyResources(this.cmdAccept, "cmdAccept");
-            this.cmdAccept.Name = "cmdAccept";
-            this.cmdAccept.UseVisualStyleBackColor = true;
-            this.cmdAccept.Click += new System.EventHandler(this.cmdAccept_Click);
+            resources.ApplyResources(cmdAccept, "cmdAccept");
+            cmdAccept.Name = "cmdAccept";
+            cmdAccept.UseVisualStyleBackColor = true;
+            cmdAccept.Click += cmdAccept_Click;
             // 
             // cmdCancel
             // 
-            resources.ApplyResources(this.cmdCancel, "cmdCancel");
-            this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.UseVisualStyleBackColor = true;
-            this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
+            resources.ApplyResources(cmdCancel, "cmdCancel");
+            cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            cmdCancel.Name = "cmdCancel";
+            cmdCancel.UseVisualStyleBackColor = true;
+            cmdCancel.Click += cmdCancel_Click;
             // 
             // grpSaving
             // 
-            resources.ApplyResources(this.grpSaving, "grpSaving");
-            this.grpSaving.Controls.Add(this.chkRemoveExtraEntries);
-            this.grpSaving.Name = "grpSaving";
-            this.grpSaving.TabStop = false;
+            resources.ApplyResources(grpSaving, "grpSaving");
+            grpSaving.Controls.Add(chkRemoveExtraEntries);
+            grpSaving.Name = "grpSaving";
+            grpSaving.TabStop = false;
             // 
             // tabControl
             // 
-            resources.ApplyResources(this.tabControl, "tabControl");
-            this.tabControl.Controls.Add(this.tabGeneral);
-            this.tabControl.Controls.Add(this.tabPage2);
-            this.tabControl.Controls.Add(this.tabPage1);
-            this.tabControl.Controls.Add(this.tabPage3);
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
+            resources.ApplyResources(tabControl, "tabControl");
+            tabControl.Controls.Add(tabGeneral);
+            tabControl.Controls.Add(tabPage1);
+            tabControl.Name = "tabControl";
+            tabControl.SelectedIndex = 0;
             // 
             // tabGeneral
             // 
-            this.tabGeneral.Controls.Add(this.grpStoreLanguage);
-            this.tabGeneral.Controls.Add(this.grpDepressurizerUpdates);
-            this.tabGeneral.Controls.Add(this.grpDatabase);
-            this.tabGeneral.Controls.Add(this.grpUILanguage);
-            this.tabGeneral.Controls.Add(this.grpSteamDir);
-            this.tabGeneral.Controls.Add(this.grpStartup);
-            this.tabGeneral.Controls.Add(this.grpSaving);
-            resources.ApplyResources(this.tabGeneral, "tabGeneral");
-            this.tabGeneral.Name = "tabGeneral";
-            this.tabGeneral.UseVisualStyleBackColor = true;
+            tabGeneral.Controls.Add(grpStoreLanguage);
+            tabGeneral.Controls.Add(grpDepressurizerUpdates);
+            tabGeneral.Controls.Add(grpDatabase);
+            tabGeneral.Controls.Add(grpUILanguage);
+            tabGeneral.Controls.Add(grpSteamDir);
+            tabGeneral.Controls.Add(grpStartup);
+            tabGeneral.Controls.Add(grpSaving);
+            resources.ApplyResources(tabGeneral, "tabGeneral");
+            tabGeneral.Name = "tabGeneral";
+            tabGeneral.UseVisualStyleBackColor = true;
             // 
             // grpStoreLanguage
             // 
-            resources.ApplyResources(this.grpStoreLanguage, "grpStoreLanguage");
-            this.grpStoreLanguage.Controls.Add(this.cmbStoreLanguage);
-            this.grpStoreLanguage.Name = "grpStoreLanguage";
-            this.grpStoreLanguage.TabStop = false;
+            resources.ApplyResources(grpStoreLanguage, "grpStoreLanguage");
+            grpStoreLanguage.Controls.Add(cmbStoreLanguage);
+            grpStoreLanguage.Name = "grpStoreLanguage";
+            grpStoreLanguage.TabStop = false;
             // 
             // cmbStoreLanguage
             // 
-            this.cmbStoreLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbStoreLanguage.FormattingEnabled = true;
-            resources.ApplyResources(this.cmbStoreLanguage, "cmbStoreLanguage");
-            this.cmbStoreLanguage.Name = "cmbStoreLanguage";
+            cmbStoreLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbStoreLanguage.FormattingEnabled = true;
+            resources.ApplyResources(cmbStoreLanguage, "cmbStoreLanguage");
+            cmbStoreLanguage.Name = "cmbStoreLanguage";
             // 
             // grpDepressurizerUpdates
             // 
-            resources.ApplyResources(this.grpDepressurizerUpdates, "grpDepressurizerUpdates");
-            this.grpDepressurizerUpdates.Controls.Add(this.chkCheckForDepressurizerUpdates);
-            this.grpDepressurizerUpdates.Name = "grpDepressurizerUpdates";
-            this.grpDepressurizerUpdates.TabStop = false;
+            resources.ApplyResources(grpDepressurizerUpdates, "grpDepressurizerUpdates");
+            grpDepressurizerUpdates.Controls.Add(chkCheckForDepressurizerUpdates);
+            grpDepressurizerUpdates.Name = "grpDepressurizerUpdates";
+            grpDepressurizerUpdates.TabStop = false;
             // 
             // chkCheckForDepressurizerUpdates
             // 
-            resources.ApplyResources(this.chkCheckForDepressurizerUpdates, "chkCheckForDepressurizerUpdates");
-            this.chkCheckForDepressurizerUpdates.Name = "chkCheckForDepressurizerUpdates";
-            this.chkCheckForDepressurizerUpdates.UseVisualStyleBackColor = true;
+            resources.ApplyResources(chkCheckForDepressurizerUpdates, "chkCheckForDepressurizerUpdates");
+            chkCheckForDepressurizerUpdates.Name = "chkCheckForDepressurizerUpdates";
+            chkCheckForDepressurizerUpdates.UseVisualStyleBackColor = true;
             // 
             // grpDatabase
             // 
-            resources.ApplyResources(this.grpDatabase, "grpDatabase");
-            this.grpDatabase.Controls.Add(this.numScrapePromptDays);
-            this.grpDatabase.Controls.Add(this.lblScrapePrompt2);
-            this.grpDatabase.Controls.Add(this.lblScapePrompt1);
-            this.grpDatabase.Controls.Add(this.helpIncludeImputedTimes);
-            this.grpDatabase.Controls.Add(this.chkIncludeImputedTimes);
-            this.grpDatabase.Controls.Add(this.chkUpdateHltbOnStartup);
-            this.grpDatabase.Controls.Add(this.chkAutosaveDB);
-            this.grpDatabase.Controls.Add(this.chkUpdateAppInfoOnStartup);
-            this.grpDatabase.Name = "grpDatabase";
-            this.grpDatabase.TabStop = false;
+            resources.ApplyResources(grpDatabase, "grpDatabase");
+            grpDatabase.Controls.Add(checkBoxReadFromLevelDB);
+            grpDatabase.Controls.Add(numScrapePromptDays);
+            grpDatabase.Controls.Add(lblScrapePrompt2);
+            grpDatabase.Controls.Add(lblScapePrompt1);
+            grpDatabase.Controls.Add(helpIncludeImputedTimes);
+            grpDatabase.Controls.Add(chkIncludeImputedTimes);
+            grpDatabase.Controls.Add(chkUpdateHltbOnStartup);
+            grpDatabase.Controls.Add(chkAutosaveDB);
+            grpDatabase.Controls.Add(chkUpdateAppInfoOnStartup);
+            grpDatabase.Name = "grpDatabase";
+            grpDatabase.TabStop = false;
             // 
             // numScrapePromptDays
             // 
-            resources.ApplyResources(this.numScrapePromptDays, "numScrapePromptDays");
-            this.numScrapePromptDays.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.numScrapePromptDays.Name = "numScrapePromptDays";
+            resources.ApplyResources(numScrapePromptDays, "numScrapePromptDays");
+            numScrapePromptDays.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
+            numScrapePromptDays.Name = "numScrapePromptDays";
             // 
             // lblScrapePrompt2
             // 
-            resources.ApplyResources(this.lblScrapePrompt2, "lblScrapePrompt2");
-            this.lblScrapePrompt2.Name = "lblScrapePrompt2";
+            resources.ApplyResources(lblScrapePrompt2, "lblScrapePrompt2");
+            lblScrapePrompt2.Name = "lblScrapePrompt2";
             // 
             // lblScapePrompt1
             // 
-            resources.ApplyResources(this.lblScapePrompt1, "lblScapePrompt1");
-            this.lblScapePrompt1.Name = "lblScapePrompt1";
+            resources.ApplyResources(lblScapePrompt1, "lblScapePrompt1");
+            lblScapePrompt1.Name = "lblScapePrompt1";
             // 
             // helpIncludeImputedTimes
             // 
-            resources.ApplyResources(this.helpIncludeImputedTimes, "helpIncludeImputedTimes");
-            this.helpIncludeImputedTimes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.helpIncludeImputedTimes.Name = "helpIncludeImputedTimes";
+            resources.ApplyResources(helpIncludeImputedTimes, "helpIncludeImputedTimes");
+            helpIncludeImputedTimes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            helpIncludeImputedTimes.Name = "helpIncludeImputedTimes";
             // 
             // chkIncludeImputedTimes
             // 
-            resources.ApplyResources(this.chkIncludeImputedTimes, "chkIncludeImputedTimes");
-            this.chkIncludeImputedTimes.Name = "chkIncludeImputedTimes";
-            this.chkIncludeImputedTimes.UseVisualStyleBackColor = true;
+            resources.ApplyResources(chkIncludeImputedTimes, "chkIncludeImputedTimes");
+            chkIncludeImputedTimes.Name = "chkIncludeImputedTimes";
+            chkIncludeImputedTimes.UseVisualStyleBackColor = true;
             // 
             // chkUpdateHltbOnStartup
             // 
-            resources.ApplyResources(this.chkUpdateHltbOnStartup, "chkUpdateHltbOnStartup");
-            this.chkUpdateHltbOnStartup.Name = "chkUpdateHltbOnStartup";
-            this.chkUpdateHltbOnStartup.UseVisualStyleBackColor = true;
+            resources.ApplyResources(chkUpdateHltbOnStartup, "chkUpdateHltbOnStartup");
+            chkUpdateHltbOnStartup.Name = "chkUpdateHltbOnStartup";
+            chkUpdateHltbOnStartup.UseVisualStyleBackColor = true;
             // 
             // chkAutosaveDB
             // 
-            resources.ApplyResources(this.chkAutosaveDB, "chkAutosaveDB");
-            this.chkAutosaveDB.Name = "chkAutosaveDB";
-            this.chkAutosaveDB.UseVisualStyleBackColor = true;
+            resources.ApplyResources(chkAutosaveDB, "chkAutosaveDB");
+            chkAutosaveDB.Name = "chkAutosaveDB";
+            chkAutosaveDB.UseVisualStyleBackColor = true;
             // 
             // chkUpdateAppInfoOnStartup
             // 
-            resources.ApplyResources(this.chkUpdateAppInfoOnStartup, "chkUpdateAppInfoOnStartup");
-            this.chkUpdateAppInfoOnStartup.Name = "chkUpdateAppInfoOnStartup";
-            this.chkUpdateAppInfoOnStartup.UseVisualStyleBackColor = true;
+            resources.ApplyResources(chkUpdateAppInfoOnStartup, "chkUpdateAppInfoOnStartup");
+            chkUpdateAppInfoOnStartup.Name = "chkUpdateAppInfoOnStartup";
+            chkUpdateAppInfoOnStartup.UseVisualStyleBackColor = true;
             // 
             // grpUILanguage
             // 
-            resources.ApplyResources(this.grpUILanguage, "grpUILanguage");
-            this.grpUILanguage.Controls.Add(this.cmbUILanguage);
-            this.grpUILanguage.Name = "grpUILanguage";
-            this.grpUILanguage.TabStop = false;
+            resources.ApplyResources(grpUILanguage, "grpUILanguage");
+            grpUILanguage.Controls.Add(cmbUILanguage);
+            grpUILanguage.Name = "grpUILanguage";
+            grpUILanguage.TabStop = false;
             // 
             // cmbUILanguage
             // 
-            this.cmbUILanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbUILanguage.FormattingEnabled = true;
-            resources.ApplyResources(this.cmbUILanguage, "cmbUILanguage");
-            this.cmbUILanguage.Name = "cmbUILanguage";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.groupBox1);
-            resources.ApplyResources(this.tabPage2, "tabPage2");
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // groupBox2
-            // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.Controls.Add(this.textBoxPremiumApiKey);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.TabStop = false;
-            // 
-            // textBoxPremiumApiKey
-            // 
-            resources.ApplyResources(this.textBoxPremiumApiKey, "textBoxPremiumApiKey");
-            this.textBoxPremiumApiKey.Name = "textBoxPremiumApiKey";
-            this.textBoxPremiumApiKey.ReadOnly = true;
-            // 
-            // groupBox1
-            // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Controls.Add(this.textBoxPremiumServer);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
-            // 
-            // textBoxPremiumServer
-            // 
-            resources.ApplyResources(this.textBoxPremiumServer, "textBoxPremiumServer");
-            this.textBoxPremiumServer.Name = "textBoxPremiumServer";
+            cmbUILanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbUILanguage.FormattingEnabled = true;
+            resources.ApplyResources(cmbUILanguage, "cmbUILanguage");
+            cmbUILanguage.Name = "cmbUILanguage";
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.cmdDefaultIgnored);
-            this.tabPage1.Controls.Add(this.cmdIgnore);
-            this.tabPage1.Controls.Add(this.txtIgnore);
-            this.tabPage1.Controls.Add(this.cmdUnignore);
-            this.tabPage1.Controls.Add(this.lstIgnored);
-            resources.ApplyResources(this.tabPage1, "tabPage1");
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            tabPage1.Controls.Add(cmdDefaultIgnored);
+            tabPage1.Controls.Add(cmdIgnore);
+            tabPage1.Controls.Add(txtIgnore);
+            tabPage1.Controls.Add(cmdUnignore);
+            tabPage1.Controls.Add(lstIgnored);
+            resources.ApplyResources(tabPage1, "tabPage1");
+            tabPage1.Name = "tabPage1";
+            tabPage1.UseVisualStyleBackColor = true;
             // 
             // cmdDefaultIgnored
             // 
-            resources.ApplyResources(this.cmdDefaultIgnored, "cmdDefaultIgnored");
-            this.cmdDefaultIgnored.Name = "cmdDefaultIgnored";
-            this.cmdDefaultIgnored.UseVisualStyleBackColor = true;
-            this.cmdDefaultIgnored.Click += new System.EventHandler(this.cmdDefaultIgnored_Click);
+            resources.ApplyResources(cmdDefaultIgnored, "cmdDefaultIgnored");
+            cmdDefaultIgnored.Name = "cmdDefaultIgnored";
+            cmdDefaultIgnored.UseVisualStyleBackColor = true;
+            cmdDefaultIgnored.Click += cmdDefaultIgnored_Click;
             // 
             // cmdIgnore
             // 
-            resources.ApplyResources(this.cmdIgnore, "cmdIgnore");
-            this.cmdIgnore.Name = "cmdIgnore";
-            this.cmdIgnore.UseVisualStyleBackColor = true;
-            this.cmdIgnore.Click += new System.EventHandler(this.cmdIgnore_Click);
+            resources.ApplyResources(cmdIgnore, "cmdIgnore");
+            cmdIgnore.Name = "cmdIgnore";
+            cmdIgnore.UseVisualStyleBackColor = true;
+            cmdIgnore.Click += cmdIgnore_Click;
             // 
             // txtIgnore
             // 
-            resources.ApplyResources(this.txtIgnore, "txtIgnore");
-            this.txtIgnore.Name = "txtIgnore";
+            resources.ApplyResources(txtIgnore, "txtIgnore");
+            txtIgnore.Name = "txtIgnore";
             // 
             // cmdUnignore
             // 
-            resources.ApplyResources(this.cmdUnignore, "cmdUnignore");
-            this.cmdUnignore.Name = "cmdUnignore";
-            this.cmdUnignore.UseVisualStyleBackColor = true;
-            this.cmdUnignore.Click += new System.EventHandler(this.cmdUnignore_Click);
+            resources.ApplyResources(cmdUnignore, "cmdUnignore");
+            cmdUnignore.Name = "cmdUnignore";
+            cmdUnignore.UseVisualStyleBackColor = true;
+            cmdUnignore.Click += cmdUnignore_Click;
             // 
             // lstIgnored
             // 
-            resources.ApplyResources(this.lstIgnored, "lstIgnored");
-            this.lstIgnored.FullRowSelect = true;
-            this.lstIgnored.HideSelection = false;
-            this.lstIgnored.Name = "lstIgnored";
-            this.lstIgnored.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.lstIgnored.UseCompatibleStateImageBehavior = false;
-            this.lstIgnored.View = System.Windows.Forms.View.List;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.groupBox3);
-            resources.ApplyResources(this.tabPage3, "tabPage3");
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            resources.ApplyResources(lstIgnored, "lstIgnored");
+            lstIgnored.FullRowSelect = true;
+            lstIgnored.Name = "lstIgnored";
+            lstIgnored.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            lstIgnored.UseCompatibleStateImageBehavior = false;
+            lstIgnored.View = System.Windows.Forms.View.List;
             // 
             // checkBoxReadFromLevelDB
             // 
-            resources.ApplyResources(this.checkBoxReadFromLevelDB, "checkBoxReadFromLevelDB");
-            this.checkBoxReadFromLevelDB.Name = "checkBoxReadFromLevelDB";
-            this.checkBoxReadFromLevelDB.UseVisualStyleBackColor = true;
-            // 
-            // groupBox3
-            // 
-            resources.ApplyResources(this.groupBox3, "groupBox3");
-            this.groupBox3.Controls.Add(this.checkBoxReadFromLevelDB);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.TabStop = false;
+            resources.ApplyResources(checkBoxReadFromLevelDB, "checkBoxReadFromLevelDB");
+            checkBoxReadFromLevelDB.Name = "checkBoxReadFromLevelDB";
+            checkBoxReadFromLevelDB.UseVisualStyleBackColor = true;
             // 
             // DlgOptions
             // 
-            this.AcceptButton = this.cmdAccept;
+            AcceptButton = cmdAccept;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.cmdCancel;
-            this.ControlBox = false;
-            this.Controls.Add(this.tabControl);
-            this.Controls.Add(this.cmdCancel);
-            this.Controls.Add(this.cmdAccept);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "DlgOptions";
-            this.Load += new System.EventHandler(this.OptionsForm_Load);
-            this.grpSteamDir.ResumeLayout(false);
-            this.grpSteamDir.PerformLayout();
-            this.grpStartup.ResumeLayout(false);
-            this.grpStartup.PerformLayout();
-            this.grpSaving.ResumeLayout(false);
-            this.grpSaving.PerformLayout();
-            this.tabControl.ResumeLayout(false);
-            this.tabGeneral.ResumeLayout(false);
-            this.grpStoreLanguage.ResumeLayout(false);
-            this.grpDepressurizerUpdates.ResumeLayout(false);
-            this.grpDepressurizerUpdates.PerformLayout();
-            this.grpDatabase.ResumeLayout(false);
-            this.grpDatabase.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numScrapePromptDays)).EndInit();
-            this.grpUILanguage.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            CancelButton = cmdCancel;
+            ControlBox = false;
+            Controls.Add(tabControl);
+            Controls.Add(cmdCancel);
+            Controls.Add(cmdAccept);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            Name = "DlgOptions";
+            Load += OptionsForm_Load;
+            grpSteamDir.ResumeLayout(false);
+            grpSteamDir.PerformLayout();
+            grpStartup.ResumeLayout(false);
+            grpStartup.PerformLayout();
+            grpSaving.ResumeLayout(false);
+            grpSaving.PerformLayout();
+            tabControl.ResumeLayout(false);
+            tabGeneral.ResumeLayout(false);
+            grpStoreLanguage.ResumeLayout(false);
+            grpDepressurizerUpdates.ResumeLayout(false);
+            grpDepressurizerUpdates.PerformLayout();
+            grpDatabase.ResumeLayout(false);
+            grpDatabase.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numScrapePromptDays).EndInit();
+            grpUILanguage.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
+            ResumeLayout(false);
 
         }
 
@@ -506,13 +434,6 @@ namespace Depressurizer {
         private System.Windows.Forms.TextBox txtIgnore;
         private System.Windows.Forms.Button cmdUnignore;
         private System.Windows.Forms.Button cmdDefaultIgnored;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBoxPremiumServer;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBoxPremiumApiKey;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox checkBoxReadFromLevelDB;
     }
 }

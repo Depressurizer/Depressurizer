@@ -47,7 +47,7 @@ namespace Depressurizer.Core.Helpers
             /// <summary>
             ///     App-Specific Banner File
             /// </summary>
-            public static string Banner(int appId)
+            public static string Banner(long appId)
             {
                 return Path.Combine(Folder.Banners, string.Format(CultureInfo.InvariantCulture, "{0}.jpg", appId));
             }

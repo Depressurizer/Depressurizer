@@ -12,7 +12,7 @@ namespace Depressurizer.Core
     {
         #region Static Fields
 
-        public static readonly IList<int> DefaultIgnoreList = new ReadOnlyCollection<int>(new List<int>
+        public static readonly IList<long> DefaultIgnoreList = new ReadOnlyCollection<long>(new List<long>
         {
             7,
             8,
@@ -163,7 +163,7 @@ namespace Depressurizer.Core
 
         private int _height;
 
-        private List<int> _ignoreList;
+        private List<long> _ignoreList;
 
         private int _splitBrowser;
 
@@ -210,7 +210,7 @@ namespace Depressurizer.Core
 
         public string Category { get; set; }
 
-        public bool ReadFromLevelDB { get; set; } = false;
+        public bool ReadFromLevelDB { get; set; } = true;
 
         public bool CheckForDepressurizerUpdates { get; set; } = true;
 
@@ -233,9 +233,9 @@ namespace Depressurizer.Core
             set => _height = value;
         }
 
-        public List<int> IgnoreList
+        public List<long> IgnoreList
         {
-            get => _ignoreList ?? (_ignoreList = new List<int>());
+            get => _ignoreList ?? (_ignoreList = new List<long>());
             set => _ignoreList = value;
         }
 
@@ -249,8 +249,6 @@ namespace Depressurizer.Core
         public string LstGamesState { get; set; } = "";
 
         public string ProfileToLoad { get; set; }
-
-        public string PremiumServer { get; set; }
 
         public bool RemoveExtraEntries { get; set; } = true;
 

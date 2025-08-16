@@ -47,7 +47,7 @@ namespace Depressurizer
 
         private void cmdDefaultIgnored_Click(object sender, EventArgs e)
         {
-            Settings.IgnoreList = new List<int>(Settings.DefaultIgnoreList);
+            Settings.IgnoreList = new List<long>(Settings.DefaultIgnoreList);
             LoadIgnoreList();
         }
 
@@ -125,9 +125,6 @@ namespace Depressurizer
             chkCheckForDepressurizerUpdates.Checked = settings.CheckForDepressurizerUpdates;
             checkBoxReadFromLevelDB.Checked = settings.ReadFromLevelDB;
 
-            textBoxPremiumApiKey.Text = FormMain.SteamWebApiKey;
-            textBoxPremiumServer.Text = settings.PremiumServer;
-
             chkRemoveExtraEntries.Checked = settings.RemoveExtraEntries;
 
             // Languages
@@ -200,15 +197,13 @@ namespace Depressurizer
             Settings.InterfaceLanguage = (InterfaceLanguage) cmbUILanguage.SelectedIndex;
             Settings.StoreLanguage = (StoreLanguage) cmbStoreLanguage.SelectedIndex;
 
-            Settings.PremiumServer = textBoxPremiumServer.Text;
-
             Thread.CurrentThread.CurrentUICulture = Language.GetCultureInfo(Settings.InterfaceLanguage);
             Database.ChangeLanguage(Settings.StoreLanguage);
 
-            List<int> ignoreList = new List<int>(lstIgnored.Items.Count);
+            List<long> ignoreList = new List<long>(lstIgnored.Items.Count);
             foreach (ListViewItem item in lstIgnored.Items)
             {
-                if (int.TryParse(item.Text, out int appId))
+                if (long.TryParse(item.Text, out long appId))
                 {
                     ignoreList.Add(appId);
                 }

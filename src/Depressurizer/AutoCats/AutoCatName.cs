@@ -95,6 +95,12 @@ namespace Depressurizer.AutoCats
                 return AutoCatResult.NotInDatabase;
             }
 
+            if (string.IsNullOrEmpty(game?.Name))
+            {
+                Logger.Error(GlobalStrings.Log_AutoCat_GameNameNullOrEmpty);
+                return AutoCatResult.Failure;
+            }
+
             string cat = game.Name.Substring(0, 1);
             cat = cat.ToUpper();
             if (SkipThe && cat == "T" && game.Name.Substring(0, 4).ToUpper() == "THE ")

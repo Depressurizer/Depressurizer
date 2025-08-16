@@ -9,6 +9,7 @@ using Depressurizer.Core.Interfaces;
 using Depressurizer.Core.Models;
 using Depressurizer.Dialogs;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace Depressurizer
 {
@@ -18,7 +19,7 @@ namespace Depressurizer
 
         private readonly IGameList data;
 
-        private readonly SortedSet<int> ignore;
+        private readonly SortedSet<long> ignore;
 
         private readonly bool overwrite;
 
@@ -32,7 +33,7 @@ namespace Depressurizer
 
         #region Constructors and Destructors
 
-        public CDlgUpdateProfile(IGameList data, long accountId, bool overwrite, SortedSet<int> ignore) : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
+        public CDlgUpdateProfile(IGameList data, long accountId, bool overwrite, SortedSet<long> ignore) : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
         {
             SteamId = accountId;
 
@@ -48,8 +49,10 @@ namespace Depressurizer
 
         #region Public Properties
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int Added { get; private set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int Fetched { get; private set; }
 
         #endregion
@@ -71,6 +74,7 @@ namespace Depressurizer
                 Logger.Info("Updating profile using Steam Web API!");
 
                 HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Add("User-Agent", Constants.UserAgent);
                 using (Stream s = client.GetStreamAsync(string.Format(Constants.SteamWebApiOwnedGames, FormMain.CurrentProfile.SteamWebApiKey, SteamId)).Result)
                 using (StreamReader sr = new StreamReader(s))
                 using (JsonReader reader = new JsonTextReader(sr))

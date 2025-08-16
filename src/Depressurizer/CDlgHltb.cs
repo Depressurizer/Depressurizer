@@ -1,5 +1,6 @@
 ﻿using Depressurizer.Core;
 using Depressurizer.Dialogs;
+using System.ComponentModel;
 
 namespace Depressurizer
 {
@@ -17,6 +18,7 @@ namespace Depressurizer
 
         #region Public Properties
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int Updated { get; private set; }
 
         #endregion

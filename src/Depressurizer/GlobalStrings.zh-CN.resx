@@ -694,6 +694,21 @@
   <data name="Profile_SavingProfile" xml:space="preserve">
     <value>正在保存配置文件: {0}</value>
   </data>
+  <data name="TextVdfFile_CanNotGetKey" xml:space="preserve">
+    <value>节点是值，但不是数组，无法获取键 {0}</value>
+  </data>
+  <data name="TextVdfFile_CanNotSetKey" xml:space="preserve">
+    <value>节点是值，但不是数组，无法设定键 {0}</value>
+  </data>
+  <data name="TextVdfFile_UnexpectedCharacterKey" xml:space="preserve">
+    <value>预期为键时遇到意外字符 {0}。</value>
+  </data>
+  <data name="TextVdfFile_UnexpectedCharacterValue" xml:space="preserve">
+    <value>预期为值时发现意外的字符 {0}。</value>
+  </data>
+  <data name="TextVdfFile_UnexpectedEOF" xml:space="preserve">
+    <value>意外遇到文件结尾：字符串未终止。</value>
+  </data>
   <data name="DlgProfile_EditProfile" xml:space="preserve">
     <value>编辑配置文件</value>
   </data>
@@ -1053,7 +1068,7 @@
     <value>更新 HLTB 数据出错。</value>
   </data>
   <data name="DBEditDlg_ErrorWhileUpdatingHltb" xml:space="preserve">
-    <value>从 howlongtobeatsteam.com 更新数据时发生错误: {0}</value>
+    <value>从 github.com/julianxhokaxhiu/hltb-scraper 更新数据时发生错误: {0}</value>
   </data>
   <data name="DBEditDlg_HltbUpdateFailed" xml:space="preserve">
     <value>从 HLTB 更新数据失败: {0}</value>
@@ -1065,7 +1080,7 @@
     <value>从 HLTB 更新了 {0} 项。</value>
   </data>
   <data name="DlgOptions_Help_IncludeImputedTimes" xml:space="preserve">
-    <value>使用来自 howlongtobeatsteam.com 的从统计学上估算的时间弥补缺失的时数。</value>
+    <value>使用来自 github.com/julianxhokaxhiu/hltb-scraper 的从统计学上估算的时间弥补缺失的时数。</value>
   </data>
   <data name="AutoCat_Name_Hltb" xml:space="preserve">
     <value>HLTB 时数</value>
@@ -1289,19 +1304,10 @@ See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
   <data name="AutoCat_Name_HoursPlayed" xml:space="preserve">
     <value>已玩小时</value>
   </data>
-  <data name="TextVdfFile_CanNotSetKey" xml:space="preserve">
-    <value>节点是值，但不是数组，无法设定键 {0}</value>
+  <data name="TextSteam_AlreayRunning" xml:space="preserve">
+    <value />
   </data>
-  <data name="TextVdfFile_CanNotGetKey" xml:space="preserve">
-    <value>节点是值，但不是数组，无法获取键 {0}</value>
-  </data>
-  <data name="TextVdfFile_UnexpectedEOF" xml:space="preserve">
-    <value>意外遇到文件结尾：字符串未终止。</value>
-  </data>
-  <data name="TextVdfFile_UnexpectedCharacterValue" xml:space="preserve">
-    <value>预期为值时发现意外的字符 {0}。</value>
-  </data>
-  <data name="TextVdfFile_UnexpectedCharacterKey" xml:space="preserve">
-    <value>预期为键时遇到意外字符 {0}。</value>
+  <data name="Log_AutoCat_GameNameNullOrEmpty" xml:space="preserve">
+    <value />
   </data>
 </root>

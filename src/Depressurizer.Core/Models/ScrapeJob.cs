@@ -4,7 +4,7 @@
     {
         #region Constructors and Destructors
 
-        public ScrapeJob(int id, int scrapeId)
+        public ScrapeJob(long id, long scrapeId)
         {
             Id = id;
             ScrapeId = scrapeId;
@@ -14,9 +14,9 @@
 
         #region Public Properties
 
-        public int Id { get; }
+        public long Id { get; }
 
-        public int ScrapeId { get; }
+        public long ScrapeId { get; }
 
         #endregion
     }

@@ -4,6 +4,7 @@ using System.Net;
 using System.Xml;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Dialogs;
+using System.ComponentModel;
 
 namespace Depressurizer
 {
@@ -30,8 +31,10 @@ namespace Depressurizer
 
         #region Public Properties
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public long SteamID { get; private set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Success { get; private set; }
 
         #endregion
