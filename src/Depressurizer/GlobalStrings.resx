@@ -1312,4 +1312,7 @@ This could take up to a few seconds per game.</value>
     <value>Detected Steam running.
 Please close it to prevent further DB corruption before using Depressurizer.</value>
   </data>
+  <data name="Log_AutoCat_GameNameNullOrEmpty" xml:space="preserve">
+    <value>Failed to Autocategorize game because gamename was null or empty.</value>
+  </data>
 </root>

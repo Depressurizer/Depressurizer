@@ -1307,4 +1307,7 @@ See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
   <data name="TextSteam_AlreayRunning" xml:space="preserve">
     <value />
   </data>
+  <data name="Log_AutoCat_GameNameNullOrEmpty" xml:space="preserve">
+    <value />
+  </data>
 </root>
