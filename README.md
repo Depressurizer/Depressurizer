@@ -1,3 +1,7 @@
+> This project is now archived.
+It is no longer maintained or updated. The repository remains available in a read-only state for historical reference. Thank you to everyone who contributed!
+---
+
 # Depressurizer
 [![Github All Releases](https://img.shields.io/github/downloads/Depressurizer/Depressurizer/total.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/releases/latest)
 [![GitHub stars](https://img.shields.io/github/stars/Depressurizer/Depressurizer.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/stargazers)
