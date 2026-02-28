@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using JetBrains.Annotations;
@@ -182,6 +183,11 @@ namespace Depressurizer.Core.Models
         ///     Unix-timestamp of last store scrape.
         /// </summary>
         public long LastStoreScrape { get; set; }
+
+        /// <summary>
+        ///     Unix-timestamp of last HLTB scrape.
+        /// </summary>
+        public long LastHLTBScrape { get; set; }
 
         /// <summary>
         ///     URL to the Metacritic page of this application.
@@ -471,6 +477,15 @@ namespace Depressurizer.Core.Models
 
             AppType result = ScrapeStoreHelper(languageCode);
             SetTypeFromStoreScrape(result);
+        }
+
+
+        /// <summary>
+        ///     Scrapes the HowLongToBeat site in the specified language.
+        /// </summary>
+        public void ScrapeHLTB()
+        {
+            HowLongToBeatEntry result = ScrapeHLTBHelper();
         }
 
         #endregion
@@ -920,6 +935,26 @@ namespace Depressurizer.Core.Models
                 AppType = typeFromStore;
             }
         }
+
+        private static HttpWebRequest GetHLTBRequest(string url)
+        {
+            HttpWebRequest req = WebRequest.CreateHttp(url);
+            req.Timeout = 10_000;
+            return req;
+        }
+
+        private HowLongToBeatEntry ScrapeHLTBHelper()
+        {
+            Logger.Verbose("Scraping {0}: Initiating scraping of the HLTB.", AppId);
+
+            HttpWebResponse resp = null;
+            var service = new HowLongToBeatService();
+
+            var result = Task.Run(() => service.Detail("2224")).GetAwaiter().GetResult();
+
+            return result;
+        }
+
 
         #endregion
     }
