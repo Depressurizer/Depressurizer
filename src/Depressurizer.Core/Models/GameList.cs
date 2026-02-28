@@ -107,10 +107,12 @@ namespace Depressurizer.Core.Models
         ///     Adds a new category to the list.
         /// </summary>
         /// <param name="name">Name of the category to add</param>
+        /// <param name="forRename">If true, allow case to be updated</param>
         /// <returns>The added category. Returns null if the category already exists.</returns>
-        public Category AddCategory(string name)
+        public Category AddCategory(string name, bool forRename = false)
         {
-            if (string.IsNullOrEmpty(name) || CategoryExists(name))
+            StringComparison stringComparison = forRename ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
+            if (string.IsNullOrEmpty(name) || CategoryExists(name, stringComparison))
             {
                 return null;
             }
@@ -169,8 +171,9 @@ namespace Depressurizer.Core.Models
         ///     Checks to see if a category with the given name exists
         /// </summary>
         /// <param name="name">Name of the category to look for</param>
+        /// <param name="stringComparison">Specifies the case comparison to be used</param>
         /// <returns>True if the name is found, false otherwise</returns>
-        public bool CategoryExists(string name)
+        public bool CategoryExists(string name, StringComparison stringComparison = StringComparison.OrdinalIgnoreCase)
         {
             // Favorite category always exists
             if (name == FavoriteNewConfigValue || name == FavoriteConfigValue)
@@ -180,7 +183,7 @@ namespace Depressurizer.Core.Models
 
             foreach (Category c in Categories)
             {
-                if (string.Equals(c.Name, name, StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(c.Name, name, stringComparison))
                 {
                     return true;
                 }
@@ -999,7 +1002,7 @@ namespace Depressurizer.Core.Models
                 return null;
             }
 
-            Category newCategory = AddCategory(newName);
+            Category newCategory = AddCategory(newName, forRename: true);
             if (newCategory == null)
             {
                 return null;
